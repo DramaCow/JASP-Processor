@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 
   print_labels(&ltable);
 
+  // set file pointer to start of file again
   rewind(code);
 
   // populate instructions
@@ -70,28 +71,15 @@ int main(int argc, char* argv[])
   {
     tok = strtok(buffer, " \t\n\0");
 
-    // skip blank lines or comments
-    if (tok == NULL || tok[0] == ';') 
+    // skip blank lines, comments, or labels
+    if (tok == NULL || tok[0] == ';' || tok[0] == ':') 
     {
       continue;
     }
 
-    // labels start with colons
-    if (tok[0] == ':') 
-    {
-      add_label(&ltable, p, tok);
+    // parse instruction here
 
-      // nothing else must exist on the line - else error
-      tok = strtok(NULL, " \t\n\0");
-      if (tok != NULL) {
-        printf(" *** Error whilst parsing labels at line: %d ***\n", ln);
-        exit(EXIT_FAILURE);
-      }
-    }
-    else
-    {
-      p++;
-    }
+    p++;
   }
 
   fclose(code);
@@ -137,7 +125,7 @@ int labelval(char *label, LabelTable *table) {
   {
     if (strcmp(label, e->label) == 0) 
     {  
-      p = e->line;
+      p = e->p;
       break;
     }
   }
