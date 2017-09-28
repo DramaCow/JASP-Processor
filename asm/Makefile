@@ -1,10 +1,10 @@
-EXE ?= start
+EXE ?= asm
 
-CC := g++
-CFLAGS := -Wextra -Werror -std=c++11 -pedantic -g 
+CC := gcc
+CFLAGS := -Wextra -Werror -std=c99 -pedantic -g 
 LIBS := -lm
 
-SRCS := $(shell find . -name '*.cpp')
+SRCS := $(shell find . -name '*.c')
 OBJS := $(SRCS:%=./%.o)
 DEPS := $(OBJS:.o=.d)
 
@@ -13,7 +13,7 @@ print-%  : ; @echo $* = $($*)
 $(EXE): $(OBJS)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
-%.cpp.o: %.cpp
+%.c.o: %.c
 	$(CC) -c $(CFLAGS) $^ $(LIBS) -o $@
 
 clean:

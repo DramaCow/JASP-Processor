@@ -1,4 +1,4 @@
-EXE ?= start
+EXE ?= msim
 
 CC := g++
 CFLAGS := -Wextra -Werror -std=c++11 -pedantic -g 
