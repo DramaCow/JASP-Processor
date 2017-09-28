@@ -8,7 +8,7 @@
 
 int regval(char *arg);
 int addrval(char *arg);
-int labelval(char *label, LbSet *lbset);
+int labelval(char *label, LabelTable *table);
 
 int main(int argc, char* argv[])
 {
@@ -29,6 +29,8 @@ int main(int argc, char* argv[])
   char buffer[256];
   char *tok = NULL;
 
+  LabelTable ltable;
+  Program program;
 
   for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
   {
@@ -43,6 +45,7 @@ int main(int argc, char* argv[])
     // labels start with colons
     if (tok[0] == ':') 
     {
+      add_label(&ltable, p, tok);
 
       // nothing else must exist on the line - else error
       tok = strtok(NULL, " \t\n\0");
@@ -95,10 +98,10 @@ int addrval(char *arg) {
   return addr;
 }
 
-int labelval(char *label, LbSet *lbset) {
+int labelval(char *label, LabelTable *table) {
   int p = -1;
 
-  for (Label *e = lbset->head; e != NULL; e = e->next) 
+  for (Label *e = table->head; e != NULL; e = e->next) 
   {
     if (strcmp(label, e->label) == 0) 
     {  
