@@ -19,7 +19,7 @@ typedef struct Inst
 
 void get_metadata(FILE *code, int *num_labels, int *num_inst);
 void get_labels(FILE *code, Label *ltable);
-void get_program(FILE *code, int *program);
+void get_program(FILE *code, int is_size, Inst *instset, int num_labels, Label *ltable, int *program);
 
 int regval(char *arg);
 int numval(char *arg);
@@ -36,8 +36,9 @@ int main(int argc, char* argv[])
   int is_size = 2;
 
   Inst instset[] = {
-    { "add", 0x0, 3, { 'r', 'r', 'r' }},
-    { "sub", 0x1, 3, { 'r', 'r', 'r' }}
+    { "addi", 0x02, 0, { '\0'            }},
+    { "add" , 0x00, 3, { 'r' , 'r' , 'r' }},
+    { "sub" , 0x01, 3, { 'r' , 'r' , 'r' }}
   };
 
   // =========================
@@ -75,14 +76,14 @@ int main(int argc, char* argv[])
 
   for (int i = 0; i < num_labels; ++i)
   {
-    printf("%s\n", ltable[i].text);
+    //printf("%s\n", ltable[i].text);
   }
 
-  get_program(code, program);
+  get_program(code, is_size, instset, num_labels, ltable, program);
 
   for (int i = 0; i < num_inst; ++i)
   {
-    printf("%04x\n", program[i]);
+    printf("%08x\n", program[i]);
   }
 
   fclose(code);
@@ -154,7 +155,7 @@ void get_labels(FILE *code, Label *ltable)
   }
 }
 
-void get_program(FILE *code, int *program)
+void get_program(FILE *code, int is_size, Inst *instset, int num_labels, Label *ltable, int *program)
 {
   char buffer[256];
   char *tok = NULL;
@@ -166,10 +167,24 @@ void get_program(FILE *code, int *program)
     // skip blank lines, comments, or labels
     if (tok != NULL && tok[0] != ';' && tok[0] != ':') 
     {
-      // parse instruction here
-      // if (strcmp(tok, "add") == 0) 
+      Inst *inst = NULL;
 
-      p++;
+      for (int i = 0; i < is_size; ++i)
+      {
+        if (strcmp(tok, instset[i].name) == 0)
+        {
+          inst = &instset[i];
+          break;
+        }
+      }
+
+      if (inst == NULL)
+      {
+        printf("*** error on line(%d) - %s is not a valid operation. ***\n", ln, tok);
+        exit(EXIT_FAILURE);
+      }
+
+      program[p++] = parse_inst(code, inst, 0, ln, num_labels, ltable);
     }
   }
 }
@@ -222,10 +237,16 @@ int labelval(char *label, int num_labels, Label *ltable) {
 
 int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Label *ltable)
 {
+  int rbits = sizeof(int) * 8; // remaining LHS bits, initialise this is a full word
+
+  rbits -= 6;
+  int opcode = inst->opcode << rbits;
+
   char *tok;        
 
   for (int p = 0; p < inst->num_params; ++p)
   {
+    int val;
     tok = strtok(NULL, " \t\n\0");
 
     if (tok == NULL)
@@ -237,42 +258,53 @@ int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Labe
     switch (inst->params[p])
     {
       case 'r': {
-        int reg = regval(tok);
-        if (reg == -1)
+        val = regval(tok);
+
+        if (val == -1)
         {
           printf("*** error on line(%d) - invalid register value. ***\n", line);
+          exit(EXIT_FAILURE);
         }
+
+        rbits -= 5;
+        opcode |= val << rbits;
 
         break;
       }
 
       case 'a': {
-        int num;
-
         if (tok[0] == ':')
         {
-          num = labelval(tok, num_labels, ltable);
+          val = labelval(tok, num_labels, ltable);
         }
         else
         {
-          num = numval(tok);
+          val = numval(tok);
         }
 
-        if (num == -1)
+        if (val == -1)
         {
           printf("*** error on line(%d) - invalid address value. ***\n", line);
+          exit(EXIT_FAILURE);
         }
+
+        rbits -= 16;
+        opcode |= val << rbits;
 
         break;
       }
 
       case 'c': {
-        int num = numval(tok);
+        val = numval(tok);
 
-        if (num == -1)
+        if (val == -1)
         {
           printf("*** error on line(%d) - invalid const value. ***\n", line);
+          exit(EXIT_FAILURE);
         }
+
+        rbits -= 16;
+        opcode |= val << rbits;
 
         break;
       }
@@ -291,4 +323,6 @@ int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Labe
     printf("*** error on line(%d) - too many params. ***\n", line);
     exit(EXIT_FAILURE);
   }
+
+  return opcode;
 }
