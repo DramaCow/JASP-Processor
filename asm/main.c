@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
   int is_size = 2;
 
   Inst instset[] = {
-    { "addi", 0x02, 0, { '\0'            }},
     { "add" , 0x00, 3, { 'r' , 'r' , 'r' }},
     { "sub" , 0x01, 3, { 'r' , 'r' , 'r' }}
   };
@@ -65,8 +64,8 @@ int main(int argc, char* argv[])
   get_metadata(code, &num_labels, &num_inst);
   rewind(code);
 
-  printf("num_labels = %d\n", num_labels);
-  printf("num_inst = %d\n", num_inst);
+  //printf("num_labels = %d\n", num_labels);
+  //printf("num_inst = %d\n", num_inst);
 
   Label *ltable = (Label*)malloc(sizeof(Label)*num_labels);
   int *program  = (int*)malloc(sizeof(int)*num_inst);
@@ -74,19 +73,26 @@ int main(int argc, char* argv[])
   get_labels(code, ltable);
   rewind(code);
 
+  printf("LABELS\n");
   for (int i = 0; i < num_labels; ++i)
   {
-    //printf("%s\n", ltable[i].text);
+    printf(" %d %s\n", ltable[i].p, ltable[i].text);
   }
 
   get_program(code, is_size, instset, num_labels, ltable, program);
 
+  printf("PROGRAM\n");
   for (int i = 0; i < num_inst; ++i)
   {
-    printf("%08x\n", program[i]);
+    printf(" %d %d\n", i, program[i]);
   }
 
   fclose(code);
+
+  FILE *out = fopen("a.hex", "wb");
+  fwrite(&num_inst, sizeof(int), 1, out);
+  fwrite(program, sizeof(int), num_inst, out);
+  fclose(out);
 
   return 0;
 }
