@@ -29,6 +29,21 @@ int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Labe
 
 int main(int argc, char* argv[])
 {
+  // ==================================
+  // === INSTRUCTION SET DEFINITION === 
+  // ==================================
+  
+  int is_size = 2;
+
+  Inst instset[] = {
+    { "add", 0x0, 3, { 'r', 'r', 'r' }},
+    { "sub", 0x1, 3, { 'r', 'r', 'r' }}
+  };
+
+  // =========================
+  // === END OF DEFINITION ===
+  // =========================
+
   if (argc < 2)
   {
     printf("usage: ./asm <code_file>.x\n");
