@@ -9,13 +9,23 @@ typedef struct Label
   char text[256];
 } Label;
 
+typedef struct Inst
+{
+  char name[16];
+  int opcode;
+  int num_params;
+  char params[3];
+} Inst;
+
 void get_metadata(FILE *code, int *num_labels, int *num_inst);
 void get_labels(FILE *code, Label *ltable);
 void get_program(FILE *code, int *program);
 
-//int regval(char *arg);
-//int addrval(char *arg);
-//int labelval(char *label, LabelTable *table);
+int regval(char *arg);
+int numval(char *arg);
+int labelval(char *label, int num_labels, Label *ltable);
+
+int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Label *ltable);
 
 int main(int argc, char* argv[])
 {
@@ -166,7 +176,7 @@ int regval(char *arg) {
   return -1;
 }
 
-int addrval(char *arg) {
+int numval(char *arg) {
   for (size_t i = 0; i < strlen(arg); i++) 
   {
     if (arg[i] < '0' || arg[i] > '9') 
@@ -175,9 +185,9 @@ int addrval(char *arg) {
     }
   }
 
-  int addr = 0;
-  sscanf(arg, "%d", &addr);
-  return addr;
+  int num = 0;
+  sscanf(arg, "%d", &num);
+  return num;
 }
 
 int labelval(char *label, int num_labels, Label *ltable) {
@@ -193,4 +203,77 @@ int labelval(char *label, int num_labels, Label *ltable) {
   }
  
   return p;
+}
+
+int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Label *ltable)
+{
+  char *tok;        
+
+  for (int p = 0; p < inst->num_params; ++p)
+  {
+    tok = strtok(NULL, " \t\n\0");
+
+    if (tok == NULL)
+    {
+      printf("*** error on line(%d) - not enought params given: expecting %d, received %d. ***\n", line, inst->num_params, p-1);
+      exit(EXIT_FAILURE);
+    }
+
+    switch (inst->params[p])
+    {
+      case 'r': {
+        int reg = regval(tok);
+        if (reg == -1)
+        {
+          printf("*** error on line(%d) - invalid register value. ***\n", line);
+        }
+
+        break;
+      }
+
+      case 'a': {
+        int num;
+
+        if (tok[0] == ':')
+        {
+          num = labelval(tok, num_labels, ltable);
+        }
+        else
+        {
+          num = numval(tok);
+        }
+
+        if (num == -1)
+        {
+          printf("*** error on line(%d) - invalid address value. ***\n", line);
+        }
+
+        break;
+      }
+
+      case 'c': {
+        int num = numval(tok);
+
+        if (num == -1)
+        {
+          printf("*** error on line(%d) - invalid const value. ***\n", line);
+        }
+
+        break;
+      }
+
+      default: {
+        printf("*** error on line(%d) - schematic instruction param invalid. ***\n", line);
+        exit(EXIT_FAILURE);
+      }
+    }
+  }
+
+  tok = strtok(NULL, " \t\n\0");
+
+  if (tok != NULL)
+  {
+    printf("*** error on line(%d) - too many params. ***\n", line);
+    exit(EXIT_FAILURE);
+  }
 }
