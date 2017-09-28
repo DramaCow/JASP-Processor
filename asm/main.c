@@ -33,11 +33,24 @@ int main(int argc, char* argv[])
   // === INSTRUCTION SET DEFINITION === 
   // ==================================
   
-  int is_size = 2;
+  // o : oooo oo-- ---- ---- ---- ---- ---- ----
+  // s : ---- --ss sss- ---- ---- ---- ---- ----
+  // t : ---- ---- ---t tttt ---- ---- ---- ----
+  // d : ---- ---- ---- ---- dddd d--- ---- ----
+  // i : ---- ---- ---- ---- iiii iiii iiii iiii
+  // a : ---- --aa aaaa aaaa aaaa aaaa aaaa aaaa
+
+  int is_size = 8;
 
   Inst instset[] = {
-    { "add" , 0x00, 3, { 'r' , 'r' , 'r' }},
-    { "sub" , 0x01, 3, { 'r' , 'r' , 'r' }}
+    { "b"   , 0x00, 1, { 'a' } },
+    { "beq" , 0x01, 3, { 's', 't', 'i' }},
+    { "add" , 0x02, 3, { 'd', 's', 't' }},
+    { "addi", 0x03, 3, { 't', 's', 'i' }},
+    { "sub" , 0x04, 3, { 'd', 's', 't' }},
+    { "subi", 0x05, 3, { 't', 's', 'i' }},
+    { "ld"  , 0x06, 3, { 't', 's', 'i' }},
+    { "ldc" , 0x07, 2, { 't', 'i' }},
   };
 
   // =========================
@@ -84,7 +97,7 @@ int main(int argc, char* argv[])
   printf("PROGRAM\n");
   for (int i = 0; i < num_inst; ++i)
   {
-    printf(" %d %d\n", i, program[i]);
+    printf(" %d %08x\n", i, program[i]);
   }
 
   fclose(code);
@@ -243,10 +256,7 @@ int labelval(char *label, int num_labels, Label *ltable) {
 
 int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Label *ltable)
 {
-  int rbits = sizeof(int) * 8; // remaining LHS bits, initialise this is a full word
-
-  rbits -= 6;
-  int opcode = inst->opcode << rbits;
+  int opcode = (0x3f & inst->opcode) << 26;
 
   char *tok;        
 
@@ -263,17 +273,61 @@ int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Labe
 
     switch (inst->params[p])
     {
-      case 'r': {
+      case 's': {
         val = regval(tok);
-
         if (val == -1)
         {
           printf("*** error on line(%d) - invalid register value. ***\n", line);
           exit(EXIT_FAILURE);
         }
 
-        rbits -= 5;
-        opcode |= val << rbits;
+        opcode |= (0x1f & val) << 21;
+
+        break;
+      }
+
+      case 't': {
+        val = regval(tok);
+        if (val == -1)
+        {
+          printf("*** error on line(%d) - invalid register value. ***\n", line);
+          exit(EXIT_FAILURE);
+        }
+
+        opcode |= (0x1f & val) << 16;
+
+        break;
+      }
+
+      case 'd': {
+        val = regval(tok);
+        if (val == -1)
+        {
+          printf("*** error on line(%d) - invalid register value. ***\n", line);
+          exit(EXIT_FAILURE);
+        }
+
+        opcode |= (0x1f & val) << 11;
+
+        break;
+      }
+
+      case 'i': {
+        if (tok[0] == ':')
+        {
+          val = labelval(tok, num_labels, ltable);
+        }
+        else
+        {
+          val = numval(tok);
+        }
+        if (val == -1)
+        {
+          printf("*** error on line(%d) - invalid address value. ***\n", line);
+          exit(EXIT_FAILURE);
+        }
+
+        opcode |= (0xffff & val);
 
         break;
       }
@@ -287,30 +341,13 @@ int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Labe
         {
           val = numval(tok);
         }
-
         if (val == -1)
         {
           printf("*** error on line(%d) - invalid address value. ***\n", line);
           exit(EXIT_FAILURE);
         }
 
-        rbits -= 16;
-        opcode |= val << rbits;
-
-        break;
-      }
-
-      case 'c': {
-        val = numval(tok);
-
-        if (val == -1)
-        {
-          printf("*** error on line(%d) - invalid const value. ***\n", line);
-          exit(EXIT_FAILURE);
-        }
-
-        rbits -= 16;
-        opcode |= val << rbits;
+        opcode |= (0x3ffffff & val);
 
         break;
       }
