@@ -32,6 +32,24 @@ int main(int argc, char* argv[])
   char buffer[256];
   char *tok = NULL;
 
+  int num_inst = 0;
+
+  while (fgets(buffer, sizeof(buffer), code) != NULL)
+  {
+    tok = strtok(buffer, " \t\n\0");
+
+    if (tok != NULL && tok[0] != ';' && tok[0] != ':')
+    {
+      num_inst++;
+    }
+  }
+
+  printf("%d\n", num_inst);
+
+  
+
+  rewind(code);
+
   // populate label table
   for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
   {
@@ -78,6 +96,7 @@ int main(int argc, char* argv[])
     }
 
     // parse instruction here
+    // if (strcmp(tok, "add") == 0) 
 
     p++;
   }
