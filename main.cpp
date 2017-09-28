@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-int load_program(std::string program_name);
+int load_program(char *program_name, int **program);
 
 int main(int argc, char* argv[])
 {
@@ -11,15 +11,17 @@ int main(int argc, char* argv[])
     exit(EXIT_FAILURE);
   }
 
-  std::string program_name(argv[1]); 
-  load_program(program_name);
+  char *program_name = argv[1]; 
+  int *program;
+
+  int num_inst = load_program(program_name, &program);
 
   return 0;
 }
 
-int load_program(std::string program_name)
+int load_program(char *program_name, int **program)
 {
-  FILE* f = fopen(program_name.c_str(), "r");
+  FILE* f = fopen(program_name, "wr");
 
   if (f == nullptr)
   {
@@ -27,7 +29,16 @@ int load_program(std::string program_name)
     exit(EXIT_FAILURE);
   }
 
+  int num_inst = 0;
+  fread(&num_inst, sizeof(int), 1, f);
+  (*program) = new int[num_inst];
+
+  for (int i = 0; i < num_inst; ++i)
+  {
+    (*program)[i] = 0;
+  }
+
   fclose(f);
 
-  return 0;
+  return num_inst;
 }
