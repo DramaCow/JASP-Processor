@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    printf("usage: ./asm <code_file>.s\n");
+    printf("usage: ./asm <code_file>.x\n");
     exit(EXIT_FAILURE);
   }
 
@@ -26,18 +26,19 @@ int main(int argc, char* argv[])
     exit(EXIT_FAILURE);
   }
 
+  LabelTable ltable = { NULL, NULL };
+  Program program   = { NULL, NULL };
+
   char buffer[256];
   char *tok = NULL;
 
-  LabelTable ltable;
-  Program program;
-
+  // populate label table
   for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
   {
     tok = strtok(buffer, " \t\n\0");
 
-    // blank lines or comments
-    if(tok == NULL || tok[0] == ';') 
+    // skip blank lines or comments
+    if (tok == NULL || tok[0] == ';') 
     {
       continue;
     }
@@ -60,7 +61,38 @@ int main(int argc, char* argv[])
     }
   }
 
+  print_labels(&ltable);
+
   rewind(code);
+
+  // populate instructions
+  for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  {
+    tok = strtok(buffer, " \t\n\0");
+
+    // skip blank lines or comments
+    if (tok == NULL || tok[0] == ';') 
+    {
+      continue;
+    }
+
+    // labels start with colons
+    if (tok[0] == ':') 
+    {
+      add_label(&ltable, p, tok);
+
+      // nothing else must exist on the line - else error
+      tok = strtok(NULL, " \t\n\0");
+      if (tok != NULL) {
+        printf(" *** Error whilst parsing labels at line: %d ***\n", ln);
+        exit(EXIT_FAILURE);
+      }
+    }
+    else
+    {
+      p++;
+    }
+  }
 
   fclose(code);
 

@@ -2,7 +2,7 @@
 #define LABEL_H
 
 typedef struct Label {
-  int line;
+  int p;
   char label[256];
   struct Label *next;
 } Label;
@@ -12,7 +12,7 @@ typedef struct LabelTable {
   Label *tail;
 } LabelTable;
 
-void add_label(LabelTable *table, int line, char *label);
+void add_label(LabelTable *table, int p, char *label);
 void free_labels(Label *label);
 void print_labels(LabelTable *table);
 

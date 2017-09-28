@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void add_inst(Program *program, int line, int opcode) {
+void add_inst(Program *program, int p, int opcode) {
   if (program->tail == NULL) {
     program->head = (Inst*)malloc(sizeof(Inst));
-    program->head->line = line;
+    program->head->p = p;
     program->head->opcode = opcode; 
     program->tail = program->head;
 
@@ -14,7 +14,7 @@ void add_inst(Program *program, int line, int opcode) {
   
   Inst *tmp = program->tail; 
   program->tail = (Inst*)malloc(sizeof(Inst));
-  program->tail->line = line;
+  program->tail->p = p;
   program->tail->opcode = opcode;
   tmp->next = program->tail;
 }  
@@ -28,6 +28,6 @@ void free_program(Inst *inst) {
 
 void print_program(Program *program) {
   for (Inst *e = program->head; e != NULL; e = e->next) {
-    printf("%d: %d\n", e->line, e->opcode);
+    printf("%d: %d\n", e->p, e->opcode);
   }
 }
