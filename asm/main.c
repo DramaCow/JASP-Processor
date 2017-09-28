@@ -3,12 +3,19 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "label.h"
-#include "instruction.h"
+typedef struct Label
+{
+  int p;
+  char text[256];
+} Label;
 
-int regval(char *arg);
-int addrval(char *arg);
-int labelval(char *label, LabelTable *table);
+void get_metadata(FILE *code, int *num_labels, int *num_inst);
+void get_labels(FILE *code, Label *ltable);
+void get_program(FILE *code, int *program);
+
+//int regval(char *arg);
+//int addrval(char *arg);
+//int labelval(char *label, LabelTable *table);
 
 int main(int argc, char* argv[])
 {
@@ -26,84 +33,120 @@ int main(int argc, char* argv[])
     exit(EXIT_FAILURE);
   }
 
-  LabelTable ltable = { NULL, NULL };
-  Program program   = { NULL, NULL };
+  int num_labels;
+  int num_inst;
 
-  char buffer[256];
-  char *tok = NULL;
-
-  int num_inst = 0;
-
-  while (fgets(buffer, sizeof(buffer), code) != NULL)
-  {
-    tok = strtok(buffer, " \t\n\0");
-
-    if (tok != NULL && tok[0] != ';' && tok[0] != ':')
-    {
-      num_inst++;
-    }
-  }
-
-  printf("%d\n", num_inst);
-
-  
-
+  get_metadata(code, &num_labels, &num_inst);
   rewind(code);
 
-  // populate label table
-  for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
-  {
-    tok = strtok(buffer, " \t\n\0");
+  printf("num_labels = %d\n", num_labels);
+  printf("num_inst = %d\n", num_inst);
 
-    // skip blank lines or comments
-    if (tok == NULL || tok[0] == ';') 
-    {
-      continue;
-    }
+  Label *ltable = (Label*)malloc(sizeof(Label)*num_labels);
+  int *program  = (int*)malloc(sizeof(int)*num_inst);
 
-    // labels start with colons
-    if (tok[0] == ':') 
-    {
-      add_label(&ltable, p, tok);
-
-      // nothing else must exist on the line - else error
-      tok = strtok(NULL, " \t\n\0");
-      if (tok != NULL) {
-        printf(" *** Error whilst parsing labels at line: %d ***\n", ln);
-        exit(EXIT_FAILURE);
-      }
-    }
-    else
-    {
-      p++;
-    }
-  }
-
-  print_labels(&ltable);
-
-  // set file pointer to start of file again
+  get_labels(code, ltable);
   rewind(code);
 
-  // populate instructions
-  for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  for (int i = 0; i < num_labels; ++i)
   {
-    tok = strtok(buffer, " \t\n\0");
+    printf("%s\n", ltable[i].text);
+  }
 
-    // skip blank lines, comments, or labels
-    if (tok == NULL || tok[0] == ';' || tok[0] == ':') 
-    {
-      continue;
-    }
+  get_program(code, program);
 
-    // parse instruction here
-    // if (strcmp(tok, "add") == 0) 
-
-    p++;
+  for (int i = 0; i < num_inst; ++i)
+  {
+    printf("%04x\n", program[i]);
   }
 
   fclose(code);
 
   return 0;
+}
+
+void get_metadata(FILE *code, int *num_labels, int *num_inst)
+{
+  char buffer[256];
+  char *tok = NULL;
+
+  (*num_labels) = 0;
+  (*num_inst)   = 0;
+
+  while (fgets(buffer, sizeof(buffer), code) != NULL)
+  {
+    tok = strtok(buffer, " \t\n\0");
+
+    if (tok != NULL && tok[0] != ';')
+    {
+      if (tok[0] == ':')
+      {
+        (*num_labels)++;
+      }
+      else
+      {
+        (*num_inst)++;
+      }
+    }
+  }
+
+  rewind(code);
+}
+
+void get_labels(FILE *code, Label *ltable)
+{
+  char buffer[256];
+  char *tok = NULL;
+
+  for (int ln = 1, p = 0, i = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  {
+    tok = strtok(buffer, " \t\n\0");
+
+    if (tok != NULL && tok[0] != ';') 
+    {
+      // labels start with colons
+      if (tok[0] == ':') 
+      {
+        // update table entry
+        ltable[i].p = p;
+        strncpy(ltable[i].text, tok, sizeof(tok)*sizeof(char));
+        i++;
+
+        // nothing else must exist on the line - else error
+        tok = strtok(NULL, " \t\n\0");
+        if (tok != NULL) 
+        {
+          printf(" *** Error whilst parsing labels at line: %d ***\n", ln);
+          exit(EXIT_FAILURE);
+        }
+      }
+      // otherwise, it's an instruction
+      else
+      {
+        p++;
+      }
+    }
+  }
+}
+
+void get_program(FILE *code, int *program)
+{
+  char buffer[256];
+  char *tok = NULL;
+
+  for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  {
+    tok = strtok(buffer, " \t\n\0");
+
+    // skip blank lines, comments, or labels
+    if (tok != NULL && tok[0] != ';' && tok[0] != ':') 
+    {
+      // parse instruction here
+      // if (strcmp(tok, "add") == 0) 
+
+      p++;
+    }
+  }
 }
 
 int regval(char *arg) {
@@ -137,14 +180,14 @@ int addrval(char *arg) {
   return addr;
 }
 
-int labelval(char *label, LabelTable *table) {
+int labelval(char *label, int num_labels, Label *ltable) {
   int p = -1;
 
-  for (Label *e = table->head; e != NULL; e = e->next) 
+  for (int i = 0; i < num_labels; ++i) 
   {
-    if (strcmp(label, e->label) == 0) 
+    if (strcmp(label, ltable[i].text) == 0) 
     {  
-      p = e->p;
+      p = ltable[i].p;
       break;
     }
   }
