@@ -19,43 +19,44 @@ typedef struct Inst
 
 void get_metadata(FILE *code, int *num_labels, int *num_inst);
 void get_labels(FILE *code, Label *ltable);
-void get_program(FILE *code, int is_size, Inst *instset, int num_labels, Label *ltable, int *program);
+void get_program(FILE *code, int num_labels, Label *ltable, int *program);
 
 int regval(char *arg);
 int numval(char *arg);
 int labelval(char *label, int num_labels, Label *ltable);
 
-int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Label *ltable);
+int parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable);
+
+// ==================================
+// === INSTRUCTION SET DEFINITION === 
+// ==================================
+
+// o : oooo oo-- ---- ---- ---- ---- ---- ----
+// s : ---- --ss sss- ---- ---- ---- ---- ----
+// t : ---- ---- ---t tttt ---- ---- ---- ----
+// d : ---- ---- ---- ---- dddd d--- ---- ----
+// i : ---- ---- ---- ---- iiii iiii iiii iiii
+// a : ---- --aa aaaa aaaa aaaa aaaa aaaa aaaa
+
+#define ISIZE 8
+const Inst instset[ISIZE] = {
+  { "b"   , 0x00, 1, { 'a' } },
+  { "beq" , 0x01, 3, { 's', 't', 'i' }},
+  { "add" , 0x02, 3, { 'd', 's', 't' }},
+  { "addi", 0x03, 3, { 't', 's', 'i' }},
+  { "sub" , 0x04, 3, { 'd', 's', 't' }},
+  { "subi", 0x05, 3, { 't', 's', 'i' }},
+  { "ld"  , 0x06, 3, { 't', 's', 'i' }},
+  { "ldc" , 0x07, 2, { 't', 'i' }},
+};
+const Inst nop = { "nop", -0x01, 0, { '\0' }};
+
+// =========================
+// === END OF DEFINITION ===
+// =========================
 
 int main(int argc, char* argv[])
 {
-  // ==================================
-  // === INSTRUCTION SET DEFINITION === 
-  // ==================================
-  
-  // o : oooo oo-- ---- ---- ---- ---- ---- ----
-  // s : ---- --ss sss- ---- ---- ---- ---- ----
-  // t : ---- ---- ---t tttt ---- ---- ---- ----
-  // d : ---- ---- ---- ---- dddd d--- ---- ----
-  // i : ---- ---- ---- ---- iiii iiii iiii iiii
-  // a : ---- --aa aaaa aaaa aaaa aaaa aaaa aaaa
-
-  int is_size = 8;
-
-  Inst instset[] = {
-    { "b"   , 0x00, 1, { 'a' } },
-    { "beq" , 0x01, 3, { 's', 't', 'i' }},
-    { "add" , 0x02, 3, { 'd', 's', 't' }},
-    { "addi", 0x03, 3, { 't', 's', 'i' }},
-    { "sub" , 0x04, 3, { 'd', 's', 't' }},
-    { "subi", 0x05, 3, { 't', 's', 'i' }},
-    { "ld"  , 0x06, 3, { 't', 's', 'i' }},
-    { "ldc" , 0x07, 2, { 't', 'i' }},
-  };
-
-  // =========================
-  // === END OF DEFINITION ===
-  // =========================
 
   if (argc < 2)
   {
@@ -92,7 +93,7 @@ int main(int argc, char* argv[])
     printf(" %d %s\n", ltable[i].p, ltable[i].text);
   }
 
-  get_program(code, is_size, instset, num_labels, ltable, program);
+  get_program(code, num_labels, ltable, program);
 
   printf("PROGRAM\n");
   for (int i = 0; i < num_inst; ++i)
@@ -174,7 +175,7 @@ void get_labels(FILE *code, Label *ltable)
   }
 }
 
-void get_program(FILE *code, int is_size, Inst *instset, int num_labels, Label *ltable, int *program)
+void get_program(FILE *code, int num_labels, Label *ltable, int *program)
 {
   char buffer[256];
   char *tok = NULL;
@@ -186,24 +187,24 @@ void get_program(FILE *code, int is_size, Inst *instset, int num_labels, Label *
     // skip blank lines, comments, or labels
     if (tok != NULL && tok[0] != ';' && tok[0] != ':') 
     {
-      Inst *inst = NULL;
+      int id = -1;
 
-      for (int i = 0; i < is_size; ++i)
+      for (int i = 0; i < ISIZE; ++i)
       {
         if (strcmp(tok, instset[i].name) == 0)
         {
-          inst = &instset[i];
+          id = i;
           break;
         }
       }
 
-      if (inst == NULL)
+      if (id == -1)
       {
         printf("*** error on line(%d) - %s is not a valid operation. ***\n", ln, tok);
         exit(EXIT_FAILURE);
       }
 
-      program[p++] = parse_inst(code, inst, 0, ln, num_labels, ltable);
+      program[p++] = parse_inst(code, &instset[id], 0, ln, num_labels, ltable);
     }
   }
 }
@@ -254,7 +255,7 @@ int labelval(char *label, int num_labels, Label *ltable) {
   return p;
 }
 
-int parse_inst(FILE *code, Inst *inst, int depth, int line, int num_labels, Label *ltable)
+int parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable)
 {
   int opcode = (0x3f & inst->opcode) << 26;
 
