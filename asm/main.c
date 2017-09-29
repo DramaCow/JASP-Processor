@@ -3,12 +3,6 @@
 #include <string.h>
 #include <stdint.h>
 
-typedef struct Label
-{
-  int p;
-  char text[256];
-} Label;
-
 typedef struct Inst
 {
   char name[16];
@@ -16,16 +10,6 @@ typedef struct Inst
   int num_params;
   char params[3];
 } Inst;
-
-void get_metadata(FILE *code, int *num_labels, int *num_inst);
-void get_labels(FILE *code, Label *ltable);
-void get_program(FILE *code, int num_labels, Label *ltable, int *program);
-
-int regval(char *arg);
-int numval(char *arg);
-int labelval(char *label, int num_labels, Label *ltable);
-
-int parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable);
 
 // ==================================
 // === INSTRUCTION SET DEFINITION === 
@@ -53,6 +37,22 @@ const Inst instset[ISIZE] = {
 // =========================
 // === END OF DEFINITION ===
 // =========================
+
+typedef struct Label
+{
+  int p;
+  char text[256];
+} Label;
+
+void get_metadata(FILE *code, int *num_labels, int *num_inst);
+void get_labels(FILE *code, Label *ltable);
+void get_program(FILE *code, int num_labels, Label *ltable, int *program);
+
+int regval(char *arg);
+int numval(char *arg);
+int labelval(char *label, int num_labels, Label *ltable);
+
+int parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable);
 
 int main(int argc, char* argv[])
 {
