@@ -49,7 +49,6 @@ const Inst instset[ISIZE] = {
   { "ld"  , 0x06, 3, { 't', 's', 'i' }},
   { "ldc" , 0x07, 2, { 't', 'i' }},
 };
-const Inst nop = { "nop", -0x01, 0, { '\0' }};
 
 // =========================
 // === END OF DEFINITION ===
