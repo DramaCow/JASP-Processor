@@ -6,7 +6,7 @@
 typedef struct Inst
 {
   char name[16];
-  int opcode;
+  uint32_t opcode;
   int num_params;
   char params[3];
 } Inst;
@@ -46,13 +46,13 @@ typedef struct Label
 
 void get_metadata(FILE *code, int *num_labels, int *num_inst);
 void get_labels(FILE *code, Label *ltable);
-void get_program(FILE *code, int num_labels, Label *ltable, int *program);
+void get_program(FILE *code, int num_labels, Label *ltable, uint32_t *program);
 
 int regval(char *arg);
 int numval(char *arg);
 int labelval(char *label, int num_labels, Label *ltable);
 
-int parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable);
+uint32_t parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable);
 
 int main(int argc, char* argv[])
 {
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
   //printf("num_inst = %d\n", num_inst);
 
   Label *ltable = (Label*)malloc(sizeof(Label)*num_labels);
-  int *program  = (int*)malloc(sizeof(int)*num_inst);
+  uint32_t *program = (uint32_t*)malloc(sizeof(uint32_t)*num_inst);
 
   get_labels(code, ltable);
   rewind(code);
@@ -174,7 +174,7 @@ void get_labels(FILE *code, Label *ltable)
   }
 }
 
-void get_program(FILE *code, int num_labels, Label *ltable, int *program)
+void get_program(FILE *code, int num_labels, Label *ltable, uint32_t *program)
 {
   char buffer[256];
   char *tok = NULL;
@@ -254,9 +254,9 @@ int labelval(char *label, int num_labels, Label *ltable) {
   return p;
 }
 
-int parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable)
+uint32_t parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_labels, Label *ltable)
 {
-  int opcode = (0x3f & inst->opcode) << 26;
+  uint32_t opcode = (0x3f & inst->opcode) << 26;
 
   char *tok;        
 
