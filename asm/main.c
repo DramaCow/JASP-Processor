@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
   fclose(code);
 
   FILE *out = fopen("a.hex", "wb");
-  fwrite(&num_inst, sizeof(int), 1, out);
+  //fwrite(&num_inst, sizeof(int), 1, out);
   fwrite(program, sizeof(int), num_inst, out);
   fclose(out);
 
