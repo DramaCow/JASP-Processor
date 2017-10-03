@@ -1,5 +1,6 @@
 #include "memory.hpp"
 
-Memory::Memory()
+Memory::Memory(int capacity) :
+  capacity(capacity)
 {
 }

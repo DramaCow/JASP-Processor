@@ -4,7 +4,10 @@
 class Memory
 {
   public:
-    Memory();
+    Memory(int capacity);
+
+  private:
+    int capacity;
 };
 
 #endif

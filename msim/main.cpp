@@ -12,10 +12,10 @@ int main(int argc, char* argv[])
   }
 
   char *program_name = argv[1]; 
-  int *program;
-  int num_inst = load_program(program_name, &program);
+  uint8_t *program;
+  int size = load_program(program_name, &program);
 
-  Memory mem;
+  Memory mem(512);
   Processor cpu(mem);
 
   return 0;

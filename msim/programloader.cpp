@@ -1,7 +1,8 @@
 #include "programloader.hpp"
 #include <iostream>
+//#include <cstdio>
 
-int load_program(char *program_name, int **program)
+int load_program(char *program_name, uint8_t **program)
 {
   FILE* f = fopen(program_name, "rb");
   if (f == nullptr)
@@ -13,17 +14,24 @@ int load_program(char *program_name, int **program)
   // count number of bytes in file
   fseek(f, 0L, SEEK_END);
   int size = ftell(f);
-  int num_inst = size / 4;
   rewind(f);
 
   // read program
-  (*program) = new int[num_inst];
-  for (int i = 0; i < num_inst; ++i)
+  (*program) = new uint8_t[size];
+  fread((*program), sizeof(uint8_t), size, f);
+
+  /*
+  for (int i = 0; i < size; ++i)
   {
-    (*program)[i] = 0;
+    printf("%02x", (*program)[i]);
+    if (i % 2 == 1)
+    {
+      printf(" ");
+    }
   }
+  */
 
   fclose(f);
 
-  return num_inst;
+  return size;
 }
