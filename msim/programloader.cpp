@@ -1,6 +1,5 @@
 #include "programloader.hpp"
 #include <iostream>
-//#include <cstdio>
 
 int load_program(char *program_name, uint8_t **program)
 {
@@ -20,16 +19,14 @@ int load_program(char *program_name, uint8_t **program)
   (*program) = new uint8_t[size];
   fread((*program), sizeof(uint8_t), size, f);
 
-  /*
-  for (int i = 0; i < size; ++i)
-  {
-    printf("%02x", (*program)[i]);
-    if (i % 2 == 1)
-    {
-      printf(" ");
-    }
-  }
-  */
+//  for (int i = 0; i < size; ++i)
+//  {
+//    printf("%02x", (*program)[i]);
+//    if (i % 2 == 1)
+//    {
+//      printf(" ");
+//    }
+//  }
 
   fclose(f);
 

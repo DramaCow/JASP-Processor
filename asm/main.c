@@ -103,8 +103,22 @@ int main(int argc, char* argv[])
   fclose(code);
 
   FILE *out = fopen("a.hex", "wb");
-  //fwrite(&num_inst, sizeof(int), 1, out);
-  fwrite(program, sizeof(int), num_inst, out);
+  for (int i = 0; i < num_inst; i++)
+  {
+    uint8_t b0 = (program[i] >>  0) & 0xff; 
+    uint8_t b1 = (program[i] >>  8) & 0xff; 
+    uint8_t b2 = (program[i] >> 16) & 0xff; 
+    uint8_t b3 = (program[i] >> 24) & 0xff; 
+
+    //printf("%02x%02x%02x%02x ", b0, b1, b2, b3);
+
+    // little endian
+    fwrite(&b0, sizeof(uint8_t), 1, out);
+    fwrite(&b1, sizeof(uint8_t), 1, out);
+    fwrite(&b2, sizeof(uint8_t), 1, out);
+    fwrite(&b3, sizeof(uint8_t), 1, out);
+  }
+  //fwrite(program, sizeof(uint32_t), num_inst, out);
   fclose(out);
 
   return 0;

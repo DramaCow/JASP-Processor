@@ -13,6 +13,9 @@ print-%  : ; @echo $* = $($*)
 $(EXE): $(OBJS)
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
+%.c.o: %.c
+	$(CC) -c $(CFLAGS) $^ $(LIBS) -o $@
+
 %.cpp.o: %.cpp
 	$(CC) -c $(CFLAGS) $^ $(LIBS) -o $@
 
