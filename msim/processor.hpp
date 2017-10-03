@@ -7,10 +7,11 @@
 class Processor
 {
   public:
-    Processor(Memory &mem);
+    Processor(Memory &imem, Memory &dmem);
 
   private:
-    Memory &mem;
+    Memory &imem; // instruction memory
+    Memory &dmem; // data memory
     Registers regfile;
 };
 

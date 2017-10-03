@@ -12,13 +12,7 @@ Memory::Memory(int capacity) :
 
 uint32_t Memory::operator[](int a)
 {
-  //uint32_t word =
-  //  bytes[addr+0] << 8 * 0 |
-  //  bytes[addr+1] << 8 * 1 |
-  //  bytes[addr+2] << 8 * 2 |
-  //  bytes[addr+3] << 8 * 3;
-  uint32_t word = WORD(bytes[a+0], bytes[a+1], bytes[a+2], bytes[a+3]);
-  return word;
+  return WORD(bytes[a+0], bytes[a+1], bytes[a+2], bytes[a+3]);
 }
 
 void Memory::copy(int offset, uint8_t *bytes, int size)

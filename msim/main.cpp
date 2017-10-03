@@ -16,11 +16,11 @@ int main(int argc, char* argv[])
   uint8_t *program;
   int size = load_program(program_name, &program);
 
-  Memory mem(128);
-  mem.copy(0, program, size);
-  std::cout << mem << std::endl;
+  Memory imem(128); imem.copy(0, program, size);
+  Memory dmem(128);
+  std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
-  Processor cpu(mem);
+  Processor cpu(imem, dmem);
 
   return 0;
 }
