@@ -157,7 +157,7 @@ void get_labels(FILE *code, Label *ltable)
   char buffer[256];
   char *tok = NULL;
 
-  for (int ln = 1, p = 0, i = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  for (int ln = 1, addr = 0, i = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
   {
     tok = strtok(buffer, " \t\n\0");
 
@@ -167,7 +167,7 @@ void get_labels(FILE *code, Label *ltable)
       if (tok[0] == ':') 
       {
         // update table entry
-        ltable[i].p = p;
+        ltable[i].p = addr;
         strncpy(ltable[i].text, tok, sizeof(tok)*sizeof(char));
         i++;
 
@@ -182,7 +182,7 @@ void get_labels(FILE *code, Label *ltable)
       // otherwise, it's an instruction
       else
       {
-        p++;
+        addr += 4;
       }
     }
   }
@@ -231,8 +231,7 @@ int regval(char *arg) {
     }
 
     int reg = 0;
-    // TODO: it's dangerous to add 1 (needed to skip 'r')
-    sscanf(arg + sizeof(char) * 1, "%d", &reg);
+    sscanf(arg + sizeof(char), "%d", &reg);
     return reg;
   }
 
