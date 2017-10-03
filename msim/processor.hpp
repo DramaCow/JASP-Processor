@@ -1,8 +1,8 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
 
-#include "memory.h"
-#include "registers.h"
+#include "memory.hpp"
+#include "registers.hpp"
 
 class Processor
 {

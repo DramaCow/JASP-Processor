@@ -1,8 +1,7 @@
 #include <iostream>
-#include <string>
 
-#include "programloader.h"
-#include "processor.h"
+#include "programloader.hpp"
+#include "processor.hpp"
 
 int main(int argc, char* argv[])
 {

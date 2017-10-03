@@ -4,6 +4,7 @@
 class Registers
 {
   public:
+    Registers();
 
   private:
     int gpr[32]; // General Purpose Registers

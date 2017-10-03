@@ -1,4 +1,4 @@
-#include "processor.h"
+#include "processor.hpp"
 
 Processor::Processor(Memory &mem) :
   mem(mem)

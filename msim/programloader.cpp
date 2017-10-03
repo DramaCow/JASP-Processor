@@ -1,4 +1,5 @@
-#include "programloader.h"
+#include "programloader.hpp"
+#include <iostream>
 
 int load_program(char *program_name, int **program)
 {

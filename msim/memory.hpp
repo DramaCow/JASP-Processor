@@ -3,7 +3,8 @@
 
 class Memory
 {
-
+  public:
+    Memory();
 };
 
 #endif
