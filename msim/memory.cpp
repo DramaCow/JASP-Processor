@@ -32,7 +32,7 @@ std::ostream& operator<<(std::ostream& os, const Memory& mem)
   {
     if (a % (4*8) == 0)
     {
-      os << std::hex << a << '\t';
+      os << std::dec << a << '\t';
     }
 
     os << std::setfill('0') << std::setw(8) << std::hex << WORD(mem.bytes[a+0], mem.bytes[a+1], mem.bytes[a+2], mem.bytes[a+3]) << ' ';

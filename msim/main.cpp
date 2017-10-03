@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
   uint8_t *program;
   int size = load_program(program_name, &program);
 
-  Memory mem(64);
+  Memory mem(128);
   mem.copy(0, program, size);
   std::cout << mem << std::endl;
 
