@@ -11,6 +11,6 @@ class Registers
     int sp;      // Stack Pointer
     int fp;      // Frame Pointer
     int lr;      // Link Register
-}
+};
 
 #endif
