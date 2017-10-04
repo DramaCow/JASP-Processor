@@ -21,8 +21,13 @@ int main(int argc, char* argv[])
   //std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
   Processor cpu(imem, dmem);
-  std::cout << cpu << std::endl;
-  cpu.tick();
+  const int limit = 20;
+  for (int i = 0; i < limit; ++i)
+  {
+    std::cout << "t = " << i << ':' << std::endl << cpu << std::endl;
+    cpu.tick();
+  }
+  std::cout << "t = " << limit << ':' << std::endl << cpu << std::endl;
 
   return 0;
 }

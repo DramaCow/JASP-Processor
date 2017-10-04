@@ -13,16 +13,24 @@ class Processor
     void tick();
 
   private:
+    // pipeline state
     enum State { FETCH, DECODE, EXECUTE, WRITEBACK };
     State state;
 
+    // instruction type
+    enum InstructionType { RRR, RRI };
+    InstructionType itype;
+
+    // memory units (references)
     Memory &imem; // instruction memory
     Memory &dmem; // data memory
     
+    // registers
     RegisterFile regfile;
     uint32_t pc;
     uint32_t oreg;
 
+    // execution units
     Alu alu;
 
     // pipeline functions
@@ -30,6 +38,10 @@ class Processor
     void decode();
     void execute();
     void writeback();
+
+    // statistics recorders
+    int cycles;
+    int instructions_executed;
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);

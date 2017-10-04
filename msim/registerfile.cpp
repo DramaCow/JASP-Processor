@@ -3,6 +3,7 @@
 
 RegisterFile::RegisterFile()
 {
+  gpr[0] = 1;
 }
 
 std::tuple<uint32_t, uint32_t> RegisterFile::foo(uint32_t addr1, uint32_t addr2, uint32_t daddr, uint32_t data, bool write)
