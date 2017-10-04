@@ -1,4 +1,5 @@
 #include "processor.hpp"
+#include <iomanip>
 
 Processor::Processor(Memory &imem, Memory &dmem) :
   state(FETCH),
@@ -15,6 +16,8 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "state = " << cpu.state << '\n';
+  os << "pc = " << std::dec << cpu.pc << '\n';
+  os << "oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n';
   os << cpu.regfile << '\n';
   os << "=== statistics ===\n";
   os << "cycles = " << cpu.cycles << '\n';
