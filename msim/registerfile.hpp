@@ -5,6 +5,8 @@
 #include <tuple>
 #include <iostream>
 
+#define NUM_REGISTERS 4
+
 class RegisterFile
 {
   public:
@@ -13,7 +15,7 @@ class RegisterFile
     friend std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile);
 
   private:
-    uint32_t gpr[32] = { 0 };
+    uint32_t gpr[NUM_REGISTERS] = { 0 };
 };
 
 std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile);

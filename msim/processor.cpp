@@ -15,7 +15,7 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "state = " << cpu.state << '\n';
-  os << cpu.regfile;
+  os << cpu.regfile << '\n';
   os << "=== statistics ===\n";
   os << "cycles = " << cpu.cycles << '\n';
   os << "instructions_executed = " << cpu.instructions_executed << '\n';
@@ -94,6 +94,7 @@ void Processor::decode()
 
       std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
       alu.breg = i;
+      alu.op = ADD;
 
       itype = RRI;
 
