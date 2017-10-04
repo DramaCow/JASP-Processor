@@ -1,10 +1,8 @@
-addi r0 r0 1
-addi r0 r0 2
-addi r0 r0 3
-addi r0 r0 4
-addi r0 r0 5
-addi r0 r0 6
-addi r0 r0 7
-addi r0 r0 8
-addi r0 r0 9
-addi r0 r0 10
+  xor r0 r0 r0
+  addi r2 r0 10
+:loop
+  bnez r2 :break
+  addi r1 r1 1
+  subi r2 r1 10
+  j :loop
+:break

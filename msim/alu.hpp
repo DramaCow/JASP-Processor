@@ -3,9 +3,6 @@
 
 #include <cstdint>
 
-#define ADD 0
-#define SUB 1
-
 class Alu
 {
   public:

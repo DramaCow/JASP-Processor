@@ -10,11 +10,13 @@ void Alu::execute()
 {
   switch (op)
   {
-    case ADD:
+    // ADD
+    case 0:
       res = areg + breg;
       break;
 
-    case SUB:
+    // SUB
+    case 1:
       res = areg - breg;
       break;
 

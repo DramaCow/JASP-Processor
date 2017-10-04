@@ -1,4 +1,5 @@
 #include "processor.hpp"
+#include "isa.hpp"
 #include <iomanip>
 
 Processor::Processor(Memory &imem, Memory &dmem) :
@@ -74,33 +75,64 @@ void Processor::fetch()
 void Processor::decode()
 {
   uint32_t opcode = (oreg >> (32 - 6)) & 0x3f; // first 6 bits
+  uint32_t s = (oreg >> (32 - 11)) & 0x1f;
+  uint32_t t = (oreg >> (32 - 16)) & 0x1f;
+  uint32_t i = oreg & 0xffff;
+  uint32_t a = oreg & 0x3fffff;
 
   switch (opcode)
   {
-    // ADD
-    case 0: {
-      uint32_t s = (oreg >> (32 - 11)) & 0x1f;
-      uint32_t t = (oreg >> (32 - 16)) & 0x1f;
-
-      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
-      alu.op = ADD;
-
-      itype = RRR;
-
+    case NOP: {
       break;
     }
 
-    // ADDI
-    case 1: {
-      uint32_t s = (oreg >> (32 - 11)) & 0x1f;
-      uint32_t i = oreg & 0xffff;
+    case ADD: {
+      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
+      alu.op = 0;
+      itype = RRR;
+      break;
+    }
 
+    case ADDI: {
       std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
       alu.breg = i;
-      alu.op = ADD;
-
+      alu.op = 0;
       itype = RRI;
+      break;
+    }
 
+    case SUB: {
+      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
+      alu.op = 1;
+      itype = RRR;
+      break;
+    }
+
+    case SUBI: {
+      std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
+      alu.breg = i;
+      alu.op = 1;
+      itype = RRI;
+      break;
+    }
+
+    case J: {
+      break;
+    }
+
+    case BNEZ: {
+      break;
+    }
+
+    case LD: {
+      break;
+    }
+
+    case SR: {
+      break;
+    }
+
+    case XOR: {
       break;
     }
 

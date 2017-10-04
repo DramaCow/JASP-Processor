@@ -22,10 +22,18 @@ typedef struct Inst
 // i : ---- ---- ---- ---- iiii iiii iiii iiii
 // a : ---- --aa aaaa aaaa aaaa aaaa aaaa aaaa
 
-#define ISIZE 8
+#define ISIZE 64
 const Inst instset[ISIZE] = {
-  { "add" , 0x00, 3, { 'd', 's', 't' }},
-  { "addi", 0x01, 3, { 't', 's', 'i' }},
+  { "nop" , 0x00, 0, { '\0'          }},
+  { "add" , 0x01, 3, { 'd', 's', 't' }},
+  { "addi", 0x02, 3, { 't', 's', 'i' }},
+  { "sub" , 0x03, 3, { 'd', 's', 't' }},
+  { "subi", 0x04, 3, { 't', 's', 'i' }},
+  { "j"   , 0x05, 1, { 'a'           }},
+  { "bnez", 0x06, 2, { 's', 'i'      }},
+  { "ld"  , 0x07, 3, { 't', 's', 'i' }},
+  { "sr"  , 0x08, 3, { 't', 's', 'i' }},
+  { "xor" , 0x09, 3, { 'd', 's', 't' }},
 };
 
 // =========================
