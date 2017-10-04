@@ -18,9 +18,11 @@ int main(int argc, char* argv[])
 
   Memory imem(128); imem.copy(0, program, size);
   Memory dmem(128);
-  std::cout << imem << std::endl << std:: endl << dmem << std::endl;
+  //std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
   Processor cpu(imem, dmem);
+  std::cout << cpu << std::endl;
+  cpu.tick();
 
   return 0;
 }
