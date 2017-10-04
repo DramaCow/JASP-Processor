@@ -16,7 +16,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "state = " << cpu.state << '\n';
   os << cpu.regfile;
-  os << "*** statistics ***\n";
+  os << "=== statistics ===\n";
   os << "cycles = " << cpu.cycles << '\n';
   os << "instructions_executed = " << cpu.instructions_executed << '\n';
   os << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << '\n';
@@ -54,7 +54,7 @@ void Processor::tick()
     }
 
     default: {
-      // TODO: error message
+      std::cerr << "*** entered invalid pipeline state ***\n";
       exit(EXIT_FAILURE);
     }
   }
@@ -101,7 +101,7 @@ void Processor::decode()
     }
 
     default: {
-      // TODO: error message
+      std::cerr << "*** invalid opcode ***\n";
       exit(EXIT_FAILURE);
     }
   }
@@ -129,7 +129,7 @@ void Processor::writeback()
     }
 
     default: {
-      // TODO: error message
+      std::cerr << "*** invalid itype ***\n";
       exit(EXIT_FAILURE);
     }
   }

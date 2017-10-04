@@ -1,5 +1,6 @@
 #include "alu.hpp"
 #include <cstdlib>
+#include <iostream>
 
 Alu::Alu()
 {
@@ -19,6 +20,7 @@ void Alu::execute()
 
     default:
       // TODO: error message
+      std::cerr << "*** invalid ALU op ***\n";
       exit(EXIT_FAILURE);
   }
 }

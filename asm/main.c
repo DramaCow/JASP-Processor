@@ -25,7 +25,7 @@ typedef struct Inst
 #define ISIZE 8
 const Inst instset[ISIZE] = {
   { "add" , 0x00, 3, { 'd', 's', 't' }},
-  { "sub" , 0x01, 3, { 'd', 's', 't' }},
+  { "addi", 0x01, 3, { 't', 's', 'i' }},
 };
 
 // =========================
