@@ -3,7 +3,6 @@
 
 #include "memory.hpp"
 #include "registerfile.hpp"
-#include "alu.hpp"
 
 class Processor
 {
@@ -33,9 +32,7 @@ class Processor
     // alu latches
     uint32_t a_latch;
     uint32_t b_latch;
-
-    // execution units
-    Alu alu;
+    uint32_t t_latch;
 
     // pipeline functions
     void fetch();

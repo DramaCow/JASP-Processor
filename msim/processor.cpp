@@ -11,6 +11,7 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 
   a_latch(0),
   b_latch(0),
+  t_latch(0),
 
   cycles(0),
   instructions_executed(0)
@@ -90,31 +91,27 @@ void Processor::decode()
     }
 
     case ADD: {
-      std::tie(a_latch, alu.breg) = regfile.foo(s, t, 0, 0, false);
-      alu.op = OP_ADD;
+      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
       itype = RRR;
       break;
     }
 
     case ADDI: {
-      std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
-      alu.breg = i;
-      alu.op = OP_ADD;
+      std::tie(a_latch, std::ignore) = regfile.foo(s, 0, 0, 0, false);
+      b_latch = i;
       itype = RRI;
       break;
     }
 
     case SUB: {
-      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
-      alu.op = OP_SUB;
+      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
       itype = RRR;
       break;
     }
 
     case SUBI: {
-      std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
-      alu.breg = i;
-      alu.op = OP_SUB;
+      std::tie(a_latch, std::ignore) = regfile.foo(s, 0, 0, 0, false);
+      b_latch = i;
       itype = RRI;
       break;
     }
@@ -137,8 +134,7 @@ void Processor::decode()
     }
 
     case XOR: {
-      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
-      alu.op = OP_XOR;
+      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
       itype = RRR;
       break;
     }
@@ -152,7 +148,6 @@ void Processor::decode()
 
 void Processor::execute()
 {
-  alu.execute();
 }
 
 void Processor::writeback()
@@ -161,13 +156,13 @@ void Processor::writeback()
   {
     case RRR: {
       uint32_t d = (oreg >> (32 - 21)) & 0x1f;
-      regfile.foo(0, 0, d, alu.res, true);
+      regfile.foo(0, 0, d, t_latch, true);
       break;
     }
 
     case RRI: {
       uint32_t t = (oreg >> (32 - 16)) & 0x1f;
-      regfile.foo(0, 0, t, alu.res, true);
+      regfile.foo(0, 0, t, t_latch, true);
       break;
     }
 
