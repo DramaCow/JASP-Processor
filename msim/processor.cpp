@@ -20,22 +20,30 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
-  switch (cpu.state)
-  {
-    case 0: os << "fetching...\n"; break;
-    case 1: os << "decoding...\n"; break;
-    case 2: os << "executing...\n"; break;
-    case 3: os << "writing...\n"; break;
-  }
-  os << "pc = " << std::dec << cpu.pc
-     << " | oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n';
-  os << cpu.regfile;
+  os << "{\n"
+//     << "  pc = " << std::dec << cpu.pc << '\n'
+     << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
+     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
+     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
+//     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
+//     << "  waddr = " << std::dec << cpu.waddr << '\n'
+//     << "  we = " << cpu.we << '\n'
+     << "  regfile = \n    " << cpu.regfile << '\n'
+     << "}\n";
 /*
   os << "=== statistics ===\n";
   os << "cycles = " << cpu.cycles << '\n';
   os << "instructions_executed = " << cpu.instructions_executed << '\n';
-  os << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << '\n';
+  os << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
 */
+  switch (cpu.state)
+  {
+    case 0: os << "fetching..."; break;
+    case 1: os << "decoding..."; break;
+    case 2: os << "executing..."; break;
+    case 3: os << "writing..."; break;
+  }
+  os << std::dec;
   return os;
 }
 
@@ -131,6 +139,7 @@ void Processor::decode()
       std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
       otype = OP_XOR;
       waddr = d;
+      we = true;
       break;
     }
 

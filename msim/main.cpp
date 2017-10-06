@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
   //std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
   Processor cpu(imem, dmem);
-  const int limit = 8;
+  const int limit = 20;
   for (int i = 0; i < limit; ++i)
   {
     std::cout << "(t = " << i << ") " << cpu << std::endl;
