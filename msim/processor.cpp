@@ -3,7 +3,7 @@
 #include <iomanip>
 
 Processor::Processor(Memory &imem, Memory &dmem) :
-  state(FETCH),
+  state(0),
   imem(imem),
   dmem(dmem),
   pc(0), npc(0),
@@ -35,38 +35,16 @@ void Processor::tick()
 {
   switch (state)
   {
-    case FETCH: {
-      fetch(); 
-      state = DECODE;
-      break;
-    }
-
-    case DECODE: {
-      decode();
-      state = EXECUTE;
-      break;
-    }
-
-    case EXECUTE: {
-      execute(); 
-      state = WRITEBACK;
-
-      instructions_executed++;
-      break;
-    }
-
-    case WRITEBACK: {
-      writeback(); 
-      state = FETCH;
-      break;
-    }
-
+    case 0/*FETCH*/:     fetch();     break;
+    case 1/*DECODE*/:    decode();    break;
+    case 2/*EXECUTE*/:   execute();   break;
+    case 3/*WRITEBACK*/: writeback(); break;
     default: {
       std::cerr << "*** entered invalid pipeline state ***\n";
       exit(EXIT_FAILURE);
     }
   }
-
+  state = (state + 1) % 4;
   cycles++;
 }
 
@@ -117,7 +95,6 @@ void Processor::decode()
     }
 
     case J: {
-      npc = a << 2; // or *4 to guarantee 4byte word aligned
       break;
     }
 
@@ -148,6 +125,7 @@ void Processor::decode()
 
 void Processor::execute()
 {
+  instructions_executed++;
 }
 
 void Processor::writeback()

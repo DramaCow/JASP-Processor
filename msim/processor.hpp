@@ -13,8 +13,7 @@ class Processor
 
   private:
     // pipeline state
-    enum State { FETCH, DECODE, EXECUTE, WRITEBACK };
-    State state;
+    int state;
 
     // instruction type
     enum InstructionType { RRR, RRI, RR, RI, I };
