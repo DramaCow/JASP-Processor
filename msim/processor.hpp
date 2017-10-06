@@ -15,25 +15,24 @@ class Processor
     // pipeline state
     int state;
 
-    // instruction type
-    enum InstructionType { RRR, RRI, RR, RI, I };
-    InstructionType itype;
+    enum OperationType { OP_ADD, OP_SUB, OP_XOR };
 
     // memory units (references)
     Memory &imem; // instruction memory
     Memory &dmem; // data memory
-    
-    // registers
+
     RegisterFile regfile;
     uint32_t pc, npc;
-    uint32_t oreg;
 
-    // alu latches
-    uint32_t a_latch;
-    uint32_t b_latch;
-    uint32_t t_latch;
+    uint32_t oreg;       // fetch   --> decode    (operand register)
+    uint32_t a_latch;    // decode  --> execute   (operand1)
+    uint32_t b_latch;    // decode  --> execute   (operand2)
+    OperationType otype; // decode  --> execute   (operation type)
+    uint32_t waddr;      // decode  --> writeback (write address)
+    bool we;             // decode  --> writeback (write enabled)
+    uint32_t t_latch;    // execute --> writeback (result)
 
-    // pipeline functions
+    // pipeline stages
     void fetch();
     void decode();
     void execute();
@@ -42,6 +41,8 @@ class Processor
     // statistics recorders
     int cycles;
     int instructions_executed;
+
+  private:
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);
