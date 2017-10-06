@@ -26,12 +26,14 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
+  if (cpu.state != 2) return os;
   os << "{\n"
      << "  pc = " << std::dec << cpu.pc << '\n'
      << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
-//     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
-//     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
-//     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
+     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
+     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
+     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
+     << "  c_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.c_latch << '\n'
 //     << "  waddr = " << std::dec << cpu.waddr << '\n'
 //     << "  we = " << cpu.we << '\n'
      << "  regfile = \n    " << cpu.regfile << '\n'
@@ -205,9 +207,9 @@ void Processor::execute()
     case OP_XOR: t_latch = a_latch ^ b_latch; break;
     case OP_CMP: {
       c_latch = 0x3 & (
-        (a_latch >  b_latch) << 2 & 
-        (a_latch <  b_latch) << 1 & 
-        (a_latch == b_latch) << 0
+        ((a_latch >  b_latch) << 2) |
+        ((a_latch <  b_latch) << 1) | 
+        ((a_latch == b_latch) << 0)
       );
       break;
     }
