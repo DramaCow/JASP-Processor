@@ -7,11 +7,17 @@ Processor::Processor(Memory &imem, Memory &dmem) :
   imem(imem),
   dmem(dmem),
   pc(0), npc(0),
-  oreg(0),
 
+  oreg(0),
   a_latch(0),
   b_latch(0),
+  otype(OP_ADD),
+  waddr(0),
+  we(false),
+  abs_branch(false),
+  var_pc_inc(false),
   t_latch(0),
+  c_latch(0),
 
   cycles(0),
   instructions_executed(0)
@@ -21,10 +27,10 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n"
-//     << "  pc = " << std::dec << cpu.pc << '\n'
+     << "  pc = " << std::dec << cpu.pc << '\n'
      << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
-     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
-     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
+//     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
+//     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
 //     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
 //     << "  waddr = " << std::dec << cpu.waddr << '\n'
 //     << "  we = " << cpu.we << '\n'
@@ -67,7 +73,6 @@ void Processor::tick()
 void Processor::fetch()
 {
   oreg = imem[pc];
-  npc += 4;
 }
 
 void Processor::decode()
@@ -90,6 +95,8 @@ void Processor::decode()
       otype = OP_ADD;
       waddr = d;
       we = true;
+      abs_branch = false;
+      var_pc_inc = false;
       break;
     }
 
@@ -99,6 +106,8 @@ void Processor::decode()
       otype = OP_ADD;
       waddr = t;
       we = true;
+      abs_branch = false;
+      var_pc_inc = false;
       break;
     }
 
@@ -107,6 +116,8 @@ void Processor::decode()
       otype = OP_SUB;
       waddr = d;
       we = true;
+      abs_branch = false;
+      var_pc_inc = false;
       break;
     }
 
@@ -116,14 +127,47 @@ void Processor::decode()
       otype = OP_SUB;
       waddr = t;
       we = true;
+      abs_branch = false;
+      var_pc_inc = false;
+      break;
+    }
+
+    case CMP: {
+      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
+      otype = OP_CMP;
+      we = false;
+      abs_branch = false;
+      var_pc_inc = false;
+      break;
+    }
+
+    case CMPI: {
+      std::tie(a_latch, std::ignore) = regfile.foo(s, t, 0, 0, false);
+      b_latch = i;
+      otype = OP_CMP;
+      we = false;
+      abs_branch = false;
+      var_pc_inc = false;
       break;
     }
 
     case J: {
+      a_latch = a << 2; // same as *4, makes address word aligned
+      b_latch = 0;
+      otype = OP_ADD;
+      we = false;
+      abs_branch = true;
+      var_pc_inc = false;
       break;
     }
 
-    case BNEZ: {
+    case JNE: {
+      a_latch = a << 2; // same as *4, makes address word aligned
+      b_latch = 0;
+      otype = OP_ADD;
+      we = false;
+      abs_branch = (c_latch & 0x1) == 0;
+      var_pc_inc = false;
       break;
     }
 
@@ -140,6 +184,8 @@ void Processor::decode()
       otype = OP_XOR;
       waddr = d;
       we = true;
+      abs_branch = false;
+      var_pc_inc = false;
       break;
     }
 
@@ -157,11 +203,33 @@ void Processor::execute()
     case OP_ADD: t_latch = a_latch + b_latch; break;
     case OP_SUB: t_latch = a_latch - b_latch; break;
     case OP_XOR: t_latch = a_latch ^ b_latch; break;
+    case OP_CMP: {
+      c_latch = 0x3 & (
+        (a_latch >  b_latch) << 2 & 
+        (a_latch <  b_latch) << 1 & 
+        (a_latch == b_latch) << 0
+      );
+      break;
+    }
     default: {
       std::cerr << "*** invalid operation ***\n";
       exit(EXIT_FAILURE);
     }
   }
+
+  if (abs_branch)
+  {
+    npc = t_latch;
+  }
+  else if (var_pc_inc)
+  {
+    npc += t_latch;
+  }
+  else
+  {
+    npc += 4;
+  }
+
   instructions_executed++;
 }
 

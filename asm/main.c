@@ -29,11 +29,13 @@ const Inst instset[ISIZE] = {
   { "addi", 0x02, 3, { 't', 's', 'i' }},
   { "sub" , 0x03, 3, { 'd', 's', 't' }},
   { "subi", 0x04, 3, { 't', 's', 'i' }},
-  { "j"   , 0x05, 1, { 'a'           }},
-  { "bnez", 0x06, 2, { 's', 'i'      }},
-  { "ld"  , 0x07, 3, { 't', 's', 'i' }},
-  { "sr"  , 0x08, 3, { 't', 's', 'i' }},
-  { "xor" , 0x09, 3, { 'd', 's', 't' }},
+  { "cmp" , 0x05, 2, { 't', 's'      }},
+  { "cmpi", 0x06, 2, { 't', 'i'      }},
+  { "j"   , 0x07, 1, { 'a'           }},
+  { "jne" , 0x08, 1, { 'a'           }},
+  { "ld"  , 0x09, 3, { 't', 's', 'i' }},
+  { "sr"  , 0x0a, 3, { 't', 's', 'i' }},
+  { "xor" , 0x0b, 3, { 'd', 's', 't' }},
 };
 
 // =========================
@@ -184,7 +186,8 @@ void get_labels(FILE *code, Label *ltable)
       // otherwise, it's an instruction
       else
       {
-        addr += 4;
+        //addr += 4;
+        addr += 1;
       }
     }
   }

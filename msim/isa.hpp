@@ -6,10 +6,12 @@
 #define ADDI 2
 #define SUB 3
 #define SUBI 4
-#define J 5
-#define BNEZ 6
-#define LD 7
-#define SR 8
-#define XOR 9
+#define CMP 5
+#define CMPI 6
+#define J 7
+#define JNE 8
+#define LD 9
+#define SR 10
+#define XOR 11
 
 #endif
