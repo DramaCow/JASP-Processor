@@ -3,6 +3,10 @@
 
 #include <cstdint>
 
+#define OP_ADD 0
+#define OP_SUB 1
+#define OP_XOR 2
+
 class Alu
 {
   public:

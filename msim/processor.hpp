@@ -18,7 +18,7 @@ class Processor
     State state;
 
     // instruction type
-    enum InstructionType { RRR, RRI };
+    enum InstructionType { RRR, RRI, RR, RI, I };
     InstructionType itype;
 
     // memory units (references)
@@ -27,8 +27,12 @@ class Processor
     
     // registers
     RegisterFile regfile;
-    uint32_t pc;
+    uint32_t pc, npc;
     uint32_t oreg;
+
+    // alu latches
+    uint32_t a_latch;
+    uint32_t b_latch;
 
     // execution units
     Alu alu;

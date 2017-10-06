@@ -6,8 +6,11 @@ Processor::Processor(Memory &imem, Memory &dmem) :
   state(FETCH),
   imem(imem),
   dmem(dmem),
-  pc(0),
+  pc(0), npc(0),
   oreg(0),
+
+  a_latch(0),
+  b_latch(0),
 
   cycles(0),
   instructions_executed(0)
@@ -69,7 +72,7 @@ void Processor::tick()
 void Processor::fetch()
 {
   oreg = imem[pc];
-  pc += 4;
+  npc += 4;
 }
 
 void Processor::decode()
@@ -87,8 +90,8 @@ void Processor::decode()
     }
 
     case ADD: {
-      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
-      alu.op = 0;
+      std::tie(a_latch, alu.breg) = regfile.foo(s, t, 0, 0, false);
+      alu.op = OP_ADD;
       itype = RRR;
       break;
     }
@@ -96,14 +99,14 @@ void Processor::decode()
     case ADDI: {
       std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
       alu.breg = i;
-      alu.op = 0;
+      alu.op = OP_ADD;
       itype = RRI;
       break;
     }
 
     case SUB: {
       std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
-      alu.op = 1;
+      alu.op = OP_SUB;
       itype = RRR;
       break;
     }
@@ -111,12 +114,13 @@ void Processor::decode()
     case SUBI: {
       std::tie(alu.areg, std::ignore) = regfile.foo(s, 0, 0, 0, false);
       alu.breg = i;
-      alu.op = 1;
+      alu.op = OP_SUB;
       itype = RRI;
       break;
     }
 
     case J: {
+      npc = a << 2; // or *4 to guarantee 4byte word aligned
       break;
     }
 
@@ -133,6 +137,9 @@ void Processor::decode()
     }
 
     case XOR: {
+      std::tie(alu.areg, alu.breg) = regfile.foo(s, t, 0, 0, false);
+      alu.op = OP_XOR;
+      itype = RRR;
       break;
     }
 
@@ -169,4 +176,6 @@ void Processor::writeback()
       exit(EXIT_FAILURE);
     }
   }
+
+  pc = npc;
 }
