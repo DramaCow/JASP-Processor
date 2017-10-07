@@ -17,68 +17,56 @@ class Processor
     {
       uint32_t pc = 0; // program counter
     };
-    struct Lat_if_id // 1
+    struct Lat_f_d // 1
     {
-      uint32_t npc; // next program counter (pc + 4)
-      uint32_t op;  // operation and operand as 32bit word
+      uint32_t npc;  // next program counter (pc + 4)
+      uint32_t oreg; // operation and operand as 32bit word
     };
-    struct Lat_id_exe // 2
+    struct Lat_d_e // 2
     {
-      uint32_t npc; // next program counter (propagated)
+      uint32_t npc;   // next program counter (propagated)
       uint32_t opcode;
-      uint32_t a;   // value of register rs
-      uint32_t b;   // value of register rt
-      uint32_t imm; // immediate op value
-      uint32_t rd;  // register id for writeback
+      uint32_t a;     // value of register rs
+      uint32_t b;     // value of register rt
+      uint32_t imm;   // immediate op value
+      uint32_t rdest; // register id for writeback
     };
-    struct Lat_exe_mem // 3
+    struct Lat_e_m // 3
     {
       uint32_t npc;    // next program counter (propagated)
       uint32_t opcode; // (propagated)
       uint32_t t;      // result of execution
-      uint32_t rd;     // register id for writback
+      uint32_t cmp;    // comparison flag (occurs automatically)
+      uint32_t rdest;  // register id for writback
     };
-    struct Lat_mem_wb // 4
+    struct Lat_m_w // 4
     {
-      uint32_t t;   // result of execution (propagated)
-      uint32_t mem; // data read from memory
-      uint32_t rd;  // register id for writeback (propagated)
+      uint32_t t;     // result of execution (propagated)
+      uint32_t mem;   // data read from memory
+      uint32_t rdest; // register id for writeback (propagated)
     }; 
 
   private:
     // pipeline state
     int state;
 
-    enum OperationType { OP_ADD, OP_SUB, OP_XOR, OP_CMP, OP_GT, OP_LT, OP_EQ, OP_GE, OP_LE };
-
     // memory units (references)
     Memory &imem; // instruction memory
     Memory &dmem; // data memory
 
     RegisterFile regfile;
-    uint32_t pc, npc;
 
-    uint32_t oreg;       // fetch   --> decode    (operand register)
-    uint32_t a_latch;    // decode  --> execute   (operand1)
-    uint32_t b_latch;    // decode  --> execute   (operand2)
-    OperationType otype; // decode  --> execute   (operation type)
-    uint32_t waddr;      // decode  --> writeback (write address)
-    bool we;             // decode  --> writeback (write enabled)
-    bool abs_branch;     // decode  --> execute   (absolute branching - 0 = relative, 1 = abs)
-    bool var_pc_inc;     // decode  --> execute   (variable PC increment - 0 = +4, 1 = +t_latch)
-    uint32_t t_latch;    // execute --> writeback (result)
-    uint32_t c_latch;    // execute --> execute-bypass (compare latch - | gt | lt | eq |)
-
-    Address     address;
-    Lat_if_id   lat_if_id;
-    Lat_id_exe  lat_id_exe;
-    Lat_exe_mem lat_exe_mem;
-    Lat_mem_wb  lat_mem_wb;
+    Address address;
+    Lat_f_d lat_f_d;
+    Lat_d_e lat_d_e;
+    Lat_e_m lat_e_m;
+    Lat_m_w lat_m_w;
 
     // pipeline stages
     void fetch();
     void decode();
     void execute();
+    void memaccess();
     void writeback();
 
     // statistics recorders

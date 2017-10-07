@@ -4,20 +4,9 @@
 
 Processor::Processor(Memory &imem, Memory &dmem) :
   state(0),
+
   imem(imem),
   dmem(dmem),
-  pc(0), npc(0),
-
-  oreg(0),
-  a_latch(0),
-  b_latch(0),
-  otype(OP_ADD),
-  waddr(0),
-  we(false),
-  abs_branch(false),
-  var_pc_inc(false),
-  t_latch(0),
-  c_latch(0),
 
   cycles(0),
   instructions_executed(0)
@@ -26,14 +15,13 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
-  if (cpu.state != 2) return os;
   os << "{\n"
-     << "  pc = " << std::dec << cpu.pc << '\n'
-     << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
-     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
-     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
-     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
-     << "  c_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.c_latch << '\n'
+//     << "  pc = " << std::dec << cpu.pc << '\n'
+//     << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
+//     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
+//     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
+//     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
+//     << "  c_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.c_latch << '\n'
 //     << "  waddr = " << std::dec << cpu.waddr << '\n'
 //     << "  we = " << cpu.we << '\n'
      << "  regfile = \n    " << cpu.regfile << '\n'
@@ -74,143 +62,79 @@ void Processor::tick()
 
 void Processor::fetch()
 {
-  oreg = imem[pc];
+  uint32_t npc = address.pc + 4;
+  uint32_t oreg = imem[address.pc];
+
+  lat_f_d.npc  = npc;
+  lat_f_d.oreg = oreg;
 }
 
 void Processor::decode()
 {
-  uint32_t opcode = (oreg >> (32 - 6)) & 0x3f; // first 6 bits
-  uint32_t s = (oreg >> (32 - 11)) & 0x1f;
-  uint32_t t = (oreg >> (32 - 16)) & 0x1f;
-  uint32_t d = (oreg >> (32 - 21)) & 0x1f;
-  uint32_t i = oreg & 0xffff;
-  uint32_t a = oreg & 0x3fffff;
+  uint32_t opcode = (lat_f_d.oreg >> (32 - 6)) & 0x3f; // first 6 bits
+  uint32_t rs  = (lat_f_d.oreg >> (32 - 11)) & 0x1f; // next 5
+  uint32_t rt  = (lat_f_d.oreg >> (32 - 16)) & 0x1f; // next 5
+  uint32_t rd  = (lat_f_d.oreg >> (32 - 21)) & 0x1f; // next 5
+  uint32_t imm = lat_f_d.oreg & 0xffff; // last 16
 
-  switch (opcode)
-  {
-    case NOP: {
-      break;
-    }
-
-    case ADD: {
-      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
-      otype = OP_ADD;
-      waddr = d;
-      we = true;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    case ADDI: {
-      std::tie(a_latch, std::ignore) = regfile.foo(s, 0, 0, 0, false);
-      b_latch = i;
-      otype = OP_ADD;
-      waddr = t;
-      we = true;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    case SUB: {
-      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
-      otype = OP_SUB;
-      waddr = d;
-      we = true;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    case SUBI: {
-      std::tie(a_latch, std::ignore) = regfile.foo(s, 0, 0, 0, false);
-      b_latch = i;
-      otype = OP_SUB;
-      waddr = t;
-      we = true;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    case CMP: {
-      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
-      otype = OP_CMP;
-      we = false;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    case CMPI: {
-      std::tie(a_latch, std::ignore) = regfile.foo(s, t, 0, 0, false);
-      b_latch = i;
-      otype = OP_CMP;
-      we = false;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    case J: {
-      a_latch = a << 2; // same as *4, makes address word aligned
-      b_latch = 0;
-      otype = OP_ADD;
-      we = false;
-      abs_branch = true;
-      var_pc_inc = false;
-      break;
-    }
-
-    case JNE: {
-      a_latch = a << 2; // same as *4, makes address word aligned
-      b_latch = 0;
-      otype = OP_ADD;
-      we = false;
-      abs_branch = (c_latch & 0x1) == 0;
-      var_pc_inc = false;
-      break;
-    }
-
-    case LD: {
-      break;
-    }
-
-    case SR: {
-      break;
-    }
-
-    case XOR: {
-      std::tie(a_latch, b_latch) = regfile.foo(s, t, 0, 0, false);
-      otype = OP_XOR;
-      waddr = d;
-      we = true;
-      abs_branch = false;
-      var_pc_inc = false;
-      break;
-    }
-
-    default: {
-      std::cerr << "*** invalid opcode ***\n";
-      exit(EXIT_FAILURE);
-    }
+  uint32_t a, b;
+  std::tie(a, b) = regfile.foo(rs, rt, 0, 0, false);
+  uint32_t rdest = rd;
+  if (opcode == ADDI || opcode == SUBI || opcode == LDI) {
+    rdest = rt;
   }
+
+  lat_d_e.npc    = lat_f_d.npc;
+  lat_d_e.opcode = opcode;
+  lat_d_e.a      = a;
+  lat_d_e.b      = b;
+  lat_d_e.imm    = imm;
+  lat_d_e.rdest  = rdest;
 }
 
 void Processor::execute()
 {
-  switch (otype)
+  uint32_t t = 0; // can be whatever for operations that don't use it
+
+  switch (lat_d_e.opcode)
   {
-    case OP_ADD: t_latch = a_latch + b_latch; break;
-    case OP_SUB: t_latch = a_latch - b_latch; break;
-    case OP_XOR: t_latch = a_latch ^ b_latch; break;
-    case OP_CMP: {
-      c_latch = 0x3 & (
-        ((a_latch >  b_latch) << 2) |
-        ((a_latch <  b_latch) << 1) | 
-        ((a_latch == b_latch) << 0)
-      );
+    case NOP: {
+      break;
+    }
+    case ADD: {
+      t = lat_d_e.a + lat_d_e.b;
+      break;
+    }
+    case ADDI: {
+      t = lat_d_e.a + lat_d_e.imm;
+      break;
+    }
+    case SUB: {
+      t = lat_d_e.a - lat_d_e.b;
+      break;
+    }
+    case SUBI: {
+      t = lat_d_e.a - lat_d_e.imm;
+      break;
+    }
+    case J: {
+      t = 0 + lat_d_e.imm;
+      break;
+    }
+    case JNEZ: {
+      t = 0 + lat_d_e.imm;
+      break;
+    }
+    case LDI: {
+      t = 0 + lat_d_e.imm;
+      break;
+    }
+    case STI: {
+      t = 0 + lat_d_e.imm;
+      break;
+    }
+    case XOR: {
+      t = lat_d_e.a ^ lat_d_e.b;
       break;
     }
     default: {
@@ -219,25 +143,26 @@ void Processor::execute()
     }
   }
 
-  if (abs_branch)
-  {
-    npc = t_latch;
-  }
-  else if (var_pc_inc)
-  {
-    npc += t_latch;
-  }
-  else
-  {
-    npc += 4;
-  }
+  uint32_t cmp =
+    (((lat_d_e.a  > lat_d_e.b) << 2) & 0x4) |
+    (((lat_d_e.a  < lat_d_e.b) << 1) & 0x2) |
+    (((lat_d_e.a == lat_d_e.b) << 0) & 0x1);
+
+  lat_e_m.npc     = lat_d_e.npc;
+  lat_e_m.opcode  = lat_d_e.opcode;
+  lat_e_m.t       = t;
+  lat_e_m.cmp     = cmp;
+  lat_e_m.rdest   = lat_d_e.rdest;
 
   instructions_executed++;
 }
 
+void Processor::memaccess()
+{
+}
+
 void Processor::writeback()
 {
-  regfile.foo(0, 0, waddr, t_latch, we);
-  we = false;
-  pc = npc;
+  //regfile.foo(0, 0, waddr, t_latch, we);
+  //pc = npc;
 }

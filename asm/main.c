@@ -20,7 +20,6 @@ typedef struct Inst
 // t : ---- ---- ---t tttt ---- ---- ---- ----
 // d : ---- ---- ---- ---- dddd d--- ---- ----
 // i : ---- ---- ---- ---- iiii iiii iiii iiii
-// a : ---- --aa aaaa aaaa aaaa aaaa aaaa aaaa
 
 #define ISIZE 64
 const Inst instset[ISIZE] = {
@@ -29,13 +28,11 @@ const Inst instset[ISIZE] = {
   { "addi", 0x02, 3, { 't', 's', 'i' }},
   { "sub" , 0x03, 3, { 'd', 's', 't' }},
   { "subi", 0x04, 3, { 't', 's', 'i' }},
-  { "cmp" , 0x05, 2, { 't', 's'      }},
-  { "cmpi", 0x06, 2, { 't', 'i'      }},
-  { "j"   , 0x07, 1, { 'a'           }},
-  { "jne" , 0x08, 1, { 'a'           }},
-  { "ld"  , 0x09, 3, { 't', 's', 'i' }},
-  { "sr"  , 0x0a, 3, { 't', 's', 'i' }},
-  { "xor" , 0x0b, 3, { 'd', 's', 't' }},
+  { "j"   , 0x05, 1, { 'i'           }},
+  { "jnez", 0x06, 2, { 's', 'i'      }},
+  { "ldi" , 0x07, 3, { 't', 's', 'i' }},
+  { "sti" , 0x08, 3, { 't', 's', 'i' }},
+  { "xor" , 0x09, 3, { 'd', 's', 't' }},
 };
 
 // =========================
