@@ -16,7 +16,7 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n"
-//     << "  pc = " << std::dec << cpu.pc << '\n'
+     << "  pc = " << std::dec << cpu.address.pc << '\n'
 //     << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
 //     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
 //     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
@@ -128,11 +128,11 @@ void Processor::execute()
       break;
     }
     case LDI: {
-      t = 0 + lat_d_e.imm;
+      t = lat_d_e.a + lat_d_e.imm;
       break;
     }
     case STI: {
-      t = 0 + lat_d_e.imm;
+      t = lat_d_e.a + lat_d_e.imm;
       break;
     }
     case XOR: {
@@ -146,42 +146,53 @@ void Processor::execute()
   }
 
   uint32_t cmp =
-    (((lat_d_e.a  > lat_d_e.b) << 2) & 0x4) |
-    (((lat_d_e.a  < lat_d_e.b) << 1) & 0x2) |
-    (((lat_d_e.a == lat_d_e.b) << 0) & 0x1);
+//    (((lat_d_e.a  > 0u) << 2) & 0x4) |
+//    (((lat_d_e.a  < 0u) << 1) & 0x2) |
+    (((lat_d_e.a == 0u) << 0) & 0x1);
 
-  lat_e_m.npc     = lat_d_e.npc;
-  lat_e_m.opcode  = lat_d_e.opcode;
-  lat_e_m.t       = t;
-  lat_e_m.cmp     = cmp;
-  lat_e_m.rdest   = lat_d_e.rdest;
+  lat_e_m.npc    = lat_d_e.npc;
+  lat_e_m.opcode = lat_d_e.opcode;
+  lat_e_m.cmp    = cmp;
+  lat_e_m.t      = t;
+  lat_e_m.b      = lat_d_e.b;
+  lat_e_m.rdest  = lat_d_e.rdest;
 
   instructions_executed++;
 }
 
 void Processor::memaccess()
 {
-  if (lat_e_m.opcode >= NUM_INSTRUCTIONS)
-  {
-    std::cerr << "*** invalid operation ***\n";
-    exit(EXIT_FAILURE);
-  }
-
   uint32_t pc = lat_e_m.npc;
   uint32_t data = lat_e_m.t;
 
-  switch(lat_e_m.opcode)
+  switch (lat_e_m.opcode)
   {
+    case J: {
+      pc = lat_e_m.t << 2;
+    }
     case JNEZ: {
-      if (lat_e_m.cmp & 0x1 == 0)
+      if ((lat_e_m.cmp & 0x1) == 0)
       {
-        pc = lat_e_m.t; 
+        pc = lat_e_m.t << 2; 
       }
       break;
     }
   }
 
   // access memory here
+  switch (lat_e_m.opcode)
+  {
+    case LDI: data = dmem[lat_e_m.t]; break;
+    case STI: {
+      uint8_t b[4];
+      b[0] = (lat_e_m.b >>  0) & 0xff; 
+      b[1] = (lat_e_m.b >>  8) & 0xff; 
+      b[2] = (lat_e_m.b >> 16) & 0xff; 
+      b[3] = (lat_e_m.b >> 24) & 0xff; 
+      dmem.copy(lat_e_m.t, b, 4);
+      break;
+    }
+  }
 
   address.pc = pc;
 
@@ -192,12 +203,6 @@ void Processor::memaccess()
 
 void Processor::writeback()
 {
-  if (lat_m_w.opcode >= NUM_INSTRUCTIONS)
-  {
-    std::cerr << "*** invalid operation ***\n";
-    exit(EXIT_FAILURE);
-  }
-
   bool we = false; // write enabled
 
   switch (lat_m_w.opcode)

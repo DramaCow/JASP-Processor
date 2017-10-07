@@ -35,8 +35,9 @@ class Processor
     {
       uint32_t npc = 0;    // next program counter (propagated)
       uint32_t opcode = 0; // (propagated)
-      uint32_t t = 0;      // result of execution
       uint32_t cmp = 0;    // comparison flag (occurs automatically)
+      uint32_t t = 0;      // result of execution
+      uint32_t b = 0;      // second register value read (see diagram)
       uint32_t rdest = 0;  // register id for writback
     };
     struct Lat_m_w // 4

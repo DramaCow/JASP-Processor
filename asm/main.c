@@ -347,26 +347,6 @@ uint32_t parse_inst(FILE *code, const Inst *inst, int depth, int line, int num_l
         break;
       }
 
-      case 'a': {
-        if (tok[0] == ':')
-        {
-          val = labelval(tok, num_labels, ltable);
-        }
-        else
-        {
-          val = numval(tok);
-        }
-        if (val == -1)
-        {
-          printf("*** error on line(%d) - invalid address value. ***\n", line);
-          exit(EXIT_FAILURE);
-        }
-
-        opcode |= (0x3ffffff & val);
-
-        break;
-      }
-
       default: {
         printf("*** error on line(%d) - schematic instruction param invalid. ***\n", line);
         exit(EXIT_FAILURE);
