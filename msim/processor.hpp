@@ -19,31 +19,31 @@ class Processor
     };
     struct Lat_f_d // 1
     {
-      uint32_t npc;  // next program counter (pc + 4)
-      uint32_t oreg; // operation and operand as 32bit word
+      uint32_t npc = 0;  // next program counter (pc + 4)
+      uint32_t oreg = 0; // operation and operand as 32bit word
     };
     struct Lat_d_e // 2
     {
-      uint32_t npc;   // next program counter (propagated)
-      uint32_t opcode;
-      uint32_t a;     // value of register rs
-      uint32_t b;     // value of register rt
-      uint32_t imm;   // immediate op value
-      uint32_t rdest; // register id for writeback
+      uint32_t npc = 0;    // next program counter (propagated)
+      uint32_t opcode = 0;
+      uint32_t a = 0;      // value of register rs
+      uint32_t b = 0;      // value of register rt
+      uint32_t imm = 0;    // immediate op value
+      uint32_t rdest = 0;  // register id for writeback
     };
     struct Lat_e_m // 3
     {
-      uint32_t npc;    // next program counter (propagated)
-      uint32_t opcode; // (propagated)
-      uint32_t t;      // result of execution
-      uint32_t cmp;    // comparison flag (occurs automatically)
-      uint32_t rdest;  // register id for writback
+      uint32_t npc = 0;    // next program counter (propagated)
+      uint32_t opcode = 0; // (propagated)
+      uint32_t t = 0;      // result of execution
+      uint32_t cmp = 0;    // comparison flag (occurs automatically)
+      uint32_t rdest = 0;  // register id for writback
     };
     struct Lat_m_w // 4
     {
-      uint32_t t;     // result of execution (propagated)
-      uint32_t mem;   // data read from memory
-      uint32_t rdest; // register id for writeback (propagated)
+      uint32_t opcode = 0; // (propagated)
+      uint32_t data = 0;   // result of execution (propagated)
+      uint32_t rdest = 0;  // register id for writeback (propagated)
     }; 
 
   private:

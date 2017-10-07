@@ -37,7 +37,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
     case 0: os << "fetching..."; break;
     case 1: os << "decoding..."; break;
     case 2: os << "executing..."; break;
-    case 3: os << "writing..."; break;
+    case 3: os << "acessing memory..."; break;
+    case 4: os << "writing..."; break;
   }
   os << std::dec;
   return os;
@@ -50,13 +51,14 @@ void Processor::tick()
     case 0/*FETCH*/:     fetch();     break;
     case 1/*DECODE*/:    decode();    break;
     case 2/*EXECUTE*/:   execute();   break;
-    case 3/*WRITEBACK*/: writeback(); break;
+    case 3/*MEMACCESS*/: memaccess(); break;
+    case 4/*WRITEBACK*/: writeback(); break;
     default: {
       std::cerr << "*** entered invalid pipeline state ***\n";
       exit(EXIT_FAILURE);
     }
   }
-  state = (state + 1) % 4;
+  state = (state + 1) % 5;
   cycles++;
 }
 
@@ -159,10 +161,54 @@ void Processor::execute()
 
 void Processor::memaccess()
 {
+  if (lat_e_m.opcode >= NUM_INSTRUCTIONS)
+  {
+    std::cerr << "*** invalid operation ***\n";
+    exit(EXIT_FAILURE);
+  }
+
+  uint32_t pc = lat_e_m.npc;
+  uint32_t data = lat_e_m.t;
+
+  switch(lat_e_m.opcode)
+  {
+    case JNEZ: {
+      if (lat_e_m.cmp & 0x1 == 0)
+      {
+        pc = lat_e_m.t; 
+      }
+      break;
+    }
+  }
+
+  // access memory here
+
+  address.pc = pc;
+
+  lat_m_w.opcode = lat_e_m.opcode;
+  lat_m_w.data   = data;
+  lat_m_w.rdest  = lat_e_m.rdest;
 }
 
 void Processor::writeback()
 {
-  //regfile.foo(0, 0, waddr, t_latch, we);
-  //pc = npc;
+  if (lat_m_w.opcode >= NUM_INSTRUCTIONS)
+  {
+    std::cerr << "*** invalid operation ***\n";
+    exit(EXIT_FAILURE);
+  }
+
+  bool we = false; // write enabled
+
+  switch (lat_m_w.opcode)
+  {
+    case ADD:  we = true; break;
+    case ADDI: we = true; break;
+    case SUB:  we = true; break;
+    case SUBI: we = true; break;
+    case LDI:  we = true; break;
+    case XOR:  we = true; break;
+  }
+
+  regfile.foo(0, 0, lat_m_w.rdest, lat_m_w.data, we);
 }
