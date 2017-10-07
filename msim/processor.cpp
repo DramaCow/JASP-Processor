@@ -182,14 +182,14 @@ void Processor::memaccess()
   // access memory here
   switch (lat_e_m.opcode)
   {
-    case LDI: data = dmem[lat_e_m.t]; break;
+    case LDI: data = dmem[lat_e_m.t << 2]; break;
     case STI: {
       uint8_t b[4];
       b[0] = (lat_e_m.b >>  0) & 0xff; 
       b[1] = (lat_e_m.b >>  8) & 0xff; 
       b[2] = (lat_e_m.b >> 16) & 0xff; 
       b[3] = (lat_e_m.b >> 24) & 0xff; 
-      dmem.copy(lat_e_m.t, b, 4);
+      dmem.copy(lat_e_m.t << 2, b, 4);
       break;
     }
   }

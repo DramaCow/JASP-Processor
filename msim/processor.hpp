@@ -13,16 +13,16 @@ class Processor
 
   private:
     // between pipeline state latches
-    struct Address // 4
+    struct Address
     {
       uint32_t pc = 0; // program counter
     };
-    struct Lat_f_d // 1
+    struct Lat_f_d
     {
       uint32_t npc = 0;  // next program counter (pc + 4)
       uint32_t oreg = 0; // operation and operand as 32bit word
     };
-    struct Lat_d_e // 2
+    struct Lat_d_e
     {
       uint32_t npc = 0;    // next program counter (propagated)
       uint32_t opcode = 0;
@@ -31,7 +31,7 @@ class Processor
       uint32_t imm = 0;    // immediate op value
       uint32_t rdest = 0;  // register id for writeback
     };
-    struct Lat_e_m // 3
+    struct Lat_e_m
     {
       uint32_t npc = 0;    // next program counter (propagated)
       uint32_t opcode = 0; // (propagated)
@@ -40,7 +40,7 @@ class Processor
       uint32_t b = 0;      // second register value read (see diagram)
       uint32_t rdest = 0;  // register id for writback
     };
-    struct Lat_m_w // 4
+    struct Lat_m_w
     {
       uint32_t opcode = 0; // (propagated)
       uint32_t data = 0;   // result of execution (propagated)

@@ -16,19 +16,21 @@ int main(int argc, char* argv[])
   uint8_t *program;
   int size = load_program(program_name, &program);
 
-  Memory imem(1024); imem.copy(0, program, size);
-  Memory dmem(1024);
+  Memory imem(512); imem.copy(0, program, size);
+  Memory dmem(512);
   //std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
   Processor cpu(imem, dmem);
-  const int limit = 30;
+  const int limit = 600;
   for (int i = 0; i < limit; ++i)
   {
-    if (i % 5 == 0)
-      std::cout << "(t = " << i << ") " << cpu << std::endl;
+//    if (i % 5 == 0)
+//      std::cout << "(t = " << i << ") " << cpu << std::endl;
     cpu.tick();
   }
   std::cout << "(t = " << limit << ") " << cpu << std::endl;
+
+  std::cout << dmem << std::endl;
 
   return 0;
 }
