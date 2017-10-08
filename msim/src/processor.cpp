@@ -2,6 +2,9 @@
 #include "isa.hpp"
 #include <iomanip>
 
+#define HEX std::setfill('0')<< std::setw(8)<<std::hex
+#define DEC std::dec
+
 Processor::Processor(Memory &imem, Memory &dmem) :
   state(0),
 
@@ -17,48 +20,41 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n"
      << "  address = {\n"
-     << "    pc = " << cpu.address.pc << '\n'
+     << "    pc = " << DEC << cpu.address.pc << '\n'
      << "  }\n" 
      << "  Lat_f_d = {\n"
-     << "    npc = " << cpu.lat_f_d.npc << '\n'
-     << "    oreg = " << cpu.lat_f_d.oreg << '\n'
+     << "    npc = " << DEC << cpu.lat_f_d.npc << '\n'
+     << "    oreg = " << HEX << cpu.lat_f_d.oreg << '\n'
      << "  }\n" 
      << "  Lat_d_e = {\n"
-     << "    npc = " << cpu.lat_d_e.npc << '\n'
-     << "    opcode = " << cpu.lat_d_e.opcode << '\n'
-     << "    a = " << cpu.lat_d_e.a << '\n'
-     << "    b = " << cpu.lat_d_e.b << '\n'
-     << "    imm = " << cpu.lat_d_e.imm << '\n'
-     << "    rdest = " << cpu.lat_d_e.rdest << '\n'
+     << "    npc = " << DEC << cpu.lat_d_e.npc << '\n'
+     << "    opcode = " << HEX << cpu.lat_d_e.opcode << '\n'
+     << "    a = " << HEX << cpu.lat_d_e.a << '\n'
+     << "    b = " << HEX << cpu.lat_d_e.b << '\n'
+     << "    imm = " << HEX << cpu.lat_d_e.imm << '\n'
+     << "    rdest = " << HEX << cpu.lat_d_e.rdest << '\n'
      << "  }\n" 
      << "  Lat_e_m = {\n"
-     << "    npc = " << cpu.lat_e_m.npc << '\n'
-     << "    opcode = " << cpu.lat_e_m.opcode << '\n'
-     << "    cmp = " << cpu.lat_e_m.cmp << '\n'
-     << "    t = " << cpu.lat_e_m.t << '\n'
-     << "    b = " << cpu.lat_e_m.b << '\n'
-     << "    rdest = " << cpu.lat_e_m.rdest << '\n'
+     << "    npc = " << DEC << cpu.lat_e_m.npc << '\n'
+     << "    opcode = " << HEX << cpu.lat_e_m.opcode << '\n'
+     << "    cmp = " << HEX << cpu.lat_e_m.cmp << '\n'
+     << "    t = " << HEX << cpu.lat_e_m.t << '\n'
+     << "    b = " << HEX << cpu.lat_e_m.b << '\n'
+     << "    rdest = " << HEX << cpu.lat_e_m.rdest << '\n'
      << "  }\n" 
      << "  Lat_m_w = {\n"
-     << "    npc = " << cpu.lat_m_w.npc << '\n'
-     << "    opcode = " << cpu.lat_m_w.opcode << '\n'
-     << "    data = " << cpu.lat_m_w.data << '\n'
-     << "    rdest = " << cpu.lat_m_w.rdest << '\n'
+     << "    npc = " << DEC << cpu.lat_m_w.npc << '\n'
+     << "    opcode = " << HEX << cpu.lat_m_w.opcode << '\n'
+     << "    data = " << HEX << cpu.lat_m_w.data << '\n'
+     << "    rdest = " << HEX << cpu.lat_m_w.rdest << '\n'
      << "  }\n" 
-//     << "  hello = " << cpu.lat_f_d << '\n'
-//     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
-//     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
-//     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
-//     << "  c_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.c_latch << '\n'
-//     << "  waddr = " << std::dec << cpu.waddr << '\n'
-//     << "  we = " << cpu.we << '\n'
      << "  regfile = \n    " << cpu.regfile << '\n'
      << "}\n";
 /*
-  os << "=== statistics ===\n";
-  os << "cycles = " << cpu.cycles << '\n';
-  os << "instructions_executed = " << cpu.instructions_executed << '\n';
-  os << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
+  os << "=== statistics ===\n"
+     << "cycles = " << cpu.cycles << '\n'
+     << "instructions_executed = " << cpu.instructions_executed << '\n'
+     << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
 */
   switch (cpu.state)
   {
