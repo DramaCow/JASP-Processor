@@ -162,18 +162,18 @@ void Processor::execute()
 
 void Processor::memaccess()
 {
-  uint32_t pc = lat_e_m.npc;
+  uint32_t npc = lat_e_m.npc;
   uint32_t data = lat_e_m.t;
 
   switch (lat_e_m.opcode)
   {
     case J: {
-      pc = lat_e_m.t << 2;
+      npc = lat_e_m.t << 2;
     }
     case JNEZ: {
       if ((lat_e_m.cmp & 0x1) == 0)
       {
-        pc = lat_e_m.t << 2; 
+        npc = lat_e_m.t << 2; 
       }
       break;
     }
@@ -194,8 +194,7 @@ void Processor::memaccess()
     }
   }
 
-  address.pc = pc;
-
+  lat_m_w.npc    = npc; // can instead be directly moved to address? (see diagram) 
   lat_m_w.opcode = lat_e_m.opcode;
   lat_m_w.data   = data;
   lat_m_w.rdest  = lat_e_m.rdest;
@@ -216,4 +215,6 @@ void Processor::writeback()
   }
 
   regfile.foo(0, 0, lat_m_w.rdest, lat_m_w.data, we);
+
+  address.pc = lat_m_w.npc;
 }

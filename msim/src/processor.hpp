@@ -42,6 +42,7 @@ class Processor
     };
     struct Lat_m_w
     {
+      uint32_t npc = 0;    // next program counter (propagated)
       uint32_t opcode = 0; // (propagated)
       uint32_t data = 0;   // result of execution (propagated)
       uint32_t rdest = 0;  // register id for writeback (propagated)

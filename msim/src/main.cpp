@@ -16,8 +16,8 @@ int main(int argc, char* argv[])
   uint8_t *program;
   int size = load_program(program_name, &program);
 
-  Memory imem(512); imem.copy(0, program, size);
-  Memory dmem(512);
+  Memory imem(256); imem.copy(0, program, size);
+  Memory dmem(256);
   //std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
   Processor cpu(imem, dmem);
