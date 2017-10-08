@@ -1,9 +1,9 @@
 #include "loader.hpp"
 #include <iostream>
 
-int load_program(char *program_name, uint8_t **program)
+int load(char *filename, uint8_t **data)
 {
-  FILE* f = fopen(program_name, "rb");
+  FILE* f = fopen(filename, "rb");
   if (f == nullptr)
   {
     std::cout << "Error while opening the file." << std::endl;
@@ -15,14 +15,14 @@ int load_program(char *program_name, uint8_t **program)
   int size = ftell(f);
   rewind(f);
 
-  // read program
-  (*program) = new uint8_t[size];
-  fread((*program), sizeof(uint8_t), size, f);
+  // read data
+  (*data) = new uint8_t[size];
+  fread((*data), sizeof(uint8_t), size, f);
 
   /*
   for (int i = 0; i < size; ++i)
   {
-    printf("%02x", (*program)[i]);
+    printf("%02x", (*data)[i]);
     if (i % 2 == 1)
     {
       printf(" ");

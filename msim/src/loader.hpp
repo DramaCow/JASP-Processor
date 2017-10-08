@@ -3,6 +3,6 @@
 
 #include <cstdint>
 
-int load_program(char *program_name, uint8_t **program);
+int load(char *filename, uint8_t **data);
 
 #endif
