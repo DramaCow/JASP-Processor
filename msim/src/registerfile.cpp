@@ -1,4 +1,5 @@
 #include "registerfile.hpp"
+#include <cstring>
 #include <iomanip>
 
 RegisterFile::RegisterFile()
@@ -25,4 +26,10 @@ std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile)
     }
   }
   return os;
+}
+
+RegisterFile& RegisterFile::operator=(const RegisterFile& regfile)
+{
+  memcpy(this->gpr, regfile.gpr, 32*sizeof(uint32_t));
+  return *this;
 }

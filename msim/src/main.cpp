@@ -18,21 +18,21 @@ int main(int argc, char* argv[])
 
   Memory imem(256); imem.copy(0, program, size);
   Memory dmem(256);
-  //std::cout << imem << std::endl << std:: endl << dmem << std::endl;
 
-  Processor cpu(imem, dmem);
-  Processor n_cpu(imem, dmem);
+  Processor cpu1(imem, dmem); Processor *cpu   = &cpu1;
+  Processor cpu2(imem, dmem); Processor *n_cpu = &cpu2;
 
   const int limit = 600;
   for (int i = 0; i < limit; ++i)
   {
-//    if (i % 5 == 0)
-//      std::cout << "(t = " << i << ") " << cpu << std::endl;
-    cpu.tick(n_cpu);
+    if (i % 5 == 0)
+      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
+    cpu->tick(*n_cpu);
   }
-  std::cout << "(t = " << limit << ") " << cpu << std::endl;
-
-  std::cout << dmem << std::endl;
+  std::cout << "(t = " << limit << ") " << (*cpu) << std::endl;
+  std::cout << "(t = " << 0 << ") " << (*n_cpu) << std::endl;
+  std::swap(cpu, n_cpu);
+  std::cout << "(t = " << limit << ") " << (*n_cpu) << std::endl;
 
   return 0;
 }
