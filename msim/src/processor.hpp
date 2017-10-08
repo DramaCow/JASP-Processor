@@ -11,6 +11,9 @@ class Processor
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
     void tick(Processor &n_cpu);
 
+    // general purpose registers interface
+    RegisterFile regfile;
+
   private:
     struct Address
     {
@@ -54,9 +57,6 @@ class Processor
     // memory units (references)
     Memory &imem; // instruction memory
     Memory &dmem; // data memory
-
-    // general purpose registers interface
-    RegisterFile regfile;
 
     // between pipeline stage latches
     Address address;

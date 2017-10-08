@@ -25,14 +25,16 @@ int main(int argc, char* argv[])
   const int limit = 600;
   for (int i = 0; i < limit; ++i)
   {
-    if (i % 5 == 0)
-      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
+    //if (i % 5 == 0)
+    //  std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
     cpu->tick(*n_cpu);
   }
   std::cout << "(t = " << limit << ") " << (*cpu) << std::endl;
   std::cout << "(t = " << 0 << ") " << (*n_cpu) << std::endl;
   std::swap(cpu, n_cpu);
-  std::cout << "(t = " << limit << ") " << (*n_cpu) << std::endl;
+  cpu->regfile = n_cpu->regfile;
+  std::cout << (*cpu) << std::endl;
+  std::cout << (*n_cpu) << std::endl;
 
   return 0;
 }
