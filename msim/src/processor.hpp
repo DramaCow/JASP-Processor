@@ -9,7 +9,7 @@ class Processor
   public:
     Processor(Memory &imem, Memory &dmem);
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
-    void tick();
+    void tick(Processor &n_cpu);
 
   private:
     struct Address
@@ -66,11 +66,11 @@ class Processor
     Lat_m_w lat_m_w;
 
     // pipeline stage advancing functions
-    void fetch();
-    void decode();
-    void execute();
-    void memaccess();
-    void writeback();
+    void fetch(Processor &n_cpu);
+    void decode(Processor &n_cpu);
+    void execute(Processor &n_cpu);
+    void memaccess(Processor &n_cpu);
+    void writeback(Processor &n_cpu);
 
     // statistics recorders
     int cycles;

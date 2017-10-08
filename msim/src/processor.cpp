@@ -44,15 +44,15 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   return os;
 }
 
-void Processor::tick()
+void Processor::tick(Processor &n_cpu)
 {
   switch (state)
   {
-    case 0/*FETCH*/:     fetch();     break;
-    case 1/*DECODE*/:    decode();    break;
-    case 2/*EXECUTE*/:   execute();   break;
-    case 3/*MEMACCESS*/: memaccess(); break;
-    case 4/*WRITEBACK*/: writeback(); break;
+    case 0/*FETCH*/:     fetch(n_cpu);     break;
+    case 1/*DECODE*/:    decode(n_cpu);    break;
+    case 2/*EXECUTE*/:   execute(n_cpu);   break;
+    case 3/*MEMACCESS*/: memaccess(n_cpu); break;
+    case 4/*WRITEBACK*/: writeback(n_cpu); break;
     default: {
       std::cerr << "*** entered invalid pipeline state ***\n";
       exit(EXIT_FAILURE);
@@ -62,7 +62,7 @@ void Processor::tick()
   cycles++;
 }
 
-void Processor::fetch()
+void Processor::fetch(Processor &n_cpu)
 {
   uint32_t npc = address.pc + 4;
   uint32_t oreg = imem[address.pc];
@@ -71,7 +71,7 @@ void Processor::fetch()
   lat_f_d.oreg = oreg;
 }
 
-void Processor::decode()
+void Processor::decode(Processor &n_cpu)
 {
   uint32_t opcode = (lat_f_d.oreg >> (32 - 6)) & 0x3f; // first 6 bits
   uint32_t rs  = (lat_f_d.oreg >> (32 - 11)) & 0x1f; // next 5
@@ -94,7 +94,7 @@ void Processor::decode()
   lat_d_e.rdest  = rdest;
 }
 
-void Processor::execute()
+void Processor::execute(Processor &n_cpu)
 {
   uint32_t t = 0; // can be whatever for operations that don't use it
 
@@ -160,7 +160,7 @@ void Processor::execute()
   instructions_executed++;
 }
 
-void Processor::memaccess()
+void Processor::memaccess(Processor &n_cpu)
 {
   uint32_t npc = lat_e_m.npc;
   uint32_t data = lat_e_m.t;
@@ -200,7 +200,7 @@ void Processor::memaccess()
   lat_m_w.rdest  = lat_e_m.rdest;
 }
 
-void Processor::writeback()
+void Processor::writeback(Processor &n_cpu)
 {
   bool we = false; // write enabled
 
