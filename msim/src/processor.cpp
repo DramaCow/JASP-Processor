@@ -2,7 +2,9 @@
 #include "isa.hpp"
 #include <iomanip>
 
-#define HEX std::setfill('0')<< std::setw(8)<<std::hex
+#define HEX8 "0x"<<std::setfill('0')<< std::setw(8)<<std::hex
+#define HEX2 "0x"<<std::setfill('0')<< std::setw(2)<<std::hex
+#define HEX1 "0x"<<std::setfill('0')<< std::setw(1)<<std::hex
 #define DEC std::dec
 
 Processor::Processor(Memory &imem, Memory &dmem) :
@@ -24,29 +26,29 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n" 
      << "  Lat_f_d = {\n"
      << "    npc = " << DEC << cpu.lat_f_d.npc << '\n'
-     << "    oreg = " << HEX << cpu.lat_f_d.oreg << '\n'
+     << "    oreg = " << HEX8 << cpu.lat_f_d.oreg << '\n'
      << "  }\n" 
      << "  Lat_d_e = {\n"
      << "    npc = " << DEC << cpu.lat_d_e.npc << '\n'
-     << "    opcode = " << HEX << cpu.lat_d_e.opcode << '\n'
-     << "    a = " << HEX << cpu.lat_d_e.a << '\n'
-     << "    b = " << HEX << cpu.lat_d_e.b << '\n'
-     << "    imm = " << HEX << cpu.lat_d_e.imm << '\n'
-     << "    rdest = " << HEX << cpu.lat_d_e.rdest << '\n'
+     << "    opcode = " << HEX2 << cpu.lat_d_e.opcode << '\n'
+     << "    a = " << DEC << cpu.lat_d_e.a << '\n'
+     << "    b = " << DEC << cpu.lat_d_e.b << '\n'
+     << "    imm = " << DEC << cpu.lat_d_e.imm << '\n'
+     << "    rdest = " << HEX2 << cpu.lat_d_e.rdest << '\n'
      << "  }\n" 
      << "  Lat_e_m = {\n"
      << "    npc = " << DEC << cpu.lat_e_m.npc << '\n'
-     << "    opcode = " << HEX << cpu.lat_e_m.opcode << '\n'
-     << "    cmp = " << HEX << cpu.lat_e_m.cmp << '\n'
-     << "    t = " << HEX << cpu.lat_e_m.t << '\n'
-     << "    b = " << HEX << cpu.lat_e_m.b << '\n'
-     << "    rdest = " << HEX << cpu.lat_e_m.rdest << '\n'
+     << "    opcode = " << HEX2 << cpu.lat_e_m.opcode << '\n'
+     << "    cmp = " << HEX1 << cpu.lat_e_m.cmp << '\n'
+     << "    t = " << DEC << cpu.lat_e_m.t << '\n'
+     << "    b = " << DEC << cpu.lat_e_m.b << '\n'
+     << "    rdest = " << HEX2 << cpu.lat_e_m.rdest << '\n'
      << "  }\n" 
      << "  Lat_m_w = {\n"
      << "    npc = " << DEC << cpu.lat_m_w.npc << '\n'
-     << "    opcode = " << HEX << cpu.lat_m_w.opcode << '\n'
-     << "    data = " << HEX << cpu.lat_m_w.data << '\n'
-     << "    rdest = " << HEX << cpu.lat_m_w.rdest << '\n'
+     << "    opcode = " << HEX2 << cpu.lat_m_w.opcode << '\n'
+     << "    data = " << DEC << cpu.lat_m_w.data << '\n'
+     << "    rdest = " << HEX2 << cpu.lat_m_w.rdest << '\n'
      << "  }\n" 
      << "  regfile = \n    " << cpu.regfile << '\n'
      << "}\n";
