@@ -22,17 +22,16 @@ int main(int argc, char* argv[])
   Processor cpu1(imem, dmem); Processor *cpu   = &cpu1;
   Processor cpu2(imem, dmem); Processor *n_cpu = &cpu2;
 
-  const int limit = 500;
+  const int limit = 100;
   for (int i = 0; i < limit; ++i)
   {
-    //if (i % 5 == 0)
-//      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
+//    if (i % 5 == 0)
+      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
     cpu->tick(*n_cpu);
     std::swap(cpu, n_cpu);
     n_cpu->regfile = cpu->regfile; // next state needs copy of up-to-date register file
   }
   std::cout << "(t = " << limit << ") " << (*cpu) << std::endl;
-  std::cout << "(t = " << 0 << ") " << (*n_cpu) << std::endl;
 
   return 0;
 }

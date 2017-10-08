@@ -21,6 +21,7 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
+/*
   os << "  address = {\n"
      << "    pc = " << DEC << cpu.address.pc << '\n'
      << "  }\n";
@@ -50,6 +51,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "    data = " << DEC << cpu.lat_m_w.data << '\n'
      << "    rdest = " << HEX2 << cpu.lat_m_w.rdest << '\n'
      << "  }\n";
+*/
   os << "  regfile = \n    " << cpu.regfile << '\n';
   os << "}\n";
 /*
@@ -58,6 +60,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "instructions_executed = " << cpu.instructions_executed << '\n'
      << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
 */
+/*
   switch (cpu.state)
   {
     case 0: os << "fetching..."; break;
@@ -66,25 +69,32 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
     case 3: os << "acessing memory..."; break;
     case 4: os << "writing..."; break;
   }
+*/
   os << std::dec;
   return os;
 }
 
 void Processor::tick(Processor &n_cpu)
 {
-  switch (state)
-  {
-    case 0/*FETCH*/:     fetch(n_cpu);     break;
-    case 1/*DECODE*/:    decode(n_cpu);    break;
-    case 2/*EXECUTE*/:   execute(n_cpu);   break;
-    case 3/*MEMACCESS*/: memaccess(n_cpu); break;
-    case 4/*WRITEBACK*/: writeback(n_cpu); break;
-    default: {
-      std::cerr << "*** entered invalid pipeline state ***\n";
-      exit(EXIT_FAILURE);
-    }
-  }
-  n_cpu.state = (state + 1) % 5;
+  fetch(n_cpu);
+  decode(n_cpu);
+  execute(n_cpu);
+  memaccess(n_cpu);
+  writeback(n_cpu);
+
+//  switch (state)
+//  {
+//    case 0/*FETCH*/:     fetch(n_cpu);     break;
+//    case 1/*DECODE*/:    decode(n_cpu);    break;
+//    case 2/*EXECUTE*/:   execute(n_cpu);   break;
+//    case 3/*MEMACCESS*/: memaccess(n_cpu); break;
+//    case 4/*WRITEBACK*/: writeback(n_cpu); break;
+//    default: {
+//      std::cerr << "*** entered invalid pipeline state ***\n";
+//      exit(EXIT_FAILURE);
+//    }
+//  }
+//  n_cpu.state = (state + 1) % 5;
 }
 
 void Processor::fetch(Processor &n_cpu)
