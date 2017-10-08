@@ -84,8 +84,7 @@ void Processor::tick(Processor &n_cpu)
       exit(EXIT_FAILURE);
     }
   }
-  state = (state + 1) % 5;
-  cycles++;
+  n_cpu.state = (state + 1) % 5;
 }
 
 void Processor::fetch(Processor &n_cpu)
@@ -182,8 +181,6 @@ void Processor::execute(Processor &n_cpu)
   n_cpu.lat_e_m.t      = t;
   n_cpu.lat_e_m.b      = lat_d_e.b;
   n_cpu.lat_e_m.rdest  = lat_d_e.rdest;
-
-  instructions_executed++;
 }
 
 void Processor::memaccess(Processor &n_cpu)
@@ -240,7 +237,6 @@ void Processor::writeback(Processor &n_cpu)
     case XOR:  we = true; break;
   }
 
-  regfile.foo(0, 0, lat_m_w.rdest, lat_m_w.data, we);
-
+  n_cpu.regfile.foo(0, 0, lat_m_w.rdest, lat_m_w.data, we);
   n_cpu.address.pc = lat_m_w.npc;
 }
