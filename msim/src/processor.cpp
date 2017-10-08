@@ -16,8 +16,36 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n"
-     << "  pc = " << std::dec << cpu.address.pc << '\n'
-//     << "  oreg = " << std::setfill('0') << std::setw(8) << std::hex << cpu.oreg << '\n'
+     << "  address = {\n"
+     << "    pc = " << cpu.address.pc << '\n'
+     << "  }\n" 
+     << "  Lat_f_d = {\n"
+     << "    npc = " << cpu.lat_f_d.npc << '\n'
+     << "    oreg = " << cpu.lat_f_d.oreg << '\n'
+     << "  }\n" 
+     << "  Lat_d_e = {\n"
+     << "    npc = " << cpu.lat_d_e.npc << '\n'
+     << "    opcode = " << cpu.lat_d_e.opcode << '\n'
+     << "    a = " << cpu.lat_d_e.a << '\n'
+     << "    b = " << cpu.lat_d_e.b << '\n'
+     << "    imm = " << cpu.lat_d_e.imm << '\n'
+     << "    rdest = " << cpu.lat_d_e.rdest << '\n'
+     << "  }\n" 
+     << "  Lat_e_m = {\n"
+     << "    npc = " << cpu.lat_e_m.npc << '\n'
+     << "    opcode = " << cpu.lat_e_m.opcode << '\n'
+     << "    cmp = " << cpu.lat_e_m.cmp << '\n'
+     << "    t = " << cpu.lat_e_m.t << '\n'
+     << "    b = " << cpu.lat_e_m.b << '\n'
+     << "    rdest = " << cpu.lat_e_m.rdest << '\n'
+     << "  }\n" 
+     << "  Lat_m_w = {\n"
+     << "    npc = " << cpu.lat_m_w.npc << '\n'
+     << "    opcode = " << cpu.lat_m_w.opcode << '\n'
+     << "    data = " << cpu.lat_m_w.data << '\n'
+     << "    rdest = " << cpu.lat_m_w.rdest << '\n'
+     << "  }\n" 
+//     << "  hello = " << cpu.lat_f_d << '\n'
 //     << "  a_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.a_latch << '\n'
 //     << "  b_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.b_latch << '\n'
 //     << "  t_latch = " << std::setfill('0') << std::setw(8) << std::hex << cpu.t_latch << '\n'
@@ -67,8 +95,8 @@ void Processor::fetch(Processor &n_cpu)
   uint32_t npc = address.pc + 4;
   uint32_t oreg = imem[address.pc];
 
-  lat_f_d.npc  = npc;
-  lat_f_d.oreg = oreg;
+  n_cpu.lat_f_d.npc  = npc;
+  n_cpu.lat_f_d.oreg = oreg;
 }
 
 void Processor::decode(Processor &n_cpu)
@@ -86,12 +114,12 @@ void Processor::decode(Processor &n_cpu)
     rdest = rt;
   }
 
-  lat_d_e.npc    = lat_f_d.npc;
-  lat_d_e.opcode = opcode;
-  lat_d_e.a      = a;
-  lat_d_e.b      = b;
-  lat_d_e.imm    = imm;
-  lat_d_e.rdest  = rdest;
+  n_cpu.lat_d_e.npc    = lat_f_d.npc;
+  n_cpu.lat_d_e.opcode = opcode;
+  n_cpu.lat_d_e.a      = a;
+  n_cpu.lat_d_e.b      = b;
+  n_cpu.lat_d_e.imm    = imm;
+  n_cpu.lat_d_e.rdest  = rdest;
 }
 
 void Processor::execute(Processor &n_cpu)
@@ -150,12 +178,12 @@ void Processor::execute(Processor &n_cpu)
 //    (((lat_d_e.a  < 0u) << 1) & 0x2) |
     (((lat_d_e.a == 0u) << 0) & 0x1);
 
-  lat_e_m.npc    = lat_d_e.npc;
-  lat_e_m.opcode = lat_d_e.opcode;
-  lat_e_m.cmp    = cmp;
-  lat_e_m.t      = t;
-  lat_e_m.b      = lat_d_e.b;
-  lat_e_m.rdest  = lat_d_e.rdest;
+  n_cpu.lat_e_m.npc    = lat_d_e.npc;
+  n_cpu.lat_e_m.opcode = lat_d_e.opcode;
+  n_cpu.lat_e_m.cmp    = cmp;
+  n_cpu.lat_e_m.t      = t;
+  n_cpu.lat_e_m.b      = lat_d_e.b;
+  n_cpu.lat_e_m.rdest  = lat_d_e.rdest;
 
   instructions_executed++;
 }
@@ -194,10 +222,10 @@ void Processor::memaccess(Processor &n_cpu)
     }
   }
 
-  lat_m_w.npc    = npc; // can instead be directly moved to address? (see diagram) 
-  lat_m_w.opcode = lat_e_m.opcode;
-  lat_m_w.data   = data;
-  lat_m_w.rdest  = lat_e_m.rdest;
+  n_cpu.lat_m_w.npc    = npc; // can instead be directly moved to address? (see diagram) 
+  n_cpu.lat_m_w.opcode = lat_e_m.opcode;
+  n_cpu.lat_m_w.data   = data;
+  n_cpu.lat_m_w.rdest  = lat_e_m.rdest;
 }
 
 void Processor::writeback(Processor &n_cpu)
@@ -216,5 +244,5 @@ void Processor::writeback(Processor &n_cpu)
 
   regfile.foo(0, 0, lat_m_w.rdest, lat_m_w.data, we);
 
-  address.pc = lat_m_w.npc;
+  n_cpu.address.pc = lat_m_w.npc;
 }

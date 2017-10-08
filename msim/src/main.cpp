@@ -22,19 +22,17 @@ int main(int argc, char* argv[])
   Processor cpu1(imem, dmem); Processor *cpu   = &cpu1;
   Processor cpu2(imem, dmem); Processor *n_cpu = &cpu2;
 
-  const int limit = 600;
+  const int limit = 200;
   for (int i = 0; i < limit; ++i)
   {
     //if (i % 5 == 0)
-    //  std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
+      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
     cpu->tick(*n_cpu);
+    std::swap(cpu, n_cpu);
+    n_cpu->regfile = cpu->regfile;
   }
   std::cout << "(t = " << limit << ") " << (*cpu) << std::endl;
   std::cout << "(t = " << 0 << ") " << (*n_cpu) << std::endl;
-  std::swap(cpu, n_cpu);
-  cpu->regfile = n_cpu->regfile;
-  std::cout << (*cpu) << std::endl;
-  std::cout << (*n_cpu) << std::endl;
 
   return 0;
 }
