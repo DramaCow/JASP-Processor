@@ -1,5 +1,5 @@
-#ifndef PROGRAMLOADER_H
-#define PROGRAMLOADER_H
+#ifndef LOADER_H
+#define LOADER_H
 
 #include <cstdint>
 
