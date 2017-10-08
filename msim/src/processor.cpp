@@ -20,38 +20,38 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
-  os << "{\n"
-     << "  address = {\n"
+  os << "{\n";
+  os << "  address = {\n"
      << "    pc = " << DEC << cpu.address.pc << '\n'
-     << "  }\n" 
-     << "  Lat_f_d = {\n"
+     << "  }\n";
+  os << "  Lat_f_d = {\n"
      << "    npc = " << DEC << cpu.lat_f_d.npc << '\n'
      << "    oreg = " << HEX8 << cpu.lat_f_d.oreg << '\n'
-     << "  }\n" 
-     << "  Lat_d_e = {\n"
+     << "  }\n";
+  os << "  Lat_d_e = {\n"
      << "    npc = " << DEC << cpu.lat_d_e.npc << '\n'
      << "    opcode = " << HEX2 << cpu.lat_d_e.opcode << '\n'
      << "    a = " << DEC << cpu.lat_d_e.a << '\n'
      << "    b = " << DEC << cpu.lat_d_e.b << '\n'
      << "    imm = " << DEC << cpu.lat_d_e.imm << '\n'
      << "    rdest = " << HEX2 << cpu.lat_d_e.rdest << '\n'
-     << "  }\n" 
-     << "  Lat_e_m = {\n"
+     << "  }\n";
+  os << "  Lat_e_m = {\n"
      << "    npc = " << DEC << cpu.lat_e_m.npc << '\n'
      << "    opcode = " << HEX2 << cpu.lat_e_m.opcode << '\n'
      << "    cmp = " << HEX1 << cpu.lat_e_m.cmp << '\n'
      << "    t = " << DEC << cpu.lat_e_m.t << '\n'
      << "    b = " << DEC << cpu.lat_e_m.b << '\n'
      << "    rdest = " << HEX2 << cpu.lat_e_m.rdest << '\n'
-     << "  }\n" 
-     << "  Lat_m_w = {\n"
+     << "  }\n";
+  os << "  Lat_m_w = {\n"
      << "    npc = " << DEC << cpu.lat_m_w.npc << '\n'
      << "    opcode = " << HEX2 << cpu.lat_m_w.opcode << '\n'
      << "    data = " << DEC << cpu.lat_m_w.data << '\n'
      << "    rdest = " << HEX2 << cpu.lat_m_w.rdest << '\n'
-     << "  }\n" 
-     << "  regfile = \n    " << cpu.regfile << '\n'
-     << "}\n";
+     << "  }\n";
+  os << "  regfile = \n    " << cpu.regfile << '\n';
+  os << "}\n";
 /*
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
