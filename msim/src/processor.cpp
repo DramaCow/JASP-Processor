@@ -53,7 +53,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
 */
   os << "  regfile = \n    " << cpu.regfile << '\n';
-  os << "}\n";
+  os << "}";
+//  os << std::endl;
 /*
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'

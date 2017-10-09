@@ -1,13 +1,12 @@
 #include "loader.hpp"
 #include <iostream>
 
-int load(char *filename, uint8_t **data)
+int load(const char *filename, uint8_t **data)
 {
   FILE* f = fopen(filename, "rb");
   if (f == nullptr)
   {
-    std::cout << "Error while opening the file." << std::endl;
-    exit(EXIT_FAILURE);
+    return -1;
   }
 
   // count number of bytes in file
@@ -33,4 +32,11 @@ int load(char *filename, uint8_t **data)
   fclose(f);
 
   return size;
+}
+
+void save(const char *filename, uint8_t **data, int size)
+{
+  FILE *f = fopen(filename, "wb");
+  fwrite((*data), sizeof(uint8_t), size, f);
+  fclose(f);
 }

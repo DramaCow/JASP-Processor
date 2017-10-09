@@ -13,8 +13,6 @@ class Memory
     void copy(int offset, uint8_t *bytes, int size);
 
     const int capacity;
-
-  private:
     uint8_t *bytes;
 };
 
