@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    std::cerr << "usage: ./start <program_name>.s" << std::endl;
+    std::cerr << "usage: ./msim <program_name>" << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -19,6 +19,11 @@ int main(int argc, char* argv[])
     const char *program_name = argv[1]; 
     uint8_t *program;
     int isize = load(program_name, &program);
+    if (isize < 0)
+    {
+      std::cerr << "*** Error! " << program_name << " is not a valid binary input. ***" << std::endl;
+      exit(EXIT_FAILURE);
+    }
     imem.copy(0, program, isize);
   }
 
@@ -26,9 +31,9 @@ int main(int argc, char* argv[])
   {
     uint8_t *data;
     int dsize = load("d.hex", &data);
-    if (dsize < 0) // error!
+    if (dsize < 0)
     {
-      std::cout << "data file not found - initialising with zeroes" << std::endl;
+      std::cout << "> Data file not found, initialising with zeroes." << std::endl;
     }
     else
     {
