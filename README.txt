@@ -23,3 +23,10 @@ interpreting the output:
 
 processor features:
   Currently is a very simple pipelined processor that updates all the latches simultaneously. Doesn't have reallocation station or renaming or reorder buffer. 
+  There are 5 stages to the pipeline:
+   1. (f)etch
+   2. (d)ecode
+   3. (e)xecute
+   4. (m)emory access
+   5. (w)riteback
+  With latches between each adjacent pairs of states e.g. lat_f_d is the latch struct between the fetch and decode state.
