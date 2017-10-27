@@ -21,7 +21,6 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
-/*
   os << "  address = {\n"
      << "    pc = " << DEC << cpu.address.pc << '\n'
      << "  }\n";
@@ -51,7 +50,6 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "    data = " << DEC << cpu.lat_m_w.data << '\n'
      << "    rdest = " << HEX2 << cpu.lat_m_w.rdest << '\n'
      << "  }\n";
-*/
   os << "  regfile = \n    " << cpu.regfile << '\n';
   os << "}";
 //  os << std::endl;

@@ -4,7 +4,7 @@
 #include "loader.hpp"
 #include "processor.hpp"
 
-#define LIMIT 100
+#define LIMIT 20
 
 int main(int argc, char* argv[])
 {
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
   for (int i = 0; i < LIMIT; ++i)
   {
 //    if (i % 5 == 0)
-//      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
+      std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
 
     cpu->tick(*n_cpu);
     std::swap(cpu, n_cpu);
@@ -55,7 +55,9 @@ int main(int argc, char* argv[])
   }
   std::cout << "(t = " << LIMIT << ") " << (*cpu) << std::endl;
 
+  std::cout << "instruction cache = " << std::endl;
   std::cout << imem << std::endl;
+  std::cout << "data cache = " << std::endl;
   std::cout << dmem << std::endl;
 
   save("d.hex", &dmem.bytes, dmem.capacity);
