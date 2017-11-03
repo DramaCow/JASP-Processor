@@ -1,7 +1,9 @@
 #include <iostream>
 #include <cstdio>
 
-#include "loader.hpp"
+//#include "loader.hpp"
+#include "parser.hpp"
+#include "cache.hpp"
 #include "processor.hpp"
 
 #define LIMIT 20
@@ -14,6 +16,15 @@ int main(int argc, char* argv[])
     exit(EXIT_FAILURE);
   }
 
+  Instruction *program; int isize;
+  std::tie(program, isize) = load_program(argv[1]);
+  ICache icache(program, isize);
+  std::cout << icache;
+
+  DCache dcache(64);
+  std::cout << dcache;
+
+  /*
   Memory imem(256); 
   {
     const char *program_name = argv[1]; 
@@ -61,6 +72,7 @@ int main(int argc, char* argv[])
   std::cout << dmem << std::endl;
 
   save("d.hex", &dmem.bytes, dmem.capacity);
+  */
 
   return 0;
 }
