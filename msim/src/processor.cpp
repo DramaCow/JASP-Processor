@@ -7,11 +7,9 @@
 #define HEX1 "0x"<<std::setfill('0')<< std::setw(1)<<std::hex
 #define DEC std::dec
 
-Processor::Processor(Memory &imem, Memory &dmem) :
-  state(0),
-
-  imem(imem),
-  dmem(dmem),
+Processor::Processor(ICache &icache, DCache &dcache) :
+  icache(icache),
+  dcache(dcache),
 
   cycles(0),
   instructions_executed(0)
@@ -20,6 +18,7 @@ Processor::Processor(Memory &imem, Memory &dmem) :
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
+  /*
   os << "{\n";
   os << "  address = {\n"
      << "    pc = " << DEC << cpu.address.pc << '\n'
@@ -52,24 +51,13 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  regfile = \n    " << cpu.regfile << '\n';
   os << "}";
-//  os << std::endl;
-/*
+  os << std::endl;
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "instructions_executed = " << cpu.instructions_executed << '\n'
      << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
-*/
-/*
-  switch (cpu.state)
-  {
-    case 0: os << "fetching..."; break;
-    case 1: os << "decoding..."; break;
-    case 2: os << "executing..."; break;
-    case 3: os << "acessing memory..."; break;
-    case 4: os << "writing..."; break;
-  }
-*/
   os << std::dec;
+  */
   return os;
 }
 
@@ -98,15 +86,18 @@ void Processor::tick(Processor &n_cpu)
 
 void Processor::fetch(Processor &n_cpu)
 {
+/*
   uint32_t npc = address.pc + 4;
   uint32_t oreg = imem[address.pc];
 
   n_cpu.lat_f_d.npc  = npc;
   n_cpu.lat_f_d.oreg = oreg;
+*/
 }
 
 void Processor::decode(Processor &n_cpu)
 {
+/*
   uint32_t opcode = (lat_f_d.oreg >> (32 - 6)) & 0x3f; // first 6 bits
   uint32_t rs  = (lat_f_d.oreg >> (32 - 11)) & 0x1f; // next 5
   uint32_t rt  = (lat_f_d.oreg >> (32 - 16)) & 0x1f; // next 5
@@ -126,10 +117,12 @@ void Processor::decode(Processor &n_cpu)
   n_cpu.lat_d_e.b      = b;
   n_cpu.lat_d_e.imm    = imm;
   n_cpu.lat_d_e.rdest  = rdest;
+*/
 }
 
 void Processor::execute(Processor &n_cpu)
 {
+/*
   uint32_t t = 0; // can be whatever for operations that don't use it
 
   switch (lat_d_e.opcode)
@@ -190,10 +183,12 @@ void Processor::execute(Processor &n_cpu)
   n_cpu.lat_e_m.t      = t;
   n_cpu.lat_e_m.b      = lat_d_e.b;
   n_cpu.lat_e_m.rdest  = lat_d_e.rdest;
+*/
 }
 
 void Processor::memaccess(Processor &n_cpu)
 {
+/*
   uint32_t npc = lat_e_m.npc;
   uint32_t data = lat_e_m.t;
 
@@ -230,10 +225,12 @@ void Processor::memaccess(Processor &n_cpu)
   n_cpu.lat_m_w.opcode = lat_e_m.opcode;
   n_cpu.lat_m_w.data   = data;
   n_cpu.lat_m_w.rdest  = lat_e_m.rdest;
+*/
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
+/*
   bool we = false; // write enabled
 
   switch (lat_m_w.opcode)
@@ -248,4 +245,5 @@ void Processor::writeback(Processor &n_cpu)
 
   n_cpu.regfile.foo(0, 0, lat_m_w.rdest, lat_m_w.data, we);
   n_cpu.address.pc = lat_m_w.npc;
+*/
 }

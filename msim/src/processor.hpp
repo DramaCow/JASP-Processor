@@ -1,13 +1,13 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
 
-#include "memory.hpp"
+#include "cache.hpp"
 #include "registerfile.hpp"
 
 class Processor
 {
   public:
-    Processor(Memory &imem, Memory &dmem);
+    Processor(ICache &icache, DCache &dcache);
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
     void tick(Processor &n_cpu);
 
@@ -51,12 +51,9 @@ class Processor
     }; 
 
   private:
-    // pipeline state
-    int state;
-
-    // memory units (references)
-    Memory &imem; // instruction memory
-    Memory &dmem; // data memory
+    // cache units (references)
+    ICache &icache; // instruction cache
+    DCache &dcache; // data cache
 
     // between pipeline stage latches
     Address address;

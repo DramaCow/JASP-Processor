@@ -19,42 +19,12 @@ int main(int argc, char* argv[])
   Instruction *program; int isize;
   std::tie(program, isize) = load_program(argv[1]);
   ICache icache(program, isize);
-  std::cout << icache;
-
   DCache dcache(64);
-  std::cout << dcache;
+
+  Processor cpu1(icache, dcache); Processor *cpu   = &cpu1;
+  Processor cpu2(icache, dcache); Processor *n_cpu = &cpu2;
 
   /*
-  Memory imem(256); 
-  {
-    const char *program_name = argv[1]; 
-    uint8_t *program;
-    int isize = load(program_name, &program);
-    if (isize < 0)
-    {
-      std::cerr << "*** Error! " << program_name << " is not a valid binary input. ***" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-    imem.copy(0, program, isize);
-  }
-
-  Memory dmem(256);
-  {
-    uint8_t *data;
-    int dsize = load("d.hex", &data);
-    if (dsize < 0)
-    {
-      std::cout << "> Data file not found, initialising with zeroes." << std::endl;
-    }
-    else
-    {
-      dmem.copy(0, data, dsize);
-    }
-  }
-
-  Processor cpu1(imem, dmem); Processor *cpu   = &cpu1;
-  Processor cpu2(imem, dmem); Processor *n_cpu = &cpu2;
-
   for (int i = 0; i < LIMIT; ++i)
   {
 //    if (i % 5 == 0)
