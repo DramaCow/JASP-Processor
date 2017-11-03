@@ -4,7 +4,7 @@
 
 RegisterFile::RegisterFile()
 {
-  std::fill_n(scoreboard, NUM_REGISTERS, true);
+  std::fill_n(v, NUM_REGISTERS, true);
 }
 
 std::tuple<uint32_t, uint32_t> RegisterFile::foo(uint32_t addr1, uint32_t addr2, uint32_t daddr, uint32_t data, bool we)
@@ -20,7 +20,7 @@ std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile)
 {
   for (int i = 0; i < NUM_REGISTERS; ++i)
   {
-    os << std::setfill('0') << std::setw(8) << std::hex << regfile.gpr[i] << '_' << (regfile.scoreboard[i] ? '1' : '0') << ' ';
+    os << std::setfill('0') << std::setw(8) << std::hex << regfile.gpr[i] << '_' << (regfile.v[i] ? '1' : '0') << ' ';
     if (i % 8 == 7 && i < NUM_REGISTERS - 1)
     {
       os << '\n';

@@ -17,7 +17,7 @@ class RegisterFile
 
   private:
     uint32_t gpr[NUM_REGISTERS] = { 0 };
-    bool scoreboard[NUM_REGISTERS];
+    bool v[NUM_REGISTERS]; // valid bit (scoreboarding)
 };
 
 std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile);
