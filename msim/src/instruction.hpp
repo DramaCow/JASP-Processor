@@ -2,7 +2,7 @@
 #define INSTRUCTION_H
 
 #include <string>
-#include <vector>
+#include <array>
 #include <iostream>
 
 class Instruction
@@ -13,7 +13,8 @@ class Instruction
     friend std::ostream& operator<<(std::ostream& os, const Instruction& instruction);
 
     std::string opcode;
-    std::vector<int> params;
+    std::array<int,3> params;
+    std::array<bool,3> isConst;
 };
 
 std::ostream& operator<<(std::ostream& os, const Instruction& instruction);

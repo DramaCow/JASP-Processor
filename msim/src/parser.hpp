@@ -15,23 +15,25 @@ struct InstDef
 // === INSTRUCTION SET DEFINITION === 
 // ==================================
 
-// o : oooo oo-- ---- ---- ---- ---- ---- ----
-// s : ---- --ss sss- ---- ---- ---- ---- ----
-// t : ---- ---- ---t tttt ---- ---- ---- ----
-// d : ---- ---- ---- ---- dddd d--- ---- ----
-// i : ---- ---- ---- ---- iiii iiii iiii iiii
+/* KEY:
+ *  d = destination register
+ *  s = source register 1
+ *  t = source register 2
+ *  i = immediate operand
+ *  e = destination immediate value
+ */
 
 #define ISIZE 64
 const InstDef instset[ISIZE] = {
   { "nop" , 0, { '\0'          }},
   { "add" , 3, { 'd', 's', 't' }},
-  { "addi", 3, { 't', 's', 'i' }},
+  { "addi", 3, { 'd', 's', 'i' }},
   { "sub" , 3, { 'd', 's', 't' }},
-  { "subi", 3, { 't', 's', 'i' }},
-  { "j"   , 1, { 'i'           }},
-  { "jnez", 2, { 's', 'i'      }},
-  { "ldi" , 3, { 't', 's', 'i' }},
-  { "sti" , 3, { 't', 's', 'i' }},
+  { "subi", 3, { 'd', 's', 'i' }},
+  { "j"   , 1, {           'e' }},
+  { "jnez", 2, {      's', 'e' }},
+  { "ldi" , 3, { 'd', 's', 'i' }},
+  { "sti" , 3, { 's', 't', 'e' }},
   { "xor" , 3, { 'd', 's', 't' }},
 };
 

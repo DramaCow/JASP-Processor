@@ -74,13 +74,9 @@ void Processor::fetch(Processor &n_cpu)
 {
   unsigned int pc = address.pc + 1;
   Instruction instruction = icache[address.pc];
-/*
-  uint32_t npc = address.pc + 4;
-  uint32_t oreg = imem[address.pc];
 
-  n_cpu.lat_f_d.npc  = npc;
-  n_cpu.lat_f_d.oreg = oreg;
-*/
+  n_cpu.lat_f_d.pc = pc;
+  n_cpu.lat_f_d.instruction = instruction;
 }
 
 void Processor::decode(Processor &n_cpu)

@@ -17,16 +17,16 @@ class Processor
   private:
     struct Address
     {
-      unsigned int pc = 0; // program counter
+      unsigned int pc = 0;
     };
     struct Lat_f_d
     {
-      unsigned int pc = 16; // next program counter (pc + 4)
+      unsigned int pc = 16;
       Instruction instruction;
     };
     struct Lat_d_e
     {
-      unsigned int pc = 12;   // next program counter (propagated)
+      unsigned int pc = 12;
       std::string opcode;
       uint32_t a = 0;      // value of register rs
       uint32_t b = 0;      // value of register rt

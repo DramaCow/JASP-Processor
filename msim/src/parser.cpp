@@ -237,7 +237,7 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
       exit(EXIT_FAILURE);
     }
 
-    if (inst->params[p] == 's' || inst->params[p] == 't' || inst->params[p] == 'd')
+    if (inst->params[p] == 'd' || inst->params[p] == 's' || inst->params[p] == 't')
     {
       val = regval(tok);
       if (val == -1)
@@ -245,9 +245,15 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
         printf("*** error on line(%d) - invalid register value. ***\n", line);
         exit(EXIT_FAILURE);
       }
-      instruction.params.push_back(val);
+
+      switch(inst->params[p])
+      {
+        case 'd': instruction.params[0] = val; instruction.isConst[0] = false; break;
+        case 's': instruction.params[1] = val; instruction.isConst[1] = false; break;
+        case 't': instruction.params[2] = val; instruction.isConst[2] = false; break;
+      }
     }
-    else if (inst->params[p] == 'i')
+    else if (inst->params[p] == 'i' || inst->params[p] == 'e')
     {
       if (tok[0] == ':')
       {
@@ -262,7 +268,12 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
         printf("*** error on line(%d) - invalid address value. ***\n", line);
         exit(EXIT_FAILURE);
       }
-      instruction.params.push_back(val);
+
+      switch(inst->params[p])
+      {
+        case 'e': instruction.params[0] = val; instruction.isConst[0] = true; break;
+        case 'i': instruction.params[2] = val; instruction.isConst[2] = true; break;
+      }
     }
     else
     {
