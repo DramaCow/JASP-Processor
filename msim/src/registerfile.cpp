@@ -20,7 +20,7 @@ std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile)
 {
   for (int i = 0; i < NUM_REGISTERS; ++i)
   {
-    os << std::setfill('0') << std::setw(8) << std::hex << regfile.gpr[i] << '_' << (regfile.v[i] ? '1' : '0') << ' ';
+    os << std::setfill('0') << std::setw(10) << std::dec << regfile.gpr[i] << '_' << (regfile.v[i] ? '1' : '0') << ' ';
     if (i % 8 == 7 && i < NUM_REGISTERS - 1)
     {
       os << '\n';
@@ -31,6 +31,6 @@ std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile)
 
 RegisterFile& RegisterFile::operator=(const RegisterFile& regfile)
 {
-  memcpy(this->gpr, regfile.gpr, 32*sizeof(uint32_t));
+  memcpy(this->gpr, regfile.gpr, NUM_REGISTERS*sizeof(uint32_t));
   return *this;
 }

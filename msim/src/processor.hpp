@@ -17,17 +17,17 @@ class Processor
   private:
     struct Address
     {
-      uint32_t pc = 0; // program counter
+      unsigned int pc = 0; // program counter
     };
     struct Lat_f_d
     {
-      uint32_t npc = 16; // next program counter (pc + 4)
-      uint32_t oreg = 0; // operation and operand as 32bit word
+      unsigned int pc = 16; // next program counter (pc + 4)
+      Instruction instruction;
     };
     struct Lat_d_e
     {
-      uint32_t npc = 12;   // next program counter (propagated)
-      uint32_t opcode = 0;
+      unsigned int pc = 12;   // next program counter (propagated)
+      std::string opcode;
       uint32_t a = 0;      // value of register rs
       uint32_t b = 0;      // value of register rt
       uint32_t imm = 0;    // immediate op value
@@ -35,7 +35,7 @@ class Processor
     };
     struct Lat_e_m
     {
-      uint32_t npc = 8;    // next program counter (propagated)
+      unsigned int pc = 8;    // next program counter (propagated)
       uint32_t opcode = 0; // (propagated)
       uint32_t cmp = 0;    // comparison flag (occurs automatically)
       uint32_t t = 0;      // result of execution
@@ -44,7 +44,7 @@ class Processor
     };
     struct Lat_m_w
     {
-      uint32_t npc = 4;    // next program counter (propagated)
+      unsigned int pc = 4;    // next program counter (propagated)
       uint32_t opcode = 0; // (propagated)
       uint32_t data = 0;   // result of execution (propagated)
       uint32_t rdest = 0;  // register id for writeback (propagated)

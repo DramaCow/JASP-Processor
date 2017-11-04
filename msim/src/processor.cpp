@@ -68,24 +68,12 @@ void Processor::tick(Processor &n_cpu)
   execute(n_cpu);
   memaccess(n_cpu);
   writeback(n_cpu);
-
-//  switch (state)
-//  {
-//    case 0/*FETCH*/:     fetch(n_cpu);     break;
-//    case 1/*DECODE*/:    decode(n_cpu);    break;
-//    case 2/*EXECUTE*/:   execute(n_cpu);   break;
-//    case 3/*MEMACCESS*/: memaccess(n_cpu); break;
-//    case 4/*WRITEBACK*/: writeback(n_cpu); break;
-//    default: {
-//      std::cerr << "*** entered invalid pipeline state ***\n";
-//      exit(EXIT_FAILURE);
-//    }
-//  }
-//  n_cpu.state = (state + 1) % 5;
 }
 
 void Processor::fetch(Processor &n_cpu)
 {
+  unsigned int pc = address.pc + 1;
+  Instruction instruction = icache[address.pc];
 /*
   uint32_t npc = address.pc + 4;
   uint32_t oreg = imem[address.pc];
