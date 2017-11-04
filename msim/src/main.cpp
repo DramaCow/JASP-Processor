@@ -21,6 +21,8 @@ int main(int argc, char* argv[])
   ICache icache(program, isize);
   DCache dcache(64);
 
+  std::cout << icache;
+
   Processor cpu1(icache, dcache); Processor *cpu   = &cpu1;
   Processor cpu2(icache, dcache); Processor *n_cpu = &cpu2;
 

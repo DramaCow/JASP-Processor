@@ -224,6 +224,7 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
 {
   Instruction instruction;
   instruction.opcode = std::string(inst->opcode);
+  instruction.num_params = inst->num_params;
 
   char *tok;        
   for (int p = 0; p < inst->num_params; ++p)
@@ -248,9 +249,9 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
 
       switch(inst->params[p])
       {
-        case 'd': instruction.params[0] = val; instruction.isConst[0] = false; break;
-        case 's': instruction.params[1] = val; instruction.isConst[1] = false; break;
-        case 't': instruction.params[2] = val; instruction.isConst[2] = false; break;
+        case 'd': instruction.params[0] = val; instruction.isReg[0] = true; instruction.printOrder[p] = 0; break;
+        case 's': instruction.params[1] = val; instruction.isReg[1] = true; instruction.printOrder[p] = 1; break;
+        case 't': instruction.params[2] = val; instruction.isReg[2] = true; instruction.printOrder[p] = 2; break;
       }
     }
     else if (inst->params[p] == 'i' || inst->params[p] == 'e')
@@ -271,8 +272,8 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
 
       switch(inst->params[p])
       {
-        case 'e': instruction.params[0] = val; instruction.isConst[0] = true; break;
-        case 'i': instruction.params[2] = val; instruction.isConst[2] = true; break;
+        case 'e': instruction.params[0] = val; instruction.isReg[0] = false; instruction.printOrder[p] = 0; break;
+        case 'i': instruction.params[2] = val; instruction.isReg[2] = false; instruction.printOrder[p] = 2; break;
       }
     }
     else

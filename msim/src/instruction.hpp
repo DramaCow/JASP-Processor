@@ -14,7 +14,10 @@ class Instruction
 
     std::string opcode;
     std::array<int,3> params;
-    std::array<bool,3> isConst;
+
+    int num_params;
+    std::array<bool,3> isReg;
+    std::array<int,3> printOrder;
 };
 
 std::ostream& operator<<(std::ostream& os, const Instruction& instruction);
