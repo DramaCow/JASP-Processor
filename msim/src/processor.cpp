@@ -127,7 +127,7 @@ void Processor::decode(Processor &n_cpu)
 
 void Processor::execute(Processor &n_cpu)
 {
-  Entry e = restat.dispatch();
+  Entry e = restat.dispatch(n_cpu.restat);
   int result;
   if (e.opcode == "add" || e.opcode == "addi")
   {

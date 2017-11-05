@@ -12,6 +12,9 @@ struct Entry
   int os1 = 0; bool v1 = true;
   int os2 = 0; bool v2 = true;
   int rd = 0;
+
+  int age = 0;
+  bool free = true;
 };
 
 class ReservationStation
@@ -19,7 +22,7 @@ class ReservationStation
   public:
     friend std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
     bool insert(std::string opcode, int os1, int os2, int rd);
-    Entry dispatch();
+    Entry dispatch(ReservationStation &n_restat);
     ReservationStation& operator=(const ReservationStation& restat);
 
   private:
