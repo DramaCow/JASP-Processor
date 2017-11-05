@@ -12,6 +12,11 @@ class RegisterFile
   public:
     RegisterFile();
     std::tuple<uint32_t, uint32_t> foo(uint32_t addr1, uint32_t addr2, uint32_t daddr, uint32_t data, bool we);
+
+    std::tuple<int, bool> read(int addr);
+    void reset(int addr);
+    void write(int addr, int data);
+
     friend std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile);
     RegisterFile& operator=(const RegisterFile& regfile);
 

@@ -3,6 +3,7 @@
 
 #include "cache.hpp"
 #include "registerfile.hpp"
+#include "reservationstation.hpp"
 
 class Processor
 {
@@ -11,8 +12,13 @@ class Processor
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
     void tick(Processor &n_cpu);
 
-    // general purpose registers interface
+    ICache &icache; // instruction cache
+    DCache &dcache; // data cache
+
     RegisterFile regfile;
+    ReservationStation restat;
+
+    Processor& operator=(const Processor& cpu);
 
   private:
     struct Address
@@ -21,40 +27,30 @@ class Processor
     };
     struct Lat_f_d
     {
-      unsigned int pc = 16;
+      unsigned int pc = 4;
       Instruction instruction;
     };
     struct Lat_d_e
     {
-      unsigned int pc = 12;
-      std::string opcode;
-      uint32_t a = 0;      // value of register rs
-      uint32_t b = 0;      // value of register rt
-      uint32_t imm = 0;    // immediate op value
-      uint32_t rdest = 0;  // register id for writeback
+      unsigned int pc = 3;
+      bool we = false;
     };
     struct Lat_e_m
     {
-      unsigned int pc = 8;    // next program counter (propagated)
-      uint32_t opcode = 0; // (propagated)
-      uint32_t cmp = 0;    // comparison flag (occurs automatically)
-      uint32_t t = 0;      // result of execution
-      uint32_t b = 0;      // second register value read (see diagram)
-      uint32_t rdest = 0;  // register id for writback
+      unsigned int pc = 2;
+      int result;
+      int rd;
+      bool we = false;
     };
     struct Lat_m_w
     {
-      unsigned int pc = 4;    // next program counter (propagated)
-      uint32_t opcode = 0; // (propagated)
-      uint32_t data = 0;   // result of execution (propagated)
-      uint32_t rdest = 0;  // register id for writeback (propagated)
+      unsigned int pc = 1;
+      uint32_t data;
+      uint32_t rd;
+      bool we = false;
     }; 
 
   private:
-    // cache units (references)
-    ICache &icache; // instruction cache
-    DCache &dcache; // data cache
-
     // between pipeline stage latches
     Address address;
     Lat_f_d lat_f_d;

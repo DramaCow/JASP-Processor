@@ -20,7 +20,6 @@ struct InstDef
  *  s = source register 1
  *  t = source register 2
  *  i = immediate operand
- *  e = destination immediate value
  */
 
 #define ISIZE 64
@@ -30,11 +29,12 @@ const InstDef instset[ISIZE] = {
   { "addi", 3, { 'd', 's', 'i' }},
   { "sub" , 3, { 'd', 's', 't' }},
   { "subi", 3, { 'd', 's', 'i' }},
-  { "j"   , 1, {           'e' }},
-  { "jnez", 2, {      's', 'e' }},
-  { "ldi" , 3, { 'd', 's', 'i' }},
-  { "sti" , 3, { 's', 't', 'e' }},
   { "xor" , 3, { 'd', 's', 't' }},
+//  { "j"   , 1, {           'e' }},
+//  { "jnez", 2, {      's', 'e' }},
+//  { "jlth", 3, { 's'  's', 'e' }},
+//  { "ldi" , 3, { 'd', 's', 'i' }},
+//  { "sti" , 3, { 's', 't', 'e' }},
 };
 
 // =========================

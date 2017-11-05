@@ -1,21 +1,30 @@
 #ifndef RESERVATIONSTATION_H
 #define RESERVATIONSTATION_H
 
-#include <cstdint>
+#define NUM_ENTRIES 4
+
+#include <string>
+#include <iostream>
+
+struct Entry
+{
+  std::string opcode = "nop";
+  int os1 = 0; bool v1 = true;
+  int os2 = 0; bool v2 = true;
+  int rd = 0;
+};
 
 class ReservationStation
 {
   public:
-    struct Entry
-    {
-      uint32_t OC   = 0; // operation code
-      uint32_t R_s1 = 0; // source register 1
-      uint32_t R_s2 = 0; // source register 2
-      uint32_t R_d  = 0; // destination register
-    };
+    friend std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
+    bool insert(std::string opcode, int os1, int os2, int rd);
+    Entry dispatch();
+    ReservationStation& operator=(const ReservationStation& restat);
 
-  public:
-    Entry entry[32];
+  private:
+    Entry entry[NUM_ENTRIES];
 };
+std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
 
 #endif
