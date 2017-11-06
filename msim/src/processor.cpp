@@ -56,6 +56,7 @@ void Processor::tick(Processor &n_cpu)
     fetch(n_cpu);
     decode(n_cpu);
   }
+  n_cpu.restat.tick(); // age all used entries
   execute(n_cpu);
   memaccess(n_cpu);
   writeback(n_cpu);
@@ -100,8 +101,6 @@ void Processor::decode(Processor &n_cpu)
 
     int rs1 = lat_f_d.instruction.params[1];
     std::tie(os1, v1) = regfile.read(rs1);
-    if (!v1)
-      std::cout << "\n========= it works! =================\n" << std::endl;
 
     if (opcode == "addi" || opcode == "subi")
     {
@@ -126,7 +125,6 @@ void Processor::decode(Processor &n_cpu)
   {
     we = true;
   }
-  n_cpu.restat.tick(); // age all used entries
 
   n_cpu.lat_d_e.we = we;
 }
@@ -150,7 +148,7 @@ void Processor::execute(Processor &n_cpu)
 
   n_cpu.lat_e_m.result = result;
   n_cpu.lat_e_m.rd = e.rd;
-  n_cpu.lat_e_m.we = lat_d_e.we;
+  n_cpu.lat_e_m.we = e.opcode != "nop" ? lat_d_e.we : false; // TODO: wtf
 }
 
 void Processor::memaccess(Processor &n_cpu)
@@ -165,5 +163,6 @@ void Processor::writeback(Processor &n_cpu)
   if (lat_m_w.we)
   {
     n_cpu.regfile.write(lat_m_w.rd, lat_m_w.data);
+    n_cpu.restat.update(lat_m_w.data, lat_m_w.rd); // associative update of reservation station
   }
 }

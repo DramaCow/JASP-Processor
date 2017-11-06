@@ -49,7 +49,6 @@ void ReservationStation::insert(Entry entry)
 Entry ReservationStation::dispatch(ReservationStation &n_restat)
 {
   int oldest = -1;
-  int size = 0;
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
     if (!this->entry[i].free)
@@ -58,19 +57,26 @@ Entry ReservationStation::dispatch(ReservationStation &n_restat)
       {
         oldest = (oldest == -1) ? i : (this->entry[i].age > this->entry[oldest].age) ? i : oldest;
       }
-      size++;
     }
   }
 
   if (oldest == -1)
   {
     Entry entry; // default nop entry
-    entry.opcode = "stall";
     return entry;
   }
   else
   {
     n_restat.entry[oldest].free = true;
+    std::cout << "dispatched: " 
+              << this->entry[oldest].opcode << ' ' 
+              << this->entry[oldest].os1 << ' ' 
+              << this->entry[oldest].v1 << ' ' 
+              << this->entry[oldest].os2 << ' ' 
+              << this->entry[oldest].v2 << ' ' 
+              << this->entry[oldest].rd << ' '
+              << this->entry[oldest].age << ' '
+              << this->entry[oldest].free << '\n';
     return this->entry[oldest];
   }
 }
@@ -93,17 +99,21 @@ void ReservationStation::update(int result, int rd)
     }
   }
 
+  std::cout << d << ' ' << *this;
+
   // replace operands with oldest
   if (d != -1)
   {
     // update the oldest entry
     if (!this->entry[d].v1 && this->entry[d].os1 == rd)
     {
-      this->entry[d].v1 = true; this->entry[d].os1 = result;
+      this->entry[d].os1 = result;
+      this->entry[d].v1 = true;
     }
     if (!this->entry[d].v2 && this->entry[d].os2 == rd)
     {
-      this->entry[d].v2 = true; this->entry[d].os2 = result;
+      this->entry[d].os2 = result;
+      this->entry[d].v2 = true;
     }
 
     // if oldest entry does not modify the rd
