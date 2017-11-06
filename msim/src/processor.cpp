@@ -19,31 +19,23 @@ Processor::Processor(ICache &icache, DCache &dcache) :
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
-/*
-  os << "  address = {\n"
-     << "    pc = " << cpu.address.pc << '\n'
-     << "  }\n";
+  os << "  pc = " << cpu.pc << '\n';
   os << "  Lat_f_d = {\n"
-     << "    pc = " << cpu.lat_f_d.pc << '\n'
      << "    instruction = " << cpu.lat_f_d.instruction << '\n'
      << "  }\n";
   os << "  Lat_d_e = {\n"
-     << "    pc = " << cpu.lat_d_e.pc << '\n'
 		 << "    we = " << cpu.lat_d_e.we << '\n'
      << "  }\n";
   os << "  Lat_e_m = {\n"
-     << "    pc = " << cpu.lat_e_m.pc << '\n'
      << "    result = " << cpu.lat_e_m.result << '\n'
      << "    rd = " << cpu.lat_e_m.rd << '\n'
      << "    we = " << cpu.lat_e_m.we << '\n'
      << "  }\n";
   os << "  Lat_m_w = {\n"
-     << "    pc = " << cpu.lat_m_w.pc << '\n'
      << "    rd = " << cpu.lat_m_w.rd << '\n'
      << "    data = " << cpu.lat_m_w.data << '\n'
      << "    we = " << cpu.lat_m_w.we << '\n'
      << "  }\n";
-*/
   os << "  regfile = \n    " << cpu.regfile << '\n';
   os << "  restat = \n" << cpu.restat;
   os << "}";
@@ -58,18 +50,27 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 
 void Processor::tick(Processor &n_cpu)
 {
-  fetch(n_cpu);
-  decode(n_cpu);
+  if (!this->isStalled())
+  {
+    n_cpu.pc++;
+    fetch(n_cpu);
+    decode(n_cpu);
+  }
   execute(n_cpu);
   memaccess(n_cpu);
   writeback(n_cpu);
 }
 
+bool Processor::isStalled()
+{
+  return this->restat.isFull();
+}
+
 Processor& Processor::operator=(const Processor& cpu)
 {
+  this->pc = cpu.pc;
   this->regfile = cpu.regfile;
   this->restat = cpu.restat;
-  this->address = cpu.address;
   this->lat_f_d = cpu.lat_f_d;
   this->lat_d_e = cpu.lat_d_e;
   this->lat_e_m = cpu.lat_e_m;
@@ -81,26 +82,26 @@ Processor& Processor::operator=(const Processor& cpu)
 
 void Processor::fetch(Processor &n_cpu)
 {
-  Instruction instruction = icache[address.pc];
-  unsigned int pc = address.pc + 1;
+  Instruction instruction = icache[this->pc];
 
-  n_cpu.lat_f_d.pc = pc;
   n_cpu.lat_f_d.instruction = instruction;
 }
 
 void Processor::decode(Processor &n_cpu)
 {
   std::string opcode = lat_f_d.instruction.opcode;
-  std::cout << opcode << std::endl;
   if (lat_f_d.instruction.params.size() >= 3)
   {
     int os1; bool v1;
     int os2; bool v2;
 
     int rd  = lat_f_d.instruction.params[0];
+    n_cpu.regfile.reset(rd);
 
     int rs1 = lat_f_d.instruction.params[1];
     std::tie(os1, v1) = regfile.read(rs1);
+    if (!v1)
+      std::cout << "\n========= it works! =================\n" << std::endl;
 
     if (opcode == "addi" || opcode == "subi")
     {
@@ -113,15 +114,20 @@ void Processor::decode(Processor &n_cpu)
       std::tie(os2, v2) = regfile.read(rs2);
     }
 
-    n_cpu.restat.insert(opcode, os1, os2, rd);
+    Entry entry;
+    entry.opcode = opcode;
+    entry.os1 = os1; entry.v1 = v1;
+    entry.os2 = os2; entry.v2 = v2;
+    entry.rd = rd;
+    n_cpu.restat.insert(entry);
   }
   bool we = false;
   if (opcode == "add" || opcode == "addi" || opcode == "sub" || opcode == "subi" || opcode == "xor")
   {
     we = true;
   }
+  n_cpu.restat.tick(); // age all used entries
 
-  n_cpu.lat_d_e.pc = lat_f_d.pc;
   n_cpu.lat_d_e.we = we;
 }
 
@@ -142,7 +148,6 @@ void Processor::execute(Processor &n_cpu)
     result = e.os1 ^ e.os2;
   }
 
-  n_cpu.lat_e_m.pc = lat_d_e.pc;
   n_cpu.lat_e_m.result = result;
   n_cpu.lat_e_m.rd = e.rd;
   n_cpu.lat_e_m.we = lat_d_e.we;
@@ -150,7 +155,6 @@ void Processor::execute(Processor &n_cpu)
 
 void Processor::memaccess(Processor &n_cpu)
 {
-  n_cpu.lat_m_w.pc = lat_e_m.pc;
   n_cpu.lat_m_w.data = lat_e_m.result;
   n_cpu.lat_m_w.rd = lat_e_m.rd;
   n_cpu.lat_m_w.we = lat_e_m.we;
@@ -162,5 +166,4 @@ void Processor::writeback(Processor &n_cpu)
   {
     n_cpu.regfile.write(lat_m_w.rd, lat_m_w.data);
   }
-  n_cpu.address.pc = lat_m_w.pc;
 }

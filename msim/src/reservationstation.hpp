@@ -21,8 +21,11 @@ class ReservationStation
 {
   public:
     friend std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
-    bool insert(std::string opcode, int os1, int os2, int rd);
+    bool isFull();
+    void insert(Entry entry);
     Entry dispatch(ReservationStation &n_restat);
+    void update(int result, int rd);
+    void tick();
     ReservationStation& operator=(const ReservationStation& restat);
 
   private:

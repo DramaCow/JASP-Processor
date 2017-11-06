@@ -55,5 +55,6 @@ std::ostream& operator<<(std::ostream& os, const RegisterFile& regfile)
 RegisterFile& RegisterFile::operator=(const RegisterFile& regfile)
 {
   memcpy(this->gpr, regfile.gpr, NUM_REGISTERS*sizeof(uint32_t));
+  memcpy(this->v, regfile.v, NUM_REGISTERS*sizeof(bool));
   return *this;
 }

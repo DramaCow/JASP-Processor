@@ -15,36 +15,32 @@ class Processor
     ICache &icache; // instruction cache
     DCache &dcache; // data cache
 
+    unsigned int pc = 0;
+
     RegisterFile regfile;
     ReservationStation restat;
+
+    bool isStalled();
 
     Processor& operator=(const Processor& cpu);
 
   private:
-    struct Address
-    {
-      unsigned int pc = 0;
-    };
     struct Lat_f_d
     {
-      unsigned int pc = 4;
       Instruction instruction;
     };
     struct Lat_d_e
     {
-      unsigned int pc = 3;
       bool we = false;
     };
     struct Lat_e_m
     {
-      unsigned int pc = 2;
       int result;
       int rd;
       bool we = false;
     };
     struct Lat_m_w
     {
-      unsigned int pc = 1;
       uint32_t data;
       uint32_t rd;
       bool we = false;
@@ -52,7 +48,6 @@ class Processor
 
   private:
     // between pipeline stage latches
-    Address address;
     Lat_f_d lat_f_d;
     Lat_d_e lat_d_e;
     Lat_e_m lat_e_m;
