@@ -114,7 +114,7 @@ void Processor::decode(Processor &n_cpu)
     entry.os1 = os1; entry.v1 = v1;
     entry.os2 = os2; entry.v2 = v2;
     entry.rd = rd; entry.we = true;
-    n_cpu.restat.insert(entry);
+    n_cpu.restat.issue(entry);
   }
 }
 

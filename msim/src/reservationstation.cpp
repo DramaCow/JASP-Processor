@@ -35,7 +35,7 @@ bool ReservationStation::isFull()
   return true;
 }
 
-void ReservationStation::insert(Entry entry)
+void ReservationStation::issue(Entry entry)
 {
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {

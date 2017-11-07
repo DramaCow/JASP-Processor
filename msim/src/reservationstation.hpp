@@ -25,7 +25,7 @@ class ReservationStation
   public:
     friend std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
     bool isFull();
-    void insert(Entry entry);
+    void issue(Entry entry);
     Entry dispatch(ReservationStation &n_restat);
     void update(int result, int rd);
     void tick();
