@@ -5,7 +5,7 @@
 #include <tuple>
 #include <iostream>
 
-#define NUM_REGISTERS 4
+#define NUM_REGISTERS 8
 
 class RegisterFile
 {

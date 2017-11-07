@@ -17,6 +17,7 @@ class Processor
 
     unsigned int pc = 0;
 
+    Instruction instbuf;
     RegisterFile regfile;
     ReservationStation restat;
 
@@ -25,10 +26,6 @@ class Processor
     Processor& operator=(const Processor& cpu);
 
   private:
-    struct Lat_f_d
-    {
-      Instruction instruction;
-    };
     struct Lat_e_m
     {
       int result;
@@ -44,7 +41,6 @@ class Processor
 
   private:
     // between pipeline stage latches
-    Lat_f_d lat_f_d;
     Lat_e_m lat_e_m;
     Lat_m_w lat_m_w;
 

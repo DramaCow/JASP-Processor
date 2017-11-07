@@ -6,7 +6,7 @@
 #include "cache.hpp"
 #include "processor.hpp"
 
-#define LIMIT 12
+#define LIMIT 15
 
 int main(int argc, char* argv[])
 {

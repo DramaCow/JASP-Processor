@@ -1,5 +1,4 @@
 #include "processor.hpp"
-#include "isa.hpp"
 #include <iomanip>
 
 #define HEX8 "0x"<<std::setfill('0')<< std::setw(8)<<std::hex
@@ -20,11 +19,11 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
-  os << "  regfile = \n    " << cpu.regfile << '\n';
-  os << '\n';
-  os << "  Lat_f_d = {\n"
-     << "    instruction = " << cpu.lat_f_d.instruction << '\n'
+  os << "  instbuf = {\n"
+     << "    " << cpu.instbuf << '\n'
      << "  }\n";
+  os << "  regfile = {\n    " << cpu.regfile << '\n';
+  os << "  }\n";
   os << "  restat = {\n" << cpu.restat
      << "  }\n";
   os << "  Lat_e_m = {\n"
@@ -69,9 +68,9 @@ bool Processor::isStalled()
 Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
+  this->instbuf = cpu.instbuf;
   this->regfile = cpu.regfile;
   this->restat = cpu.restat;
-  this->lat_f_d = cpu.lat_f_d;
   this->lat_e_m = cpu.lat_e_m;
   this->lat_m_w = cpu.lat_m_w;
   this->cycles = cpu.cycles;
@@ -82,32 +81,31 @@ Processor& Processor::operator=(const Processor& cpu)
 void Processor::fetch(Processor &n_cpu)
 {
   Instruction instruction = icache[this->pc];
-
-  n_cpu.lat_f_d.instruction = instruction;
+  n_cpu.instbuf = instruction;
 }
 
 void Processor::decode(Processor &n_cpu)
 {
-  std::string opcode = lat_f_d.instruction.opcode;
-  if (lat_f_d.instruction.params.size() >= 3)
+  std::string opcode = this->instbuf.opcode;
+  if (this->instbuf.params.size() >= 3)
   {
     int os1; bool v1;
     int os2; bool v2;
 
-    int rd  = lat_f_d.instruction.params[0];
+    int rd  = this->instbuf.params[0];
     n_cpu.regfile.reset(rd);
 
-    int rs1 = lat_f_d.instruction.params[1];
+    int rs1 = this->instbuf.params[1];
     std::tie(os1, v1) = regfile.read(rs1);
 
     if (opcode == "addi" || opcode == "subi")
     {
-      os2 = lat_f_d.instruction.params[2];
+      os2 = this->instbuf.params[2];
       v2 = true;
     }
     else
     {
-      int rs2 = lat_f_d.instruction.params[2];
+      int rs2 = this->instbuf.params[2];
       std::tie(os2, v2) = regfile.read(rs2);
     }
 
@@ -135,11 +133,6 @@ void Processor::execute(Processor &n_cpu)
   else if (e.opcode == "xor")
   {
     result = e.os1 ^ e.os2;
-  }
-
-  if (e.opcode == "add")
-  {
-    std::cout << "\nhere\n" << std::endl;
   }
 
   n_cpu.lat_e_m.result = result;
