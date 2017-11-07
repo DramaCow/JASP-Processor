@@ -11,6 +11,7 @@ struct Entry
   std::string opcode = "nop";
   int os1 = 0; bool v1 = true;
   int os2 = 0; bool v2 = true;
+  int os3 = 0; bool v3 = true;
   int rd = 0; 
 
   // "meta"-data

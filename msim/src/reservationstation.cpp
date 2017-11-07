@@ -2,8 +2,8 @@
 
 std::ostream& operator<<(std::ostream& os, const ReservationStation& restat)
 {
-  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tR_d\t | \twe\tage\tfree\n";
-  os << "    --------------------------------------------------------------------------------\n";
+  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tO_s3\tV_s3\tR_d\t | \twe\tage\tfree\n";
+  os << "    ------------------------------------------------------------------------------------------------\n";
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
     os << "    " 
@@ -12,6 +12,8 @@ std::ostream& operator<<(std::ostream& os, const ReservationStation& restat)
        << restat.entry[i].v1 << '\t' 
        << restat.entry[i].os2 << '\t' 
        << restat.entry[i].v2 << '\t' 
+       << restat.entry[i].os3 << '\t' 
+       << restat.entry[i].v3 << '\t' 
        << restat.entry[i].rd << '\t'
        << " | " << '\t'
        << restat.entry[i].we << '\t'
@@ -70,15 +72,6 @@ Entry ReservationStation::dispatch(ReservationStation &n_restat)
   else
   {
     n_restat.entry[oldest].free = true;
-    std::cout << "dispatched: " 
-              << this->entry[oldest].opcode << ' ' 
-              << this->entry[oldest].os1 << ' ' 
-              << this->entry[oldest].v1 << ' ' 
-              << this->entry[oldest].os2 << ' ' 
-              << this->entry[oldest].v2 << ' ' 
-              << this->entry[oldest].rd << ' '
-              << this->entry[oldest].age << ' '
-              << this->entry[oldest].free << '\n';
     return this->entry[oldest];
   }
 }

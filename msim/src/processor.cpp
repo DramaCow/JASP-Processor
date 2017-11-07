@@ -20,8 +20,12 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
+  os << "  regfile = \n    " << cpu.regfile << '\n';
+  os << '\n';
   os << "  Lat_f_d = {\n"
      << "    instruction = " << cpu.lat_f_d.instruction << '\n'
+     << "  }\n";
+  os << "  restat = {\n" << cpu.restat
      << "  }\n";
   os << "  Lat_e_m = {\n"
      << "    result = " << cpu.lat_e_m.result << '\n'
@@ -33,8 +37,6 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "    data = " << cpu.lat_m_w.data << '\n'
      << "    we = " << cpu.lat_m_w.we << '\n'
      << "  }\n";
-  os << "  regfile = \n    " << cpu.regfile << '\n';
-  os << "  restat = \n" << cpu.restat;
   os << "}";
 /*
   os << "=== statistics ===\n"
