@@ -23,9 +23,6 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  Lat_f_d = {\n"
      << "    instruction = " << cpu.lat_f_d.instruction << '\n'
      << "  }\n";
-  os << "  Lat_d_e = {\n"
-		 << "    we = " << cpu.lat_d_e.we << '\n'
-     << "  }\n";
   os << "  Lat_e_m = {\n"
      << "    result = " << cpu.lat_e_m.result << '\n'
      << "    rd = " << cpu.lat_e_m.rd << '\n'
@@ -73,7 +70,6 @@ Processor& Processor::operator=(const Processor& cpu)
   this->regfile = cpu.regfile;
   this->restat = cpu.restat;
   this->lat_f_d = cpu.lat_f_d;
-  this->lat_d_e = cpu.lat_d_e;
   this->lat_e_m = cpu.lat_e_m;
   this->lat_m_w = cpu.lat_m_w;
   this->cycles = cpu.cycles;
@@ -117,16 +113,9 @@ void Processor::decode(Processor &n_cpu)
     entry.opcode = opcode;
     entry.os1 = os1; entry.v1 = v1;
     entry.os2 = os2; entry.v2 = v2;
-    entry.rd = rd;
+    entry.rd = rd; entry.we = true;
     n_cpu.restat.insert(entry);
   }
-  bool we = false;
-  if (opcode == "add" || opcode == "addi" || opcode == "sub" || opcode == "subi" || opcode == "xor")
-  {
-    we = true;
-  }
-
-  n_cpu.lat_d_e.we = we;
 }
 
 void Processor::execute(Processor &n_cpu)
@@ -146,9 +135,14 @@ void Processor::execute(Processor &n_cpu)
     result = e.os1 ^ e.os2;
   }
 
+  if (e.opcode == "add")
+  {
+    std::cout << "\nhere\n" << std::endl;
+  }
+
   n_cpu.lat_e_m.result = result;
   n_cpu.lat_e_m.rd = e.rd;
-  n_cpu.lat_e_m.we = e.opcode != "nop" ? lat_d_e.we : false; // TODO: wtf
+  n_cpu.lat_e_m.we = e.we;
 }
 
 void Processor::memaccess(Processor &n_cpu)

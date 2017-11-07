@@ -29,10 +29,6 @@ class Processor
     {
       Instruction instruction;
     };
-    struct Lat_d_e
-    {
-      bool we = false;
-    };
     struct Lat_e_m
     {
       int result;
@@ -49,7 +45,6 @@ class Processor
   private:
     // between pipeline stage latches
     Lat_f_d lat_f_d;
-    Lat_d_e lat_d_e;
     Lat_e_m lat_e_m;
     Lat_m_w lat_m_w;
 
