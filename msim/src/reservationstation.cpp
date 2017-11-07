@@ -2,8 +2,8 @@
 
 std::ostream& operator<<(std::ostream& os, const ReservationStation& restat)
 {
-  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tR_d\twe\tage\tfree\n";
-  os << "    ------------------------------------------------------------------------\n";
+  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tR_d\t | \twe\tage\tfree\n";
+  os << "    --------------------------------------------------------------------------------\n";
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
     os << "    " 
@@ -13,6 +13,7 @@ std::ostream& operator<<(std::ostream& os, const ReservationStation& restat)
        << restat.entry[i].os2 << '\t' 
        << restat.entry[i].v2 << '\t' 
        << restat.entry[i].rd << '\t'
+       << " | " << '\t'
        << restat.entry[i].we << '\t'
        << restat.entry[i].age << '\t'
        << restat.entry[i].free << '\n';
