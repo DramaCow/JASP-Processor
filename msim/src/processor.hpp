@@ -26,13 +26,7 @@ class Processor
     Processor& operator=(const Processor& cpu);
 
   private:
-    struct Lat_e_m
-    {
-      int result;
-      int rd;
-      bool we = false;
-    };
-    struct Lat_m_w
+    struct Lat_e_w
     {
       uint32_t data;
       uint32_t rd;
@@ -41,14 +35,12 @@ class Processor
 
   private:
     // between pipeline stage latches
-    Lat_e_m lat_e_m;
-    Lat_m_w lat_m_w;
+    Lat_e_w lat_e_w;
 
     // pipeline stage advancing functions
     void fetch(Processor &n_cpu);
     void decode(Processor &n_cpu);
     void execute(Processor &n_cpu);
-    void memaccess(Processor &n_cpu);
     void writeback(Processor &n_cpu);
 
     // statistics recorders

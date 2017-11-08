@@ -6,12 +6,14 @@
 class Alu
 {
   public:
-    void execute(std::string opcode, int os1, int os2, int rd);
+    void dispatch(std::string opcode, int os1, int os2, int rd);
+    void execute();
 
   private:
-    std::string opcode; int os1; int os2;
-    int duration; // t-1 to complete instruction execution
+    std::string opcode; int os1; int os2; // input latch
+    int duration; // ticks to complete instruction execution
     int result; int rd; // results latch
+    bool we = false; // writeback enabled
 };
 
 #endif

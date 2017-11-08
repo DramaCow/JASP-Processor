@@ -156,7 +156,6 @@ void Parser::get_program(FILE *code, Instruction *program)
       // verify instruction is valid
       for (int i = 0; i < ISIZE; ++i)
       {
-        printf("%s\n", instset[i].opcode); 
         if (strcmp(tok, instset[i].opcode) == 0)
         {
           id = i;

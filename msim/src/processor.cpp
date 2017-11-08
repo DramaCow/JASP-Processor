@@ -26,15 +26,10 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  }\n";
   os << "  restat = {\n" << cpu.restat
      << "  }\n";
-  os << "  Lat_e_m = {\n"
-     << "    result = " << cpu.lat_e_m.result << '\n'
-     << "    rd = " << cpu.lat_e_m.rd << '\n'
-     << "    we = " << cpu.lat_e_m.we << '\n'
-     << "  }\n";
-  os << "  Lat_m_w = {\n"
-     << "    rd = " << cpu.lat_m_w.rd << '\n'
-     << "    data = " << cpu.lat_m_w.data << '\n'
-     << "    we = " << cpu.lat_m_w.we << '\n'
+  os << "  Lat_e_w = {\n"
+     << "    rd = " << cpu.lat_e_w.rd << '\n'
+     << "    data = " << cpu.lat_e_w.data << '\n'
+     << "    we = " << cpu.lat_e_w.we << '\n'
      << "  }\n";
   os << "}";
 /*
@@ -56,7 +51,6 @@ void Processor::tick(Processor &n_cpu)
   }
   n_cpu.restat.tick(); // age all used entries
   execute(n_cpu);
-  memaccess(n_cpu);
   writeback(n_cpu);
 }
 
@@ -71,8 +65,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->instbuf = cpu.instbuf;
   this->regfile = cpu.regfile;
   this->restat = cpu.restat;
-  this->lat_e_m = cpu.lat_e_m;
-  this->lat_m_w = cpu.lat_m_w;
+  this->lat_e_w = cpu.lat_e_w;
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
   return *this;
@@ -120,7 +113,7 @@ void Processor::decode(Processor &n_cpu)
 
 void Processor::execute(Processor &n_cpu)
 {
-  Entry e = restat.dispatch(n_cpu.restat);
+  Entry e = restat.dispatch(n_cpu.restat); // dispatch from the old thing but update the new thing
   int result;
   if (e.opcode == "add" || e.opcode == "addi")
   {
@@ -135,23 +128,16 @@ void Processor::execute(Processor &n_cpu)
     result = e.os1 ^ e.os2;
   }
 
-  n_cpu.lat_e_m.result = result;
-  n_cpu.lat_e_m.rd = e.rd;
-  n_cpu.lat_e_m.we = e.we;
-}
-
-void Processor::memaccess(Processor &n_cpu)
-{
-  n_cpu.lat_m_w.data = lat_e_m.result;
-  n_cpu.lat_m_w.rd = lat_e_m.rd;
-  n_cpu.lat_m_w.we = lat_e_m.we;
+  n_cpu.lat_e_w.data = result;
+  n_cpu.lat_e_w.rd = e.rd;
+  n_cpu.lat_e_w.we = e.we;
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
-  if (lat_m_w.we)
+  if (lat_e_w.we)
   {
-    n_cpu.regfile.write(lat_m_w.rd, lat_m_w.data);
-    n_cpu.restat.update(lat_m_w.data, lat_m_w.rd); // associative update of reservation station
+    n_cpu.regfile.write(lat_e_w.rd, lat_e_w.data);
+    n_cpu.restat.update(lat_e_w.data, lat_e_w.rd); // associative update of reservation station
   }
 }
