@@ -1,5 +1,6 @@
 #include "alu.hpp"
 
+// this is applyed to the next state
 void Alu::dispatch(std::string opcode, int os1, int os2, int rd)
 {
   this->opcode = opcode;
@@ -15,38 +16,55 @@ void Alu::dispatch(std::string opcode, int os1, int os2, int rd)
   {
     this->duration = 3;
   }
+  else
+  {
+    this->duration = 0;
+  }
 }
 
-void Alu::execute()
+// applied to the current state, updates the next state
+void Alu::execute(Alu& n_alu)
 {
+  n_alu.we = false;
+
   if (this->duration == 0)
   {
     return;
   }
 
-  duration--;
-
-  if (this->duration == 0)
+  // about to finish
+  if (n_alu.duration <= 1)
   {
-    if (opcode == "add" || opcode == "addi")
+    if (this->opcode == "add" || this->opcode == "addi")
     {
-      this->result = os1 + os2;
+      n_alu.result = this->os1 + this->os2;
     }
-    else if (opcode == "sub" || opcode == "subi")
+    else if (this->opcode == "sub" || this->opcode == "subi")
     {
-      this->result = os1 - os2;
+      n_alu.result = this->os1 - this->os2;
     }
-    else if (opcode == "xor")
+    else if (this->opcode == "xor")
     {
-      this->result = os1 ^ os2;
+      n_alu.result = this->os1 ^ this->os2;
     }
-    else if (opcode == "mul" || opcode == "muli")
+    else if (this->opcode == "mul" || this->opcode == "muli")
     {
-      this->result = os1 * os2;
+      n_alu.result = this->os1 * this->os2;
     }
-    this->we = true;
-
-    // not necessary, but useful for debugging
-    this->opcode = "nop";
+    n_alu.dest = this->rd;
+    n_alu.we = true;
   }
+  else
+  {
+    n_alu.duration = this->duration - 1;
+  }
+}
+
+std::ostream& operator<<(std::ostream& os, const Alu& alu)
+{
+  os << "    IN: " << alu.opcode << ' ' << alu.os1 << ' ' << alu.os2 << ' ' << alu.rd << '\n';
+  os << "    duration = " << alu.duration << '\n';
+  os << "    OUT: " << alu.result << ' ' << alu.dest << '\n';
+  os << "    we = " << alu.we << '\n';
+  return os;
 }

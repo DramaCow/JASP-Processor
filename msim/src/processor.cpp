@@ -26,10 +26,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  }\n";
   os << "  restat = {\n" << cpu.restat
      << "  }\n";
-  os << "  Lat_e_w = {\n"
-     << "    rd = " << cpu.lat_e_w.rd << '\n'
-     << "    data = " << cpu.lat_e_w.data << '\n'
-     << "    we = " << cpu.lat_e_w.we << '\n'
+  os << "  alu1 = {\n" << cpu.alu1
      << "  }\n";
   os << "}";
 /*
@@ -43,13 +40,14 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 
 void Processor::tick(Processor &n_cpu)
 {
-  if (!this->isStalled())
+  if (!isStalled())
   {
     n_cpu.pc++;
     fetch(n_cpu);
     decode(n_cpu);
   }
   n_cpu.restat.tick(); // age all used entries
+  dispatch(n_cpu);
   execute(n_cpu);
   writeback(n_cpu);
 }
@@ -65,7 +63,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->instbuf = cpu.instbuf;
   this->regfile = cpu.regfile;
   this->restat = cpu.restat;
-  this->lat_e_w = cpu.lat_e_w;
+  this->alu1 = cpu.alu1;
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
   return *this;
@@ -106,38 +104,32 @@ void Processor::decode(Processor &n_cpu)
     entry.opcode = opcode;
     entry.os1 = os1; entry.v1 = v1;
     entry.os2 = os2; entry.v2 = v2;
-    entry.rd = rd; entry.we = true;
+    entry.rd = rd;
     n_cpu.restat.issue(entry);
+  }
+}
+
+void Processor::dispatch(Processor &n_cpu)
+{
+  // about to finish executing current instruction
+  if (this->alu1.duration <= 1)
+  {
+    Entry e = restat.dispatch(n_cpu.restat);
+    n_cpu.alu1.dispatch(e.opcode, e.os1, e.os2, e.rd); // next state stores instruction
   }
 }
 
 void Processor::execute(Processor &n_cpu)
 {
-  Entry e = restat.dispatch(n_cpu.restat); // dispatch from the old thing but update the new thing
-  int result;
-  if (e.opcode == "add" || e.opcode == "addi")
-  {
-    result = e.os1 + e.os2;
-  }
-  else if (e.opcode == "sub" || e.opcode == "subi")
-  {
-    result = e.os1 - e.os2;
-  }
-  else if (e.opcode == "xor")
-  {
-    result = e.os1 ^ e.os2;
-  }
-
-  n_cpu.lat_e_w.data = result;
-  n_cpu.lat_e_w.rd = e.rd;
-  n_cpu.lat_e_w.we = e.we;
+  this->alu1.execute(n_cpu.alu1);
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
-  if (lat_e_w.we)
+  if (this->alu1.we)
   {
-    n_cpu.regfile.write(lat_e_w.rd, lat_e_w.data);
-    n_cpu.restat.update(lat_e_w.data, lat_e_w.rd); // associative update of reservation station
+    n_cpu.regfile.write(this->alu1.dest, this->alu1.result);
+    n_cpu.restat.update(this->alu1.result, this->alu1.dest);
+    this->alu1.we = false;
   }
 }

@@ -15,7 +15,6 @@ struct Entry
   int rd = 0; 
 
   // "meta"-data
-  bool we = false;
   int age = 0;
   bool free = true;
 };

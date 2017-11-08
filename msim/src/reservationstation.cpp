@@ -2,23 +2,23 @@
 
 std::ostream& operator<<(std::ostream& os, const ReservationStation& restat)
 {
-  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tO_s3\tV_s3\tR_d\t | \twe\tage\tfree\n";
-  os << "    ------------------------------------------------------------------------------------------------\n";
+  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tO_s3\tV_s3\tR_d\n";
+  os << "    ---------------------------------------------------------------\n";
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
-    os << "    " 
-       << restat.entry[i].opcode << "  " << '\t' 
+    os << "    ";
+    if (restat.entry[i].free)
+    {
+      os << '*';
+    }
+    os << restat.entry[i].opcode << '(' << restat.entry[i].age << ')' << '\t' 
        << restat.entry[i].os1 << '\t' 
        << restat.entry[i].v1 << '\t' 
        << restat.entry[i].os2 << '\t' 
        << restat.entry[i].v2 << '\t' 
        << restat.entry[i].os3 << '\t' 
        << restat.entry[i].v3 << '\t' 
-       << restat.entry[i].rd << '\t'
-       << " | " << '\t'
-       << restat.entry[i].we << '\t'
-       << restat.entry[i].age << '\t'
-       << restat.entry[i].free << '\n';
+       << restat.entry[i].rd << '\n';
   }
   return os;
 }

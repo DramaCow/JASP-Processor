@@ -4,6 +4,7 @@
 #include "cache.hpp"
 #include "registerfile.hpp"
 #include "reservationstation.hpp"
+#include "alu.hpp"
 
 class Processor
 {
@@ -20,26 +21,17 @@ class Processor
     Instruction instbuf;
     RegisterFile regfile;
     ReservationStation restat;
+    Alu alu1;
 
     bool isStalled();
 
     Processor& operator=(const Processor& cpu);
 
   private:
-    struct Lat_e_w
-    {
-      uint32_t data;
-      uint32_t rd;
-      bool we = false;
-    }; 
-
-  private:
-    // between pipeline stage latches
-    Lat_e_w lat_e_w;
-
     // pipeline stage advancing functions
     void fetch(Processor &n_cpu);
     void decode(Processor &n_cpu);
+    void dispatch(Processor &n_cpu);
     void execute(Processor &n_cpu);
     void writeback(Processor &n_cpu);
 
