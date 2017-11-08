@@ -8,7 +8,7 @@ class Alu
 {
   public:
     void dispatch(std::string opcode, int os1, int os2, int rd);
-    void execute(Alu& n_alu);
+    int execute(Alu& n_alu);
     friend std::ostream& operator<<(std::ostream& os, const Alu& alu);
 
     // input latch

@@ -29,17 +29,16 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  alu1 = {\n" << cpu.alu1
      << "  }\n";
   os << "}";
-/*
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "instructions_executed = " << cpu.instructions_executed << '\n'
      << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
-*/
   return os;
 }
 
 void Processor::tick(Processor &n_cpu)
 {
+  n_cpu.cycles++;
   if (!isStalled())
   {
     n_cpu.pc++;
@@ -121,7 +120,7 @@ void Processor::dispatch(Processor &n_cpu)
 
 void Processor::execute(Processor &n_cpu)
 {
-  this->alu1.execute(n_cpu.alu1);
+  n_cpu.instructions_executed += this->alu1.execute(n_cpu.alu1);
 }
 
 void Processor::writeback(Processor &n_cpu)

@@ -23,13 +23,13 @@ void Alu::dispatch(std::string opcode, int os1, int os2, int rd)
 }
 
 // applied to the current state, updates the next state
-void Alu::execute(Alu& n_alu)
+int Alu::execute(Alu& n_alu)
 {
   n_alu.we = false;
 
   if (this->duration == 0)
   {
-    return;
+    return 0;
   }
 
   // about to finish
@@ -53,11 +53,11 @@ void Alu::execute(Alu& n_alu)
     }
     n_alu.dest = this->rd;
     n_alu.we = true;
+    return 1;
   }
-  else
-  {
-    n_alu.duration = this->duration - 1;
-  }
+  
+  n_alu.duration = this->duration - 1;
+  return 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const Alu& alu)
