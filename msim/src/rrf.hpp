@@ -1,11 +1,11 @@
 #ifndef RRF_H
 #define RRF_H
 
+#include "config.hpp"
+
 #include <cstdint>
 #include <tuple>
 #include <iostream>
-
-#define NUM_REGISTERS 8
 
 // Retirement Register File (i.e. the program visible state)
 class RRF

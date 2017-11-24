@@ -2,6 +2,7 @@
 #define PROCESSOR_H
 
 #include "cache.hpp"
+#include "rat.hpp"
 #include "rrf.hpp"
 #include "rs.hpp"
 #include "alu.hpp"
@@ -19,11 +20,12 @@ class Processor
 
     unsigned int pc = 0;
 
-    Instruction instBUf;
+    Instruction ibuf;
+    RAT rat;
     RRF rrf;
     RS rs;
-    ALU ALU1;
-    //BU BU;
+    ALU alu1;
+    //BU bu;
 
     bool isStalled();
 

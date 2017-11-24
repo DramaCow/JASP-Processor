@@ -4,7 +4,7 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
   os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tO_s3\tV_s3\tR_d\n";
   os << "    ---------------------------------------------------------------\n";
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     os << "    ";
     if (rs.entry[i].free)
@@ -25,7 +25,7 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
 
 bool RS::isFull()
 {
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     if (this->entry[i].free)
     {
@@ -37,7 +37,7 @@ bool RS::isFull()
 
 void RS::issue(Entry entry)
 {
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     if (this->entry[i].free)
     {
@@ -53,7 +53,7 @@ void RS::issue(Entry entry)
 Entry RS::dispatch(RS &n_rs)
 {
   int oldest = -1;
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     if (!this->entry[i].free)
     {
@@ -78,7 +78,7 @@ Entry RS::dispatch(RS &n_rs)
 
 void RS::update(int result, int rd)
 {
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     if (!this->entry[i].free)
     {
@@ -99,7 +99,7 @@ void RS::update(int result, int rd)
 
 void RS::tick()
 {
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     if (!this->entry[i].free)
     {
@@ -110,7 +110,7 @@ void RS::tick()
 
 RS& RS::operator=(const RS& rs)
 {
-  for (int i = 0; i < NUM_ENTRIES; ++i)
+  for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     this->entry[i] = rs.entry[i];
   }

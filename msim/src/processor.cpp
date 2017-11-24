@@ -19,16 +19,19 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
-  os << "  instBUf = {\n"
-     << "    " << cpu.instBUf << '\n'
+  os << "  ibuf = {\n"
+     << "    " << cpu.ibuf << '\n'
+     << "  }\n";
+  os << "  rat = {\n"
+     << "    " << cpu.rat << '\n'
      << "  }\n";
   os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";
   os << "  rs = {\n" << cpu.rs
      << "  }\n";
-  os << "  ALU1 = {\n" << cpu.ALU1
+  os << "  alu1 = {\n" << cpu.alu1
      << "  }\n";
-//  os << "  BU = {\n" << cpu.BU
+//  os << "  bu = {\n" << cpu.bu
 //     << "  }\n";
   os << "}";
   os << "=== statistics ===\n"
@@ -62,10 +65,10 @@ bool Processor::isStalled()
 Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
-  this->instBUf = cpu.instBUf;
+  this->ibuf = cpu.ibuf;
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
-  this->ALU1 = cpu.ALU1;
+  this->alu1 = cpu.alu1;
   //this->BU = cpu.BU;
 
   this->cycles = cpu.cycles;
@@ -77,31 +80,31 @@ Processor& Processor::operator=(const Processor& cpu)
 void Processor::fetch(Processor &n_cpu)
 {
   Instruction Instruction = icache[this->pc];
-  n_cpu.instBUf = Instruction;
+  n_cpu.ibuf = Instruction;
 }
 
 void Processor::decode(Processor &n_cpu)
 {
-  std::string opcode = this->instBUf.opcode;
-  if (this->instBUf.params.size() >= 3)
+  std::string opcode = this->ibuf.opcode;
+  if (this->ibuf.params.size() >= 3)
   {
     int os1; bool v1;
     int os2; bool v2;
 
-    int rd  = this->instBUf.params[0];
+    int rd  = this->ibuf.params[0];
     n_cpu.rrf.reset(rd);
 
-    int rs1 = this->instBUf.params[1];
+    int rs1 = this->ibuf.params[1];
     std::tie(os1, v1) = rrf.read(rs1);
 
     if (opcode == "addi" || opcode == "subi")
     {
-      os2 = this->instBUf.params[2];
+      os2 = this->ibuf.params[2];
       v2 = true;
     }
     else
     {
-      int rs2 = this->instBUf.params[2];
+      int rs2 = this->ibuf.params[2];
       std::tie(os2, v2) = rrf.read(rs2);
     }
 
@@ -117,25 +120,25 @@ void Processor::decode(Processor &n_cpu)
 void Processor::dispatch(Processor &n_cpu)
 {
   // about to finish executing current Instruction
-  if (this->ALU1.duration <= 1)
+  if (this->alu1.duration <= 1)
   {
     Entry e = rs.dispatch(n_cpu.rs);
-    n_cpu.ALU1.dispatch(e.opcode, e.os1, e.os2, e.rd); // next state stores Instruction
+    n_cpu.alu1.dispatch(e.opcode, e.os1, e.os2, e.rd); // next state stores Instruction
   }
 }
 
 void Processor::execute(Processor &n_cpu)
 {
-  n_cpu.Instructions_executed += this->ALU1.execute(n_cpu.ALU1);
+  n_cpu.Instructions_executed += this->alu1.execute(n_cpu.alu1);
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
-  if (this->ALU1.we)
+  if (this->alu1.we)
   {
-    n_cpu.rrf.write(this->ALU1.dest, this->ALU1.result);
-    n_cpu.rs.update(this->ALU1.result, this->ALU1.dest);
-    this->ALU1.we = false;
+    n_cpu.rrf.write(this->alu1.dest, this->alu1.result);
+    n_cpu.rs.update(this->alu1.result, this->alu1.dest);
+    this->alu1.we = false;
   }
 }
 

@@ -1,7 +1,7 @@
 #ifndef RS_H
 #define RS_H
 
-#define NUM_ENTRIES 4
+#include "config.hpp"
 
 #include <string>
 #include <iostream>
@@ -32,7 +32,7 @@ class RS
     RS& operator=(const RS& rs);
 
   private:
-    Entry entry[NUM_ENTRIES];
+    Entry entry[NUM_RS_ENTRIES];
 };
 std::ostream& operator<<(std::ostream& os, const RS& rs);
 
