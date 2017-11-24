@@ -1,29 +1,29 @@
-#include "reservationstation.hpp"
+#include "rs.hpp"
 
-std::ostream& operator<<(std::ostream& os, const ReservationStation& restat)
+std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
   os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tO_s3\tV_s3\tR_d\n";
   os << "    ---------------------------------------------------------------\n";
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
     os << "    ";
-    if (restat.entry[i].free)
+    if (rs.entry[i].free)
     {
       os << '*';
     }
-    os << restat.entry[i].opcode << '(' << restat.entry[i].age << ')' << '\t' 
-       << restat.entry[i].os1 << '\t' 
-       << restat.entry[i].v1 << '\t' 
-       << restat.entry[i].os2 << '\t' 
-       << restat.entry[i].v2 << '\t' 
-       << restat.entry[i].os3 << '\t' 
-       << restat.entry[i].v3 << '\t' 
-       << restat.entry[i].rd << '\n';
+    os << rs.entry[i].opcode << '(' << rs.entry[i].age << ')' << '\t' 
+       << rs.entry[i].os1 << '\t' 
+       << rs.entry[i].v1 << '\t' 
+       << rs.entry[i].os2 << '\t' 
+       << rs.entry[i].v2 << '\t' 
+       << rs.entry[i].os3 << '\t' 
+       << rs.entry[i].v3 << '\t' 
+       << rs.entry[i].rd << '\n';
   }
   return os;
 }
 
-bool ReservationStation::isFull()
+bool RS::isFull()
 {
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
@@ -35,7 +35,7 @@ bool ReservationStation::isFull()
   return true;
 }
 
-void ReservationStation::issue(Entry entry)
+void RS::issue(Entry entry)
 {
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
@@ -50,7 +50,7 @@ void ReservationStation::issue(Entry entry)
   }
 }
 
-Entry ReservationStation::dispatch(ReservationStation &n_restat)
+Entry RS::dispatch(RS &n_rs)
 {
   int oldest = -1;
   for (int i = 0; i < NUM_ENTRIES; ++i)
@@ -71,12 +71,12 @@ Entry ReservationStation::dispatch(ReservationStation &n_restat)
   }
   else
   {
-    n_restat.entry[oldest].free = true;
+    n_rs.entry[oldest].free = true;
     return this->entry[oldest];
   }
 }
 
-void ReservationStation::update(int result, int rd)
+void RS::update(int result, int rd)
 {
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
@@ -97,7 +97,7 @@ void ReservationStation::update(int result, int rd)
   }
 }
 
-void ReservationStation::tick()
+void RS::tick()
 {
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
@@ -108,11 +108,11 @@ void ReservationStation::tick()
   }
 }
 
-ReservationStation& ReservationStation::operator=(const ReservationStation& restat)
+RS& RS::operator=(const RS& rs)
 {
   for (int i = 0; i < NUM_ENTRIES; ++i)
   {
-    this->entry[i] = restat.entry[i];
+    this->entry[i] = rs.entry[i];
   }
   return *this;
 }

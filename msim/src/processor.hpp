@@ -2,9 +2,10 @@
 #define PROCESSOR_H
 
 #include "cache.hpp"
-#include "registerfile.hpp"
-#include "reservationstation.hpp"
+#include "rrf.hpp"
+#include "rs.hpp"
 #include "alu.hpp"
+#include "bu.hpp"
 
 class Processor
 {
@@ -13,15 +14,16 @@ class Processor
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
     void tick(Processor &n_cpu);
 
-    ICache &icache; // instruction cache
+    ICache &icache; // Instruction cache
     DCache &dcache; // data cache
 
     unsigned int pc = 0;
 
-    Instruction instbuf;
-    RegisterFile regfile;
-    ReservationStation restat;
-    Alu alu1;
+    Instruction instBUf;
+    RRF rrf;
+    RS rs;
+    ALU ALU1;
+    //BU BU;
 
     bool isStalled();
 
@@ -34,10 +36,11 @@ class Processor
     void dispatch(Processor &n_cpu);
     void execute(Processor &n_cpu);
     void writeback(Processor &n_cpu);
+    void commit(Processor &n_cpu);
 
     // statistics recorders
     int cycles;
-    int instructions_executed;
+    int Instructions_executed;
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);

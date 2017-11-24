@@ -11,7 +11,7 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   dcache(dcache),
 
   cycles(0),
-  instructions_executed(0)
+  Instructions_executed(0)
 {
 }
 
@@ -19,20 +19,22 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
-  os << "  instbuf = {\n"
-     << "    " << cpu.instbuf << '\n'
+  os << "  instBUf = {\n"
+     << "    " << cpu.instBUf << '\n'
      << "  }\n";
-  os << "  regfile = {\n    " << cpu.regfile << '\n';
+  os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";
-  os << "  restat = {\n" << cpu.restat
+  os << "  rs = {\n" << cpu.rs
      << "  }\n";
-  os << "  alu1 = {\n" << cpu.alu1
+  os << "  ALU1 = {\n" << cpu.ALU1
      << "  }\n";
+//  os << "  BU = {\n" << cpu.BU
+//     << "  }\n";
   os << "}";
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
-     << "instructions_executed = " << cpu.instructions_executed << '\n'
-     << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
+     << "Instructions_executed = " << cpu.Instructions_executed << '\n'
+     << "Instructions_per_cycle = " << ((double)cpu.Instructions_executed / (double)cpu.cycles);
   return os;
 }
 
@@ -45,58 +47,62 @@ void Processor::tick(Processor &n_cpu)
     fetch(n_cpu);
     decode(n_cpu);
   }
-  n_cpu.restat.tick(); // age all used entries
+  n_cpu.rs.tick(); // age all used entries
   dispatch(n_cpu);
   execute(n_cpu);
   writeback(n_cpu);
+  commit(n_cpu);
 }
 
 bool Processor::isStalled()
 {
-  return this->restat.isFull();
+  return this->rs.isFull();
 }
 
 Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
-  this->instbuf = cpu.instbuf;
-  this->regfile = cpu.regfile;
-  this->restat = cpu.restat;
-  this->alu1 = cpu.alu1;
+  this->instBUf = cpu.instBUf;
+  this->rrf = cpu.rrf;
+  this->rs = cpu.rs;
+  this->ALU1 = cpu.ALU1;
+  //this->BU = cpu.BU;
+
   this->cycles = cpu.cycles;
-  this->instructions_executed = cpu.instructions_executed;
+  this->Instructions_executed = cpu.Instructions_executed;
+
   return *this;
 }
 
 void Processor::fetch(Processor &n_cpu)
 {
-  Instruction instruction = icache[this->pc];
-  n_cpu.instbuf = instruction;
+  Instruction Instruction = icache[this->pc];
+  n_cpu.instBUf = Instruction;
 }
 
 void Processor::decode(Processor &n_cpu)
 {
-  std::string opcode = this->instbuf.opcode;
-  if (this->instbuf.params.size() >= 3)
+  std::string opcode = this->instBUf.opcode;
+  if (this->instBUf.params.size() >= 3)
   {
     int os1; bool v1;
     int os2; bool v2;
 
-    int rd  = this->instbuf.params[0];
-    n_cpu.regfile.reset(rd);
+    int rd  = this->instBUf.params[0];
+    n_cpu.rrf.reset(rd);
 
-    int rs1 = this->instbuf.params[1];
-    std::tie(os1, v1) = regfile.read(rs1);
+    int rs1 = this->instBUf.params[1];
+    std::tie(os1, v1) = rrf.read(rs1);
 
     if (opcode == "addi" || opcode == "subi")
     {
-      os2 = this->instbuf.params[2];
+      os2 = this->instBUf.params[2];
       v2 = true;
     }
     else
     {
-      int rs2 = this->instbuf.params[2];
-      std::tie(os2, v2) = regfile.read(rs2);
+      int rs2 = this->instBUf.params[2];
+      std::tie(os2, v2) = rrf.read(rs2);
     }
 
     Entry entry;
@@ -104,31 +110,35 @@ void Processor::decode(Processor &n_cpu)
     entry.os1 = os1; entry.v1 = v1;
     entry.os2 = os2; entry.v2 = v2;
     entry.rd = rd;
-    n_cpu.restat.issue(entry);
+    n_cpu.rs.issue(entry);
   }
 }
 
 void Processor::dispatch(Processor &n_cpu)
 {
-  // about to finish executing current instruction
-  if (this->alu1.duration <= 1)
+  // about to finish executing current Instruction
+  if (this->ALU1.duration <= 1)
   {
-    Entry e = restat.dispatch(n_cpu.restat);
-    n_cpu.alu1.dispatch(e.opcode, e.os1, e.os2, e.rd); // next state stores instruction
+    Entry e = rs.dispatch(n_cpu.rs);
+    n_cpu.ALU1.dispatch(e.opcode, e.os1, e.os2, e.rd); // next state stores Instruction
   }
 }
 
 void Processor::execute(Processor &n_cpu)
 {
-  n_cpu.instructions_executed += this->alu1.execute(n_cpu.alu1);
+  n_cpu.Instructions_executed += this->ALU1.execute(n_cpu.ALU1);
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
-  if (this->alu1.we)
+  if (this->ALU1.we)
   {
-    n_cpu.regfile.write(this->alu1.dest, this->alu1.result);
-    n_cpu.restat.update(this->alu1.result, this->alu1.dest);
-    this->alu1.we = false;
+    n_cpu.rrf.write(this->ALU1.dest, this->ALU1.result);
+    n_cpu.rs.update(this->ALU1.result, this->ALU1.dest);
+    this->ALU1.we = false;
   }
+}
+
+void Processor::commit(Processor &n_cpu)
+{
 }

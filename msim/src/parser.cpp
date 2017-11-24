@@ -78,15 +78,15 @@ std::tuple<Instruction*,int> Parser::load_program(char *filename)
 
 void Parser::get_metadata(FILE *code)
 {
-  char buffer[256];
+  char BUffer[256];
   char *tok = NULL;
 
   this->lnum = 0;
   this->inum = 0;
 
-  while (fgets(buffer, sizeof(buffer), code) != NULL)
+  while (fgets(BUffer, sizeof(BUffer), code) != NULL)
   {
-    tok = strtok(buffer, " \t\n\0");
+    tok = strtok(BUffer, " \t\n\0");
 
     if (tok != NULL && tok[0] != ';')
     {
@@ -104,12 +104,12 @@ void Parser::get_metadata(FILE *code)
 
 void Parser::get_labels(FILE *code)
 {
-  char buffer[256];
+  char BUffer[256];
   char *tok = NULL;
 
-  for (int ln = 1, addr = 0, i = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  for (int ln = 1, addr = 0, i = 0; fgets(BUffer, sizeof(BUffer), code) != NULL; ++ln)
   {
-    tok = strtok(buffer, " \t\n\0");
+    tok = strtok(BUffer, " \t\n\0");
 
     if (tok != NULL && tok[0] != ';') 
     {
@@ -129,7 +129,7 @@ void Parser::get_labels(FILE *code)
           exit(EXIT_FAILURE);
         }
       }
-      // otherwise, it's an instruction
+      // otherwise, it's an Instruction
       else
       {
         //addr += 4;
@@ -141,19 +141,19 @@ void Parser::get_labels(FILE *code)
 
 void Parser::get_program(FILE *code, Instruction *program)
 {
-  char buffer[256];
+  char BUffer[256];
   char *tok = NULL;
 
-  for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
+  for (int ln = 1, p = 0; fgets(BUffer, sizeof(BUffer), code) != NULL; ++ln)
   {
-    tok = strtok(buffer, " \t\n\0");
+    tok = strtok(BUffer, " \t\n\0");
 
     // skip blank lines, comments, or labels
     if (tok != NULL && tok[0] != ';' && tok[0] != ':') 
     {
       int id = -1;
 
-      // verify instruction is valid
+      // verify Instruction is valid
       for (int i = 0; i < ISIZE; ++i)
       {
         if (strcmp(tok, instset[i].opcode) == 0)
@@ -163,7 +163,7 @@ void Parser::get_program(FILE *code, Instruction *program)
         }
       }
 
-      // return if valid instruction is provided
+      // return if valid Instruction is provided
       if (id == -1)
       {
         printf("*** error on line(%d) - %s is not a valid operation. ***\n", ln, tok);
@@ -222,8 +222,8 @@ int Parser::labelval(char *label) {
 
 Instruction Parser::parse_inst(const InstDef *inst, int line)
 {
-  Instruction instruction;
-  instruction.opcode = std::string(inst->opcode);
+  Instruction Instruction;
+  Instruction.opcode = std::string(inst->opcode);
 
   char *tok;        
   for (int p = 0; p < inst->num_params; ++p)
@@ -242,7 +242,7 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
       val = regval(tok);
       if (val == -1)
       {
-        printf("*** error on line(%d) - invalid register value. ***\n", line);
+        printf("*** error on line(%d) - invalid register vALUe. ***\n", line);
         exit(EXIT_FAILURE);
       }
     }
@@ -258,17 +258,17 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
       }
       if (val == -1)
       {
-        printf("*** error on line(%d) - invalid address value. ***\n", line);
+        printf("*** error on line(%d) - invalid address vALUe. ***\n", line);
         exit(EXIT_FAILURE);
       }
     }
     else
     {
-      printf("*** error on line(%d) - schematic instruction param invalid. ***\n", line);
+      printf("*** error on line(%d) - schematic Instruction param invalid. ***\n", line);
       exit(EXIT_FAILURE);
     }
 
-    instruction.params.push_back(val);
+    Instruction.params.push_back(val);
   }
 
   tok = strtok(NULL, " \t\n\0");
@@ -279,5 +279,5 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
     exit(EXIT_FAILURE);
   }
 
-  return instruction;
+  return Instruction;
 }

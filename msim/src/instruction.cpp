@@ -10,10 +10,10 @@ Instruction::Instruction(std::string opcode) :
   this->opcode = opcode;
 }
 
-std::ostream& operator<<(std::ostream& os, const Instruction& instruction)
+std::ostream& operator<<(std::ostream& os, const Instruction& Instruction)
 {
-  os << instruction.opcode;
-  for (const int &p : instruction.params)
+  os << Instruction.opcode;
+  for (const int &p : Instruction.params)
   {
     os << ' ' << p;
   }

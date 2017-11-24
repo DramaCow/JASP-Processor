@@ -1,5 +1,5 @@
-#ifndef RESERVATIONSTATION_H
-#define RESERVATIONSTATION_H
+#ifndef RS_H
+#define RS_H
 
 #define NUM_ENTRIES 4
 
@@ -19,20 +19,21 @@ struct Entry
   bool free = true;
 };
 
-class ReservationStation
+// Reservation Station
+class RS
 {
   public:
-    friend std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
+    friend std::ostream& operator<<(std::ostream& os, const RS& rs);
     bool isFull();
     void issue(Entry entry);
-    Entry dispatch(ReservationStation &n_restat);
+    Entry dispatch(RS &n_rs);
     void update(int result, int rd);
     void tick();
-    ReservationStation& operator=(const ReservationStation& restat);
+    RS& operator=(const RS& rs);
 
   private:
     Entry entry[NUM_ENTRIES];
 };
-std::ostream& operator<<(std::ostream& os, const ReservationStation& restat);
+std::ostream& operator<<(std::ostream& os, const RS& rs);
 
 #endif
