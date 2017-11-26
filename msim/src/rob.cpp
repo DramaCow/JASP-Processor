@@ -8,7 +8,7 @@ std::tuple<int, bool> ROB::read(int addr)
   return std::make_tuple(this->done[a] ? this->val[a] : this->reg[a], this->done[a]);
 }
 
-int ROB::alloc(int r)
+int ROB::alloc(ROB &n_rob, int r)
 {
   // alloc the rob entry
   this->reg[this->head] = r;

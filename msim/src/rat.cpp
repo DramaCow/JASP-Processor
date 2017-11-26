@@ -13,7 +13,7 @@ int RAT::read(int r)
   return this->table[r];
 }
 
-int RAT::alloc(int r)
+int RAT::alloc(RAT &n_rat, int r)
 {
   return this->table[r]; // TODO
 }

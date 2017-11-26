@@ -50,30 +50,26 @@ void Processor::decode(Processor &n_cpu)
             opcode == "sub" ||
             opcode == "xor"    )
   {
-    int rs1 = this->rat.read(this->ibuf.params[1]);
-    int rs2 = this->rat.read(this->ibuf.params[2]);
-    int rd  = this->rat.alloc(this->ibuf.params[0]);
+    int rd  = this->rat.alloc(n_cpu.rat, this->ibuf.params[0]);
     
-    n_cpu.rrf.reset(rd); // mark rd as unavailable
-
+    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
+    std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
     shelf.dest = rd;
-    std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
-    std::tie(shelf.o2, shelf.v2) = rrf.read(rs2);
+
+    n_cpu.rrf.reset(rd); // mark rd as unavailable
 
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "addi" ||
             opcode == "subi"    )
   {
-    int rs1 = this->rat.read(this->ibuf.params[1]);
-    int o2 = this->ibuf.params[2];
-    int rd  = this->rat.alloc(this->ibuf.params[0]);
+    int rd  = this->rat.alloc(n_cpu.rat, this->ibuf.params[0]);
     
-    n_cpu.rrf.reset(rd); // mark rd as unavailable
-
+    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
     shelf.dest = rd;
-    std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
-    std::tie(shelf.o2, shelf.v2) = std::make_tuple(o2, true);
+
+    n_cpu.rrf.reset(rd); // mark rd as unavailable
 
     n_cpu.rs.issue(shelf);
   }

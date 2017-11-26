@@ -9,7 +9,7 @@
 class ROB {
   public:
     std::tuple<int, bool> read(int addr);
-    int alloc(int r);
+    int alloc(ROB &n_rob, int r);
 
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
