@@ -1,10 +1,10 @@
 #include "bu.hpp"
 
-void BU::dispatch(std::string opcode, int os1, int os2, int target)
+void BU::dispatch(std::string opcode, int o1, int o2, int target)
 {
   this->opcode = opcode;
-  this->os1 = os1;
-  this->os2 = os2;
+  this->o1 = o1;
+  this->o2 = o2;
   this->target = target;
 
   this->duration = 0;
@@ -33,11 +33,11 @@ int BU::execute(BU &n_BU)
     }
     else if (this->opcode == "beq")
     {
-      n_BU.cond = this->os1 == this->os2;
+      n_BU.cond = this->o1 == this->o2;
     }
     else if (this->opcode == "bneq")
     {
-      n_BU.cond = this->os1 != this->os2;
+      n_BU.cond = this->o1 != this->o2;
     }
     n_BU.addr = this->target;
     return 1;
@@ -49,7 +49,7 @@ int BU::execute(BU &n_BU)
 
 std::ostream& operator<<(std::ostream& os, const BU& BU)
 {
-  os << "    IN: " << BU.opcode << ' ' << BU.os1 << ' ' << BU.os2 << ' ' << BU.target;
+  os << "    IN: " << BU.opcode << ' ' << BU.o1 << ' ' << BU.o2 << ' ' << BU.target;
   os << "    duration = " << BU.duration << '\n';
   os << "    OUT: " << BU.cond << ' ' << BU.addr << '\n';
   return os;

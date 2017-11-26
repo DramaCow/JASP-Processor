@@ -25,7 +25,6 @@ void Processor::tick(Processor &n_cpu)
     decode(n_cpu);
   }
   n_cpu.rs.tick(); // age all used entries
-  dispatch(n_cpu);
   execute(n_cpu);
   writeback(n_cpu);
   commit(n_cpu);
@@ -85,41 +84,41 @@ void Processor::decode(Processor &n_cpu)
             opcode == "subi"    )
   {
     int rs1 = this->rat.read(this->ibuf.params[1]);
-    int os2 = this->ibuf.params[2];
+    int o2 = this->ibuf.params[2];
     int rd  = this->rat.alloc(this->ibuf.params[0]);
     
     n_cpu.rrf.reset(rd); // mark rd as unavailable
 
     shelf.dest = rd;
     std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
-    std::tie(shelf.o2, shelf.v2) = std::make_tuple(os2, true);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(o2, true);
   }
 
   n_cpu.rs.issue(shelf);
 }
 
-void Processor::dispatch(Processor &n_cpu)
-{
-  // about to finish executing current Instruction
-  if (this->alu1.duration <= 1)
-  {
-    Shelf e = rs.dispatch(n_cpu.rs);
-    n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest); // next state stores Instruction
-  }
-}
-
 void Processor::execute(Processor &n_cpu)
 {
-  n_cpu.Instructions_executed += this->alu1.execute(n_cpu.alu1);
+  // dispatch
+  if (this->alu1.duration == 0)
+  {
+    Shelf e = rs.dispatch(n_cpu.rs); // this may be nop
+    n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest);
+  }
+
+  // and execute
+  if (this->alu1.duration > 0)
+  {
+    this->alu1.execute(n_cpu.alu1);
+  }
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
-  if (this->alu1.we)
+  if (this->alu1.duration == 0 && this->alu1.writeback)
   {
     n_cpu.rrf.write(this->alu1.dest, this->alu1.result);
-    n_cpu.rs.update(this->alu1.result, this->alu1.dest);
-    this->alu1.we = false;
+    n_cpu.rs.update(this->alu1.dest, this->alu1.result);
   }
 }
 

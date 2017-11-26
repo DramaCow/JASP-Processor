@@ -1,67 +1,57 @@
 #include "alu.hpp"
 
 // this is applyed to the next state
-void ALU::dispatch(std::string opcode, int os1, int os2, int rd)
+void ALU::dispatch(std::string opcode, int o1, int o2, int dest)
 {
-  this->duration = 0;
-
   this->opcode = opcode;
-  this->os1 = os1;
-  this->os2 = os2;
-  this->rd = rd;
-  if (opcode == "add" || opcode == "addi" || opcode == "sub" || opcode == "subi" || opcode == "xor")
+  this->o1 = o1;
+  this->o2 = o2;
+  this->dest = dest;
+
+  if (this->opcode == "add" || this->opcode == "addi")
   {
-    this->duration = 1;
+    this->result = o1 + o2;
+    this->duration = 5;
+    this->writeback = true;
   }
-  else if (opcode == "mul" || opcode == "muli")
+  else if (this->opcode == "sub" || this->opcode == "subi")
   {
-    this->duration = 3;
+    this->result = o1 - o2;
+    this->duration = 0;
+    this->writeback = true;
+  }
+  else if (this->opcode == "xor")
+  {
+    this->result = o1 ^ o2;
+    this->duration = 0;
+    this->writeback = true;
+  }
+  else if (this->opcode == "mul" || this->opcode == "muli")
+  {
+    this->result = o1 * o2;
+    this->duration = 2;
+    this->writeback = true;
+  }
+  // Unexpected OP
+  else {
+    this->result = 0;
+    this->duration = 0;
+    this->writeback = false;
   }
 }
 
 // applied to the current state, updates the next state
-int ALU::execute(ALU& n_alu)
+void ALU::execute(ALU& n_alu)
 {
-  n_alu.we = false;
-
-  if (this->duration == 0)
-  {
-    return 0;
-  }
-
-  // about to finish
-  if (n_alu.duration <= 1)
-  {
-    if (this->opcode == "add" || this->opcode == "addi")
-    {
-      n_alu.result = this->os1 + this->os2;
-    }
-    else if (this->opcode == "sub" || this->opcode == "subi")
-    {
-      n_alu.result = this->os1 - this->os2;
-    }
-    else if (this->opcode == "xor")
-    {
-      n_alu.result = this->os1 ^ this->os2;
-    }
-    else if (this->opcode == "mul" || this->opcode == "muli")
-    {
-      n_alu.result = this->os1 * this->os2;
-    }
-    n_alu.dest = this->rd;
-    n_alu.we = true;
-    return 1;
-  }
-  
-  n_alu.duration = this->duration - 1;
-  return 0;
+  n_alu.duration = this->duration-1 > 0 ? this->duration-1 : 0;
 }
 
-std::ostream& operator<<(std::ostream& os, const ALU& ALU)
+std::ostream& operator<<(std::ostream& os, const ALU& alu)
 {
-  os << "    IN: " << ALU.opcode << ' ' << ALU.os1 << ' ' << ALU.os2 << ' ' << ALU.rd << '\n';
-  os << "    duration = " << ALU.duration << '\n';
-  os << "    OUT: " << ALU.result << ' ' << ALU.dest << '\n';
-  os << "    we = " << ALU.we << '\n';
+  os << "    d" << alu.dest << " <-- " << alu.o1 << ' ' << alu.opcode << ' ' << alu.o2 << " (" << alu.duration << ")\n";
+  if (alu.writeback && alu.duration == 0)
+  {
+    os << "    = " << alu.result << ' ' << "writeback" << '\n';
+  }
   return os;
 }

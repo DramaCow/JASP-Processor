@@ -8,22 +8,23 @@
 class ALU
 {
   public:
-    void dispatch(std::string opcode, int os1, int os2, int rd);
-    int execute(ALU& n_alu);
+    void dispatch(std::string opcode, int o1, int o2, int dest);
+    void execute(ALU& n_alu);
 
     // input latch
     std::string opcode = "nop"; 
-    int os1 = 0; 
-    int os2 = 0; 
-    int rd = 0;
+    int o1 = 0; 
+    int o2 = 0; 
 
-    // ticks to complete Instruction execution
+    // output latch
+    int dest = 0; 
+    int result = 0; 
+
+    // ticks to complete instruction execution
     int duration = 0; 
 
-    // results latch
-    int result = 0; 
-    int dest = 0; 
-    bool we = false; // writeback enabled
+    // control flags
+    bool writeback = false;
 
     friend std::ostream& operator<<(std::ostream& os, const ALU& ALU);
 };

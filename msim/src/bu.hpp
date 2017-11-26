@@ -8,7 +8,7 @@
 class BU
 {
   public:
-    void dispatch(std::string opcode, int os1, int os2, int target);
+    void dispatch(std::string opcode, int o1, int o2, int target);
     int execute(BU &n_BU);
 
     friend std::ostream& operator<<(std::ostream& os, const BU& BU);
@@ -16,8 +16,8 @@ class BU
   private:
     // input latch variables
     std::string opcode = "nop";
-    int os1 = 0;
-    int os2 = 0;
+    int o1 = 0;
+    int o2 = 0;
     int target = 0;
 
     // meta-control variables

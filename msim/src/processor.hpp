@@ -39,7 +39,6 @@ class Processor
     // pipeline stage advancing functions
     void fetch(Processor &n_cpu);
     void decode(Processor &n_cpu);
-    void dispatch(Processor &n_cpu);
     void execute(Processor &n_cpu);
     void writeback(Processor &n_cpu);
     void commit(Processor &n_cpu);

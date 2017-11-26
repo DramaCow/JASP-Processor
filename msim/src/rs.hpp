@@ -26,7 +26,7 @@ class RS
     bool isFull();
     void issue(Shelf shelf);
     Shelf dispatch(RS &n_rs);
-    void update(int result, int dest);
+    void update(int dest, int result);
     void tick();
 
     RS& operator=(const RS& rs);

@@ -53,7 +53,7 @@ Shelf RS::dispatch(RS &n_rs)
   }
 }
 
-void RS::update(int result, int dest)
+void RS::update(int dest, int result)
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
