@@ -16,7 +16,6 @@ int RAT::read(int r)
 
 void RAT::write(RAT &n_rat, int r, int a)
 {
-  std::cout << " --------------------------------- " << r << ' ' << a << std::endl;
   n_rat.table[r] = a;
 }
 

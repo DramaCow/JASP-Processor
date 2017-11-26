@@ -145,6 +145,7 @@ Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
+  this->rat = cpu.rat;
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
