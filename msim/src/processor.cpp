@@ -133,10 +133,10 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  ibuf = {\n"
      << "    " << cpu.ibuf << '\n'
      << "  }\n";
-  os << "  rob = {\n" << cpu.rob << '\n'
-     << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'
+     << "  }\n";
+  os << "  rob = {\n" << cpu.rob << '\n'
      << "  }\n";
   os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";
