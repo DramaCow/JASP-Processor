@@ -12,7 +12,7 @@ class ROB {
     std::tuple<int, bool> read(int addr);
     int push(ROB &n_rob, int r);
     void write(int addr, int val);
-    std::vector<std::tuple<int, int>> pop(ROB &n_rob);
+    std::vector<std::tuple<int,int,int>> pop(ROB &n_rob);
 
     ROB& operator=(const ROB& rob);
 

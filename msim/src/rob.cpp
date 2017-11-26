@@ -6,7 +6,7 @@ std::tuple<int, bool> ROB::read(int addr)
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
   //       to differentiate them fron architectural addresses
   int a = addr - NUM_REGISTERS;
-  return std::make_tuple(this->done[a] ? this->val[a] : this->reg[a], this->done[a]);
+  return std::make_tuple(this->done[a] ? this->val[a] : addr, this->done[a]);
 }
 
 int ROB::push(ROB &n_rob, int r)
@@ -35,9 +35,9 @@ void ROB::write(int addr, int val)
   this->done[a] = true;
 }
 
-std::vector<std::tuple<int, int>> ROB::pop(ROB &n_rob)
+std::vector<std::tuple<int,int,int>> ROB::pop(ROB &n_rob)
 {
-  std::vector<std::tuple<int, int>> commits;
+  std::vector<std::tuple<int,int,int>> commits;
 
   int c;
   for (c = 0; c < 4; ++c) // max commits per cycle is 4
@@ -47,7 +47,7 @@ std::vector<std::tuple<int, int>> ROB::pop(ROB &n_rob)
     {
       break;
     }
-    commits.push_back(std::make_tuple(this->reg[tail], this->val[tail]));
+    commits.push_back(std::make_tuple(this->reg[tail], this->val[tail], tail));
   }
 
   n_rob.tail = (this->tail + c) % NUM_REGISTERS;

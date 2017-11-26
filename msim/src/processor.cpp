@@ -95,13 +95,23 @@ void Processor::writeback(Processor &n_cpu)
 
 void Processor::commit(Processor &n_cpu)
 {
-  std::vector<std::tuple<int,int>> commits = this->rob.pop(n_cpu.rob);
-  int r, val;
+  std::vector<std::tuple<int,int,int>> commits = this->rob.pop(n_cpu.rob);
+  int r, val, rob_entry;
   for (std::size_t i = 0; i < commits.size(); ++i)
   {
-    std::tie(r, val) = commits[i];
+    std::tie(r, val, rob_entry) = commits[i];
     n_cpu.rrf.write(r, val);
-    this->rat.write(n_cpu.rat, r, r);
+    // NOTE: The rat entry should be freed IFF
+    //       the rat entry points to the rob entry.
+    //       i.e. the rob entry was the "most up to date"
+    //            value for the rat entry.
+    //       Otherwise the most "up to date" is held else-
+    //       where, such as a different rob entry, and
+    //       should NOT be modified.
+    if (this->rat.read(r) == rob_entry)
+    {
+      this->rat.write(n_cpu.rat, r, r);
+    }
   }
 }
 
@@ -112,6 +122,8 @@ void Processor::commit(Processor &n_cpu)
 std::tuple<int, bool> Processor::read(int r)
 {
   int addr = this->rat.read(r);
+
+  std::cout << " ---------------- " << addr << std::endl;
 
   // if is a ROB address
   if (addr >= NUM_REGISTERS)
