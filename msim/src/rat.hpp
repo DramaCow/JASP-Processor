@@ -12,6 +12,9 @@ class RAT
   public:
     RAT(ROB rob, RRF rrf);
 
+    int read(int a);
+    int alloc(int a);
+
     friend std::ostream& operator<<(std::ostream& os, const RAT& rat);
 
   private:
