@@ -79,6 +79,8 @@ void Processor::decode(Processor &n_cpu)
     shelf.dest = rd;
     std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
     std::tie(shelf.o2, shelf.v2) = rrf.read(rs2);
+
+    n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "addi" ||
             opcode == "subi"    )
@@ -92,9 +94,9 @@ void Processor::decode(Processor &n_cpu)
     shelf.dest = rd;
     std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(o2, true);
-  }
 
-  n_cpu.rs.issue(shelf);
+    n_cpu.rs.issue(shelf);
+  }
 }
 
 void Processor::execute(Processor &n_cpu)

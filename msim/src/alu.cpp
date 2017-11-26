@@ -11,7 +11,7 @@ void ALU::dispatch(std::string opcode, int o1, int o2, int dest)
   if (this->opcode == "add" || this->opcode == "addi")
   {
     this->result = o1 + o2;
-    this->duration = 5;
+    this->duration = 0;
     this->writeback = true;
   }
   else if (this->opcode == "sub" || this->opcode == "subi")
