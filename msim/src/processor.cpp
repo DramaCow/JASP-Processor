@@ -10,8 +10,6 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   icache(icache),
   dcache(dcache),
 
-  rat(rob, rrf),
-
   cycles(0),
   Instructions_executed(0)
 {

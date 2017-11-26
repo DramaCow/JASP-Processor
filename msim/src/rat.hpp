@@ -2,15 +2,13 @@
 #define RAT_H
 
 #include "config.hpp"
-#include "rob.hpp"
-#include "rrf.hpp"
 #include <iostream>
 
 // Register Alias Table
 class RAT
 {
   public:
-    RAT(ROB rob, RRF rrf);
+    RAT();
 
     int read(int a);
     int alloc(int a);
@@ -19,9 +17,6 @@ class RAT
 
   private:
     int table[NUM_REGISTERS];
-
-    ROB &rob;
-    RRF &rrf;
 };
 std::ostream& operator<<(std::ostream& os, const RAT& rat);
 
