@@ -10,6 +10,7 @@ class BU
   public:
     void dispatch(std::string opcode, int os1, int os2, int target);
     int execute(BU &n_BU);
+
     friend std::ostream& operator<<(std::ostream& os, const BU& BU);
 
   private:

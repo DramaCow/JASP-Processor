@@ -23,13 +23,15 @@ struct Entry
 class RS
 {
   public:
-    friend std::ostream& operator<<(std::ostream& os, const RS& rs);
     bool isFull();
     void issue(Entry entry);
     Entry dispatch(RS &n_rs);
     void update(int result, int rd);
     void tick();
+
     RS& operator=(const RS& rs);
+
+    friend std::ostream& operator<<(std::ostream& os, const RS& rs);
 
   private:
     Entry entry[NUM_RS_ENTRIES];

@@ -9,6 +9,7 @@ class ICache
     ICache(Instruction *program, int size);
     ~ICache();
     Instruction operator[](int i);
+
     friend std::ostream& operator<<(std::ostream& os, const ICache& icache);
 
   private:
@@ -24,6 +25,7 @@ class DCache
     DCache(int *data, int size);
     ~DCache();
     int& operator[](int i);
+
     friend std::ostream& operator<<(std::ostream& os, const DCache& dcache);
 
   private:

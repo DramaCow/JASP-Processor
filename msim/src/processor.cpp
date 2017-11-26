@@ -15,32 +15,6 @@ Processor::Processor(ICache &icache, DCache &dcache) :
 {
 }
 
-std::ostream& operator<<(std::ostream& os, const Processor& cpu)
-{
-  os << "{\n";
-  os << "  pc = " << cpu.pc << '\n';
-  os << "  ibuf = {\n"
-     << "    " << cpu.ibuf << '\n'
-     << "  }\n";
-  os << "  rat = {\n"
-     << "    " << cpu.rat << '\n'
-     << "  }\n";
-  os << "  rrf = {\n    " << cpu.rrf << '\n';
-  os << "  }\n";
-  os << "  rs = {\n" << cpu.rs
-     << "  }\n";
-  os << "  alu1 = {\n" << cpu.alu1
-     << "  }\n";
-//  os << "  bu = {\n" << cpu.bu
-//     << "  }\n";
-  os << "}";
-  os << "=== statistics ===\n"
-     << "cycles = " << cpu.cycles << '\n'
-     << "Instructions_executed = " << cpu.Instructions_executed << '\n'
-     << "Instructions_per_cycle = " << ((double)cpu.Instructions_executed / (double)cpu.cycles);
-  return os;
-}
-
 void Processor::tick(Processor &n_cpu)
 {
   n_cpu.cycles++;
@@ -69,7 +43,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
   this->alu1 = cpu.alu1;
-  //this->BU = cpu.BU;
+  //this->bu = cpu.bu;
 
   this->cycles = cpu.cycles;
   this->Instructions_executed = cpu.Instructions_executed;
@@ -86,33 +60,39 @@ void Processor::fetch(Processor &n_cpu)
 void Processor::decode(Processor &n_cpu)
 {
   std::string opcode = this->ibuf.opcode;
-  if (this->ibuf.params.size() >= 3)
+
+  Entry entry;
+  entry.opcode = opcode;
+
+  if ( opcode == "add" ||
+       opcode == "sub" ||
+       opcode == "xor"    )
   {
-    int os1; bool v1;
-    int os2; bool v2;
-
-    int rd  = this->ibuf.params[0];
-    n_cpu.rrf.reset(rd);
-
     int rs1 = this->ibuf.params[1];
-    std::tie(os1, v1) = rrf.read(rs1);
+    int rs2 = this->ibuf.params[2];
+    int rd  = this->ibuf.params[0];
+    
+    n_cpu.rrf.reset(rd); // mark rd as unavailable
 
-    if (opcode == "addi" || opcode == "subi")
-    {
-      os2 = this->ibuf.params[2];
-      v2 = true;
-    }
-    else
-    {
-      int rs2 = this->ibuf.params[2];
-      std::tie(os2, v2) = rrf.read(rs2);
-    }
-
-    Entry entry;
-    entry.opcode = opcode;
-    entry.os1 = os1; entry.v1 = v1;
-    entry.os2 = os2; entry.v2 = v2;
     entry.rd = rd;
+    std::tie(entry.os1, entry.v1) = rrf.read(rs1);
+    std::tie(entry.os2, entry.v2) = rrf.read(rs2);
+
+    n_cpu.rs.issue(entry);
+  }
+  else if ( opcode == "addi" ||
+            opcode == "subi"    )
+  {
+    int rs1 = this->ibuf.params[1];
+    int os2 = this->ibuf.params[2];
+    int rd  = this->ibuf.params[0];
+    
+    n_cpu.rrf.reset(rd); // mark rd as unavailable
+
+    entry.rd = rd;
+    std::tie(entry.os1, entry.v1) = rrf.read(rs1);
+    std::tie(entry.os2, entry.v2) = std::make_tuple(os2, true);
+
     n_cpu.rs.issue(entry);
   }
 }
@@ -144,4 +124,30 @@ void Processor::writeback(Processor &n_cpu)
 
 void Processor::commit(Processor &n_cpu)
 {
+}
+
+std::ostream& operator<<(std::ostream& os, const Processor& cpu)
+{
+  os << "{\n";
+  os << "  pc = " << cpu.pc << '\n';
+  os << "  ibuf = {\n"
+     << "    " << cpu.ibuf << '\n'
+     << "  }\n";
+  os << "  rat = {\n"
+     << "    " << cpu.rat << '\n'
+     << "  }\n";
+  os << "  rrf = {\n    " << cpu.rrf << '\n';
+  os << "  }\n";
+  os << "  rs = {\n" << cpu.rs
+     << "  }\n";
+  os << "  alu1 = {\n" << cpu.alu1
+     << "  }\n";
+//  os << "  bu = {\n" << cpu.bu
+//     << "  }\n";
+  os << "}";
+  os << "=== statistics ===\n"
+     << "cycles = " << cpu.cycles << '\n'
+     << "Instructions_executed = " << cpu.Instructions_executed << '\n'
+     << "Instructions_per_cycle = " << ((double)cpu.Instructions_executed / (double)cpu.cycles);
+  return os;
 }

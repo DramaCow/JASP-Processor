@@ -9,6 +9,7 @@ class RAT
 {
   public:
     RAT();
+
     friend std::ostream& operator<<(std::ostream& os, const RAT& rat);
 
   private:

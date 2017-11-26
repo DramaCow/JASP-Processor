@@ -12,7 +12,7 @@ class Processor
 {
   public:
     Processor(ICache &icache, DCache &dcache);
-    friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
+
     void tick(Processor &n_cpu);
 
     ICache &icache; // Instruction cache
@@ -30,6 +30,8 @@ class Processor
     bool isStalled();
 
     Processor& operator=(const Processor& cpu);
+
+    friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
 
   private:
     // pipeline stage advancing functions

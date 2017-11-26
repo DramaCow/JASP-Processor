@@ -36,6 +36,13 @@ void RRF::write(int addr, int data)
   this->v[addr] = true;
 }
 
+RRF& RRF::operator=(const RRF& rrf)
+{
+  memcpy(this->gpr, rrf.gpr, NUM_REGISTERS*sizeof(uint32_t));
+  memcpy(this->v, rrf.v, NUM_REGISTERS*sizeof(bool));
+  return *this;
+}
+
 std::ostream& operator<<(std::ostream& os, const RRF& rrf)
 {
   for (int i = 0; i < NUM_REGISTERS; ++i)
@@ -50,11 +57,4 @@ std::ostream& operator<<(std::ostream& os, const RRF& rrf)
     }
   }
   return os;
-}
-
-RRF& RRF::operator=(const RRF& rrf)
-{
-  memcpy(this->gpr, rrf.gpr, NUM_REGISTERS*sizeof(uint32_t));
-  memcpy(this->v, rrf.v, NUM_REGISTERS*sizeof(bool));
-  return *this;
 }

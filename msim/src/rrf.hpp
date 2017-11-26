@@ -18,8 +18,9 @@ class RRF
     void reset(int addr);
     void write(int addr, int data);
 
-    friend std::ostream& operator<<(std::ostream& os, const RRF& rrf);
     RRF& operator=(const RRF& rrf);
+
+    friend std::ostream& operator<<(std::ostream& os, const RRF& rrf);
 
   private:
     uint32_t gpr[NUM_REGISTERS] = { 0 };

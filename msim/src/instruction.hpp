@@ -10,10 +10,11 @@ class Instruction
   public:
     Instruction();
     Instruction(std::string opcode);
-    friend std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);
 
     std::string opcode;
     std::vector<int> params;
+
+    friend std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);
 };
 
 std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);

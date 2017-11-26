@@ -10,7 +10,6 @@ class ALU
   public:
     void dispatch(std::string opcode, int os1, int os2, int rd);
     int execute(ALU& n_ALU);
-    friend std::ostream& operator<<(std::ostream& os, const ALU& ALU);
 
     // input latch
     std::string opcode = "nop"; 
@@ -25,6 +24,8 @@ class ALU
     int result = 0; 
     int dest = 0; 
     bool we = false; // writeback enabled
+
+    friend std::ostream& operator<<(std::ostream& os, const ALU& ALU);
 };
 std::ostream& operator<<(std::ostream& os, const ALU& ALU);
 
