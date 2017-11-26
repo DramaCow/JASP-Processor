@@ -113,12 +113,23 @@ void Processor::commit(Processor &n_cpu)
 // === HELPER FUNCTIONS ===
 // ========================
 
-std::tuple<int, bool> Processor::read(int a)
+std::tuple<int, bool> Processor::read(int r)
 {
-  return std::make_tuple(0, false);
+  int addr = this->rat.read(r);
+
+  // if is a ROB address
+  if (addr >= NUM_REGISTERS)
+  {
+    return this->rob.read(addr);
+  }
+  // otherwise is an architectural address
+  else
+  {
+    return this->rrf.read(addr);
+  }
 }
 
-int Processor::alloc(int a)
+int Processor::alloc(int r)
 {
   return 0;
 }
@@ -158,7 +169,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'
      << "  }\n";
-  os << "  rob = {\n" << cpu.rob << '\n'
+  os << "  rob = {\n" << cpu.rob
      << "  }\n";
   os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";

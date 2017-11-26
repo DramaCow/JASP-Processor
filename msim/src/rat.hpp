@@ -10,8 +10,8 @@ class RAT
   public:
     RAT();
 
-    int read(int a);
-    int alloc(int a);
+    int read(int r);
+    int alloc(int r);
 
     friend std::ostream& operator<<(std::ostream& os, const RAT& rat);
 

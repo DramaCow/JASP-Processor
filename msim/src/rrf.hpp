@@ -12,11 +12,10 @@ class RRF
 {
   public:
     RRF();
-    std::tuple<uint32_t, uint32_t> foo(uint32_t addr1, uint32_t addr2, uint32_t daddr, uint32_t data, bool we);
 
-    std::tuple<int, bool> read(int addr);
-    void reset(int addr);
-    void write(int addr, int data);
+    std::tuple<int, bool> read(int r);
+    void reset(int r);
+    void write(int r, int data);
 
     RRF& operator=(const RRF& rrf);
 

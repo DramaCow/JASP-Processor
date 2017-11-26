@@ -3,10 +3,12 @@
 
 #include "config.hpp"
 #include <iostream>
+#include <tuple>
 
 // ReOrder Buffer
 class ROB {
   public:
+    std::tuple<int, bool> read(int addr);
     int alloc(int r);
 
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);

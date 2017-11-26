@@ -8,14 +8,14 @@ RAT::RAT()
   }
 }
 
-int RAT::read(int a)
+int RAT::read(int r)
 {
-  return this->table[a];
+  return this->table[r];
 }
 
-int RAT::alloc(int a)
+int RAT::alloc(int r)
 {
-  return this->table[a]; // TODO
+  return this->table[r]; // TODO
 }
 
 std::ostream& operator<<(std::ostream& os, const RAT& rat)

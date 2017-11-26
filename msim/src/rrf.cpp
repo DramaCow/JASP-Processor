@@ -7,33 +7,24 @@ RRF::RRF()
   std::fill_n(v, NUM_REGISTERS, true);
 }
 
-std::tuple<uint32_t, uint32_t> RRF::foo(uint32_t addr1, uint32_t addr2, uint32_t daddr, uint32_t data, bool we)
+std::tuple<int, bool> RRF::read(int r)
 {
-  if (we)
+  if (!this->v[r])
   {
-    gpr[daddr] = data;
+    return std::make_tuple(r, false);
   }
-  return std::make_tuple(gpr[addr1], gpr[addr2]);
+  return std::make_tuple(this->gpr[r], true);
 }
 
-std::tuple<int, bool> RRF::read(int addr)
+void RRF::reset(int r)
 {
-  if (!this->v[addr])
-  {
-    return std::make_tuple(addr, false);
-  }
-  return std::make_tuple(this->gpr[addr], true);
+  this->v[r] = false;
 }
 
-void RRF::reset(int addr)
+void RRF::write(int r, int data)
 {
-  this->v[addr] = false;
-}
-
-void RRF::write(int addr, int data)
-{
-  this->gpr[addr] = data;
-  this->v[addr] = true;
+  this->gpr[r] = data;
+  this->v[r] = true;
 }
 
 RRF& RRF::operator=(const RRF& rrf)

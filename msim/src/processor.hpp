@@ -42,8 +42,8 @@ class Processor
     void commit(Processor &n_cpu);
 
     // helper functions
-    std::tuple<int, bool> read(int a);
-    int alloc(int a);
+    std::tuple<int, bool> read(int r);
+    int alloc(int r);
     bool isStalled();
 
     // statistics recorders
