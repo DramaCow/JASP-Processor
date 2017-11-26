@@ -29,8 +29,6 @@ class Processor
     ALU alu1;
     //BU bu;
 
-    bool isStalled();
-
     Processor& operator=(const Processor& cpu);
 
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
@@ -42,6 +40,11 @@ class Processor
     void execute(Processor &n_cpu);
     void writeback(Processor &n_cpu);
     void commit(Processor &n_cpu);
+
+    // helper functions
+    std::tuple<int, bool> read(int a);
+    int alloc(int a);
+    bool isStalled();
 
     // statistics recorders
     int cycles;

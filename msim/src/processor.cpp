@@ -15,6 +15,10 @@ Processor::Processor(ICache &icache, DCache &dcache) :
 {
 }
 
+// ==========================
+// === PIPELINE FUNCTIONS ===
+// ==========================
+
 void Processor::tick(Processor &n_cpu)
 {
   n_cpu.cycles++;
@@ -28,27 +32,6 @@ void Processor::tick(Processor &n_cpu)
   execute(n_cpu);
   writeback(n_cpu);
   commit(n_cpu);
-}
-
-bool Processor::isStalled()
-{
-  return this->rs.isFull();
-}
-
-Processor& Processor::operator=(const Processor& cpu)
-{
-  this->pc = cpu.pc;
-  this->ibuf = cpu.ibuf;
-  this->rob = cpu.rob;
-  this->rrf = cpu.rrf;
-  this->rs = cpu.rs;
-  this->alu1 = cpu.alu1;
-  //this->bu = cpu.bu;
-
-  this->cycles = cpu.cycles;
-  this->Instructions_executed = cpu.Instructions_executed;
-
-  return *this;
 }
 
 void Processor::fetch(Processor &n_cpu)
@@ -124,6 +107,45 @@ void Processor::writeback(Processor &n_cpu)
 
 void Processor::commit(Processor &n_cpu)
 {
+}
+
+// ========================
+// === HELPER FUNCTIONS ===
+// ========================
+
+std::tuple<int, bool> Processor::read(int a)
+{
+  return std::make_tuple(0, false);
+}
+
+int Processor::alloc(int a)
+{
+  return 0;
+}
+
+bool Processor::isStalled()
+{
+  return this->rs.isFull();
+}
+
+// ============================
+// === OPERATOR OVERLOADING ===
+// ============================
+
+Processor& Processor::operator=(const Processor& cpu)
+{
+  this->pc = cpu.pc;
+  this->ibuf = cpu.ibuf;
+  this->rob = cpu.rob;
+  this->rrf = cpu.rrf;
+  this->rs = cpu.rs;
+  this->alu1 = cpu.alu1;
+  //this->bu = cpu.bu;
+
+  this->cycles = cpu.cycles;
+  this->Instructions_executed = cpu.Instructions_executed;
+
+  return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
