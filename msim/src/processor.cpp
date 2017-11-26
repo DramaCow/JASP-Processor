@@ -50,26 +50,20 @@ void Processor::decode(Processor &n_cpu)
             opcode == "sub" ||
             opcode == "xor"    )
   {
-    int rd  = this->rat.alloc(n_cpu.rat, this->ibuf.params[0]);
     
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
-    shelf.dest = rd;
-
-    n_cpu.rrf.reset(rd); // mark rd as unavailable
+    shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "addi" ||
             opcode == "subi"    )
   {
-    int rd  = this->rat.alloc(n_cpu.rat, this->ibuf.params[0]);
     
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
-    shelf.dest = rd;
-
-    n_cpu.rrf.reset(rd); // mark rd as unavailable
+    shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
@@ -127,7 +121,9 @@ std::tuple<int, bool> Processor::read(int r)
 
 int Processor::alloc(Processor &n_cpu, int r)
 {
-  return 0;
+  int a = this->rat.alloc(n_cpu.rat, r);
+  n_cpu.rrf.reset(a); // mark as unavailable
+  return a;
 }
 
 bool Processor::isStalled()
