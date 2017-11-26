@@ -1,4 +1,5 @@
 #include "rat.hpp"
+#include <cstring>
 
 RAT::RAT()
 {
@@ -13,9 +14,16 @@ int RAT::read(int r)
   return this->table[r];
 }
 
-int RAT::alloc(RAT &n_rat, int r)
+void RAT::write(RAT &n_rat, int r, int a)
 {
-  return this->table[r]; // TODO
+  std::cout << " --------------------------------- " << r << ' ' << a << std::endl;
+  n_rat.table[r] = a;
+}
+
+RAT& RAT::operator=(const RAT& rat)
+{
+  memcpy(this->table, rat.table, NUM_REGISTERS*sizeof(int));
+  return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const RAT& rat)

@@ -50,7 +50,6 @@ void Processor::decode(Processor &n_cpu)
             opcode == "sub" ||
             opcode == "xor"    )
   {
-    
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
     shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
@@ -60,7 +59,6 @@ void Processor::decode(Processor &n_cpu)
   else if ( opcode == "addi" ||
             opcode == "subi"    )
   {
-    
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
     shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
@@ -90,13 +88,21 @@ void Processor::writeback(Processor &n_cpu)
   // writeback only when flag is set and instruction has finished
   if (this->alu1.writeback && this->alu1.duration == 0)
   {
-    n_cpu.rrf.write(this->alu1.dest, this->alu1.result);
+    n_cpu.rob.write(this->alu1.dest, this->alu1.result);
     n_cpu.rs.update(this->alu1.dest, this->alu1.result);
   }
 }
 
 void Processor::commit(Processor &n_cpu)
 {
+  std::vector<std::tuple<int,int>> commits = this->rob.pop(n_cpu.rob);
+  int r, val;
+  for (std::size_t i = 0; i < commits.size(); ++i)
+  {
+    std::tie(r, val) = commits[i];
+    n_cpu.rrf.write(r, val);
+    this->rat.write(n_cpu.rat, r, r);
+  }
 }
 
 // ========================
@@ -121,8 +127,8 @@ std::tuple<int, bool> Processor::read(int r)
 
 int Processor::alloc(Processor &n_cpu, int r)
 {
-  int a = this->rat.alloc(n_cpu.rat, r);
-  n_cpu.rrf.reset(a); // mark as unavailable
+  int a = this->rob.push(n_cpu.rob, r);
+  this->rat.write(n_cpu.rat, r, a);
   return a;
 }
 

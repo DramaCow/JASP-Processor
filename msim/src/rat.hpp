@@ -11,7 +11,9 @@ class RAT
     RAT();
 
     int read(int r);
-    int alloc(RAT &n_rat, int r);
+    void write(RAT &n_rat, int r, int a);
+
+    RAT& operator=(const RAT& rat);
 
     friend std::ostream& operator<<(std::ostream& os, const RAT& rat);
 

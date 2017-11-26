@@ -4,12 +4,17 @@
 #include "config.hpp"
 #include <iostream>
 #include <tuple>
+#include <vector>
 
 // ReOrder Buffer
 class ROB {
   public:
     std::tuple<int, bool> read(int addr);
-    int alloc(ROB &n_rob, int r);
+    int push(ROB &n_rob, int r);
+    void write(int addr, int val);
+    std::vector<std::tuple<int, int>> pop(ROB &n_rob);
+
+    ROB& operator=(const ROB& rob);
 
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
