@@ -87,7 +87,7 @@ void Processor::decode(Processor &n_cpu)
             opcode == "subi"    )
   {
     int rs1 = this->rat.read(this->ibuf.params[1]);
-    int os2 = this->rat.read(this->ibuf.params[2]);
+    int os2 = this->ibuf.params[2];
     int rd  = this->rat.alloc(this->ibuf.params[0]);
     
     n_cpu.rrf.reset(rd); // mark rd as unavailable
