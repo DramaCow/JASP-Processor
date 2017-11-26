@@ -116,7 +116,7 @@ void Parser::get_labels(FILE *code)
       // labels start with colons
       if (tok[0] == ':') 
       {
-        // update table entry
+        // update table shelf
         this->ltable[i].p = addr;
         strncpy(this->ltable[i].text, tok, sizeof(tok)*sizeof(char));
         i++;

@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-struct Entry
+struct Shelf
 {
   std::string opcode = "nop";
   int o1 = 0; bool v1 = true;
@@ -24,8 +24,8 @@ class RS
 {
   public:
     bool isFull();
-    void issue(Entry entry);
-    Entry dispatch(RS &n_rs);
+    void issue(Shelf shelf);
+    Shelf dispatch(RS &n_rs);
     void update(int result, int dest);
     void tick();
 
@@ -34,7 +34,7 @@ class RS
     friend std::ostream& operator<<(std::ostream& os, const RS& rs);
 
   private:
-    Entry entry[NUM_RS_ENTRIES];
+    Shelf shelf[NUM_RS_ENTRIES];
 };
 std::ostream& operator<<(std::ostream& os, const RS& rs);
 

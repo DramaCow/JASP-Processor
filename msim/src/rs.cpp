@@ -4,7 +4,7 @@ bool RS::isFull()
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
-    if (this->entry[i].free)
+    if (this->shelf[i].free)
     {
       return false;
     }
@@ -12,44 +12,44 @@ bool RS::isFull()
   return true;
 }
 
-void RS::issue(Entry entry)
+void RS::issue(Shelf shelf)
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
-    if (this->entry[i].free)
+    if (this->shelf[i].free)
     {
-      this->entry[i] = entry;
-      this->entry[i].age = 0;
-      this->entry[i].free = false;
+      this->shelf[i] = shelf;
+      this->shelf[i].age = 0;
+      this->shelf[i].free = false;
 
       return;
     }
   }
 }
 
-Entry RS::dispatch(RS &n_rs)
+Shelf RS::dispatch(RS &n_rs)
 {
   int oldest = -1;
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
-    if (!this->entry[i].free)
+    if (!this->shelf[i].free)
     {
-      if (this->entry[i].v1 && this->entry[i].v2)
+      if (this->shelf[i].v1 && this->shelf[i].v2)
       {
-        oldest = (oldest == -1) ? i : (this->entry[i].age > this->entry[oldest].age) ? i : oldest;
+        oldest = (oldest == -1) ? i : (this->shelf[i].age > this->shelf[oldest].age) ? i : oldest;
       }
     }
   }
 
   if (oldest == -1)
   {
-    Entry entry; // default nop entry
-    return entry;
+    Shelf shelf; // default nop shelf
+    return shelf;
   }
   else
   {
-    n_rs.entry[oldest].free = true;
-    return this->entry[oldest];
+    n_rs.shelf[oldest].free = true;
+    return this->shelf[oldest];
   }
 }
 
@@ -57,18 +57,18 @@ void RS::update(int result, int dest)
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
-    if (!this->entry[i].free)
+    if (!this->shelf[i].free)
     {
-      if (!this->entry[i].v1 && this->entry[i].o1 == dest)
+      if (!this->shelf[i].v1 && this->shelf[i].o1 == dest)
       {
-        this->entry[i].v1 = true;
-        this->entry[i].o1 = result;
+        this->shelf[i].v1 = true;
+        this->shelf[i].o1 = result;
       }
 
-      if (!this->entry[i].v2 && this->entry[i].o2 == dest)
+      if (!this->shelf[i].v2 && this->shelf[i].o2 == dest)
       {
-        this->entry[i].v2 = true;
-        this->entry[i].o2 = result;
+        this->shelf[i].v2 = true;
+        this->shelf[i].o2 = result;
       }
     }
   }
@@ -78,9 +78,9 @@ void RS::tick()
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
-    if (!this->entry[i].free)
+    if (!this->shelf[i].free)
     {
-      this->entry[i].age++;
+      this->shelf[i].age++;
     }
   }
 }
@@ -89,7 +89,7 @@ RS& RS::operator=(const RS& rs)
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
-    this->entry[i] = rs.entry[i];
+    this->shelf[i] = rs.shelf[i];
   }
   return *this;
 }
@@ -101,18 +101,18 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     os << "    ";
-    if (rs.entry[i].free)
+    if (rs.shelf[i].free)
     {
       os << '*';
     }
-    os << rs.entry[i].opcode << '(' << rs.entry[i].age << ')' << '\t' 
-       << rs.entry[i].o1 << '\t' 
-       << rs.entry[i].v1 << '\t' 
-       << rs.entry[i].o2 << '\t' 
-       << rs.entry[i].v2 << '\t' 
-       << rs.entry[i].o3 << '\t' 
-       << rs.entry[i].v3 << '\t' 
-       << rs.entry[i].dest << '\n';
+    os << rs.shelf[i].opcode << '(' << rs.shelf[i].age << ')' << '\t' 
+       << rs.shelf[i].o1 << '\t' 
+       << rs.shelf[i].v1 << '\t' 
+       << rs.shelf[i].o2 << '\t' 
+       << rs.shelf[i].v2 << '\t' 
+       << rs.shelf[i].o3 << '\t' 
+       << rs.shelf[i].v3 << '\t' 
+       << rs.shelf[i].dest << '\n';
   }
   return os;
 }

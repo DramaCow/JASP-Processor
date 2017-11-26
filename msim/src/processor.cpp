@@ -60,8 +60,8 @@ void Processor::decode(Processor &n_cpu)
 {
   std::string opcode = this->ibuf.opcode;
 
-  Entry entry;
-  entry.opcode = opcode;
+  Shelf shelf;
+  shelf.opcode = opcode;
 
   if (opcode == "nop")
   {
@@ -77,9 +77,9 @@ void Processor::decode(Processor &n_cpu)
     
     n_cpu.rrf.reset(rd); // mark rd as unavailable
 
-    entry.dest = rd;
-    std::tie(entry.o1, entry.v1) = rrf.read(rs1);
-    std::tie(entry.o2, entry.v2) = rrf.read(rs2);
+    shelf.dest = rd;
+    std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
+    std::tie(shelf.o2, shelf.v2) = rrf.read(rs2);
   }
   else if ( opcode == "addi" ||
             opcode == "subi"    )
@@ -90,12 +90,12 @@ void Processor::decode(Processor &n_cpu)
     
     n_cpu.rrf.reset(rd); // mark rd as unavailable
 
-    entry.dest = rd;
-    std::tie(entry.o1, entry.v1) = rrf.read(rs1);
-    std::tie(entry.o2, entry.v2) = std::make_tuple(os2, true);
+    shelf.dest = rd;
+    std::tie(shelf.o1, shelf.v1) = rrf.read(rs1);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(os2, true);
   }
 
-  n_cpu.rs.issue(entry);
+  n_cpu.rs.issue(shelf);
 }
 
 void Processor::dispatch(Processor &n_cpu)
@@ -103,7 +103,7 @@ void Processor::dispatch(Processor &n_cpu)
   // about to finish executing current Instruction
   if (this->alu1.duration <= 1)
   {
-    Entry e = rs.dispatch(n_cpu.rs);
+    Shelf e = rs.dispatch(n_cpu.rs);
     n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest); // next state stores Instruction
   }
 }
