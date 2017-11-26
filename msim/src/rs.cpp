@@ -53,22 +53,22 @@ Entry RS::dispatch(RS &n_rs)
   }
 }
 
-void RS::update(int result, int rd)
+void RS::update(int result, int dest)
 {
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     if (!this->entry[i].free)
     {
-      if (!this->entry[i].v1 && this->entry[i].os1 == rd)
+      if (!this->entry[i].v1 && this->entry[i].o1 == dest)
       {
         this->entry[i].v1 = true;
-        this->entry[i].os1 = result;
+        this->entry[i].o1 = result;
       }
 
-      if (!this->entry[i].v2 && this->entry[i].os2 == rd)
+      if (!this->entry[i].v2 && this->entry[i].o2 == dest)
       {
         this->entry[i].v2 = true;
-        this->entry[i].os2 = result;
+        this->entry[i].o2 = result;
       }
     }
   }
@@ -96,7 +96,7 @@ RS& RS::operator=(const RS& rs)
 
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
-  os << "    OC  \tO_s1\tV_s1\tO_s2\tV_s2\tO_s3\tV_s3\tR_d\n";
+  os << "    OC  \to1  \tv1  \to2  \tv2  \to3  \tv3  \tdest\n";
   os << "    ---------------------------------------------------------------\n";
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
@@ -106,13 +106,13 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
       os << '*';
     }
     os << rs.entry[i].opcode << '(' << rs.entry[i].age << ')' << '\t' 
-       << rs.entry[i].os1 << '\t' 
+       << rs.entry[i].o1 << '\t' 
        << rs.entry[i].v1 << '\t' 
-       << rs.entry[i].os2 << '\t' 
+       << rs.entry[i].o2 << '\t' 
        << rs.entry[i].v2 << '\t' 
-       << rs.entry[i].os3 << '\t' 
+       << rs.entry[i].o3 << '\t' 
        << rs.entry[i].v3 << '\t' 
-       << rs.entry[i].rd << '\n';
+       << rs.entry[i].dest << '\n';
   }
   return os;
 }

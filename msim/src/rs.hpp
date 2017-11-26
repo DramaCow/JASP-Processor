@@ -9,10 +9,10 @@
 struct Entry
 {
   std::string opcode = "nop";
-  int os1 = 0; bool v1 = true;
-  int os2 = 0; bool v2 = true;
-  int os3 = 0; bool v3 = true;
-  int rd = 0; 
+  int o1 = 0; bool v1 = true;
+  int o2 = 0; bool v2 = true;
+  int o3 = 0; bool v3 = true;
+  int dest = 0; 
 
   // "meta"-data
   int age = 0;
@@ -26,7 +26,7 @@ class RS
     bool isFull();
     void issue(Entry entry);
     Entry dispatch(RS &n_rs);
-    void update(int result, int rd);
+    void update(int result, int dest);
     void tick();
 
     RS& operator=(const RS& rs);

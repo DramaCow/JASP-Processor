@@ -1,8 +1,13 @@
 #ifndef ROB_H
 #define ROB_H
 
+#include "config.hpp"
+
 // ReOrder Buffer
 class ROB {
+  public:
+    int alloc(int r);
+
   private:
     int reg[NUM_ROB_ENTRIES];
     int val[NUM_ROB_ENTRIES];
