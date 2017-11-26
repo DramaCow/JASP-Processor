@@ -125,7 +125,7 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(int r)
+int Processor::alloc(Processor &n_cpu, int r)
 {
   return 0;
 }
