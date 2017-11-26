@@ -10,6 +10,8 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   icache(icache),
   dcache(dcache),
 
+  rat(rob, rrf),
+
   cycles(0),
   Instructions_executed(0)
 {
@@ -53,8 +55,7 @@ Processor& Processor::operator=(const Processor& cpu)
 
 void Processor::fetch(Processor &n_cpu)
 {
-  Instruction Instruction = icache[this->pc];
-  n_cpu.ibuf = Instruction;
+  n_cpu.ibuf = icache[this->pc];
 }
 
 void Processor::decode(Processor &n_cpu)
@@ -64,9 +65,13 @@ void Processor::decode(Processor &n_cpu)
   Entry entry;
   entry.opcode = opcode;
 
-  if ( opcode == "add" ||
-       opcode == "sub" ||
-       opcode == "xor"    )
+  if (opcode == "nop")
+  {
+    return;
+  }
+  else if ( opcode == "add" ||
+            opcode == "sub" ||
+            opcode == "xor"    )
   {
     int rs1 = this->ibuf.params[1];
     int rs2 = this->ibuf.params[2];
@@ -77,8 +82,6 @@ void Processor::decode(Processor &n_cpu)
     entry.rd = rd;
     std::tie(entry.os1, entry.v1) = rrf.read(rs1);
     std::tie(entry.os2, entry.v2) = rrf.read(rs2);
-
-    n_cpu.rs.issue(entry);
   }
   else if ( opcode == "addi" ||
             opcode == "subi"    )
@@ -92,9 +95,9 @@ void Processor::decode(Processor &n_cpu)
     entry.rd = rd;
     std::tie(entry.os1, entry.v1) = rrf.read(rs1);
     std::tie(entry.os2, entry.v2) = std::make_tuple(os2, true);
-
-    n_cpu.rs.issue(entry);
   }
+
+  n_cpu.rs.issue(entry);
 }
 
 void Processor::dispatch(Processor &n_cpu)

@@ -3,6 +3,7 @@
 
 #include "cache.hpp"
 #include "rat.hpp"
+#include "rob.hpp"
 #include "rrf.hpp"
 #include "rs.hpp"
 #include "alu.hpp"
@@ -22,6 +23,7 @@ class Processor
 
     Instruction ibuf;
     RAT rat;
+    ROB rob;
     RRF rrf;
     RS rs;
     ALU alu1;

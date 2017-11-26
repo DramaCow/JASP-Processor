@@ -1,6 +1,8 @@
 #include "rat.hpp"
 
-RAT::RAT()
+RAT::RAT(ROB rob, RRF rrf) :
+  rob(rob),
+  rrf(rrf)
 {
   for (int i = 0; i < NUM_REGISTERS; ++i)
   {
