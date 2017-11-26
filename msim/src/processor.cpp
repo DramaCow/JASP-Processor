@@ -81,6 +81,12 @@ void Processor::execute(Processor &n_cpu)
   {
     this->alu1.execute(n_cpu.alu1);
   }
+
+  // bypass update rs
+  if (n_cpu.alu1.writeback && n_cpu.alu1.duration == 0)
+  {
+    n_cpu.rs.update(n_cpu.alu1.dest, n_cpu.alu1.result);
+  }
 }
 
 void Processor::writeback(Processor &n_cpu)
@@ -89,7 +95,7 @@ void Processor::writeback(Processor &n_cpu)
   if (this->alu1.writeback && this->alu1.duration == 0)
   {
     n_cpu.rob.write(this->alu1.dest, this->alu1.result);
-    n_cpu.rs.update(this->alu1.dest, this->alu1.result);
+    // n_cpu.rs.update(this->alu1.dest, this->alu1.result); // moved to exe bypass
   }
 }
 
@@ -97,6 +103,7 @@ void Processor::commit(Processor &n_cpu)
 {
   std::vector<std::tuple<int,int,int>> commits = this->rob.pop(n_cpu.rob);
   int r, val, rob_entry;
+
   for (std::size_t i = 0; i < commits.size(); ++i)
   {
     std::tie(r, val, rob_entry) = commits[i];
@@ -122,8 +129,6 @@ void Processor::commit(Processor &n_cpu)
 std::tuple<int, bool> Processor::read(int r)
 {
   int addr = this->rat.read(r);
-
-  std::cout << " ---------------- " << addr << std::endl;
 
   // if is a ROB address
   if (addr >= NUM_REGISTERS)
@@ -173,6 +178,7 @@ Processor& Processor::operator=(const Processor& cpu)
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
+#ifdef DEBUG
   os << "  pc = " << cpu.pc << '\n';
   os << "  ibuf = {\n"
      << "    " << cpu.ibuf << '\n'
@@ -182,18 +188,23 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  rob = {\n" << cpu.rob
      << "  }\n";
+#endif
   os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";
+#ifdef DEBUG
   os << "  rs = {\n" << cpu.rs
      << "  }\n";
   os << "  alu1 = {\n" << cpu.alu1
      << "  }\n";
 //  os << "  bu = {\n" << cpu.bu
 //     << "  }\n";
+#endif
   os << "}";
+#ifdef DEBUG
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "Instructions_executed = " << cpu.Instructions_executed << '\n'
      << "Instructions_per_cycle = " << ((double)cpu.Instructions_executed / (double)cpu.cycles);
+#endif
   return os;
 }
