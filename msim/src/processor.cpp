@@ -39,6 +39,7 @@ Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
+  this->rob = cpu.rob;
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
   this->alu1 = cpu.alu1;
@@ -62,11 +63,7 @@ void Processor::decode(Processor &n_cpu)
   Shelf shelf;
   shelf.opcode = opcode;
 
-  if (opcode == "nop")
-  {
-    return;
-  }
-  else if ( opcode == "add" ||
+  if      ( opcode == "add" ||
             opcode == "sub" ||
             opcode == "xor"    )
   {
@@ -101,14 +98,14 @@ void Processor::decode(Processor &n_cpu)
 
 void Processor::execute(Processor &n_cpu)
 {
-  // dispatch
+  // dispatch when instruction has finished
   if (this->alu1.duration == 0)
   {
     Shelf e = rs.dispatch(n_cpu.rs); // this may be nop
     n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest);
   }
 
-  // and execute
+  // and execute if instruction hasn't finished
   if (this->alu1.duration > 0)
   {
     this->alu1.execute(n_cpu.alu1);
@@ -117,7 +114,8 @@ void Processor::execute(Processor &n_cpu)
 
 void Processor::writeback(Processor &n_cpu)
 {
-  if (this->alu1.duration == 0 && this->alu1.writeback)
+  // writeback only when flag is set and instruction has finished
+  if (this->alu1.writeback && this->alu1.duration == 0)
   {
     n_cpu.rrf.write(this->alu1.dest, this->alu1.result);
     n_cpu.rs.update(this->alu1.dest, this->alu1.result);
@@ -134,6 +132,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  pc = " << cpu.pc << '\n';
   os << "  ibuf = {\n"
      << "    " << cpu.ibuf << '\n'
+     << "  }\n";
+  os << "  rob = {\n" << cpu.rob << '\n'
      << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'
