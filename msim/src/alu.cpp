@@ -20,9 +20,9 @@ void ALU::dispatch(std::string opcode, int os1, int os2, int rd)
 }
 
 // applied to the current state, updates the next state
-int ALU::execute(ALU& n_ALU)
+int ALU::execute(ALU& n_alu)
 {
-  n_ALU.we = false;
+  n_alu.we = false;
 
   if (this->duration == 0)
   {
@@ -30,30 +30,30 @@ int ALU::execute(ALU& n_ALU)
   }
 
   // about to finish
-  if (n_ALU.duration <= 1)
+  if (n_alu.duration <= 1)
   {
     if (this->opcode == "add" || this->opcode == "addi")
     {
-      n_ALU.result = this->os1 + this->os2;
+      n_alu.result = this->os1 + this->os2;
     }
     else if (this->opcode == "sub" || this->opcode == "subi")
     {
-      n_ALU.result = this->os1 - this->os2;
+      n_alu.result = this->os1 - this->os2;
     }
     else if (this->opcode == "xor")
     {
-      n_ALU.result = this->os1 ^ this->os2;
+      n_alu.result = this->os1 ^ this->os2;
     }
     else if (this->opcode == "mul" || this->opcode == "muli")
     {
-      n_ALU.result = this->os1 * this->os2;
+      n_alu.result = this->os1 * this->os2;
     }
-    n_ALU.dest = this->rd;
-    n_ALU.we = true;
+    n_alu.dest = this->rd;
+    n_alu.we = true;
     return 1;
   }
   
-  n_ALU.duration = this->duration - 1;
+  n_alu.duration = this->duration - 1;
   return 0;
 }
 

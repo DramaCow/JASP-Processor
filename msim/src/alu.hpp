@@ -9,7 +9,7 @@ class ALU
 {
   public:
     void dispatch(std::string opcode, int os1, int os2, int rd);
-    int execute(ALU& n_ALU);
+    int execute(ALU& n_alu);
 
     // input latch
     std::string opcode = "nop"; 
