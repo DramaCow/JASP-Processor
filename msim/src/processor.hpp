@@ -2,6 +2,7 @@
 #define PROCESSOR_H
 
 #include "cache.hpp"
+#include "bp.hpp"
 #include "rat.hpp"
 #include "rob.hpp"
 #include "rrf.hpp"
@@ -22,6 +23,7 @@ class Processor
     unsigned int pc = 0;
 
     Instruction ibuf;
+    BP bp;
     RAT rat;
     ROB rob;
     RRF rrf;
@@ -48,7 +50,7 @@ class Processor
 
     // statistics recorders
     int cycles;
-    int Instructions_executed;
+    int instructions_executed;
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);

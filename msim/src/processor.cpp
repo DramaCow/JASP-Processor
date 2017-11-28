@@ -11,7 +11,7 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   dcache(dcache),
 
   cycles(0),
-  Instructions_executed(0)
+  instructions_executed(0)
 {
 }
 
@@ -24,7 +24,6 @@ void Processor::tick(Processor &n_cpu)
   n_cpu.cycles++;
   if (!isStalled())
   {
-    n_cpu.pc++;
     fetch(n_cpu);
     decode(n_cpu);
   }
@@ -37,6 +36,17 @@ void Processor::tick(Processor &n_cpu)
 void Processor::fetch(Processor &n_cpu)
 {
   n_cpu.ibuf = icache[this->pc];
+  if (n_cpu.ibuf.isBrch())
+  {
+    std::cout << "it's a branch instruction\n";
+    bool prediction;
+    std::tie(n_cpu.pc, prediction) = bp.predict(n_cpu.ibuf, this->pc);
+    n_cpu.ibuf.params.push_back(prediction);
+  }
+  else 
+  {
+    n_cpu.pc = this->pc + 1;
+  }
 }
 
 void Processor::decode(Processor &n_cpu)
@@ -48,21 +58,44 @@ void Processor::decode(Processor &n_cpu)
 
   if      ( opcode == "add" ||
             opcode == "sub" ||
+            opcode == "mul" ||
             opcode == "xor"    )
   {
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "addi" ||
-            opcode == "subi"    )
+            opcode == "subi" ||
+            opcode == "muli"    )
   {
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
 
+    n_cpu.rs.issue(shelf);
+  }
+  else if ( opcode == "b" )
+  {
+    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[0]);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
+    shelf.dest = this->ibuf.params[1]; // prediction flag
+ 
+    n_cpu.rs.issue(shelf);
+  }
+  else if ( opcode == "beq" ||
+            opcode == "bneq"   )
+  {
+    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[0]);
+    std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[1]);
+    std::tie(shelf.o3, shelf.v3) = this->read(this->ibuf.params[2]);
+    shelf.dest = this->ibuf.params[3]; // prediction flag
+ 
     n_cpu.rs.issue(shelf);
   }
 }
@@ -120,6 +153,8 @@ void Processor::commit(Processor &n_cpu)
       this->rat.write(n_cpu.rat, r, r);
     }
   }
+
+  n_cpu.instructions_executed = this->instructions_executed + commits.size();
 }
 
 // ========================
@@ -162,6 +197,7 @@ Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
+  this->bp = cpu.bp; // TODO: does this need to be copied (does it even need to be an object)
   this->rat = cpu.rat;
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
@@ -170,7 +206,7 @@ Processor& Processor::operator=(const Processor& cpu)
   //this->bu = cpu.bu;
 
   this->cycles = cpu.cycles;
-  this->Instructions_executed = cpu.Instructions_executed;
+  this->instructions_executed = cpu.instructions_executed;
 
   return *this;
 }
@@ -203,8 +239,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 #ifdef DEBUG
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
-     << "Instructions_executed = " << cpu.Instructions_executed << '\n'
-     << "Instructions_per_cycle = " << ((double)cpu.Instructions_executed / (double)cpu.cycles);
+     << "instructions_executed = " << cpu.instructions_executed << '\n'
+     << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
 #endif
   return os;
 }

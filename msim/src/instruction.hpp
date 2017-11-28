@@ -14,6 +14,10 @@ class Instruction
     std::string opcode;
     std::vector<int> params;
 
+    bool isArth(); // is logical/arithmetic instruction
+    bool isBrch(); // is branch instruction
+    bool isLdsr(); // is load/store instruction
+
     friend std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);
 };
 

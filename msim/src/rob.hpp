@@ -19,9 +19,19 @@ class ROB {
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
   private:
-    int reg[NUM_ROB_ENTRIES] = { 0 };
-    int val[NUM_ROB_ENTRIES] = { 0 };
-    bool done[NUM_ROB_ENTRIES] = { false };
+    class ROBEntry
+    {
+      public:
+        enum Type { DN, WB, BR }; // either do nothing, writeback, or branch
+
+        Type type = DN;
+        int reg = 0;
+        int val = 0;
+        bool done = false;
+    };
+
+  private:
+    ROBEntry entries[NUM_ROB_ENTRIES];
 
     int head = 0; // issue
     int tail = 0; // commit / retire

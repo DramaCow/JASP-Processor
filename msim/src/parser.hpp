@@ -29,6 +29,8 @@ const InstDef instset[ISIZE] = {
   { "addi", 3, { 'd', 's', 'i' }},
   { "sub" , 3, { 'd', 's', 't' }},
   { "subi", 3, { 'd', 's', 'i' }},
+  { "mul" , 3, { 'd', 's', 't' }},
+  { "muli", 3, { 'd', 's', 'i' }},
   { "xor" , 3, { 'd', 's', 't' }},
   { "b"   , 1, { 'i'           }},
   { "beq" , 3, { 's', 't', 'i' }},

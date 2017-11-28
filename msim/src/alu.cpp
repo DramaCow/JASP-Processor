@@ -48,6 +48,12 @@ void ALU::execute(ALU& n_alu)
 
 std::ostream& operator<<(std::ostream& os, const ALU& alu)
 {
+  if (alu.opcode == "nop")
+  {
+    os << "    --- nop ---\n";
+    return os;
+  }
+
   os << "    d" << alu.dest << " <-- " << alu.o1 << ' ' << alu.opcode << ' ' << alu.o2 << " (" << alu.duration << ")\n";
   if (alu.writeback && alu.duration == 0)
   {
