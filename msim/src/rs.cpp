@@ -27,7 +27,7 @@ void RS::issue(Shelf shelf)
   }
 }
 
-Shelf RS::dispatch(RS &n_rs)
+std::tuple<Shelf, Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
 {
   int oldest = -1;
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
@@ -41,15 +41,15 @@ Shelf RS::dispatch(RS &n_rs)
     }
   }
 
+  Shelf shelf; // default nop shelf
   if (oldest == -1)
   {
-    Shelf shelf; // default nop shelf
-    return shelf;
+    return std::make_tuple(shelf, shelf);
   }
   else
   {
     n_rs.shelf[oldest].free = true;
-    return this->shelf[oldest];
+    return std::make_tuple(this->shelf[oldest], shelf);
   }
 }
 

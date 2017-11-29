@@ -113,23 +113,21 @@ void Processor::decode(Processor &n_cpu)
 
 void Processor::execute(Processor &n_cpu)
 {
-  Shelf e = rs.dispatch(n_cpu.rs); // this may be nop
+  // determine which ports are available
+  bool port1 = this->alu1.duration == 0;
+  bool port2 = true;
 
-  // TODO: dispatching scheme
-  if (Instruction::isArth(e.opcode))
-  {
-    // dispatch when instruction has finished
-    if (this->alu1.duration == 0)
-    {
-      n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest);
-    }
-  }
-  else if (Instruction::isBrch(e.opcode))
-  {
-    n_cpu.bu.dispatch(e.opcode, e.o1, e.o2, e.o3, e.dest);
-  }
+  Shelf e1, e2;
+  std::tie(e1, e2) = rs.dispatch(n_cpu.rs, port1, port2);
 
-  // and execute if instructions haven't finished
+  // dispatch when instruction has finished
+  if (this->alu1.duration == 0)
+  {
+    n_cpu.alu1.dispatch(e1.opcode, e1.o1, e1.o2, e1.dest);
+  }
+  n_cpu.bu.dispatch(e2.opcode, e2.o1, e2.o2, e2.o3, e2.dest);
+
+  // execute if instructions haven't finished
   if (this->alu1.duration > 0)
   {
     this->alu1.execute(n_cpu.alu1);

@@ -4,6 +4,7 @@
 #include "config.hpp"
 
 #include <string>
+#include <tuple>
 #include <iostream>
 
 struct Shelf
@@ -25,7 +26,7 @@ class RS
   public:
     bool isFull();
     void issue(Shelf shelf);
-    Shelf dispatch(RS &n_rs);
+    std::tuple<Shelf, Shelf> dispatch(RS &n_rs, bool port1, bool port2);
     void update(int dest, int result);
     void tick();
 
