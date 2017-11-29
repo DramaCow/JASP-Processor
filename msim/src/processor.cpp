@@ -154,17 +154,27 @@ void Processor::commit(Processor &n_cpu)
   for (std::size_t i = 0; i < commits.size(); ++i)
   {
     std::tie(idx, entry) = commits[i];
-    n_cpu.rrf.write(entry.reg, entry.val);
-    // NOTE: The rat entry should be freed IFF
-    //       the rat entry points to the rob entry.
-    //       i.e. the rob entry was the "most up to date"
-    //            value for the rat entry.
-    //       Otherwise the most "up to date" is held else-
-    //       where, such as a different rob entry, and
-    //       should NOT be modified.
-    if (this->rat.read(entry.reg) == idx)
+
+    // writeback to rrf
+    if (entry.type == ROB::ROBEntry::WB)
     {
-      this->rat.write(n_cpu.rat, entry.reg, entry.reg);
+      n_cpu.rrf.write(entry.reg, entry.val);
+      // NOTE: The rat entry should be freed IFF
+      //       the rat entry points to the rob entry.
+      //       i.e. the rob entry was the "most up to date"
+      //            value for the rat entry.
+      //       Otherwise the most "up to date" is held else-
+      //       where, such as a different rob entry, and
+      //       should NOT be modified.
+      if (this->rat.read(entry.reg) == idx)
+      {
+        this->rat.write(n_cpu.rat, entry.reg, entry.reg);
+      }
+    }
+    // branch
+    else if (entry.type == ROB::ROBEntry::BR)
+    {
+
     }
   }
 
