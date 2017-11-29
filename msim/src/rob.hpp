@@ -12,7 +12,7 @@
 class ROB {
   public:
     std::tuple<int, bool> read(int addr);
-    int push(ROB &n_rob, Instruction instruction, int r);
+    int push(ROB &n_rob, std::string opcode, int r);
     void write(int addr, int val);
     std::vector<std::tuple<int,int,int>> pop(ROB &n_rob);
 

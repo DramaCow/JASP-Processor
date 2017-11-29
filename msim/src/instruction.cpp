@@ -10,25 +10,25 @@ Instruction::Instruction(std::string opcode) :
   this->opcode = opcode;
 }
 
-bool Instruction::isArth()
+bool Instruction::isArth(std::string opcode)
 {
-  return this->opcode == "add"  ||
-         this->opcode == "addi" ||
-         this->opcode == "sub"  ||
-         this->opcode == "subi" ||
-         this->opcode == "mul"  ||
-         this->opcode == "muli" ||
-         this->opcode == "xor";
+  return opcode == "add"  ||
+         opcode == "addi" ||
+         opcode == "sub"  ||
+         opcode == "subi" ||
+         opcode == "mul"  ||
+         opcode == "muli" ||
+         opcode == "xor";
 }
 
-bool Instruction::isBrch()
+bool Instruction::isBrch(std::string opcode)
 {
-  return this->opcode == "b"    ||
-         this->opcode == "beq"  ||
-         this->opcode == "bneq";
+  return opcode == "b"    ||
+         opcode == "beq"  ||
+         opcode == "bneq";
 }
 
-bool Instruction::isLdsr()
+bool Instruction::isLdsr(std::string opcode)
 {
   return false;
 }

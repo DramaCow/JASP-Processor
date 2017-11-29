@@ -9,14 +9,14 @@ std::tuple<int, bool> ROB::read(int addr)
   return std::make_tuple(this->entries[a].done ? this->entries[a].val : addr, this->entries[a].done);
 }
 
-int ROB::push(ROB &n_rob, Instruction instruction, int r)
+int ROB::push(ROB &n_rob, std::string opcode, int r)
 {
   ROBEntry::Type type = ROBEntry::DN;
-  if (instruction.isArth() || instruction.opcode == "ld")
+  if (Instruction::isArth(opcode) || opcode == "ld")
   {
     type = ROBEntry::WB;
   }
-  else if(instruction.isBrch())
+  else if(Instruction::isBrch(opcode))
   {
     type = ROBEntry::BR;
   }

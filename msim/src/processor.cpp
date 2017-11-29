@@ -36,7 +36,7 @@ void Processor::tick(Processor &n_cpu)
 void Processor::fetch(Processor &n_cpu)
 {
   n_cpu.ibuf = icache[this->pc];
-  if (n_cpu.ibuf.isBrch())
+  if (Instruction::isBrch(n_cpu.ibuf.opcode))
   {
     std::cout << "it's a branch instruction\n";
     bool prediction;
@@ -65,7 +65,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.pred = false;
-    shelf.dest = this->alloc(n_cpu, this->ibuf, this->ibuf.params[0]);
+    shelf.dest = this->alloc(n_cpu, opcode, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
@@ -77,7 +77,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.pred = false;
-    shelf.dest = this->alloc(n_cpu, this->ibuf, this->ibuf.params[0]);
+    shelf.dest = this->alloc(n_cpu, opcode, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
@@ -87,7 +87,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.pred = this->ibuf.params[1]; // prediction flag
-    shelf.dest = this->alloc(n_cpu, this->ibuf, -1);
+    shelf.dest = this->alloc(n_cpu, opcode, -1);
  
     n_cpu.rs.issue(shelf);
   }
@@ -98,7 +98,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o3, shelf.v3) = this->read(this->ibuf.params[2]);
     shelf.pred = this->ibuf.params[3]; // prediction flag
-    shelf.dest = this->alloc(n_cpu, this->ibuf, -1);
+    shelf.dest = this->alloc(n_cpu, opcode, -1);
  
     n_cpu.rs.issue(shelf);
   }
@@ -181,9 +181,9 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, Instruction instruction, int r)
+int Processor::alloc(Processor &n_cpu, std::string opcode, int r)
 {
-  int a = this->rob.push(n_cpu.rob, instruction, r);
+  int a = this->rob.push(n_cpu.rob, opcode, r);
   this->rat.write(n_cpu.rat, r, a);
   return a;
 }
