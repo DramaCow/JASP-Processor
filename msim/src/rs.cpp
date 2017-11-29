@@ -1,4 +1,5 @@
 #include "rs.hpp"
+#include "instruction.hpp"
 
 bool RS::isFull()
 {
@@ -29,15 +30,13 @@ std::tuple<Shelf, Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
     if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3)
     {
       e1 = shelves[i];
-
       shelves.erase(std::begin(shelves) + i);
       n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
-
       break;
     }
   }
 
-  return std::make_tuple(e1, e2);
+  return std::make_tuple(Instruction::isArth(e1.opcode) ? e1 : e2, Instruction::isBrch(e1.opcode) ? e1 : e2);
 }
 
 void RS::update(int dest, int result)
@@ -77,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)
   {
     os << "    ";
-    os << rs.shelves[i].opcode << '\t' 
+    os << rs.shelves[i].opcode << " \t" 
        << rs.shelves[i].o1 << '\t' 
        << rs.shelves[i].v1 << '\t' 
        << rs.shelves[i].o2 << '\t' 
@@ -85,6 +84,10 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
        << rs.shelves[i].o3 << '\t' 
        << rs.shelves[i].v3 << '\t' 
        << rs.shelves[i].dest << '\n';
+  }
+  for (std::size_t i = rs.shelves.size(); i < NUM_RS_ENTRIES; ++i)
+  {
+    os << "    nop\n";
   }
   return os;
 }
