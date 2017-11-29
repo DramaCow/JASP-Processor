@@ -2,6 +2,8 @@
 #define ROB_H
 
 #include "config.hpp"
+#include "instruction.hpp"
+#include <string>
 #include <iostream>
 #include <tuple>
 #include <vector>
@@ -10,7 +12,7 @@
 class ROB {
   public:
     std::tuple<int, bool> read(int addr);
-    int push(ROB &n_rob, int r);
+    int push(ROB &n_rob, Instruction instruction, int r);
     void write(int addr, int val);
     std::vector<std::tuple<int,int,int>> pop(ROB &n_rob);
 
@@ -18,7 +20,7 @@ class ROB {
 
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
-  private:
+  public:
     class ROBEntry
     {
       public:

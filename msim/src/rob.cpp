@@ -9,9 +9,20 @@ std::tuple<int, bool> ROB::read(int addr)
   return std::make_tuple(this->entries[a].done ? this->entries[a].val : addr, this->entries[a].done);
 }
 
-int ROB::push(ROB &n_rob, int r)
+int ROB::push(ROB &n_rob, Instruction instruction, int r)
 {
+  ROBEntry::Type type = ROBEntry::DN;
+  if (instruction.isArth() || instruction.opcode == "ld")
+  {
+    type = ROBEntry::WB;
+  }
+  else if(instruction.isBrch())
+  {
+    type = ROBEntry::BR;
+  }
+
   // alloc the rob entry
+  n_rob.entries[this->head].type = type;
   n_rob.entries[this->head].reg = r;
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].done = false;
@@ -67,8 +78,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
-    //os << "    " << i+NUM_REGISTERS << ": " << rob.reg[i] << ", " << rob.val[i] << ", " << rob.done[i];
-    os << "    " << i+NUM_REGISTERS << ": " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].done;
+    os << "    " << i+NUM_REGISTERS << ": " << rob.entries[i].type << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].done;
     if (rob.head == i)
     {
       os << " <-h-";

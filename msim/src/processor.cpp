@@ -64,7 +64,8 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
+    shelf.pred = false;
+    shelf.dest = this->alloc(n_cpu, this->ibuf, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
@@ -75,7 +76,8 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, this->ibuf.params[0]);
+    shelf.pred = false;
+    shelf.dest = this->alloc(n_cpu, this->ibuf, this->ibuf.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
@@ -84,7 +86,8 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[0]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->ibuf.params[1]; // prediction flag
+    shelf.pred = this->ibuf.params[1]; // prediction flag
+    shelf.dest = this->alloc(n_cpu, this->ibuf, -1);
  
     n_cpu.rs.issue(shelf);
   }
@@ -94,7 +97,8 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[0]);
     std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[1]);
     std::tie(shelf.o3, shelf.v3) = this->read(this->ibuf.params[2]);
-    shelf.dest = this->ibuf.params[3]; // prediction flag
+    shelf.pred = this->ibuf.params[3]; // prediction flag
+    shelf.dest = this->alloc(n_cpu, this->ibuf, -1);
  
     n_cpu.rs.issue(shelf);
   }
@@ -177,9 +181,9 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, int r)
+int Processor::alloc(Processor &n_cpu, Instruction instruction, int r)
 {
-  int a = this->rob.push(n_cpu.rob, r);
+  int a = this->rob.push(n_cpu.rob, instruction, r);
   this->rat.write(n_cpu.rat, r, a);
   return a;
 }

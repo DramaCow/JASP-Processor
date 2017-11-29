@@ -45,7 +45,7 @@ class Processor
 
     // helper functions
     std::tuple<int, bool> read(int r);
-    int alloc(Processor &n_cpu, int r);
+    int alloc(Processor &n_cpu, Instruction instruction, int r);
     bool isStalled();
 
     // statistics recorders

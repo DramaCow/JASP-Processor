@@ -12,6 +12,7 @@ struct Shelf
   int o1 = 0; bool v1 = true;
   int o2 = 0; bool v2 = true;
   int o3 = 0; bool v3 = true;
+  bool pred = false; // prediction
   int dest = 0; 
 
   // "meta"-data
