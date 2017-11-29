@@ -96,8 +96,8 @@ RS& RS::operator=(const RS& rs)
 
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
-  os << "    OC  \to1  \tv1  \to2  \tv2  \to3  \tv3  \tpred\tdest\n";
-  os << "    ------------------------------------------------------------------------\n";
+  os << "    OC  \to1  \tv1  \to2  \tv2  \to3  \tv3  \tdest\n";
+  os << "    ----------------------------------------------------------------\n";
   for (int i = 0; i < NUM_RS_ENTRIES; ++i)
   {
     os << "    ";
@@ -112,7 +112,6 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
        << rs.shelf[i].v2 << '\t' 
        << rs.shelf[i].o3 << '\t' 
        << rs.shelf[i].v3 << '\t' 
-       << rs.shelf[i].pred << '\t'
        << rs.shelf[i].dest << '\n';
   }
   return os;

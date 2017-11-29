@@ -8,14 +8,13 @@
 class BU
 {
   public:
-    void dispatch(std::string opcode, int target, int o1, int o2, bool pred, int dest);
+    void dispatch(std::string opcode, bool pred, int o1, int o2, int dest);
 
     // input latch
     std::string opcode = "nop"; 
-    int target = 0;
+    bool pred = false;
     int o1 = 0; 
     int o2 = 0; 
-    bool pred = false;
 
     // output latch
     int dest = 0; 

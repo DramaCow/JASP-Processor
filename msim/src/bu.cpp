@@ -1,27 +1,26 @@
 #include "bu.hpp"
 
-void BU::dispatch(std::string opcode, int target, int o1, int o2, bool pred, int dest)
+void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
 {
   this->opcode = opcode;
-  this->target = target;
+  this->pred = pred;
   this->o1 = o1;
   this->o2 = o2;
-  this->pred = pred;
   this->dest = dest;
 
   if (this->opcode == "b")
   {
-    this->result = pred == true;
+    this->result = this->pred == true;
     this->writeback = true;
   }
   if (this->opcode == "beq")
   {
-    this->result = pred == (this->o1 == this->o2);
+    this->result = this->pred == (this->o1 == this->o2);
     this->writeback = true;
   }
   if (this->opcode == "bneq")
   {
-    this->result = pred == (this->o1 != this->o2);
+    this->result = this->pred == (this->o1 != this->o2);
     this->writeback = true;
   }
   // Unexpected OP
@@ -33,6 +32,6 @@ void BU::dispatch(std::string opcode, int target, int o1, int o2, bool pred, int
 
 std::ostream& operator<<(std::ostream& os, const BU& bu)
 {
-  os << "    " << bu.opcode << ' ' << bu.target << ' ' << bu.o1 << ' ' << bu.o2 << ' ' << bu.pred;
+  os << "    " << bu.opcode << ' ' << bu.pred << ' ' << bu.o1 << ' ' << bu.o2;
   return os;
 }

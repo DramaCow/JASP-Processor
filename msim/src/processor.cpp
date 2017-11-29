@@ -35,22 +35,28 @@ void Processor::tick(Processor &n_cpu)
 
 void Processor::fetch(Processor &n_cpu)
 {
-  n_cpu.ibuf = icache[this->pc];
-  if (Instruction::isBrch(n_cpu.ibuf.opcode))
+  Instruction instruction = icache[this->pc];
+
+  if (Instruction::isBrch(instruction.opcode))
   {
     bool prediction;
-    std::tie(n_cpu.pc, prediction) = bp.predict(n_cpu.ibuf, this->pc);
-    n_cpu.ibuf.params.push_back(prediction);
+    std::tie(n_cpu.pc, prediction) = bp.predict(instruction, this->pc);
+    instruction.params.push_back(prediction);
   }
   else 
   {
     n_cpu.pc = this->pc + 1;
   }
+
+  n_cpu.ibuf = std::make_tuple(this->pc, instruction);
 }
 
 void Processor::decode(Processor &n_cpu)
 {
-  std::string opcode = this->ibuf.opcode;
+  int pc; Instruction instruction;
+  std::tie(pc, instruction) = this->ibuf;
+
+  std::string opcode = instruction.opcode;
 
   Shelf shelf;
   shelf.opcode = opcode;
@@ -60,11 +66,10 @@ void Processor::decode(Processor &n_cpu)
             opcode == "mul" ||
             opcode == "xor"    )
   {
-    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
-    std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[2]);
+    std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
+    std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[2]);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.pred = false;
-    shelf.dest = this->alloc(n_cpu, opcode, this->ibuf.params[0]);
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
@@ -72,20 +77,18 @@ void Processor::decode(Processor &n_cpu)
             opcode == "subi" ||
             opcode == "muli"    )
   {
-    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[1]);
-    std::tie(shelf.o2, shelf.v2) = std::make_tuple(this->ibuf.params[2], true);
+    std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.pred = false;
-    shelf.dest = this->alloc(n_cpu, opcode, this->ibuf.params[0]);
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0]);
 
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "b" )
   {
-    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[0]);
+    std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true); // prediction
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.pred = this->ibuf.params[1]; // prediction flag
     shelf.dest = this->alloc(n_cpu, opcode, -1);
  
     n_cpu.rs.issue(shelf);
@@ -93,10 +96,9 @@ void Processor::decode(Processor &n_cpu)
   else if ( opcode == "beq" ||
             opcode == "bneq"   )
   {
-    std::tie(shelf.o1, shelf.v1) = this->read(this->ibuf.params[0]);
-    std::tie(shelf.o2, shelf.v2) = this->read(this->ibuf.params[1]);
-    std::tie(shelf.o3, shelf.v3) = this->read(this->ibuf.params[2]);
-    shelf.pred = this->ibuf.params[3]; // prediction flag
+    std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[3], true); // prediction
+    std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[0]);
+    std::tie(shelf.o3, shelf.v3) = this->read(instruction.params[1]);
     shelf.dest = this->alloc(n_cpu, opcode, -1);
  
     n_cpu.rs.issue(shelf);
@@ -140,7 +142,6 @@ void Processor::writeback(Processor &n_cpu)
   if (this->alu1.writeback && this->alu1.duration == 0)
   {
     n_cpu.rob.write(this->alu1.dest, this->alu1.result);
-    // n_cpu.rs.update(this->alu1.dest, this->alu1.result); // moved to exe bypass
   }
 }
 
@@ -227,7 +228,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
   this->alu1 = cpu.alu1;
-  //this->bu = cpu.bu;
+  this->bu = cpu.bu;
 
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
@@ -240,8 +241,10 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "{\n";
 #ifdef DEBUG
   os << "  pc = " << cpu.pc << '\n';
+  int pc; Instruction instruction;
+  std::tie(pc, instruction) = cpu.ibuf;
   os << "  ibuf = {\n"
-     << "    " << cpu.ibuf << '\n'
+     << "    " << pc << ' ' << instruction << '\n'
      << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'

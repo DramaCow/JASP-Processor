@@ -22,14 +22,15 @@ class Processor
 
     unsigned int pc = 0;
 
-    Instruction ibuf;
+    //Instruction ibuf;
+    std::tuple<int, Instruction> ibuf;
     BP bp;
     RAT rat;
     ROB rob;
     RRF rrf;
     RS rs;
     ALU alu1;
-    //BU bu;
+    BU bu;
 
     Processor& operator=(const Processor& cpu);
 
