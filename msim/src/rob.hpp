@@ -19,15 +19,16 @@ class ROB {
         Type type = DN;
         int reg = 0;
         int val = 0;
-        bool mispred = false;
+        int target = 0;
         bool done = false;
     };
 
   public:
-    std::tuple<int, bool> read(int addr);
-    int push(ROB &n_rob, std::string opcode, int r, int val);
-    void write(int addr, int val);
+    int push(ROB &n_rob, std::string opcode, int r, int target);
     std::vector<std::tuple<int,ROB::ROBEntry>> pop(ROB &n_rob);
+
+    std::tuple<int, bool> read(int addr);
+    void write(int addr, int val);
 
     ROB& operator=(const ROB& rob);
 

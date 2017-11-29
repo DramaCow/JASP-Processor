@@ -1,15 +1,7 @@
 #include "rob.hpp"
 #include <cstring>
 
-std::tuple<int, bool> ROB::read(int addr)
-{
-  // NOTE: rob addresses are offset by NUM_REGISTERS in order
-  //       to differentiate them fron architectural addresses
-  int a = addr - NUM_REGISTERS;
-  return std::make_tuple(this->entries[a].done ? this->entries[a].val : addr, this->entries[a].done);
-}
-
-int ROB::push(ROB &n_rob, std::string opcode, int r, int val)
+int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 {
   ROBEntry::Type type = ROBEntry::DN;
   if (Instruction::isArth(opcode) || opcode == "ld")
@@ -24,7 +16,8 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int val)
   // alloc the rob entry
   n_rob.entries[this->head].type = type;
   n_rob.entries[this->head].reg = r;
-  n_rob.entries[this->head].val = val;
+  n_rob.entries[this->head].val = 0;
+  n_rob.entries[this->head].target = target;
   n_rob.entries[this->head].done = false;
 
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
@@ -35,15 +28,6 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int val)
   n_rob.head = (this->head + 1) % NUM_ROB_ENTRIES;
 
   return e;
-}
-
-void ROB::write(int addr, int val)
-{
-  // NOTE: rob addresses are offset by NUM_REGISTERS in order
-  //       to differentiate them fron architectural addresses
-  int a = addr - NUM_REGISTERS;
-  this->entries[a].val = val;
-  this->entries[a].done = true;
 }
 
 std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
@@ -66,6 +50,23 @@ std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
   return commits;
 }
 
+std::tuple<int, bool> ROB::read(int addr)
+{
+  // NOTE: rob addresses are offset by NUM_REGISTERS in order
+  //       to differentiate them fron architectural addresses
+  int a = addr - NUM_REGISTERS;
+  return std::make_tuple(this->entries[a].done ? this->entries[a].val : addr, this->entries[a].done);
+}
+
+void ROB::write(int addr, int val)
+{
+  // NOTE: rob addresses are offset by NUM_REGISTERS in order
+  //       to differentiate them fron architectural addresses
+  int a = addr - NUM_REGISTERS;
+  this->entries[a].val = val;
+  this->entries[a].done = true;
+}
+
 ROB& ROB::operator=(const ROB& rob)
 {
   this->head = rob.head;
@@ -86,7 +87,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
       case ROB::ROBEntry::BR: os << "BR"; break;
       default: os << "??"; break;
     }
-    os << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].mispred << ", " << rob.entries[i].done;
+    os << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].target << ", " << rob.entries[i].done;
     if (rob.head == i)
     {
       os << " <-h-";

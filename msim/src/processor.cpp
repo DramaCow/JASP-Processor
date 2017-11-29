@@ -69,7 +69,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
     std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[2]);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], 0);
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], pc+1);
 
     n_cpu.rs.issue(shelf);
   }
@@ -80,7 +80,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], 0);
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], pc+1);
 
     n_cpu.rs.issue(shelf);
   }
@@ -126,7 +126,7 @@ void Processor::execute(Processor &n_cpu)
   }
   else if (Instruction::isBrch(e.opcode))
   {
-    //n_cpu.bu.dispatch(e.opcode, e.o1, e.o2, e.o3, e.pred, e.dest);
+    n_cpu.bu.dispatch(e.opcode, e.o1, e.o2, e.o3, e.dest);
   }
 
   // and execute if instructions haven't finished
@@ -148,6 +148,10 @@ void Processor::writeback(Processor &n_cpu)
   if (this->alu1.writeback && this->alu1.duration == 0)
   {
     n_cpu.rob.write(this->alu1.dest, this->alu1.result);
+  }
+  if (this->bu.writeback)
+  {
+    n_cpu.rob.write(this->bu.dest, this->bu.result);
   }
 }
 
@@ -208,9 +212,9 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int val)
+int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int target)
 {
-  int a = this->rob.push(n_cpu.rob, opcode, r, val);
+  int a = this->rob.push(n_cpu.rob, opcode, r, target);
   this->rat.write(n_cpu.rat, r, a);
   return a;
 }
