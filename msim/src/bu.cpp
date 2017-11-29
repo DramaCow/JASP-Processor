@@ -10,22 +10,22 @@ void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
 
   if (this->opcode == "b")
   {
-    this->result = this->pred == true;
+    this->result = this->pred != true;
     this->writeback = true;
   }
   if (this->opcode == "beq")
   {
-    this->result = this->pred == (this->o1 == this->o2);
+    this->result = this->pred != (this->o1 == this->o2);
     this->writeback = true;
   }
   if (this->opcode == "bneq")
   {
-    this->result = this->pred == (this->o1 != this->o2);
+    this->result = this->pred != (this->o1 != this->o2);
     this->writeback = true;
   }
   // Unexpected OP
   else {
-    this->result = 0;
+    this->result = false;
     this->writeback = false;
   }
 }

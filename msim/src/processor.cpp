@@ -69,7 +69,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
     std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[2]);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0]);
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], 0);
 
     n_cpu.rs.issue(shelf);
   }
@@ -80,26 +80,32 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0]);
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], 0);
 
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "b" )
   {
-    std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true); // prediction
+    int target = instruction.params[0];
+    bool prediction = instruction.params[1];
+
+    std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, opcode, -1);
+    shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? target : pc+1);
  
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "beq" ||
             opcode == "bneq"   )
   {
-    std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[3], true); // prediction
+    int target = instruction.params[2];
+    bool prediction = instruction.params[3];
+
+    std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
     std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[0]);
     std::tie(shelf.o3, shelf.v3) = this->read(instruction.params[1]);
-    shelf.dest = this->alloc(n_cpu, opcode, -1);
+    shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? target : pc+1);
  
     n_cpu.rs.issue(shelf);
   }
@@ -202,9 +208,9 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, std::string opcode, int r)
+int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int val)
 {
-  int a = this->rob.push(n_cpu.rob, opcode, r);
+  int a = this->rob.push(n_cpu.rob, opcode, r, val);
   this->rat.write(n_cpu.rat, r, a);
   return a;
 }
@@ -244,7 +250,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   int pc; Instruction instruction;
   std::tie(pc, instruction) = cpu.ibuf;
   os << "  ibuf = {\n"
-     << "    " << pc << ' ' << instruction << '\n'
+     << "    " << pc << ": " << instruction << '\n'
      << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'

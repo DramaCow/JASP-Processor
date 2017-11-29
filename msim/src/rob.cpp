@@ -9,7 +9,7 @@ std::tuple<int, bool> ROB::read(int addr)
   return std::make_tuple(this->entries[a].done ? this->entries[a].val : addr, this->entries[a].done);
 }
 
-int ROB::push(ROB &n_rob, std::string opcode, int r)
+int ROB::push(ROB &n_rob, std::string opcode, int r, int val)
 {
   ROBEntry::Type type = ROBEntry::DN;
   if (Instruction::isArth(opcode) || opcode == "ld")
@@ -24,7 +24,7 @@ int ROB::push(ROB &n_rob, std::string opcode, int r)
   // alloc the rob entry
   n_rob.entries[this->head].type = type;
   n_rob.entries[this->head].reg = r;
-  n_rob.entries[this->head].val = 0;
+  n_rob.entries[this->head].val = val;
   n_rob.entries[this->head].done = false;
 
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
@@ -78,7 +78,15 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
-    os << "    " << i+NUM_REGISTERS << ": " << rob.entries[i].type << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].done;
+    os << "    " << i+NUM_REGISTERS << ": ";
+    switch (rob.entries[i].type)
+    {
+      case ROB::ROBEntry::DN: os << "DN"; break;
+      case ROB::ROBEntry::WB: os << "WB"; break;
+      case ROB::ROBEntry::BR: os << "BR"; break;
+      default: os << "??"; break;
+    }
+    os << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].mispred << ", " << rob.entries[i].done;
     if (rob.head == i)
     {
       os << " <-h-";

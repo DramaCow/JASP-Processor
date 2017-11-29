@@ -19,12 +19,13 @@ class ROB {
         Type type = DN;
         int reg = 0;
         int val = 0;
+        bool mispred = false;
         bool done = false;
     };
 
   public:
     std::tuple<int, bool> read(int addr);
-    int push(ROB &n_rob, std::string opcode, int r);
+    int push(ROB &n_rob, std::string opcode, int r, int val);
     void write(int addr, int val);
     std::vector<std::tuple<int,ROB::ROBEntry>> pop(ROB &n_rob);
 
