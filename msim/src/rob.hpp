@@ -11,16 +11,6 @@
 // ReOrder Buffer
 class ROB {
   public:
-    std::tuple<int, bool> read(int addr);
-    int push(ROB &n_rob, std::string opcode, int r);
-    void write(int addr, int val);
-    std::vector<std::tuple<int,int,int>> pop(ROB &n_rob);
-
-    ROB& operator=(const ROB& rob);
-
-    friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
-
-  public:
     class ROBEntry
     {
       public:
@@ -31,6 +21,16 @@ class ROB {
         int val = 0;
         bool done = false;
     };
+
+  public:
+    std::tuple<int, bool> read(int addr);
+    int push(ROB &n_rob, std::string opcode, int r);
+    void write(int addr, int val);
+    std::vector<std::tuple<int,ROB::ROBEntry>> pop(ROB &n_rob);
+
+    ROB& operator=(const ROB& rob);
+
+    friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
   private:
     ROBEntry entries[NUM_ROB_ENTRIES];

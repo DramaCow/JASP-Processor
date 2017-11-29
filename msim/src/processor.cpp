@@ -38,7 +38,6 @@ void Processor::fetch(Processor &n_cpu)
   n_cpu.ibuf = icache[this->pc];
   if (Instruction::isBrch(n_cpu.ibuf.opcode))
   {
-    std::cout << "it's a branch instruction\n";
     bool prediction;
     std::tie(n_cpu.pc, prediction) = bp.predict(n_cpu.ibuf, this->pc);
     n_cpu.ibuf.params.push_back(prediction);
@@ -106,14 +105,23 @@ void Processor::decode(Processor &n_cpu)
 
 void Processor::execute(Processor &n_cpu)
 {
-  // dispatch when instruction has finished
-  if (this->alu1.duration == 0)
+  Shelf e = rs.dispatch(n_cpu.rs); // this may be nop
+
+  // TODO: dispatching scheme
+  if (Instruction::isArth(e.opcode))
   {
-    Shelf e = rs.dispatch(n_cpu.rs); // this may be nop
-    n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest);
+    // dispatch when instruction has finished
+    if (this->alu1.duration == 0)
+    {
+      n_cpu.alu1.dispatch(e.opcode, e.o1, e.o2, e.dest);
+    }
+  }
+  else if (Instruction::isBrch(e.opcode))
+  {
+    //n_cpu.bu.dispatch(e.opcode, e.o1, e.o2, e.o3, e.pred, e.dest);
   }
 
-  // and execute if instruction hasn't finished
+  // and execute if instructions haven't finished
   if (this->alu1.duration > 0)
   {
     this->alu1.execute(n_cpu.alu1);
@@ -138,13 +146,15 @@ void Processor::writeback(Processor &n_cpu)
 
 void Processor::commit(Processor &n_cpu)
 {
-  std::vector<std::tuple<int,int,int>> commits = this->rob.pop(n_cpu.rob);
-  int r, val, rob_entry;
+  std::vector<std::tuple<int,ROB::ROBEntry>> commits = this->rob.pop(n_cpu.rob);
+
+  int idx;
+  ROB::ROBEntry entry;
 
   for (std::size_t i = 0; i < commits.size(); ++i)
   {
-    std::tie(r, val, rob_entry) = commits[i];
-    n_cpu.rrf.write(r, val);
+    std::tie(idx, entry) = commits[i];
+    n_cpu.rrf.write(entry.reg, entry.val);
     // NOTE: The rat entry should be freed IFF
     //       the rat entry points to the rob entry.
     //       i.e. the rob entry was the "most up to date"
@@ -152,9 +162,9 @@ void Processor::commit(Processor &n_cpu)
     //       Otherwise the most "up to date" is held else-
     //       where, such as a different rob entry, and
     //       should NOT be modified.
-    if (this->rat.read(r) == rob_entry)
+    if (this->rat.read(entry.reg) == idx)
     {
-      this->rat.write(n_cpu.rat, r, r);
+      this->rat.write(n_cpu.rat, entry.reg, entry.reg);
     }
   }
 

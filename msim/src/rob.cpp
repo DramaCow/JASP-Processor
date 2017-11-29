@@ -46,9 +46,9 @@ void ROB::write(int addr, int val)
   this->entries[a].done = true;
 }
 
-std::vector<std::tuple<int,int,int>> ROB::pop(ROB &n_rob)
+std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
 {
-  std::vector<std::tuple<int,int,int>> commits;
+  std::vector<std::tuple<int,ROB::ROBEntry>> commits;
 
   int c;
   for (c = 0; c < 4; ++c) // max commits per cycle is 4
@@ -58,7 +58,7 @@ std::vector<std::tuple<int,int,int>> ROB::pop(ROB &n_rob)
     {
       break;
     }
-    commits.push_back(std::make_tuple(this->entries[tail].reg, this->entries[tail].val, tail));
+    commits.push_back(std::make_tuple(tail, this->entries[tail]));
   }
 
   n_rob.tail = (this->tail + c) % NUM_REGISTERS;

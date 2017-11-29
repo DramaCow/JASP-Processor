@@ -8,25 +8,24 @@
 class BU
 {
   public:
-    void dispatch(std::string opcode, int o1, int o2, int target);
-    int execute(BU &n_BU);
+    void dispatch(std::string opcode, int target, int o1, int o2, bool pred, int dest);
 
-    friend std::ostream& operator<<(std::ostream& os, const BU& BU);
-
-  private:
-    // input latch variables
-    std::string opcode = "nop";
-    int o1 = 0;
-    int o2 = 0;
+    // input latch
+    std::string opcode = "nop"; 
     int target = 0;
+    int o1 = 0; 
+    int o2 = 0; 
+    bool pred = false;
 
-    // meta-control variables
-    int duration = 0;
+    // output latch
+    int dest = 0; 
+    bool result = false;
 
-    // output latch variables
-    int addr = 0; // target address
-    bool cond = false; // branch condition (pc = addr if cond else pc + 1)
+    // control flags
+    bool writeback = false;
+
+    friend std::ostream& operator<<(std::ostream& os, const BU& bu);
 };
-std::ostream& operator<<(std::ostream& os, const BU& BU);
+std::ostream& operator<<(std::ostream& os, const BU& bu);
 
 #endif
