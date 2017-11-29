@@ -27,7 +27,6 @@ void Processor::tick(Processor &n_cpu)
     fetch(n_cpu);
     decode(n_cpu);
   }
-  n_cpu.rs.tick(); // age all used entries
   execute(n_cpu);
   writeback(n_cpu);
   commit(n_cpu);
