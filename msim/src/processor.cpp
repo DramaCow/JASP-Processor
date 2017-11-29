@@ -145,7 +145,9 @@ void Processor::writeback(Processor &n_cpu)
   if (this->alu1.writeback && this->alu1.duration == 0)
   {
     n_cpu.rob.write(this->alu1.dest, this->alu1.result);
+    n_cpu.rs.update(this->alu1.dest, this->alu1.result);
   }
+
   if (this->bu.writeback)
   {
     n_cpu.rob.write(this->bu.dest, this->bu.result);
@@ -182,9 +184,10 @@ void Processor::commit(Processor &n_cpu)
     // branch
     else if (entry.type == ROB::ROBEntry::BR)
     {
+      std::cout << " ============== branch committed.\n";
       if (entry.val)
       {
-        // flush and jump to entry.target
+        // TODO: flush and jump to entry.target
       }
     }
   }

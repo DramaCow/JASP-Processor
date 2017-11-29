@@ -2,6 +2,18 @@
 
 std::tuple<int, bool> BP::predict(Instruction instruction, int pc)
 {
-  // i.e. assume we didn't just take the branch
-  return std::make_tuple(pc + 1, false);
+  int target = pc + 1;
+
+  if (instruction.opcode == "b")
+  {
+    target = instruction.params[0];
+  }
+  else if (instruction.opcode == "beq"  ||
+           instruction.opcode == "bneq"    )
+  {
+    target = instruction.params[2];
+  }
+
+  //return std::make_tuple(target, true);
+  return std::make_tuple(pc+1, false);
 }

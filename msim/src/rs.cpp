@@ -76,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)
   {
     os << "    ";
-    os << rs.shelves[i].opcode << " \t" 
+    os << rs.shelves[i].opcode << "    \t" 
        << rs.shelves[i].o1 << '\t' 
        << rs.shelves[i].v1 << '\t' 
        << rs.shelves[i].o2 << '\t' 

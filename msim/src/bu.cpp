@@ -13,12 +13,12 @@ void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
     this->result = this->pred != true;
     this->writeback = true;
   }
-  if (this->opcode == "beq")
+  else if (this->opcode == "beq")
   {
     this->result = this->pred != (this->o1 == this->o2);
     this->writeback = true;
   }
-  if (this->opcode == "bneq")
+  else if (this->opcode == "bneq")
   {
     this->result = this->pred != (this->o1 != this->o2);
     this->writeback = true;
@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream& os, const BU& bu)
     os << "    --- nop ---\n";
     return os;
   }
-  os << "    " << bu.opcode << ' ' << bu.pred << ' ' << bu.o1 << ' ' << bu.o2 << '\n';
-  os << "    " << "= " << bu.result << '\n';
+  os << "    d" << bu.dest << " = " << bu.o1 << ' ' << bu.opcode << ' ' << bu.o2 << '\n';
+  os << "    " << (bu.result ? "mispredicted :(" : "correctly predicted :)") << '\n';
   return os;
 }
