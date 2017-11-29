@@ -92,7 +92,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
     std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-    shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? target : pc+1);
+    shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
  
     n_cpu.rs.issue(shelf);
   }
@@ -105,7 +105,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
     std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[0]);
     std::tie(shelf.o3, shelf.v3) = this->read(instruction.params[1]);
-    shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? target : pc+1);
+    shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
  
     n_cpu.rs.issue(shelf);
   }
@@ -185,7 +185,10 @@ void Processor::commit(Processor &n_cpu)
     // branch
     else if (entry.type == ROB::ROBEntry::BR)
     {
-
+      if (entry.val)
+      {
+        // flush and jump to entry.target
+      }
     }
   }
 
@@ -269,8 +272,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  alu1 = {\n" << cpu.alu1
      << "  }\n";
-//  os << "  bu = {\n" << cpu.bu
-//     << "  }\n";
+  os << "  bu = {\n" << cpu.bu
+     << "  }\n";
 #endif
   os << "}";
 #ifdef DEBUG

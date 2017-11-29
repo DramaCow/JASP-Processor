@@ -32,6 +32,12 @@ void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
 
 std::ostream& operator<<(std::ostream& os, const BU& bu)
 {
-  os << "    " << bu.opcode << ' ' << bu.pred << ' ' << bu.o1 << ' ' << bu.o2;
+  if (bu.opcode == "nop")
+  {
+    os << "    --- nop ---\n";
+    return os;
+  }
+  os << "    " << bu.opcode << ' ' << bu.pred << ' ' << bu.o1 << ' ' << bu.o2 << '\n';
+  os << "    " << "= " << bu.result << '\n';
   return os;
 }
