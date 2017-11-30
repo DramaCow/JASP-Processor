@@ -41,7 +41,7 @@ std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
   int c;
   for (c = 0; c < 4; ++c) // max commits per cycle is 4
   {
-    int tail = (this->tail + c) % NUM_REGISTERS;
+    int tail = (this->tail + c) % NUM_ROB_ENTRIES;
     if (!this->entries[tail].done || this->head == tail)
     {
       break;
@@ -49,7 +49,7 @@ std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
     commits.push_back(std::make_tuple(tail + NUM_REGISTERS, this->entries[tail]));
   }
 
-  n_rob.tail = (this->tail + c) % NUM_REGISTERS;
+  n_rob.tail = (this->tail + c) % NUM_ROB_ENTRIES;
 
   return commits;
 }
@@ -86,6 +86,8 @@ ROB& ROB::operator=(const ROB& rob)
 
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
+  os << "   head = " << rob.head << '\n';
+  os << "   tail = " << rob.tail << '\n';
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
     os << "    " << i+NUM_REGISTERS << ": ";

@@ -48,13 +48,11 @@ std::ostream& operator<<(std::ostream& os, const RRF& rrf)
 {
   for (int i = 0; i < NUM_REGISTERS; ++i)
   {
-    //os << std::setfill('0') << std::setw(10);
     os << std::dec << rrf.gpr[i];
-    //os << '_' << (rrf.v[i] ? '1' : '0');
     os << ' ';
     if (i % 8 == 7 && i < NUM_REGISTERS - 1)
     {
-      os << '\n';
+      os << "\n    ";
     }
   }
   return os;
