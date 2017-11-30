@@ -17,6 +17,7 @@ class RRF
     void reset(int r);
     void write(int r, int data);
 
+    bool operator==(const RRF& rrf);
     RRF& operator=(const RRF& rrf);
 
     friend std::ostream& operator<<(std::ostream& os, const RRF& rrf);

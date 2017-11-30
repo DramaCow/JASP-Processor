@@ -46,7 +46,7 @@ std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
     {
       break;
     }
-    commits.push_back(std::make_tuple(tail, this->entries[tail]));
+    commits.push_back(std::make_tuple(tail + NUM_REGISTERS, this->entries[tail]));
   }
 
   n_rob.tail = (this->tail + c) % NUM_REGISTERS;

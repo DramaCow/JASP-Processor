@@ -27,6 +27,16 @@ void RRF::write(int r, int data)
   this->v[r] = true;
 }
 
+bool RRF::operator==(const RRF& rrf)
+{
+  bool equal = true;
+  for (int i = 0; i < NUM_REGISTERS; ++i)
+  {
+    equal &= this->gpr[i] == rrf.gpr[i];
+  }
+  return equal;
+}
+
 RRF& RRF::operator=(const RRF& rrf)
 {
   memcpy(this->gpr, rrf.gpr, NUM_REGISTERS*sizeof(uint32_t));
