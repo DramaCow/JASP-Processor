@@ -14,7 +14,7 @@ class ROB {
     class ROBEntry
     {
       public:
-        enum Type { DN, WB, BR }; // either do nothing, writeback, or branch
+        enum Type { DN, WB, BR, END }; // either do nothing, writeback, or branch
 
         Type type = DN;
         int reg = 0;
@@ -29,6 +29,8 @@ class ROB {
 
     std::tuple<int, bool> read(int addr);
     void write(int addr, int val);
+
+    void reset();
 
     ROB& operator=(const ROB& rob);
 

@@ -63,6 +63,11 @@ void RS::update(int dest, int result)
   }
 }
 
+void RS::reset()
+{
+  this->shelves.clear();
+}
+
 RS& RS::operator=(const RS& rs)
 {
   this->shelves = rs.shelves;
@@ -84,10 +89,6 @@ std::ostream& operator<<(std::ostream& os, const RS& rs)
        << rs.shelves[i].o3 << '\t' 
        << rs.shelves[i].v3 << '\t' 
        << rs.shelves[i].dest << '\n';
-  }
-  for (std::size_t i = rs.shelves.size(); i < NUM_RS_ENTRIES; ++i)
-  {
-    os << "    nop\n";
   }
   return os;
 }

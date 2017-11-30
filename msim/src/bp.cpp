@@ -14,6 +14,6 @@ std::tuple<int, bool> BP::predict(Instruction instruction, int pc)
     target = instruction.params[2];
   }
 
-  //return std::make_tuple(target, true);
-  return std::make_tuple(pc+1, false);
+  return std::make_tuple(target, true); // alway branch
+  //return std::make_tuple(pc+1, false); // always not branch
 }

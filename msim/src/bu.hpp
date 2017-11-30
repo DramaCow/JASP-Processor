@@ -10,6 +10,8 @@ class BU
   public:
     void dispatch(std::string opcode, bool pred, int o1, int o2, int dest);
 
+    void reset();
+
     // input latch
     std::string opcode = "nop"; 
     bool pred = false;

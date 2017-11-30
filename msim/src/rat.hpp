@@ -12,6 +12,7 @@ class RAT
 
     int read(int r);
     void write(RAT &n_rat, int r, int a);
+    void reset();
 
     RAT& operator=(const RAT& rat);
 

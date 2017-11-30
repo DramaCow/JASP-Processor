@@ -19,7 +19,7 @@ Processor::Processor(ICache &icache, DCache &dcache) :
 // === PIPELINE FUNCTIONS ===
 // ==========================
 
-void Processor::tick(Processor &n_cpu)
+bool Processor::tick(Processor &n_cpu)
 {
   n_cpu.cycles++;
   if (!isStalled())
@@ -29,7 +29,7 @@ void Processor::tick(Processor &n_cpu)
   }
   execute(n_cpu);
   writeback(n_cpu);
-  commit(n_cpu);
+  return commit(n_cpu);
 }
 
 void Processor::fetch(Processor &n_cpu)
@@ -108,6 +108,10 @@ void Processor::decode(Processor &n_cpu)
  
     n_cpu.rs.issue(shelf);
   }
+  else if ( opcode == "end" )
+  {
+    this->alloc(n_cpu, opcode, -1, 0);
+  }
 }
 
 void Processor::execute(Processor &n_cpu)
@@ -154,14 +158,19 @@ void Processor::writeback(Processor &n_cpu)
   }
 }
 
-void Processor::commit(Processor &n_cpu)
+bool Processor::commit(Processor &n_cpu)
 {
   std::vector<std::tuple<int,ROB::ROBEntry>> commits = this->rob.pop(n_cpu.rob);
+  if (commits.size() == 0)
+  {
+    return false;
+  }
 
   int idx;
   ROB::ROBEntry entry;
 
-  for (std::size_t i = 0; i < commits.size(); ++i)
+  std::size_t i;
+  for (i = 0; i < commits.size(); ++i)
   {
     std::tie(idx, entry) = commits[i];
 
@@ -184,15 +193,28 @@ void Processor::commit(Processor &n_cpu)
     // branch
     else if (entry.type == ROB::ROBEntry::BR)
     {
-      std::cout << " ============== branch committed.\n";
       if (entry.val)
       {
-        // TODO: flush and jump to entry.target
+        // flush and jump to entry.target
+        n_cpu.ibuf = std::make_tuple(0, Instruction("nop"));
+        n_cpu.rat.reset();
+        n_cpu.rob.reset();
+        n_cpu.rs.reset();
+        n_cpu.alu1.reset();
+        n_cpu.bu.reset();
+        n_cpu.pc = entry.target;
+        break; // following commits refer to mispredicts, so stop
       }
+    }
+    // end of program
+    else if (entry.type == ROB::ROBEntry::END)
+    {
+      return true; // TODO: not counted as an instruction?
     }
   }
 
-  n_cpu.instructions_executed = this->instructions_executed + commits.size();
+  n_cpu.instructions_executed = this->instructions_executed + i;
+  return false;
 }
 
 // ========================

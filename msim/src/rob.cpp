@@ -8,9 +8,13 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   {
     type = ROBEntry::WB;
   }
-  else if(Instruction::isBrch(opcode))
+  else if (Instruction::isBrch(opcode))
   {
     type = ROBEntry::BR;
+  }
+  else if (opcode == "end")
+  {
+    type = ROBEntry::END;
   }
 
   // alloc the rob entry
@@ -18,7 +22,7 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   n_rob.entries[this->head].reg = r;
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].target = target;
-  n_rob.entries[this->head].done = false;
+  n_rob.entries[this->head].done = opcode == "end";
 
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
   //       to differentiate them fron architectural addresses
@@ -67,6 +71,11 @@ void ROB::write(int addr, int val)
   this->entries[a].done = true;
 }
 
+void ROB::reset()
+{
+  this->head = this->tail;
+}
+
 ROB& ROB::operator=(const ROB& rob)
 {
   this->head = rob.head;
@@ -85,6 +94,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
       case ROB::ROBEntry::DN: os << "DN"; break;
       case ROB::ROBEntry::WB: os << "WB"; break;
       case ROB::ROBEntry::BR: os << "BR"; break;
+      case ROB::ROBEntry::END: os << "END"; break;
       default: os << "??"; break;
     }
     os << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].target << ", " << rob.entries[i].done;

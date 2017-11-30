@@ -30,6 +30,12 @@ void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
   }
 }
 
+void BU::reset()
+{
+  this->opcode = "nop";
+  this->writeback = false;
+}
+
 std::ostream& operator<<(std::ostream& os, const BU& bu)
 {
   if (bu.opcode == "nop")

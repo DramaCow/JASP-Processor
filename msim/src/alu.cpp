@@ -46,6 +46,12 @@ void ALU::execute(ALU& n_alu)
   n_alu.duration = this->duration-1 > 0 ? this->duration-1 : 0;
 }
 
+void ALU::reset()
+{
+  this->opcode = "nop";
+  this->writeback = false;
+}
+
 std::ostream& operator<<(std::ostream& os, const ALU& alu)
 {
   if (alu.opcode == "nop")

@@ -6,7 +6,7 @@
 #include "cache.hpp"
 #include "processor.hpp"
 
-#define LIMIT 8
+#define LIMIT 20
 
 int main(int argc, char* argv[])
 {
@@ -24,13 +24,15 @@ int main(int argc, char* argv[])
   Processor cpu1(icache, dcache); Processor *cpu   = &cpu1;
   Processor cpu2(icache, dcache); Processor *n_cpu = &cpu2;
 
-  for (int i = 0; i < LIMIT; ++i)
+  int t;
+  bool done = false;
+  for (t = 0; t < LIMIT && !done; ++t)
   {
-    std::cout << "(t = " << i << ") " << (*cpu) << std::endl;
-    cpu->tick(*n_cpu);
+    std::cout << "(t = " << t << ") " << (*cpu) << std::endl;
+    done = cpu->tick(*n_cpu);
     *cpu = *n_cpu;
   }
-  std::cout << "(t = " << LIMIT << ") " << (*cpu) << std::endl;
+  std::cout << "(t = " << t << ") " << (*cpu) << std::endl;
 
   return 0;
 }

@@ -27,6 +27,7 @@ class RS
     std::tuple<Shelf, Shelf> dispatch(RS &n_rs, bool port1, bool port2);
 
     void update(int dest, int result);
+    void reset();
 
     RS& operator=(const RS& rs);
 

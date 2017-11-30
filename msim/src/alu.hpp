@@ -11,6 +11,8 @@ class ALU
     void dispatch(std::string opcode, int o1, int o2, int dest);
     void execute(ALU& n_alu);
 
+    void reset();
+
     // input latch
     std::string opcode = "nop"; 
     int o1 = 0; 

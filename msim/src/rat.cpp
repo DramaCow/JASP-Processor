@@ -3,10 +3,7 @@
 
 RAT::RAT()
 {
-  for (int i = 0; i < NUM_REGISTERS; ++i)
-  {
-    this->table[i] = i;
-  }
+  this->reset();
 }
 
 int RAT::read(int r)
@@ -17,6 +14,14 @@ int RAT::read(int r)
 void RAT::write(RAT &n_rat, int r, int a)
 {
   n_rat.table[r] = a;
+}
+
+void RAT::reset()
+{
+  for (int i = 0; i < NUM_REGISTERS; ++i)
+  {
+    this->table[i] = i;
+  }
 }
 
 RAT& RAT::operator=(const RAT& rat)

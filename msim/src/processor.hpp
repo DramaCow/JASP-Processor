@@ -15,7 +15,7 @@ class Processor
   public:
     Processor(ICache &icache, DCache &dcache);
 
-    void tick(Processor &n_cpu);
+    bool tick(Processor &n_cpu);
 
     ICache &icache; // Instruction cache
     DCache &dcache; // data cache
@@ -42,7 +42,7 @@ class Processor
     void decode(Processor &n_cpu);
     void execute(Processor &n_cpu);
     void writeback(Processor &n_cpu);
-    void commit(Processor &n_cpu);
+    bool commit(Processor &n_cpu);
 
     // helper functions
     std::tuple<int, bool> read(int r);
