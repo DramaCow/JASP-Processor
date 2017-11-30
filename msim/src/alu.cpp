@@ -8,7 +8,13 @@ void ALU::dispatch(std::string opcode, int o1, int o2, int dest)
   this->o2 = o2;
   this->dest = dest;
 
-  if (this->opcode == "add" || this->opcode == "addi")
+  if (this->opcode == "mov" || this->opcode == "movi")
+  {
+    this->result = o1;
+    this->duration = 0;
+    this->writeback = true;
+  }
+  else if (this->opcode == "add" || this->opcode == "addi")
   {
     this->result = o1 + o2;
     this->duration = 0;

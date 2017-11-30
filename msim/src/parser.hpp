@@ -25,6 +25,8 @@ struct InstDef
 #define ISIZE 64
 const InstDef instset[ISIZE] = {
   { "nop" , 0, { '\0'          }},
+  { "mov" , 2, { 'd', 's'      }},
+  { "movi", 2, { 'd', 'i'      }},
   { "add" , 3, { 'd', 's', 't' }},
   { "addi", 3, { 'd', 's', 'i' }},
   { "sub" , 3, { 'd', 's', 't' }},

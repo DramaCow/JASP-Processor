@@ -12,7 +12,9 @@ Instruction::Instruction(std::string opcode) :
 
 bool Instruction::isArth(std::string opcode)
 {
-  return opcode == "add"  ||
+  return opcode == "mov"  ||
+         opcode == "movi" ||
+         opcode == "add"  ||
          opcode == "addi" ||
          opcode == "sub"  ||
          opcode == "subi" ||

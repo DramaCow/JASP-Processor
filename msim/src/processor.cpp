@@ -60,7 +60,25 @@ void Processor::decode(Processor &n_cpu)
   Shelf shelf;
   shelf.opcode = opcode;
 
-  if      ( opcode == "add" ||
+  if      ( opcode == "mov" )
+  {
+    std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], pc+1);
+
+    n_cpu.rs.issue(shelf);
+  }
+  else if ( opcode == "movi" )
+  {
+    std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], pc+1);
+
+    n_cpu.rs.issue(shelf);
+  }
+  else if ( opcode == "add" ||
             opcode == "sub" ||
             opcode == "mul" ||
             opcode == "xor"    )
