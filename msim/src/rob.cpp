@@ -1,5 +1,8 @@
 #include "rob.hpp"
 #include <cstring>
+#include <iomanip>
+
+#define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
 int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 {
@@ -86,20 +89,44 @@ ROB& ROB::operator=(const ROB& rob)
 
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
-  os << "   head = " << rob.head << '\n';
-  os << "   tail = " << rob.tail << '\n';
+  os << "    addr  type  reg   val   target\n";
+  os << "    ------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
-    os << "    " << i+NUM_REGISTERS << ": ";
+    os << "    ";
+    os << SPACE(
+      (rob.entries[i].done ? std::string("*") : std::string("")) + 
+      std::string("d") + std::to_string(i+NUM_REGISTERS)
+    );
     switch (rob.entries[i].type)
     {
-      case ROB::ROBEntry::DN: os << "DN"; break;
-      case ROB::ROBEntry::WB: os << "WB"; break;
-      case ROB::ROBEntry::BR: os << "BR"; break;
-      case ROB::ROBEntry::END: os << "END"; break;
-      default: os << "??"; break;
+      case ROB::ROBEntry::DN: os << SPACE("DN"); break;
+      case ROB::ROBEntry::WB: os << SPACE("WB"); break;
+      case ROB::ROBEntry::BR: os << SPACE("BR"); break;
+      case ROB::ROBEntry::END: os << SPACE("END"); break;
+      default: os << SPACE("??"); break;
     }
-    os << ", " << rob.entries[i].reg << ", " << rob.entries[i].val << ", " << rob.entries[i].target << ", " << rob.entries[i].done;
+
+    if (rob.entries[i].reg >= 0)
+    {
+      os << SPACE(std::string("r") + std::to_string(rob.entries[i].reg));
+    }
+    else
+    {
+      os << SPACE("n/a");
+    }
+
+    os << SPACE(rob.entries[i].val);
+
+    if (rob.entries[i].target >= 0)
+    {
+      os << SPACE(std::string("(") + std::to_string(rob.entries[i].target) + std::string(")"));
+    }
+    else 
+    {
+      os << SPACE("n/a");
+    }
+
     if (rob.head == i)
     {
       os << " <-h-";

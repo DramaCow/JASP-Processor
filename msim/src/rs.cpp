@@ -1,5 +1,8 @@
 #include "rs.hpp"
 #include "instruction.hpp"
+#include <iomanip>
+
+#define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
 bool RS::isFull()
 {
@@ -76,19 +79,17 @@ RS& RS::operator=(const RS& rs)
 
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
-  os << "    OC  \to1  \tv1  \to2  \tv2  \to3  \tv3  \tdest\n";
-  os << "    ----------------------------------------------------------------\n";
+  os << "    OC    o1    o2    o3    dest  \n";
+  os << "    ------------------------------\n";
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)
   {
     os << "    ";
-    os << rs.shelves[i].opcode << "    \t" 
-       << rs.shelves[i].o1 << '\t' 
-       << rs.shelves[i].v1 << '\t' 
-       << rs.shelves[i].o2 << '\t' 
-       << rs.shelves[i].v2 << '\t' 
-       << rs.shelves[i].o3 << '\t' 
-       << rs.shelves[i].v3 << '\t' 
-       << rs.shelves[i].dest << '\n';
+    os << SPACE(rs.shelves[i].opcode)
+       << SPACE((rs.shelves[i].v1 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o1))
+       << SPACE((rs.shelves[i].v2 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o2))
+       << SPACE((rs.shelves[i].v3 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o3))
+       << SPACE(std::string("d") + std::to_string(rs.shelves[i].dest))
+       << '\n';
   }
   return os;
 }

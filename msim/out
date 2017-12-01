@@ -1,0 +1,4103 @@
+(t = 0) {
+  pc = 0
+  ibuf = {
+    0: 
+  }
+  rat = {
+    0 1 2 3 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    DN    r0    0     (0)    <-h- <-t-
+    d9    DN    r0    0     (0)   
+    d10   DN    r0    0     (0)   
+    d11   DN    r0    0     (0)   
+    d12   DN    r0    0     (0)   
+    d13   DN    r0    0     (0)   
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    0 0 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 0
+instructions_executed = 0
+instructions_per_cycle = -nan
+(t = 1) {
+  pc = 1
+  ibuf = {
+    0: movi 0 1
+  }
+  rat = {
+    0 1 2 3 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    DN    r0    0     (0)    <-h- <-t-
+    d9    DN    r0    0     (0)   
+    d10   DN    r0    0     (0)   
+    d11   DN    r0    0     (0)   
+    d12   DN    r0    0     (0)   
+    d13   DN    r0    0     (0)   
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    0 0 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 1
+instructions_executed = 0
+instructions_per_cycle = 0
+(t = 2) {
+  pc = 2
+  ibuf = {
+    1: movi 1 5
+  }
+  rat = {
+    8 1 2 3 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r0    0     n/a    <-t-
+    d9    DN    r0    0     (0)    <-h-
+    d10   DN    r0    0     (0)   
+    d11   DN    r0    0     (0)   
+    d12   DN    r0    0     (0)   
+    d13   DN    r0    0     (0)   
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    0 0 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    movi  1     0     0     d8    
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 2
+instructions_executed = 0
+instructions_per_cycle = 0
+(t = 3) {
+  pc = 3
+  ibuf = {
+    2: movi 6 0
+  }
+  rat = {
+    8 9 2 3 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r0    0     n/a    <-t-
+    d9    WB    r1    0     n/a   
+    d10   DN    r0    0     (0)    <-h-
+    d11   DN    r0    0     (0)   
+    d12   DN    r0    0     (0)   
+    d13   DN    r0    0     (0)   
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    0 0 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    movi  5     0     0     d9    
+  }
+  alu1 = {
+    d8 <-- 1 movi 0 (0)
+    = 1 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 3
+instructions_executed = 0
+instructions_per_cycle = 0
+(t = 4) {
+  pc = 4
+  ibuf = {
+    3: movi 7 5
+  }
+  rat = {
+    8 9 2 3 4 5 10 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r0    1     n/a    <-t-
+    d9    WB    r1    0     n/a   
+    d10   WB    r6    0     n/a   
+    d11   DN    r0    0     (0)    <-h-
+    d12   DN    r0    0     (0)   
+    d13   DN    r0    0     (0)   
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    0 0 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    movi  0     0     0     d10   
+  }
+  alu1 = {
+    d9 <-- 5 movi 0 (0)
+    = 5 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 4
+instructions_executed = 0
+instructions_per_cycle = 0
+(t = 5) {
+  pc = 5
+  ibuf = {
+    4: movi 2 0
+  }
+  rat = {
+    0 9 2 3 4 5 10 11 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r0    1     n/a   
+    *d9   WB    r1    5     n/a    <-t-
+    d10   WB    r6    0     n/a   
+    d11   WB    r7    0     n/a   
+    d12   DN    r0    0     (0)    <-h-
+    d13   DN    r0    0     (0)   
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    1 0 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    movi  5     0     0     d11   
+  }
+  alu1 = {
+    d10 <-- 0 movi 0 (0)
+    = 0 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 5
+instructions_executed = 1
+instructions_per_cycle = 0.2
+(t = 6) {
+  pc = 6
+  ibuf = {
+    5: mul 3 0 1
+  }
+  rat = {
+    0 1 12 3 4 5 10 11 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r0    1     n/a   
+    *d9   WB    r1    5     n/a   
+    *d10  WB    r6    0     n/a    <-t-
+    d11   WB    r7    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   DN    r0    0     (0)    <-h-
+    d14   DN    r0    0     (0)   
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    1 5 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    movi  0     0     0     d12   
+  }
+  alu1 = {
+    d11 <-- 5 movi 0 (0)
+    = 5 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 6
+instructions_executed = 2
+instructions_per_cycle = 0.333333
+(t = 7) {
+  pc = 7
+  ibuf = {
+    6: add 2 2 3
+  }
+  rat = {
+    0 1 12 13 4 5 6 11 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r0    1     n/a   
+    *d9   WB    r1    5     n/a   
+    *d10  WB    r6    0     n/a   
+    *d11  WB    r7    5     n/a    <-t-
+    d12   WB    r2    0     n/a   
+    d13   WB    r3    0     n/a   
+    d14   DN    r0    0     (0)    <-h-
+    d15   DN    r0    0     (0)   
+  }
+  rrf = {
+    1 5 0 0 0 0 0 0 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   1     5     0     d13   
+  }
+  alu1 = {
+    d12 <-- 0 movi 0 (0)
+    = 0 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 7
+instructions_executed = 3
+instructions_per_cycle = 0.428571
+(t = 8) {
+  pc = 8
+  ibuf = {
+    7: addi 0 0 1
+  }
+  rat = {
+    0 1 14 13 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r0    1     n/a   
+    *d9   WB    r1    5     n/a   
+    *d10  WB    r6    0     n/a   
+    *d11  WB    r7    5     n/a   
+    *d12  WB    r2    0     n/a    <-t-
+    d13   WB    r3    0     n/a   
+    d14   WB    r2    0     n/a   
+    d15   DN    r0    0     (0)    <-h-
+  }
+  rrf = {
+    1 5 0 0 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   0     d13   0     d14   
+  }
+  alu1 = {
+    d13 <-- 1 mul 5 (2)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 8
+instructions_executed = 4
+instructions_per_cycle = 0.5
+(t = 9) {
+  pc = 9
+  ibuf = {
+    8: addi 1 1 1
+  }
+  rat = {
+    15 1 14 13 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r0    1     n/a    <-h-
+    *d9   WB    r1    5     n/a   
+    *d10  WB    r6    0     n/a   
+    *d11  WB    r7    5     n/a   
+    *d12  WB    r2    0     n/a   
+    d13   WB    r3    0     n/a    <-t-
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    1 5 0 0 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   0     d13   0     d14   
+    addi  1     1     0     d15   
+  }
+  alu1 = {
+    d13 <-- 1 mul 5 (1)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 9
+instructions_executed = 5
+instructions_per_cycle = 0.555556
+(t = 10) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    15 8 14 13 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r1    5     n/a    <-h-
+    *d10  WB    r6    0     n/a   
+    *d11  WB    r7    5     n/a   
+    *d12  WB    r2    0     n/a   
+    d13   WB    r3    0     n/a    <-t-
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    1 5 0 0 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   0     5     0     d14   
+    addi  5     1     0     d8    
+  }
+  alu1 = {
+    d13 <-- 1 mul 5 (0)
+    = 5 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 10
+instructions_executed = 5
+instructions_per_cycle = 0.5
+(t = 11) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    15 8 14 13 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    d9    WB    r6    0     n/a   
+    *d10  WB    r6    0     n/a    <-h-
+    *d11  WB    r7    5     n/a   
+    *d12  WB    r2    0     n/a   
+    *d13  WB    r3    5     n/a    <-t-
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    1 5 0 0 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    addi  5     1     0     d8    
+    addi  0     1     0     d9    
+  }
+  alu1 = {
+    d14 <-- 0 add 5 (0)
+    = 5 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 11
+instructions_executed = 5
+instructions_per_cycle = 0.454545
+(t = 12) {
+  pc = 6
+  ibuf = {
+    5: mul 3 0 1
+  }
+  rat = {
+    15 8 14 3 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    d9    WB    r6    0     n/a   
+    d10   BR    n/a   0     (11)  
+    *d11  WB    r7    5     n/a    <-h-
+    *d12  WB    r2    0     n/a   
+    *d13  WB    r3    5     n/a   
+    *d14  WB    r2    5     n/a    <-t-
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    1 5 0 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    addi  0     1     0     d9    
+    bneq  1     d9    5     d10   
+  }
+  alu1 = {
+    d8 <-- 5 addi 1 (0)
+    = 6 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 12
+instructions_executed = 6
+instructions_per_cycle = 0.5
+(t = 13) {
+  pc = 7
+  ibuf = {
+    6: add 2 2 3
+  }
+  rat = {
+    15 8 2 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a   
+    d9    WB    r6    0     n/a   
+    d10   BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    *d12  WB    r2    0     n/a    <-h-
+    *d13  WB    r3    5     n/a   
+    *d14  WB    r2    5     n/a   
+    d15   WB    r0    0     n/a    <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    bneq  1     1     5     d10   
+    mul   d15   6     0     d11   
+  }
+  alu1 = {
+    d9 <-- 0 addi 1 (0)
+    = 1 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 13
+instructions_executed = 7
+instructions_per_cycle = 0.538462
+(t = 14) {
+  pc = 8
+  ibuf = {
+    7: addi 0 0 1
+  }
+  rat = {
+    15 8 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a   
+    *d9   WB    r6    1     n/a   
+    d10   BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    *d13  WB    r3    5     n/a    <-h-
+    *d14  WB    r2    5     n/a   
+    d15   WB    r0    0     n/a    <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   6     0     d11   
+    add   5     d11   0     d12   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    d10 = 1 bneq 5
+    correctly predicted :)
+  }
+}=== statistics ===
+cycles = 14
+instructions_executed = 7
+instructions_per_cycle = 0.5
+(t = 15) {
+  pc = 9
+  ibuf = {
+    8: addi 1 1 1
+  }
+  rat = {
+    13 8 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a   
+    *d9   WB    r6    1     n/a   
+    *d10  BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r2    5     n/a    <-h-
+    d15   WB    r0    0     n/a    <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   6     0     d11   
+    add   5     d11   0     d12   
+    addi  d15   1     0     d13   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 15
+instructions_executed = 7
+instructions_per_cycle = 0.466667
+(t = 16) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a   
+    *d9   WB    r6    1     n/a   
+    *d10  BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   6     0     d11   
+    add   5     d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  6     1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 16
+instructions_executed = 7
+instructions_per_cycle = 0.4375
+(t = 17) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a   
+    *d9   WB    r6    1     n/a   
+    *d10  BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   6     0     d11   
+    add   5     d11   0     d12   
+    addi  d15   1     0     d13   
+  }
+  alu1 = {
+    d14 <-- 6 addi 1 (0)
+    = 7 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 17
+instructions_executed = 7
+instructions_per_cycle = 0.411765
+(t = 18) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    13 14 12 11 4 5 15 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a    <-h-
+    *d9   WB    r6    1     n/a   
+    *d10  BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r1    7     n/a   
+    d15   WB    r6    0     n/a    <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   6     0     d11   
+    add   5     d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  1     1     0     d15   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 18
+instructions_executed = 7
+instructions_per_cycle = 0.388889
+(t = 19) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    13 14 12 11 4 5 15 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r1    6     n/a    <-h-
+    *d9   WB    r6    1     n/a   
+    *d10  BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r1    7     n/a   
+    d15   WB    r6    0     n/a    <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   2     6     0     d11   
+    add   5     d11   0     d12   
+    addi  2     1     0     d13   
+  }
+  alu1 = {
+    d15 <-- 1 addi 1 (0)
+    = 2 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 19
+instructions_executed = 7
+instructions_per_cycle = 0.368421
+(t = 20) {
+  pc = 6
+  ibuf = {
+    5: mul 3 0 1
+  }
+  rat = {
+    13 14 12 11 4 5 15 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    BR    n/a   0     (11)  
+    *d9   WB    r6    1     n/a    <-h-
+    *d10  BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r1    7     n/a   
+    *d15  WB    r6    2     n/a    <-t-
+  }
+  rrf = {
+    1 5 5 5 0 0 0 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   5     d11   0     d12   
+    addi  2     1     0     d13   
+    bneq  1     2     5     d8    
+  }
+  alu1 = {
+    d11 <-- 2 mul 6 (2)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 20
+instructions_executed = 7
+instructions_per_cycle = 0.35
+(t = 21) {
+  pc = 7
+  ibuf = {
+    6: add 2 2 3
+  }
+  rat = {
+    13 14 12 9 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    BR    n/a   0     (11)   <-t-
+    d9    WB    r3    0     n/a   
+    *d10  BR    n/a   0     (11)   <-h-
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r1    7     n/a   
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   5     d11   0     d12   
+    bneq  1     2     5     d8    
+    mul   d13   7     0     d9    
+  }
+  alu1 = {
+    d11 <-- 2 mul 6 (1)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 21
+instructions_executed = 8
+instructions_per_cycle = 0.380952
+(t = 22) {
+  pc = 8
+  ibuf = {
+    7: addi 0 0 1
+  }
+  rat = {
+    13 14 10 9 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    BR    n/a   0     (11)   <-t-
+    d9    WB    r3    0     n/a   
+    d10   WB    r2    0     n/a   
+    d11   WB    r3    0     n/a    <-h-
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r1    7     n/a   
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   5     12    0     d12   
+    mul   d13   7     0     d9    
+    add   d12   d9    0     d10   
+  }
+  alu1 = {
+    d11 <-- 2 mul 6 (0)
+    = 12 writeback
+  }
+  bu = {
+    d8 = 2 bneq 5
+    correctly predicted :)
+  }
+}=== statistics ===
+cycles = 22
+instructions_executed = 8
+instructions_per_cycle = 0.363636
+(t = 23) {
+  pc = 9
+  ibuf = {
+    8: addi 1 1 1
+  }
+  rat = {
+    11 14 10 9 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)   <-t-
+    d9    WB    r3    0     n/a   
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    d12   WB    r2    0     n/a    <-h-
+    d13   WB    r0    0     n/a   
+    *d14  WB    r1    7     n/a   
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d13   7     0     d9    
+    add   17    d9    0     d10   
+    addi  d13   1     0     d11   
+  }
+  alu1 = {
+    d12 <-- 5 add 12 (0)
+    = 17 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 23
+instructions_executed = 8
+instructions_per_cycle = 0.347826
+(t = 24) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    11 12 10 9 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)  
+    d9    WB    r3    0     n/a    <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    17    n/a   
+    d13   WB    r0    0     n/a    <-h-
+    *d14  WB    r1    7     n/a   
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d13   7     0     d9    
+    add   17    d9    0     d10   
+    addi  d13   1     0     d11   
+    addi  7     1     0     d12   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 24
+instructions_executed = 9
+instructions_per_cycle = 0.375
+(t = 25) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    11 12 10 9 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)  
+    d9    WB    r3    0     n/a    <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    17    n/a   
+    d13   WB    r0    0     n/a    <-h-
+    *d14  WB    r1    7     n/a   
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d13   7     0     d9    
+    add   17    d9    0     d10   
+    addi  d13   1     0     d11   
+  }
+  alu1 = {
+    d12 <-- 7 addi 1 (0)
+    = 8 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 25
+instructions_executed = 9
+instructions_per_cycle = 0.36
+(t = 26) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    11 12 10 9 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)  
+    d9    WB    r3    0     n/a    <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    8     n/a   
+    d13   WB    r6    0     n/a   
+    *d14  WB    r1    7     n/a    <-h-
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d13   7     0     d9    
+    add   17    d9    0     d10   
+    addi  d13   1     0     d11   
+    addi  2     1     0     d13   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 26
+instructions_executed = 9
+instructions_per_cycle = 0.346154
+(t = 27) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    11 12 10 9 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)  
+    d9    WB    r3    0     n/a    <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    8     n/a   
+    d13   WB    r6    0     n/a   
+    *d14  WB    r1    7     n/a    <-h-
+    *d15  WB    r6    2     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   3     7     0     d9    
+    add   17    d9    0     d10   
+    addi  3     1     0     d11   
+  }
+  alu1 = {
+    d13 <-- 2 addi 1 (0)
+    = 3 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 27
+instructions_executed = 9
+instructions_per_cycle = 0.333333
+(t = 28) {
+  pc = 6
+  ibuf = {
+    5: mul 3 0 1
+  }
+  rat = {
+    11 12 10 9 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)  
+    d9    WB    r3    0     n/a    <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    8     n/a   
+    *d13  WB    r6    3     n/a   
+    d14   BR    n/a   0     (11)  
+    *d15  WB    r6    2     n/a    <-h-
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   17    d9    0     d10   
+    addi  3     1     0     d11   
+    bneq  1     3     5     d14   
+  }
+  alu1 = {
+    d9 <-- 3 mul 7 (2)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 28
+instructions_executed = 9
+instructions_per_cycle = 0.321429
+(t = 29) {
+  pc = 7
+  ibuf = {
+    6: add 2 2 3
+  }
+  rat = {
+    11 12 10 15 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   BR    n/a   0     (11)   <-h-
+    d9    WB    r3    0     n/a    <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    8     n/a   
+    *d13  WB    r6    3     n/a   
+    d14   BR    n/a   0     (11)  
+    d15   WB    r3    0     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   17    d9    0     d10   
+    bneq  1     3     5     d14   
+    mul   12    8     0     d15   
+  }
+  alu1 = {
+    d9 <-- 3 mul 7 (1)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 29
+instructions_executed = 9
+instructions_per_cycle = 0.310345
+(t = 30) {
+  pc = 8
+  ibuf = {
+    7: addi 0 0 1
+  }
+  rat = {
+    11 12 8 15 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r2    0     n/a   
+    d9    WB    r3    0     n/a    <-h- <-t-
+    d10   WB    r2    0     n/a   
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    8     n/a   
+    *d13  WB    r6    3     n/a   
+    d14   BR    n/a   0     (11)  
+    d15   WB    r3    0     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   17    21    0     d10   
+    mul   12    8     0     d15   
+    add   d10   d15   0     d8    
+  }
+  alu1 = {
+    d9 <-- 3 mul 7 (0)
+    = 21 writeback
+  }
+  bu = {
+    d14 = 3 bneq 5
+    correctly predicted :)
+  }
+}=== statistics ===
+cycles = 30
+instructions_executed = 9
+instructions_per_cycle = 0.3
+(t = 31) {
+  pc = 9
+  ibuf = {
+    8: addi 1 1 1
+  }
+  rat = {
+    9 12 8 15 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r2    0     n/a   
+    *d9   WB    r0    21    n/a    <-t-
+    d10   WB    r2    0     n/a    <-h-
+    *d11  WB    r0    12    n/a   
+    *d12  WB    r1    8     n/a   
+    *d13  WB    r6    3     n/a   
+    *d14  BR    n/a   0     (11)  
+    d15   WB    r3    0     n/a   
+  }
+  rrf = {
+    1 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   12    8     0     d15   
+    add   38    d15   0     d8    
+    addi  12    1     0     d9    
+  }
+  alu1 = {
+    d10 <-- 17 add 21 (0)
+    = 38 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 31
+instructions_executed = 9
+instructions_per_cycle = 0.290323
+(t = 32) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    0 10 8 15 4 5 13 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r2    0     n/a   
+    *d9   WB    r0    21    n/a   
+    *d10  WB    r1    38    n/a    <-t-
+    *d11  WB    r0    12    n/a    <-h-
+    *d12  WB    r1    8     n/a   
+    *d13  WB    r6    3     n/a   
+    *d14  BR    n/a   0     (11)  
+    d15   WB    r3    0     n/a   
+  }
+  rrf = {
+    21 5 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   38    d15   0     d8    
+    addi  12    1     0     d9    
+    addi  8     1     0     d10   
+  }
+  alu1 = {
+    d15 <-- 12 mul 8 (2)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 32
+instructions_executed = 10
+instructions_per_cycle = 0.3125
+(t = 33) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    0 1 8 15 4 5 11 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r2    0     n/a   
+    *d9   WB    r0    21    n/a   
+    *d10  WB    r1    38    n/a   
+    d11   WB    r6    0     n/a    <-t-
+    *d12  WB    r1    8     n/a    <-h-
+    *d13  WB    r6    3     n/a   
+    *d14  BR    n/a   0     (11)  
+    d15   WB    r3    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   38    d15   0     d8    
+    addi  8     1     0     d10   
+    addi  3     1     0     d11   
+  }
+  alu1 = {
+    d15 <-- 12 mul 8 (1)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 33
+instructions_executed = 11
+instructions_per_cycle = 0.333333
+(t = 34) {
+  pc = 6
+  ibuf = {
+    5: mul 3 0 1
+  }
+  rat = {
+    0 1 8 15 4 5 11 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r2    0     n/a   
+    *d9   WB    r0    21    n/a   
+    *d10  WB    r1    38    n/a   
+    d11   WB    r6    0     n/a    <-t-
+    d12   BR    n/a   0     (11)  
+    *d13  WB    r6    3     n/a    <-h-
+    *d14  BR    n/a   0     (11)  
+    d15   WB    r3    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   38    96    0     d8    
+    addi  3     1     0     d11   
+    bneq  1     d11   5     d12   
+  }
+  alu1 = {
+    d15 <-- 12 mul 8 (0)
+    = 96 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 34
+instructions_executed = 11
+instructions_per_cycle = 0.323529
+(t = 35) {
+  pc = 7
+  ibuf = {
+    6: add 2 2 3
+  }
+  rat = {
+    0 1 8 13 4 5 11 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r2    0     n/a   
+    *d9   WB    r0    21    n/a   
+    *d10  WB    r1    38    n/a   
+    d11   WB    r6    0     n/a    <-t-
+    d12   BR    n/a   0     (11)  
+    d13   WB    r3    0     n/a   
+    *d14  BR    n/a   0     (11)   <-h-
+    *d15  WB    r3    96    n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    addi  3     1     0     d11   
+    bneq  1     d11   5     d12   
+    mul   21    38    0     d13   
+  }
+  alu1 = {
+    d8 <-- 38 add 96 (0)
+    = 134 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 35
+instructions_executed = 11
+instructions_per_cycle = 0.314286
+(t = 36) {
+  pc = 8
+  ibuf = {
+    7: addi 0 0 1
+  }
+  rat = {
+    0 1 14 13 4 5 11 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r2    134   n/a   
+    *d9   WB    r0    21    n/a   
+    *d10  WB    r1    38    n/a   
+    d11   WB    r6    0     n/a    <-t-
+    d12   BR    n/a   0     (11)  
+    d13   WB    r3    0     n/a   
+    d14   WB    r2    0     n/a   
+    *d15  WB    r3    96    n/a    <-h-
+  }
+  rrf = {
+    21 38 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    bneq  1     4     5     d12   
+    mul   21    38    0     d13   
+    add   134   d13   0     d14   
+  }
+  alu1 = {
+    d11 <-- 3 addi 1 (0)
+    = 4 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 36
+instructions_executed = 11
+instructions_per_cycle = 0.305556
+(t = 37) {
+  pc = 9
+  ibuf = {
+    8: addi 1 1 1
+  }
+  rat = {
+    15 1 14 13 4 5 11 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    *d8   WB    r2    134   n/a    <-h-
+    *d9   WB    r0    21    n/a   
+    *d10  WB    r1    38    n/a   
+    *d11  WB    r6    4     n/a    <-t-
+    d12   BR    n/a   0     (11)  
+    d13   WB    r3    0     n/a   
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 2 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   21    38    0     d13   
+    add   134   d13   0     d14   
+    addi  21    1     0     d15   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    d12 = 4 bneq 5
+    correctly predicted :)
+  }
+}=== statistics ===
+cycles = 37
+instructions_executed = 11
+instructions_per_cycle = 0.297297
+(t = 38) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    15 8 14 13 4 5 6 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r0    21    n/a    <-h-
+    *d10  WB    r1    38    n/a   
+    *d11  WB    r6    4     n/a   
+    *d12  BR    n/a   0     (11)   <-t-
+    d13   WB    r3    0     n/a   
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   134   d13   0     d14   
+    addi  21    1     0     d15   
+    addi  38    1     0     d8    
+  }
+  alu1 = {
+    d13 <-- 21 mul 38 (2)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 38
+instructions_executed = 12
+instructions_per_cycle = 0.315789
+(t = 39) {
+  pc = 5
+  ibuf = {
+    10: bneq 6 7 5 1
+  }
+  rat = {
+    15 8 14 13 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    d9    WB    r6    0     n/a   
+    *d10  WB    r1    38    n/a    <-h-
+    *d11  WB    r6    4     n/a   
+    *d12  BR    n/a   0     (11)  
+    d13   WB    r3    0     n/a    <-t-
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   134   d13   0     d14   
+    addi  38    1     0     d8    
+    addi  4     1     0     d9    
+  }
+  alu1 = {
+    d13 <-- 21 mul 38 (1)
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 39
+instructions_executed = 13
+instructions_per_cycle = 0.333333
+(t = 40) {
+  pc = 6
+  ibuf = {
+    5: mul 3 0 1
+  }
+  rat = {
+    15 8 14 13 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    d9    WB    r6    0     n/a   
+    d10   BR    n/a   0     (11)  
+    *d11  WB    r6    4     n/a    <-h-
+    *d12  BR    n/a   0     (11)  
+    d13   WB    r3    0     n/a    <-t-
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    add   134   798   0     d14   
+    addi  4     1     0     d9    
+    bneq  1     d9    5     d10   
+  }
+  alu1 = {
+    d13 <-- 21 mul 38 (0)
+    = 798 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 40
+instructions_executed = 13
+instructions_per_cycle = 0.325
+(t = 41) {
+  pc = 7
+  ibuf = {
+    6: add 2 2 3
+  }
+  rat = {
+    15 8 14 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    d9    WB    r6    0     n/a   
+    d10   BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    *d12  BR    n/a   0     (11)   <-h-
+    *d13  WB    r3    798   n/a    <-t-
+    d14   WB    r2    0     n/a   
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    21 38 5 5 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    addi  4     1     0     d9    
+    bneq  1     d9    5     d10   
+    mul   d15   d8    0     d11   
+  }
+  alu1 = {
+    d14 <-- 134 add 798 (0)
+    = 932 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 41
+instructions_executed = 13
+instructions_per_cycle = 0.317073
+(t = 42) {
+  pc = 8
+  ibuf = {
+    7: addi 0 0 1
+  }
+  rat = {
+    15 8 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    d9    WB    r6    0     n/a   
+    d10   BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    *d13  WB    r3    798   n/a    <-h-
+    *d14  WB    r2    932   n/a    <-t-
+    d15   WB    r0    0     n/a   
+  }
+  rrf = {
+    21 38 5 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    bneq  1     5     5     d10   
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+  }
+  alu1 = {
+    d9 <-- 4 addi 1 (0)
+    = 5 writeback
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 42
+instructions_executed = 14
+instructions_per_cycle = 0.333333
+(t = 43) {
+  pc = 9
+  ibuf = {
+    8: addi 1 1 1
+  }
+  rat = {
+    13 8 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    d10   BR    n/a   0     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    *d14  WB    r2    932   n/a    <-h-
+    d15   WB    r0    0     n/a    <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    d10 = 5 bneq 5
+    mispredicted :(
+  }
+}=== statistics ===
+cycles = 43
+instructions_executed = 15
+instructions_per_cycle = 0.348837
+(t = 44) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 44
+instructions_executed = 15
+instructions_per_cycle = 0.340909
+(t = 45) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 45
+instructions_executed = 15
+instructions_per_cycle = 0.333333
+(t = 46) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 46
+instructions_executed = 15
+instructions_per_cycle = 0.326087
+(t = 47) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 47
+instructions_executed = 15
+instructions_per_cycle = 0.319149
+(t = 48) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 48
+instructions_executed = 15
+instructions_per_cycle = 0.3125
+(t = 49) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 49
+instructions_executed = 15
+instructions_per_cycle = 0.306122
+(t = 50) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 50
+instructions_executed = 15
+instructions_per_cycle = 0.3
+(t = 51) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 51
+instructions_executed = 15
+instructions_per_cycle = 0.294118
+(t = 52) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 52
+instructions_executed = 15
+instructions_per_cycle = 0.288462
+(t = 53) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 53
+instructions_executed = 15
+instructions_per_cycle = 0.283019
+(t = 54) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 54
+instructions_executed = 15
+instructions_per_cycle = 0.277778
+(t = 55) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 55
+instructions_executed = 15
+instructions_per_cycle = 0.272727
+(t = 56) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 56
+instructions_executed = 15
+instructions_per_cycle = 0.267857
+(t = 57) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 57
+instructions_executed = 15
+instructions_per_cycle = 0.263158
+(t = 58) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 58
+instructions_executed = 15
+instructions_per_cycle = 0.258621
+(t = 59) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 59
+instructions_executed = 15
+instructions_per_cycle = 0.254237
+(t = 60) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 60
+instructions_executed = 15
+instructions_per_cycle = 0.25
+(t = 61) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 61
+instructions_executed = 15
+instructions_per_cycle = 0.245902
+(t = 62) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 62
+instructions_executed = 15
+instructions_per_cycle = 0.241935
+(t = 63) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 63
+instructions_executed = 15
+instructions_per_cycle = 0.238095
+(t = 64) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 64
+instructions_executed = 15
+instructions_per_cycle = 0.234375
+(t = 65) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 65
+instructions_executed = 15
+instructions_per_cycle = 0.230769
+(t = 66) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 66
+instructions_executed = 15
+instructions_per_cycle = 0.227273
+(t = 67) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 67
+instructions_executed = 15
+instructions_per_cycle = 0.223881
+(t = 68) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 68
+instructions_executed = 15
+instructions_per_cycle = 0.220588
+(t = 69) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 69
+instructions_executed = 15
+instructions_per_cycle = 0.217391
+(t = 70) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 70
+instructions_executed = 15
+instructions_per_cycle = 0.214286
+(t = 71) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 71
+instructions_executed = 15
+instructions_per_cycle = 0.211268
+(t = 72) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 72
+instructions_executed = 15
+instructions_per_cycle = 0.208333
+(t = 73) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 73
+instructions_executed = 15
+instructions_per_cycle = 0.205479
+(t = 74) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 74
+instructions_executed = 15
+instructions_per_cycle = 0.202703
+(t = 75) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 75
+instructions_executed = 15
+instructions_per_cycle = 0.2
+(t = 76) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 76
+instructions_executed = 15
+instructions_per_cycle = 0.197368
+(t = 77) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 77
+instructions_executed = 15
+instructions_per_cycle = 0.194805
+(t = 78) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 78
+instructions_executed = 15
+instructions_per_cycle = 0.192308
+(t = 79) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 79
+instructions_executed = 15
+instructions_per_cycle = 0.189873
+(t = 80) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 80
+instructions_executed = 15
+instructions_per_cycle = 0.1875
+(t = 81) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 81
+instructions_executed = 15
+instructions_per_cycle = 0.185185
+(t = 82) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 82
+instructions_executed = 15
+instructions_per_cycle = 0.182927
+(t = 83) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 83
+instructions_executed = 15
+instructions_per_cycle = 0.180723
+(t = 84) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 84
+instructions_executed = 15
+instructions_per_cycle = 0.178571
+(t = 85) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 85
+instructions_executed = 15
+instructions_per_cycle = 0.176471
+(t = 86) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 86
+instructions_executed = 15
+instructions_per_cycle = 0.174419
+(t = 87) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 87
+instructions_executed = 15
+instructions_per_cycle = 0.172414
+(t = 88) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 88
+instructions_executed = 15
+instructions_per_cycle = 0.170455
+(t = 89) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 89
+instructions_executed = 15
+instructions_per_cycle = 0.168539
+(t = 90) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 90
+instructions_executed = 15
+instructions_per_cycle = 0.166667
+(t = 91) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 91
+instructions_executed = 15
+instructions_per_cycle = 0.164835
+(t = 92) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 92
+instructions_executed = 15
+instructions_per_cycle = 0.163043
+(t = 93) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 93
+instructions_executed = 15
+instructions_per_cycle = 0.16129
+(t = 94) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 94
+instructions_executed = 15
+instructions_per_cycle = 0.159574
+(t = 95) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 95
+instructions_executed = 15
+instructions_per_cycle = 0.157895
+(t = 96) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 96
+instructions_executed = 15
+instructions_per_cycle = 0.15625
+(t = 97) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 97
+instructions_executed = 15
+instructions_per_cycle = 0.154639
+(t = 98) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 98
+instructions_executed = 15
+instructions_per_cycle = 0.153061
+(t = 99) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 99
+instructions_executed = 15
+instructions_per_cycle = 0.151515
+(t = 100) {
+  pc = 10
+  ibuf = {
+    9: addi 6 6 1
+  }
+  rat = {
+    13 14 12 11 4 5 9 7 
+  }
+  rob = {
+    addr  type  reg   val   target
+    ------------------------------
+    d8    WB    r1    0     n/a   
+    *d9   WB    r6    5     n/a   
+    *d10  BR    n/a   1     (11)  
+    d11   WB    r3    0     n/a   
+    d12   WB    r2    0     n/a   
+    d13   WB    r0    0     n/a   
+    d14   WB    r1    0     n/a   
+    d15   WB    r0    0     n/a    <-h- <-t-
+  }
+  rrf = {
+    21 38 932 798 0 0 4 5 
+  }
+  rs = {
+    OC    o1    o2    o3    dest  
+    ------------------------------
+    mul   d15   d8    0     d11   
+    add   932   d11   0     d12   
+    addi  d15   1     0     d13   
+    addi  d8    1     0     d14   
+  }
+  alu1 = {
+    --- nop ---
+  }
+  bu = {
+    --- nop ---
+  }
+}=== statistics ===
+cycles = 100
+instructions_executed = 15
+instructions_per_cycle = 0.15
