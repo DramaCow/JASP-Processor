@@ -1,5 +1,6 @@
 #include "rs.hpp"
 #include "instruction.hpp"
+#include <array>
 #include <iomanip>
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
@@ -20,26 +21,56 @@ void RS::issue(Shelf shelf)
 
 std::tuple<Shelf, Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
 {
-  Shelf e1;
-  Shelf e2;
-
+  std::array<Shelf,2> e;
   std::vector<Shelf> shelves(this->shelves);
 
   // only looks at the entries that exist this iteration AND next iteration
   // (i.e. for length of this iteration), else we may dispatch instructions
   // that were added just this iteration - which is impossible practically.
-  for (std::size_t i = 0; i < shelves.size(); ++i)
-  {
-    if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3)
+  if (port1)
+  { 
+    for (std::size_t i = 0; i < shelves.size(); ++i)
     {
-      e1 = shelves[i];
-      shelves.erase(std::begin(shelves) + i);
-      n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
-      break;
+      if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isArth(shelves[i].opcode))
+      {
+        e[0] = shelves[i];
+        shelves.erase(std::begin(shelves) + i);
+        n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
+        break;
+      }
     }
   }
 
-  return std::make_tuple(Instruction::isArth(e1.opcode) ? e1 : e2, Instruction::isBrch(e1.opcode) ? e1 : e2);
+  if (port2)
+  {
+    if (e[0].opcode != "nop")
+    {
+      for (std::size_t i = 0; i < shelves.size(); ++i)
+      {
+        if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isBrch(shelves[i].opcode))
+        {
+          e[1] = shelves[i];
+          shelves.erase(std::begin(shelves) + i);
+          n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
+          break;
+        }
+      }
+    }
+  }
+
+  std::cout << SPACE(e[0].opcode)
+            << SPACE((e[0].v1 ? std::string("") : std::string("d")) + std::to_string(e[0].o1))
+            << SPACE((e[0].v2 ? std::string("") : std::string("d")) + std::to_string(e[0].o2))
+            << SPACE((e[0].v3 ? std::string("") : std::string("d")) + std::to_string(e[0].o3))
+            << SPACE(std::string("d") + std::to_string(e[0].dest))
+            << '\n';
+  std::cout << SPACE(e[1].opcode)
+            << SPACE((e[1].v1 ? std::string("") : std::string("d")) + std::to_string(e[1].o1))
+            << SPACE((e[1].v2 ? std::string("") : std::string("d")) + std::to_string(e[1].o2))
+            << SPACE((e[1].v3 ? std::string("") : std::string("d")) + std::to_string(e[1].o3))
+            << SPACE(std::string("d") + std::to_string(e[1].dest))
+            << '\n';
+  return std::make_tuple(e[0], e[1]);
 }
 
 void RS::update(int dest, int result)

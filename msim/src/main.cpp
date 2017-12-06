@@ -6,7 +6,7 @@
 #include "cache.hpp"
 #include "processor.hpp"
 
-#define LIMIT 100
+#define LIMIT 1000
 
 int main(int argc, char* argv[])
 {
@@ -28,24 +28,24 @@ int main(int argc, char* argv[])
   bool done = false;
 
 #ifndef DEBUG
-  std::cout << "(t = " << t << ") " << (*cpu) << std::endl;
+  std::cout << "(t" << t << ") " << (*cpu) << std::endl;
 #endif
 
   for (; t < LIMIT && !done; ++t)
   {
 #ifdef DEBUG
-    std::cout << "(t = " << t << ") " << (*cpu) << std::endl;
+    std::cout << "(t" << t << ") " << (*cpu) << std::endl;
 #endif
     done = cpu->tick(*n_cpu);
 #ifndef DEBUG
     if (!(cpu->rrf == n_cpu->rrf))
     {
-      std::cout << "(t = " << t << ") " << (*n_cpu) << std::endl;
+      std::cout << "(t" << t << ") " << (*n_cpu) << std::endl;
     }
 #endif
     *cpu = *n_cpu;
   }
-  std::cout << "(t = " << t << ") " << (*cpu) << std::endl;
+  std::cout << "(t" << t << ") " << (*cpu) << std::endl;
 
   return 0;
 }

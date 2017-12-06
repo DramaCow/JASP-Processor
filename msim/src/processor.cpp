@@ -142,19 +142,14 @@ void Processor::execute(Processor &n_cpu)
   std::tie(e1, e2) = rs.dispatch(n_cpu.rs, port1, port2);
 
   // dispatch when instruction has finished
-  if (this->alu1.duration == 0)
-  {
-    n_cpu.alu1.dispatch(e1.opcode, e1.o1, e1.o2, e1.dest);
-  }
-  n_cpu.bu.dispatch(e2.opcode, e2.o1, e2.o2, e2.o3, e2.dest);
+  if (port1) n_cpu.alu1.dispatch(e1.opcode, e1.o1, e1.o2, e1.dest);
+  if (port2) n_cpu.bu.dispatch(e2.opcode, e2.o1, e2.o2, e2.o3, e2.dest);
 
   // execute if instructions haven't finished
-  if (this->alu1.duration > 0)
-  {
-    this->alu1.execute(n_cpu.alu1);
-  }
+  if (!port1) this->alu1.execute(n_cpu.alu1);
 
-  // bypass update rs
+  // === BYPASS ===
+
   if (n_cpu.alu1.writeback && n_cpu.alu1.duration == 0)
   {
     n_cpu.rs.update(n_cpu.alu1.dest, n_cpu.alu1.result);
@@ -291,8 +286,8 @@ Processor& Processor::operator=(const Processor& cpu)
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
-  os << "{\n";
 #ifdef DEBUG
+  os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
   int pc; Instruction instruction;
   std::tie(pc, instruction) = cpu.ibuf;
@@ -304,23 +299,21 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  rob = {\n" << cpu.rob
      << "  }\n";
-#endif
   os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";
-#ifdef DEBUG
   os << "  rs = {\n" << cpu.rs
      << "  }\n";
   os << "  alu1 = {\n" << cpu.alu1
      << "  }\n";
   os << "  bu = {\n" << cpu.bu
      << "  }\n";
-#endif
   os << "}";
-#ifdef DEBUG
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "instructions_executed = " << cpu.instructions_executed << '\n'
      << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
+#else
+  os << cpu.rrf;
 #endif
   return os;
 }

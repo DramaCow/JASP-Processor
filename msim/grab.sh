@@ -1,1 +1,0 @@
-cp ../asm/a.hex .
