@@ -6,18 +6,18 @@
 
 int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 {
-  ROBEntry::Type type = ROBEntry::DN;
+  Entry::Type type = Entry::DN;
   if (Instruction::isArth(opcode) || opcode == "ld")
   {
-    type = ROBEntry::WB;
+    type = Entry::WB;
   }
   else if (Instruction::isBrch(opcode))
   {
-    type = ROBEntry::BR;
+    type = Entry::BR;
   }
   else if (opcode == "end")
   {
-    type = ROBEntry::END;
+    type = Entry::END;
   }
 
   // alloc the rob entry
@@ -37,9 +37,9 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   return e;
 }
 
-std::vector<std::tuple<int,ROB::ROBEntry>> ROB::pop(ROB &n_rob)
+std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob)
 {
-  std::vector<std::tuple<int,ROB::ROBEntry>> commits;
+  std::vector<std::tuple<int,ROB::Entry>> commits;
 
   int c;
   for (c = 0; c < 4; ++c) // max commits per cycle is 4
@@ -83,7 +83,7 @@ ROB& ROB::operator=(const ROB& rob)
 {
   this->head = rob.head;
   this->tail = rob.tail;
-  memcpy(this->entries, rob.entries, NUM_ROB_ENTRIES*sizeof(ROBEntry));
+  memcpy(this->entries, rob.entries, NUM_ROB_ENTRIES*sizeof(Entry));
   return *this;
 }
 
@@ -100,10 +100,10 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
     );
     switch (rob.entries[i].type)
     {
-      case ROB::ROBEntry::DN: os << SPACE("DN"); break;
-      case ROB::ROBEntry::WB: os << SPACE("WB"); break;
-      case ROB::ROBEntry::BR: os << SPACE("BR"); break;
-      case ROB::ROBEntry::END: os << SPACE("END"); break;
+      case ROB::Entry::DN: os << SPACE("DN"); break;
+      case ROB::Entry::WB: os << SPACE("WB"); break;
+      case ROB::Entry::BR: os << SPACE("BR"); break;
+      case ROB::Entry::END: os << SPACE("END"); break;
       default: os << SPACE("??"); break;
     }
 

@@ -173,14 +173,14 @@ void Processor::writeback(Processor &n_cpu)
 
 bool Processor::commit(Processor &n_cpu)
 {
-  std::vector<std::tuple<int,ROB::ROBEntry>> commits = this->rob.pop(n_cpu.rob);
+  std::vector<std::tuple<int,ROB::Entry>> commits = this->rob.pop(n_cpu.rob);
   if (commits.size() == 0)
   {
     return false;
   }
 
   int idx;
-  ROB::ROBEntry entry;
+  ROB::Entry entry;
 
   std::size_t i;
   for (i = 0; i < commits.size(); ++i)
@@ -188,7 +188,7 @@ bool Processor::commit(Processor &n_cpu)
     std::tie(idx, entry) = commits[i];
 
     // writeback to rrf
-    if (entry.type == ROB::ROBEntry::WB)
+    if (entry.type == ROB::Entry::WB)
     {
       n_cpu.rrf.write(entry.reg, entry.val);
       // NOTE: The rat entry should be freed IFF
@@ -204,7 +204,7 @@ bool Processor::commit(Processor &n_cpu)
       }
     }
     // branch
-    else if (entry.type == ROB::ROBEntry::BR)
+    else if (entry.type == ROB::Entry::BR)
     {
       if (entry.val)
       {
@@ -220,7 +220,7 @@ bool Processor::commit(Processor &n_cpu)
       }
     }
     // end of program
-    else if (entry.type == ROB::ROBEntry::END)
+    else if (entry.type == ROB::Entry::END)
     {
       return true; // TODO: not counted as an instruction?
     }

@@ -11,7 +11,7 @@
 // ReOrder Buffer
 class ROB {
   public:
-    class ROBEntry
+    class Entry
     {
       public:
         enum Type { DN, WB, BR, END }; // either do nothing, writeback, or branch
@@ -25,7 +25,7 @@ class ROB {
 
   public:
     int push(ROB &n_rob, std::string opcode, int r, int target);
-    std::vector<std::tuple<int,ROB::ROBEntry>> pop(ROB &n_rob);
+    std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob);
 
     std::tuple<int, bool> read(int addr);
     void write(int addr, int val);
@@ -37,7 +37,7 @@ class ROB {
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
   private:
-    ROBEntry entries[NUM_ROB_ENTRIES];
+    Entry entries[NUM_ROB_ENTRIES];
 
     int head = 0; // issue
     int tail = 0; // commit / retire
