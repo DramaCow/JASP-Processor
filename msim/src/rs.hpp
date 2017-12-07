@@ -8,18 +8,19 @@
 #include <vector>
 #include <iostream>
 
-struct Shelf
-{
-  std::string opcode = "nop";
-  int o1 = 0; bool v1 = true;
-  int o2 = 0; bool v2 = true;
-  int o3 = 0; bool v3 = true;
-  int dest = 0; 
-};
-
 // Reservation Station
 class RS
 {
+  public:
+    struct Shelf
+    {
+      std::string opcode = "nop";
+      int o1 = 0; bool v1 = true;
+      int o2 = 0; bool v2 = true;
+      int o3 = 0; bool v3 = true;
+      int dest = 0; 
+    };
+
   public:
     bool isFull();
 

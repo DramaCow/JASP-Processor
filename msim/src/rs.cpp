@@ -10,7 +10,7 @@ bool RS::isFull()
   return this->shelves.size() >= NUM_RS_ENTRIES;
 }
 
-void RS::issue(Shelf shelf)
+void RS::issue(RS::Shelf shelf)
 {
   if (this->shelves.size() >= NUM_RS_ENTRIES)
   {
@@ -19,10 +19,10 @@ void RS::issue(Shelf shelf)
   this->shelves.push_back(shelf);
 }
 
-std::tuple<Shelf, Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
+std::tuple<RS::Shelf, RS::Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
 {
-  std::array<Shelf,2> e;
-  std::vector<Shelf> shelves(this->shelves);
+  std::array<RS::Shelf,2> e;
+  std::vector<RS::Shelf> shelves(this->shelves);
 
   // only looks at the entries that exist this iteration AND next iteration
   // (i.e. for length of this iteration), else we may dispatch instructions
@@ -43,17 +43,14 @@ std::tuple<Shelf, Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
 
   if (port2)
   {
-    if (e[0].opcode != "nop")
+    for (std::size_t i = 0; i < shelves.size(); ++i)
     {
-      for (std::size_t i = 0; i < shelves.size(); ++i)
+      if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isBrch(shelves[i].opcode))
       {
-        if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isBrch(shelves[i].opcode))
-        {
-          e[1] = shelves[i];
-          shelves.erase(std::begin(shelves) + i);
-          n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
-          break;
-        }
+        e[1] = shelves[i];
+        shelves.erase(std::begin(shelves) + i);
+        n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
+        break;
       }
     }
   }

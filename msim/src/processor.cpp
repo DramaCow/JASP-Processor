@@ -57,7 +57,7 @@ void Processor::decode(Processor &n_cpu)
 
   std::string opcode = instruction.opcode;
 
-  Shelf shelf;
+  RS::Shelf shelf;
   shelf.opcode = opcode;
 
   if      ( opcode == "mov" )
@@ -138,7 +138,7 @@ void Processor::execute(Processor &n_cpu)
   bool port1 = this->alu1.duration == 0;
   bool port2 = true;
 
-  Shelf e1, e2;
+  RS::Shelf e1, e2;
   std::tie(e1, e2) = rs.dispatch(n_cpu.rs, port1, port2);
 
   // dispatch when instruction has finished
