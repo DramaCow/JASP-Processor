@@ -140,13 +140,17 @@ void Processor::execute(Processor &n_cpu)
   {
     port[p] = this->alu.duration == 0;
   }
-  port[NUM_EUS-1] = true;
+  port[NUM_EUS-2] = true; // bu port
+  port[NUM_EUS-1] = false; // lsu port
 
   std::array<RS::Shelf,NUM_EUS> e = rs.dispatch(n_cpu.rs, port);
 
   // dispatch when instruction has finished
-  if (port[0]) n_cpu.alu.dispatch(e[0].opcode, e[0].o1, e[0].o2, e[0].dest);
-  if (port[1]) n_cpu.bu.dispatch(e[1].opcode, e[1].o1, e[1].o2, e[1].o3, e[1].dest);
+  for (std::size_t p = 0; p < NUM_ALUS; ++p)
+  {
+    if (port[p]) n_cpu.alu.dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
+  }
+  if (port[NUM_EUS-2]) n_cpu.bu.dispatch(e[NUM_EUS-2].opcode, e[NUM_EUS-2].o1, e[NUM_EUS-2].o2, e[NUM_EUS-2].o3, e[NUM_EUS-2].dest);
 
   // execute if instructions haven't finished
   if (!port[0]) this->alu.execute(n_cpu.alu);

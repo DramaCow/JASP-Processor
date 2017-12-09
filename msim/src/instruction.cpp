@@ -32,7 +32,8 @@ bool Instruction::isBrch(std::string opcode)
 
 bool Instruction::isLdsr(std::string opcode)
 {
-  return false;
+  return opcode == "lw" ||
+         opcode == "sw";
 }
 
 std::ostream& operator<<(std::ostream& os, const Instruction& Instruction)

@@ -44,11 +44,25 @@ std::array<RS::Shelf,NUM_EUS> RS::dispatch(RS &n_rs, std::array<bool,NUM_EUS> po
     }
   }
 
-  if (port[NUM_EUS-1])
+  if (port[NUM_EUS-2])
   {
     for (std::size_t i = 0; i < shelves.size(); ++i)
     {
       if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isBrch(shelves[i].opcode))
+      {
+        e[NUM_EUS-2] = shelves[i];
+        shelves.erase(std::begin(shelves) + i);
+        n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
+        break;
+      }
+    }
+  }
+
+  if (port[NUM_EUS-1])
+  {
+    for (std::size_t i = 0; i < shelves.size(); ++i)
+    {
+      if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isLdsr(shelves[i].opcode))
       {
         e[NUM_EUS-1] = shelves[i];
         shelves.erase(std::begin(shelves) + i);
