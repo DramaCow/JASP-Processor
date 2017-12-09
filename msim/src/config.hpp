@@ -5,5 +5,7 @@
 #define NUM_RS_ENTRIES 16
 #define NUM_LSQ_ENTRIES 4
 #define NUM_ROB_ENTRIES 16
+#define NUM_ALUS 1
+#define NUM_EUS NUM_ALUS+1
 
 #endif

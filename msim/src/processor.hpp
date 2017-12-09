@@ -1,6 +1,8 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
 
+#include <array>
+
 #include "cache.hpp"
 #include "bp.hpp"
 #include "rat.hpp"
@@ -30,7 +32,8 @@ class Processor
     ROB rob;
     RRF rrf;
     RS rs;
-    ALU alu1;
+    //std::array<ALU, NUM_ALUS> alu;
+    ALU alu;
     BU bu;
     LSU lsu;
 

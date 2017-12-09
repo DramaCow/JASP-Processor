@@ -19,35 +19,38 @@ void RS::issue(RS::Shelf shelf)
   this->shelves.push_back(shelf);
 }
 
-std::tuple<RS::Shelf, RS::Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
+std::array<RS::Shelf,NUM_EUS> RS::dispatch(RS &n_rs, std::array<bool,NUM_EUS> port)
 {
-  std::array<RS::Shelf,2> e;
-  std::vector<RS::Shelf> shelves(this->shelves);
+  std::array<RS::Shelf,NUM_EUS> e;
+  std::vector<RS::Shelf> shelves(this->shelves); // copy
 
   // only looks at the entries that exist this iteration AND next iteration
   // (i.e. for length of this iteration), else we may dispatch instructions
   // that were added just this iteration - which is impossible practically.
-  if (port1)
-  { 
-    for (std::size_t i = 0; i < shelves.size(); ++i)
-    {
-      if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isArth(shelves[i].opcode))
+  for (std::size_t p = 0; p < NUM_ALUS; ++p)
+  {
+    if (port[p])
+    { 
+      for (std::size_t i = 0; i < shelves.size(); ++i)
       {
-        e[0] = shelves[i];
-        shelves.erase(std::begin(shelves) + i);
-        n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
-        break;
+        if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isArth(shelves[i].opcode))
+        {
+          e[p] = shelves[i];
+          shelves.erase(std::begin(shelves) + i);
+          n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
+          break;
+        }
       }
     }
   }
 
-  if (port2)
+  if (port[NUM_EUS-1])
   {
     for (std::size_t i = 0; i < shelves.size(); ++i)
     {
       if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isBrch(shelves[i].opcode))
       {
-        e[1] = shelves[i];
+        e[NUM_EUS-1] = shelves[i];
         shelves.erase(std::begin(shelves) + i);
         n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
         break;
@@ -55,7 +58,7 @@ std::tuple<RS::Shelf, RS::Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
     }
   }
 
-  return std::make_tuple(e[0], e[1]);
+  return e;
 }
 
 void RS::update(int dest, int result)

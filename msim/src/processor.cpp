@@ -135,34 +135,37 @@ void Processor::decode(Processor &n_cpu)
 void Processor::execute(Processor &n_cpu)
 {
   // determine which ports are available
-  bool port1 = this->alu1.duration == 0;
-  bool port2 = true;
+  std::array<bool,NUM_EUS> port;
+  for (std::size_t p = 0; p < NUM_ALUS; ++p)
+  {
+    port[p] = this->alu.duration == 0;
+  }
+  port[NUM_EUS-1] = true;
 
-  RS::Shelf e1, e2;
-  std::tie(e1, e2) = rs.dispatch(n_cpu.rs, port1, port2);
+  std::array<RS::Shelf,NUM_EUS> e = rs.dispatch(n_cpu.rs, port);
 
   // dispatch when instruction has finished
-  if (port1) n_cpu.alu1.dispatch(e1.opcode, e1.o1, e1.o2, e1.dest);
-  if (port2) n_cpu.bu.dispatch(e2.opcode, e2.o1, e2.o2, e2.o3, e2.dest);
+  if (port[0]) n_cpu.alu.dispatch(e[0].opcode, e[0].o1, e[0].o2, e[0].dest);
+  if (port[1]) n_cpu.bu.dispatch(e[1].opcode, e[1].o1, e[1].o2, e[1].o3, e[1].dest);
 
   // execute if instructions haven't finished
-  if (!port1) this->alu1.execute(n_cpu.alu1);
+  if (!port[0]) this->alu.execute(n_cpu.alu);
 
   // === BYPASS ===
 
-  if (n_cpu.alu1.writeback && n_cpu.alu1.duration == 0)
+  if (n_cpu.alu.writeback && n_cpu.alu.duration == 0)
   {
-    n_cpu.rs.update(n_cpu.alu1.dest, n_cpu.alu1.result);
+    n_cpu.rs.update(n_cpu.alu.dest, n_cpu.alu.result);
   }
 }
 
 void Processor::writeback(Processor &n_cpu)
 {
   // writeback only when flag is set and instruction has finished
-  if (this->alu1.writeback && this->alu1.duration == 0)
+  if (this->alu.writeback && this->alu.duration == 0)
   {
-    n_cpu.rob.write(this->alu1.dest, this->alu1.result);
-    n_cpu.rs.update(this->alu1.dest, this->alu1.result);
+    n_cpu.rob.write(this->alu.dest, this->alu.result);
+    n_cpu.rs.update(this->alu.dest, this->alu.result);
   }
 
   if (this->bu.writeback)
@@ -213,7 +216,7 @@ bool Processor::commit(Processor &n_cpu)
         n_cpu.rat.reset();
         n_cpu.rob.reset();
         n_cpu.rs.reset();
-        n_cpu.alu1.reset();
+        n_cpu.alu.reset();
         n_cpu.bu.reset();
         n_cpu.pc = entry.target;
         break; // following commits refer to mispredicts, so stop
@@ -275,8 +278,9 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
-  this->alu1 = cpu.alu1;
+  this->alu = cpu.alu;
   this->bu = cpu.bu;
+  this->lsu = cpu.lsu;
 
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
@@ -303,7 +307,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  }\n";
   os << "  rs = {\n" << cpu.rs
      << "  }\n";
-  os << "  alu1 = {\n" << cpu.alu1
+  os << "  alu = {\n" << cpu.alu
      << "  }\n";
   os << "  bu = {\n" << cpu.bu
      << "  }\n";

@@ -4,6 +4,7 @@
 #include "config.hpp"
 
 #include <string>
+#include <array>
 #include <tuple>
 #include <vector>
 #include <iostream>
@@ -26,7 +27,7 @@ class RS
     bool isFull();
 
     void issue(Shelf shelf);
-    std::tuple<Shelf, Shelf> dispatch(RS &n_rs, bool port1, bool port2);
+    std::array<Shelf,NUM_EUS> dispatch(RS &n_rs, std::array<bool,NUM_EUS> port);
 
     void update(int dest, int result);
     void reset();
