@@ -9,6 +9,7 @@
 #include "rs.hpp"
 #include "alu.hpp"
 #include "bu.hpp"
+#include "lsu.hpp"
 
 class Processor
 {
@@ -31,6 +32,7 @@ class Processor
     RS rs;
     ALU alu1;
     BU bu;
+    LSU lsu;
 
     Processor& operator=(const Processor& cpu);
 

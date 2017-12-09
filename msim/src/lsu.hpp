@@ -1,12 +1,13 @@
-#ifndef LSQ_H
-#define LSQ_H
+#ifndef LSU_H
+#define LSU_H
 
 #include <string>
 #include <vector>
+#include <iostream>
 #include "config.hpp"
 
-// Load-Store Queue
-class LSQ
+// Load-Store Uueue
+class LSU
 {
   public:
     struct Entry
@@ -19,14 +20,14 @@ class LSQ
     };
 
   public:
-    void insert(Entry entry, int tail);
+    void insert(std::string opcode, int seq, int o1, int o2, int tail);
     void dispatch(Entry entry);
 
-    friend std::ostream& operator<<(std::ostream& os, const LSQ& lsq);
+    friend std::ostream& operator<<(std::ostream& os, const LSU& lsu);
 
   private:
     std::vector<Entry> entries;
 };
-std::ostream& operator<<(std::ostream& os, const LSQ& lsq);
+std::ostream& operator<<(std::ostream& os, const LSU& lsu);
 
 #endif
