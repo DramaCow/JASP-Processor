@@ -7,13 +7,17 @@
 int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 {
   Entry::Type type = Entry::DN;
-  if (Instruction::isArth(opcode) || opcode == "ld")
+  if (Instruction::isArth(opcode) || opcode == "lw")
   {
     type = Entry::WB;
   }
   else if (Instruction::isBrch(opcode))
   {
     type = Entry::BR;
+  }
+  else if (opcode == "sw")
+  {
+    type = Entry::SR;
   }
   else if (opcode == "end")
   {
@@ -74,6 +78,16 @@ void ROB::write(int addr, int val)
   this->entries[a].done = true;
 }
 
+void ROB::write(int addr, int val, int target)
+{
+  // NOTE: rob addresses are offset by NUM_REGISTERS in order
+  //       to differentiate them fron architectural addresses
+  int a = addr - NUM_REGISTERS;
+  this->entries[a].val = val;
+  this->entries[a].target = target;
+  this->entries[a].done = true;
+}
+
 void ROB::reset()
 {
   this->head = this->tail;
@@ -108,6 +122,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
       case ROB::Entry::DN: os << SPACE("DN"); break;
       case ROB::Entry::WB: os << SPACE("WB"); break;
       case ROB::Entry::BR: os << SPACE("BR"); break;
+      case ROB::Entry::SR: os << SPACE("SR"); break;
       case ROB::Entry::END: os << SPACE("END"); break;
       default: os << SPACE("??"); break;
     }

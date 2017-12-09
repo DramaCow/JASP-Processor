@@ -160,7 +160,7 @@ std::ostream& operator<<(std::ostream& os, const LSU& lsu)
   for (std::size_t i = 0; i < lsu.entries.size(); ++i)
   {
     os << "    ";
-    os << SPACE(lsu.entries[i].type == LSU::Entry::LOAD ? "L" : "S" + std::to_string(lsu.entries[i].type))
+    os << SPACE(lsu.entries[i].type == LSU::Entry::LOAD ? "L" : "S")
        << SPACE(std::to_string(lsu.entries[i].seq))
        << SPACE(std::to_string(lsu.entries[i].addr))
        << SPACE(std::to_string(lsu.entries[i].fwd))

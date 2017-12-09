@@ -180,7 +180,7 @@ void Processor::execute(Processor &n_cpu)
   {
     if (!port[p]) this->alu.execute(n_cpu.alu);
   }
-  //this->lsu.execute(n_cpu.lsu);
+  this->lsu.execute(n_cpu.lsu);
 
   // === BYPASS ===
 
@@ -202,6 +202,18 @@ void Processor::writeback(Processor &n_cpu)
   if (this->bu.writeback)
   {
     n_cpu.rob.write(this->bu.dest, this->bu.result);
+  }
+
+  if (this->lsu.writeback && this->lsu.duration == 0)
+  {
+    if (this->lsu.next.type == LSU::Entry::LOAD)
+    {
+      n_cpu.rob.write(this->lsu.next.seq, this->lsu.next.val, this->lsu.next.addr);
+    }
+    else if (this->lsu.next.type == LSU::Entry::STORE)
+    {
+      n_cpu.rob.write(this->lsu.next.seq, this->lsu.next.addr);
+    }
   }
 }
 
@@ -252,6 +264,10 @@ bool Processor::commit(Processor &n_cpu)
         n_cpu.pc = entry.target;
         break; // following commits refer to mispredicts, so stop
       }
+    }
+    else if (entry.type == ROB::Entry::SR)
+    {
+      // TODO
     }
     // end of program
     else if (entry.type == ROB::Entry::END)

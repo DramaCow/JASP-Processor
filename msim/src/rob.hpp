@@ -14,7 +14,7 @@ class ROB {
     class Entry
     {
       public:
-        enum Type { DN, WB, BR, END }; // either do nothing, writeback, or branch
+        enum Type { DN, WB, BR, SR, END };
 
         Type type = DN;
         int reg = 0;
@@ -29,6 +29,7 @@ class ROB {
 
     std::tuple<int, bool> read(int addr);
     void write(int addr, int val);
+    void write(int addr, int val, int target);
 
     void reset();
 
