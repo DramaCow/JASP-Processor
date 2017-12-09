@@ -52,6 +52,7 @@ void LSU::insert(std::string opcode, int seq, int o1, int o2, int tail)
         if (entry.addr == this->entries[j].addr)
         {
           entry.val = this->entries[j].val;
+          entry.fwd = true;
         }
         break;
       }
@@ -67,6 +68,7 @@ void LSU::insert(std::string opcode, int seq, int o1, int o2, int tail)
       if (this->entries[j].type == LSU::Entry::LOAD && this->entries[j].addr == entry.addr)
       {
         this->entries[j].val = entry.val;
+        this->entries[j].fwd = true;
       }
       else if (this->entries[j].type == LSU::Entry::STORE && this->entries[j].addr == entry.addr)
       {
@@ -91,8 +93,19 @@ void LSU::execute(LSU& n_lsu)
 
       if (n_lsu.next.type == LSU::Entry::LOAD)
       {
-        n_lsu.duration = 1;
-        n_lsu.writeback = true;
+        // if val has been fowarded from some previous store
+        if (n_lsu.next.fwd)
+        {
+          n_lsu.duration = 0;
+          n_lsu.writeback = true;
+        }
+        // else have to take our time grabbing from memory
+        else
+        {
+          n_lsu.next.val = dcache[n_lsu.next.addr];
+          n_lsu.duration = 1;
+          n_lsu.writeback = true;
+        }
       }
       else if (n_lsu.next.type == LSU::Entry::STORE)
       {
@@ -119,14 +132,25 @@ LSU& LSU::operator=(const LSU& lsu)
 
 std::ostream& operator<<(std::ostream& os, const LSU& lsu)
 {
-  os << "    type  seq   addr  \n";
-  os << "    ------------------\n";
+  os << "    type  seq   addr  fwd   \n";
+  if (lsu.next.type != LSU::Entry::NA)
+  {
+    os << "    ------------------------\n";
+    os << "    ";
+    os << SPACE(lsu.next.type == LSU::Entry::LOAD ? "L" : "S")
+       << SPACE(std::to_string(lsu.next.seq))
+       << SPACE(std::to_string(lsu.next.addr))
+       << SPACE(std::to_string(lsu.next.fwd))
+       << '\n';
+  }
+  os << "    ------------------------\n";
   for (std::size_t i = 0; i < lsu.entries.size(); ++i)
   {
     os << "    ";
     os << SPACE(lsu.entries[i].type == LSU::Entry::LOAD ? "L" : "S")
        << SPACE(std::to_string(lsu.entries[i].seq))
        << SPACE(std::to_string(lsu.entries[i].addr))
+       << SPACE(std::to_string(lsu.entries[i].fwd))
        << '\n';
   }
   return os;

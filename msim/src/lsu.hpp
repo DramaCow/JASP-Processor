@@ -13,11 +13,12 @@ class LSU
   public:
     struct Entry
     {
-      enum Type { LOAD, STORE };
-      Type type;
+      enum Type { NA, LOAD, STORE };
+      Type type = NA;
       int seq = 0;
       int addr = 0;
       int val = 0;
+      bool fwd = false; // was val forwarded?
     };
 
   public:
