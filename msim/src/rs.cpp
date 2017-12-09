@@ -112,13 +112,13 @@ RS& RS::operator=(const RS& rs)
 
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
-  os << "    OC    seq   o1    o2    o3    dest  \n";
-  os << "    ------------------------------------\n";
+  os << "    OC    o1    o2    o3    dest  \n";
+  os << "    ------------------------------\n";
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)
   {
     os << "    ";
     os << SPACE(rs.shelves[i].opcode)
-//       << SPACE(rs.shelves[i].seq)
+       //<< SPACE(rs.shelves[i].seq)
        << SPACE((rs.shelves[i].v1 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o1))
        << SPACE((rs.shelves[i].v2 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o2))
        << SPACE((rs.shelves[i].v3 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o3))

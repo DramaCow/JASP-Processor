@@ -8,7 +8,7 @@ LSU::LSU(DCache &dcache) :
 {
 }
 
-void LSU::insert(std::string opcode, int seq, int o1, int o2, int tail)
+void LSU::dispatch(std::string opcode, int seq, int base, int offset, int val, int tail)
 {
   Entry entry;
   if (opcode == "lw")
@@ -20,7 +20,8 @@ void LSU::insert(std::string opcode, int seq, int o1, int o2, int tail)
     entry.type == LSU::Entry::STORE;
   }
   entry.seq = seq;
-  entry.addr = o1 + o2;
+  entry.addr = base + offset;
+  entry.val = val;
 
   std::size_t i;
   for (i = 0; i < this->entries.size(); ++i)
@@ -119,6 +120,11 @@ void LSU::execute(LSU& n_lsu)
       n_lsu.writeback = false;
     }
   }
+}
+
+bool LSU::isAvailable()
+{
+  return this->entries.size() < NUM_LSQ_ENTRIES;
 }
 
 LSU& LSU::operator=(const LSU& lsu)

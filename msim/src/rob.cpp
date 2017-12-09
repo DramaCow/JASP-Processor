@@ -79,6 +79,11 @@ void ROB::reset()
   this->head = this->tail;
 }
 
+int ROB::get_tail()
+{
+  return tail;
+}
+
 ROB& ROB::operator=(const ROB& rob)
 {
   this->head = rob.head;

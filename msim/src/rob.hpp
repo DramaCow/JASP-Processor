@@ -32,6 +32,8 @@ class ROB {
 
     void reset();
 
+    int get_tail();
+
     ROB& operator=(const ROB& rob);
 
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);

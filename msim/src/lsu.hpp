@@ -24,9 +24,9 @@ class LSU
   public:
     LSU(DCache &dcache);
 
-    void insert(std::string opcode, int seq, int o1, int o2, int tail);
-    void dispatch(Entry entry);
+    void dispatch(std::string opcode, int seq, int base, int offset, int val, int tail);
     void execute(LSU& n_lsu);
+    bool isAvailable();
 
     int duration = 0;
     LSU::Entry next;

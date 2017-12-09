@@ -16,7 +16,7 @@ class RS
     struct Shelf
     {
       std::string opcode = "nop";
-//      int seq = 0; // rob entry index
+      //int seq = 0; // rob entry index
       int o1 = 0; bool v1 = true;
       int o2 = 0; bool v2 = true;
       int o3 = 0; bool v3 = true;

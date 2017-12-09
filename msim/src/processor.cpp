@@ -130,11 +130,21 @@ void Processor::decode(Processor &n_cpu)
   }
   else if ( opcode == "lw" )
   {
-    // TODO
+    std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[1]);
+    std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
+    shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], -1);
+
+    n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "sw" )
   {
-    // TODO
+    std::tie(shelf.o1, shelf.v1) = this->read(instruction.params[0]);
+    std::tie(shelf.o2, shelf.v2) = this->read(instruction.params[1]);
+    std::tie(shelf.o3, shelf.v3) = std::make_tuple(instruction.params[2], true);
+    shelf.dest = this->alloc(n_cpu, opcode, -1, -1); // this is simply the rob entry
+
+    n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "end" )
   {
@@ -146,13 +156,15 @@ void Processor::execute(Processor &n_cpu)
 {
   // determine which ports are available
   std::array<bool,NUM_EUS> port;
+
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     port[p] = this->alu.duration == 0;
   }
   port[NUM_EUS-2] = true; // bu port
-  port[NUM_EUS-1] = false; // lsu port
+  port[NUM_EUS-1] = this->lsu.isAvailable(); // lsu port
 
+  // receive instructions to pass to execution units
   std::array<RS::Shelf,NUM_EUS> e = rs.dispatch(n_cpu.rs, port);
 
   // dispatch when instruction has finished
@@ -161,6 +173,7 @@ void Processor::execute(Processor &n_cpu)
     if (port[p]) n_cpu.alu.dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
   }
   if (port[NUM_EUS-2]) n_cpu.bu.dispatch(e[NUM_EUS-2].opcode, e[NUM_EUS-2].o1, e[NUM_EUS-2].o2, e[NUM_EUS-2].o3, e[NUM_EUS-2].dest);
+  if (port[NUM_EUS-1]) n_cpu.lsu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].dest, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].o1, n_cpu.rob.get_tail());
 
   // execute if instructions haven't finished
   if (!port[0]) this->alu.execute(n_cpu.alu);
