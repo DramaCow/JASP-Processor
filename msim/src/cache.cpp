@@ -53,13 +53,15 @@ int& DCache::operator[](int i)
 
 std::ostream& operator<<(std::ostream& os, const DCache& dcache)
 {
+  os << "    ";
   for (int i = 0; i < dcache.size; ++i)
   {
     os << dcache.data[i] << ' ';
-    if (i % 8 == 7)
+    if (i % 8 == 7 && i != dcache.size-1)
     {
-      os << '\n';
+      os << "\n    ";
     }
   }
+  os << '\n';
   return os;
 }

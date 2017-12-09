@@ -327,7 +327,9 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  lsu = {\n" << cpu.lsu
      << "  }\n";
-  os << "}";
+  os << "  dcache = {\n" << cpu.dcache
+     << "  }\n";
+  os << "}\n";
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "instructions_executed = " << cpu.instructions_executed << '\n'
