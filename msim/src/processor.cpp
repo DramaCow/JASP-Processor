@@ -10,6 +10,8 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   icache(icache),
   dcache(dcache),
 
+  lsu(dcache),
+
   cycles(0),
   instructions_executed(0)
 {
@@ -125,6 +127,14 @@ void Processor::decode(Processor &n_cpu)
     shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
  
     n_cpu.rs.issue(shelf);
+  }
+  else if ( opcode == "lw" )
+  {
+    // TODO
+  }
+  else if ( opcode == "sw" )
+  {
+    // TODO
   }
   else if ( opcode == "end" )
   {

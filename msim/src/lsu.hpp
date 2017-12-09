@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "config.hpp"
+#include "cache.hpp"
 
 // Load-Store Uueue
 class LSU
@@ -20,13 +21,23 @@ class LSU
     };
 
   public:
+    LSU(DCache &dcache);
+
     void insert(std::string opcode, int seq, int o1, int o2, int tail);
     void dispatch(Entry entry);
+    void execute(LSU& n_lsu);
+
+    int duration = 0;
+    LSU::Entry next;
+    bool writeback = false;
+
+    LSU& operator=(const LSU& lsu);
 
     friend std::ostream& operator<<(std::ostream& os, const LSU& lsu);
 
   private:
     std::vector<Entry> entries;
+    DCache &dcache;
 };
 std::ostream& operator<<(std::ostream& os, const LSU& lsu);
 

@@ -3,6 +3,11 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
+LSU::LSU(DCache &dcache) :
+  dcache(dcache)
+{
+}
+
 void LSU::insert(std::string opcode, int seq, int o1, int o2, int tail)
 {
   Entry entry;
@@ -71,6 +76,45 @@ void LSU::insert(std::string opcode, int seq, int o1, int o2, int tail)
   }
 
   this->entries.insert(std::begin(this->entries) + i, entry);
+}
+
+void LSU::execute(LSU& n_lsu)
+{
+  n_lsu.duration = this->duration-1 > 0 ? this->duration-1 : 0;
+
+  if (this->duration == 0)
+  {
+    if (n_lsu.entries.size() > 0)
+    {
+      n_lsu.next = n_lsu.entries[0];
+      n_lsu.entries.erase(std::begin(n_lsu.entries));
+
+      if (n_lsu.next.type == LSU::Entry::LOAD)
+      {
+        n_lsu.duration = 1;
+        n_lsu.writeback = true;
+      }
+      else if (n_lsu.next.type == LSU::Entry::STORE)
+      {
+        // store is handled at commit
+        n_lsu.duration = 0;
+        n_lsu.writeback = true;
+      }
+    }
+    else
+    {
+      n_lsu.writeback = false;
+    }
+  }
+}
+
+LSU& LSU::operator=(const LSU& lsu)
+{
+  this->entries = lsu.entries;
+  this->duration = lsu.duration;
+  this->next = lsu.next;
+  this->writeback = lsu.writeback;
+  return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const LSU& lsu)
