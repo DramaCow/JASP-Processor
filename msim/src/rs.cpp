@@ -55,18 +55,6 @@ std::tuple<RS::Shelf, RS::Shelf> RS::dispatch(RS &n_rs, bool port1, bool port2)
     }
   }
 
-  std::cout << SPACE(e[0].opcode)
-            << SPACE((e[0].v1 ? std::string("") : std::string("d")) + std::to_string(e[0].o1))
-            << SPACE((e[0].v2 ? std::string("") : std::string("d")) + std::to_string(e[0].o2))
-            << SPACE((e[0].v3 ? std::string("") : std::string("d")) + std::to_string(e[0].o3))
-            << SPACE(std::string("d") + std::to_string(e[0].dest))
-            << '\n';
-  std::cout << SPACE(e[1].opcode)
-            << SPACE((e[1].v1 ? std::string("") : std::string("d")) + std::to_string(e[1].o1))
-            << SPACE((e[1].v2 ? std::string("") : std::string("d")) + std::to_string(e[1].o2))
-            << SPACE((e[1].v3 ? std::string("") : std::string("d")) + std::to_string(e[1].o3))
-            << SPACE(std::string("d") + std::to_string(e[1].dest))
-            << '\n';
   return std::make_tuple(e[0], e[1]);
 }
 
@@ -107,12 +95,13 @@ RS& RS::operator=(const RS& rs)
 
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
-  os << "    OC    o1    o2    o3    dest  \n";
-  os << "    ------------------------------\n";
+  os << "    OC    seq   o1    o2    o3    dest  \n";
+  os << "    ------------------------------------\n";
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)
   {
     os << "    ";
     os << SPACE(rs.shelves[i].opcode)
+//       << SPACE(rs.shelves[i].seq)
        << SPACE((rs.shelves[i].v1 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o1))
        << SPACE((rs.shelves[i].v2 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o2))
        << SPACE((rs.shelves[i].v3 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o3))
