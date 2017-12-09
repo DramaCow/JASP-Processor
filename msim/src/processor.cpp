@@ -176,7 +176,11 @@ void Processor::execute(Processor &n_cpu)
   if (port[NUM_EUS-1]) n_cpu.lsu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].dest, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].o1, n_cpu.rob.get_tail());
 
   // execute if instructions haven't finished
-  if (!port[0]) this->alu.execute(n_cpu.alu);
+  for (std::size_t p = 0; p < NUM_ALUS; ++p)
+  {
+    if (!port[p]) this->alu.execute(n_cpu.alu);
+  }
+  //this->lsu.execute(n_cpu.lsu);
 
   // === BYPASS ===
 

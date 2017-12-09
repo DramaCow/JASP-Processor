@@ -10,14 +10,19 @@ LSU::LSU(DCache &dcache) :
 
 void LSU::dispatch(std::string opcode, int seq, int base, int offset, int val, int tail)
 {
+  if (opcode == "nop")
+  {
+    return;
+  }
+
   Entry entry;
   if (opcode == "lw")
   {
-    entry.type == LSU::Entry::LOAD;
+    entry.type = LSU::Entry::LOAD;
   }
   else if (opcode == "sw")
   {
-    entry.type == LSU::Entry::STORE;
+    entry.type = LSU::Entry::STORE;
   }
   entry.seq = seq;
   entry.addr = base + offset;
@@ -138,6 +143,7 @@ LSU& LSU::operator=(const LSU& lsu)
 
 std::ostream& operator<<(std::ostream& os, const LSU& lsu)
 {
+  os << "    " << std::to_string(lsu.entries.size()) << std::endl;;
   os << "    type  seq   addr  fwd   \n";
   if (lsu.next.type != LSU::Entry::NA)
   {
@@ -147,13 +153,14 @@ std::ostream& operator<<(std::ostream& os, const LSU& lsu)
        << SPACE(std::to_string(lsu.next.seq))
        << SPACE(std::to_string(lsu.next.addr))
        << SPACE(std::to_string(lsu.next.fwd))
+       << (lsu.writeback ? "  writeback" : "")
        << '\n';
   }
   os << "    ------------------------\n";
   for (std::size_t i = 0; i < lsu.entries.size(); ++i)
   {
     os << "    ";
-    os << SPACE(lsu.entries[i].type == LSU::Entry::LOAD ? "L" : "S")
+    os << SPACE(lsu.entries[i].type == LSU::Entry::LOAD ? "L" : "S" + std::to_string(lsu.entries[i].type))
        << SPACE(std::to_string(lsu.entries[i].seq))
        << SPACE(std::to_string(lsu.entries[i].addr))
        << SPACE(std::to_string(lsu.entries[i].fwd))
