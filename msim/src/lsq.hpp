@@ -31,8 +31,13 @@ class LSQ
     };
 
   public:
+    bool isFull();
+
     void issue(Shelf shelf, int tail);
     Shelf dispatch(LSQ &n_lsq, bool port);
+
+    void update(int dest, int result);
+    void reset();
 
     LSQ& operator=(const LSQ& lsq);
 

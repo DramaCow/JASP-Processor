@@ -4,6 +4,11 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
+bool LSQ::isFull()
+{
+  return this->shelves.size() >= NUM_LSQ_ENTRIES;
+}
+
 void LSQ::issue(Shelf shelf, int tail)
 {
   std::size_t i;
@@ -56,6 +61,36 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
   }
 
   return e;
+}
+
+void LSQ::update(int dest, int result)
+{
+  for (std::size_t i = 0; i < this->shelves.size(); ++i)
+  {
+    if (!this->shelves[i].vw && this->shelves[i].w == dest)
+    {
+      this->shelves[i].w = result;
+      this->shelves[i].vw = true;
+    }
+
+    if (!this->shelves[i].vb && this->shelves[i].b == dest)
+    {
+      this->shelves[i].b = result;
+      this->shelves[i].vb = true;
+    }
+
+    if (!this->shelves[i].vo && this->shelves[i].o == dest)
+    {
+      this->shelves[i].o = result;
+      this->shelves[i].vo = true;
+    }
+  }
+}
+
+void LSQ::reset()
+{
+  this->shelves.clear();
+  this->isNew.clear();
 }
 
 LSQ& LSQ::operator=(const LSQ& lsq)
