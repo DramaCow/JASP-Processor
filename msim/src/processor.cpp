@@ -254,20 +254,13 @@ bool Processor::commit(Processor &n_cpu)
     {
       if (entry.val)
       {
-        // flush and jump to entry.target
-        n_cpu.ibuf = std::make_tuple(0, Instruction("nop"));
-        n_cpu.rat.reset();
-        n_cpu.rob.reset();
-        n_cpu.rs.reset();
-        n_cpu.alu.reset();
-        n_cpu.bu.reset();
-        n_cpu.pc = entry.target;
+        n_cpu.flush(entry.target);
         break; // following commits refer to mispredicts, so stop
       }
     }
     else if (entry.type == ROB::Entry::SR)
     {
-      // TODO
+      //TODO
     }
     // end of program
     else if (entry.type == ROB::Entry::END)
@@ -310,6 +303,18 @@ int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int target)
 bool Processor::isStalled()
 {
   return this->rs.isFull();
+}
+
+void Processor::flush(int target)
+{
+  // flush and jump to entry.target
+  this->ibuf = std::make_tuple(0, Instruction("nop"));
+  this->rat.reset();
+  this->rob.reset();
+  this->rs.reset();
+  this->alu.reset();
+  this->bu.reset();
+  this->pc = target;
 }
 
 // ============================

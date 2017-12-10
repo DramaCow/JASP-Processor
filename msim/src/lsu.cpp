@@ -28,14 +28,22 @@ void LSU::dispatch(std::string opcode, int seq, int base, int offset, int val, i
   entry.addr = base + offset;
   entry.val = val;
 
+  if (this->entries.size() == 0)
+  {
+    this->entries.push_back(entry);
+    return;
+  }
+
   std::size_t i;
   for (i = 0; i < this->entries.size(); ++i)
   {
-    int s1 = entry.seq + (entry.seq < tail ? NUM_ROB_ENTRIES : 0);
-    int s2 = this->entries[i].seq + (this->entries[i].seq < tail ? NUM_ROB_ENTRIES : 0);
+    int s1 = entry.seq-NUM_REGISTERS + (entry.seq-NUM_REGISTERS < tail ? NUM_ROB_ENTRIES : 0);
+    int s2 = this->entries[i].seq-NUM_REGISTERS + (this->entries[i].seq-NUM_REGISTERS < tail ? NUM_ROB_ENTRIES : 0);
 
-    if (s1 > s2)
+    if (s1 < s2)
     {
+      std::cout << s1 << ' ' << s2 << '\n';
+      std::cout << entry.seq << ' ' << this->entries[i].seq << '\n';
       break;
     }
   }
@@ -83,7 +91,10 @@ void LSU::dispatch(std::string opcode, int seq, int base, int offset, int val, i
     }
   }
 
+  std::cout << " === tag === " << i << ' ' << tail << " \n";
+  std::cout << (*this) << '\n';
   this->entries.insert(std::begin(this->entries) + i, entry);
+  std::cout << (*this) << '\n';
 }
 
 void LSU::execute(LSU& n_lsu)
@@ -143,26 +154,27 @@ LSU& LSU::operator=(const LSU& lsu)
 
 std::ostream& operator<<(std::ostream& os, const LSU& lsu)
 {
-  os << "    " << std::to_string(lsu.entries.size()) << std::endl;;
-  os << "    type  seq   addr  fwd   \n";
+  os << "    type  seq   addr  val   fwd   \n";
   if (lsu.next.type != LSU::Entry::NA)
   {
-    os << "    ------------------------\n";
+    os << "    ------------------------------\n";
     os << "    ";
     os << SPACE(lsu.next.type == LSU::Entry::LOAD ? "L" : "S")
        << SPACE(std::to_string(lsu.next.seq))
        << SPACE(std::to_string(lsu.next.addr))
+       << SPACE(std::to_string(lsu.next.val))
        << SPACE(std::to_string(lsu.next.fwd))
-       << (lsu.writeback ? "  writeback" : "")
+       << (lsu.writeback && lsu.duration == 0 ? "  writeback" : "")
        << '\n';
   }
-  os << "    ------------------------\n";
+  os << "    ------------------------------\n";
   for (std::size_t i = 0; i < lsu.entries.size(); ++i)
   {
     os << "    ";
     os << SPACE(lsu.entries[i].type == LSU::Entry::LOAD ? "L" : "S")
        << SPACE(std::to_string(lsu.entries[i].seq))
        << SPACE(std::to_string(lsu.entries[i].addr))
+       << SPACE(std::to_string(lsu.entries[i].val))
        << SPACE(std::to_string(lsu.entries[i].fwd))
        << '\n';
   }

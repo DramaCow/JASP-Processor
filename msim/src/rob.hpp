@@ -17,10 +17,11 @@ class ROB {
         enum Type { DN, WB, BR, SR, END };
 
         Type type = DN;
-        int reg = 0;
+        int reg = -1;
         int val = 0;
-        int target = 0;
+        int target = -1;
         bool done = false;
+        bool flush = false;
     };
 
   public:
@@ -31,6 +32,7 @@ class ROB {
     void write(int addr, int val);
     void write(int addr, int val, int target);
 
+    void handle_store_to_load_forwarding();
     void reset();
 
     int get_tail();

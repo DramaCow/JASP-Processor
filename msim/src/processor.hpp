@@ -9,6 +9,7 @@
 #include "rob.hpp"
 #include "rrf.hpp"
 #include "rs.hpp"
+#include "lsq.hpp"
 #include "alu.hpp"
 #include "bu.hpp"
 #include "lsu.hpp"
@@ -53,6 +54,7 @@ class Processor
     std::tuple<int, bool> read(int r);
     int alloc(Processor &n_cpu, std::string opcode, int r, int target);
     bool isStalled();
+    void flush(int target);
 
     // statistics recorders
     int cycles;

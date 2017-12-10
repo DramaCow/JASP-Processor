@@ -33,6 +33,10 @@ DCache::DCache(int size) :
   size(size)
 {
   this->data = new int[size]{ 0 };
+  for (int i = 0; i < size; ++i)
+  {
+    this->data[i] = i+1;
+  }
 }
 
 DCache::DCache(int *data, int size) :
