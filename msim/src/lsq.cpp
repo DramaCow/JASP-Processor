@@ -42,8 +42,8 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
         if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && n_lsq.shelves[i].va && n_lsq.shelves[i].ready)
         {
           e = shelves[i];
-          n_lsq.shelves.erase(std::begin(n_lsq.shelves) + i);
-          n_lsq.isNew.erase(std::begin(n_lsq.isNew) + i);
+//        n_lsq.shelves.erase(std::begin(n_lsq.shelves) + i);
+//        n_lsq.isNew.erase(std::begin(n_lsq.isNew) + i);
           break;
         }
       }
@@ -68,6 +68,19 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
   }
 
   return e;
+}
+
+void LSQ::retire(int seq)
+{
+  for (std::size_t i = 0; i < this->shelves.size(); ++i)
+  {
+    if (this->shelves[i].seq == seq)
+    {
+      this->shelves.erase(std::begin(this->shelves) + i);
+      this->isNew.erase(std::begin(this->isNew) + i);
+      return;
+    }
+  }
 }
 
 void LSQ::update(int dest, int result)
@@ -117,7 +130,7 @@ std::ostream& operator<<(std::ostream& os, const LSQ& lsq)
   for (std::size_t i = 0; i < lsq.shelves.size(); ++i)
   {
     os << "    ";
-    os << SPACE(lsq.shelves[i].type == LSQ::Shelf::LOAD ? "L" : "S")
+    os << SPACE(lsq.shelves[i].type == LSQ::Shelf::LOAD ? "L" : lsq.shelves[i].type == LSQ::Shelf::STORE ? "S" : "--")
        << SPACE(std::to_string(lsq.shelves[i].seq))
        << SPACE(std::to_string(lsq.shelves[i].d))
        << SPACE((lsq.shelves[i].vw ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].w))

@@ -34,8 +34,9 @@ class LSQ
     bool isFull();
 
     void issue(Shelf shelf, int tail);
-    Shelf dispatch(LSQ &n_lsq, bool port);
+    Shelf dispatch(LSQ &n_lsq, bool port); // note: dispatch does not remove any entries
 
+    void retire(int seq);
     void update(int dest, int result);
     void reset();
 
