@@ -10,8 +10,6 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   icache(icache),
   dcache(dcache),
 
-  lsu(dcache),
-
   cycles(0),
   instructions_executed(0)
 {
@@ -161,8 +159,7 @@ void Processor::execute(Processor &n_cpu)
   {
     port[p] = this->alu.duration == 0;
   }
-  port[NUM_EUS-2] = true; // bu port
-  port[NUM_EUS-1] = this->lsu.isAvailable(); // lsu port
+  port[NUM_EUS-1] = true; // bu port
 
   // receive instructions to pass to execution units
   std::array<RS::Shelf,NUM_EUS> e = rs.dispatch(n_cpu.rs, port);
@@ -172,15 +169,13 @@ void Processor::execute(Processor &n_cpu)
   {
     if (port[p]) n_cpu.alu.dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
   }
-  if (port[NUM_EUS-2]) n_cpu.bu.dispatch(e[NUM_EUS-2].opcode, e[NUM_EUS-2].o1, e[NUM_EUS-2].o2, e[NUM_EUS-2].o3, e[NUM_EUS-2].dest);
-  if (port[NUM_EUS-1]) n_cpu.lsu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].dest, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].o1, n_cpu.rob.get_tail());
+  if (port[NUM_EUS-1]) n_cpu.bu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].o1, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].dest);
 
   // execute if instructions haven't finished
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     if (!port[p]) this->alu.execute(n_cpu.alu);
   }
-  this->lsu.execute(n_cpu.lsu);
 
   // === BYPASS ===
 
@@ -202,18 +197,6 @@ void Processor::writeback(Processor &n_cpu)
   if (this->bu.writeback)
   {
     n_cpu.rob.write(this->bu.dest, this->bu.result);
-  }
-
-  if (this->lsu.writeback && this->lsu.duration == 0)
-  {
-    if (this->lsu.next.type == LSU::Entry::LOAD)
-    {
-      n_cpu.rob.write(this->lsu.next.seq, this->lsu.next.val, this->lsu.next.addr);
-    }
-    else if (this->lsu.next.type == LSU::Entry::STORE)
-    {
-      n_cpu.rob.write(this->lsu.next.seq, this->lsu.next.addr);
-    }
   }
 }
 
@@ -332,7 +315,6 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rs = cpu.rs;
   this->alu = cpu.alu;
   this->bu = cpu.bu;
-  this->lsu = cpu.lsu;
 
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
@@ -359,11 +341,11 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  }\n";
   os << "  rs = {\n" << cpu.rs
      << "  }\n";
+  os << "  lsq = {\n" << cpu.lsq
+     << "  }\n";
   os << "  alu = {\n" << cpu.alu
      << "  }\n";
   os << "  bu = {\n" << cpu.bu
-     << "  }\n";
-  os << "  lsu = {\n" << cpu.lsu
      << "  }\n";
   os << "  dcache = {\n" << cpu.dcache
      << "  }\n";

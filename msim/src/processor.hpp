@@ -12,7 +12,7 @@
 #include "lsq.hpp"
 #include "alu.hpp"
 #include "bu.hpp"
-#include "lsu.hpp"
+#include "mu.hpp"
 
 class Processor
 {
@@ -33,10 +33,10 @@ class Processor
     ROB rob;
     RRF rrf;
     RS rs;
+    LSQ lsq;
     //std::array<ALU, NUM_ALUS> alu;
     ALU alu;
     BU bu;
-    LSU lsu;
 
     Processor& operator=(const Processor& cpu);
 
