@@ -43,6 +43,10 @@ void MU::execute(MU& n_mu)
 
 MU& MU::operator=(const MU& mu)
 {
+  this->shelf = mu.shelf;
+  this->result = mu.result;
+  this->duration = mu.duration;
+  this->writeback = mu.writeback;
   return *this;
 }
 
