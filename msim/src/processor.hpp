@@ -37,6 +37,7 @@ class Processor
     //std::array<ALU, NUM_ALUS> alu;
     ALU alu;
     BU bu;
+    MU mu;
 
     Processor& operator=(const Processor& cpu);
 

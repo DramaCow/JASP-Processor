@@ -10,6 +10,8 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   icache(icache),
   dcache(dcache),
 
+  mu(dcache),
+
   cycles(0),
   instructions_executed(0)
 {
@@ -315,6 +317,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rs = cpu.rs;
   this->alu = cpu.alu;
   this->bu = cpu.bu;
+  this->mu = cpu.mu;
 
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
@@ -346,6 +349,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  alu = {\n" << cpu.alu
      << "  }\n";
   os << "  bu = {\n" << cpu.bu
+     << "  }\n";
+  os << "  mu = {\n" << cpu.mu
      << "  }\n";
   os << "  dcache = {\n" << cpu.dcache
      << "  }\n";
