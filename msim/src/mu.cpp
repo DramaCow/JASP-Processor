@@ -52,5 +52,30 @@ MU& MU::operator=(const MU& mu)
 
 std::ostream& operator<<(std::ostream& os, const MU& mu)
 {
+  if (mu.shelf.type == LSQ::Shelf::NA)
+  {
+    os << "    --- nop ---\n";
+    return os;
+  }
+  else if (mu.shelf.type == LSQ::Shelf::LOAD)
+  {
+    os << "    d" << mu.shelf.d << " <-- MEM[" << mu.shelf.addr << ']';
+  }
+  else if (mu.shelf.type == LSQ::Shelf::STORE)
+  {
+    os << "    MEM[" << mu.shelf.addr << "] <-- " << mu.shelf.w;
+  }
+
+  os << " (" << mu.duration << ")\n";
+  if (mu.writeback && mu.duration == 0)
+  {
+    os << "    ";
+    if (mu.shelf.type == LSQ::Shelf::LOAD)
+    {
+      os << "= " << mu.result << ' ';
+    }
+    os << "writeback\n";
+  }
+  
   return os;
 }
