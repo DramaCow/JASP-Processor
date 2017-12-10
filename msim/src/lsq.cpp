@@ -39,7 +39,7 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
     {
       if (!n_lsq.isNew[i])
       {
-        if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && n_lsq.shelves[i].va)
+        if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && n_lsq.shelves[i].va && n_lsq.shelves[i].ready)
         {
           e = shelves[i];
           n_lsq.shelves.erase(std::begin(n_lsq.shelves) + i);
@@ -52,11 +52,18 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
   
   for (std::size_t i = 0; i < n_lsq.shelves.size(); ++i)
   {
-    if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && !n_lsq.shelves[i].va)
+    if (!n_lsq.isNew[i])
     {
-      shelves[i].addr = shelves[i].b + shelves[i].o;
-      shelves[i].va = true;
-      break;
+      if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && !n_lsq.shelves[i].va)
+      {
+        n_lsq.shelves[i].addr = shelves[i].b + shelves[i].o;
+        n_lsq.shelves[i].va = true;
+        if (n_lsq.shelves[i].type == LSQ::Shelf::LOAD)
+        {
+          n_lsq.shelves[i].ready = true;
+        }
+        break;
+      }
     }
   }
 
