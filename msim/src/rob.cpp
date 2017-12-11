@@ -102,6 +102,12 @@ void ROB::reset()
   this->head = this->tail;
 }
 
+void ROB::set_spec(int seq, bool spec)
+{
+  int a = seq - NUM_REGISTERS;
+  this->entries[a].spec = spec;
+}
+
 int ROB::get_tail()
 {
   return tail;

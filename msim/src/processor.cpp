@@ -68,6 +68,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], -1);
 
+    n_cpu.rob.set_spec(shelf.dest, false);
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "movi" )
@@ -79,6 +80,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], -1);
 
+    n_cpu.rob.set_spec(shelf.dest, false);
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "add" ||
@@ -93,6 +95,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], -1);
 
+    n_cpu.rob.set_spec(shelf.dest, false);
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "addi" ||
@@ -106,6 +109,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, opcode, instruction.params[0], -1);
 
+    n_cpu.rob.set_spec(shelf.dest, false);
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "b" )
@@ -120,6 +124,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
     shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
  
+    n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "beq" ||
@@ -135,6 +140,7 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o3, shelf.v3) = this->read(instruction.params[1]);
     shelf.dest = this->alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
  
+    n_cpu.rob.set_spec(shelf.dest, true); // just a formality
     n_cpu.rs.issue(shelf);
   }
   else if ( opcode == "lw" )
@@ -147,6 +153,7 @@ void Processor::decode(Processor &n_cpu)
     shelf.d = this->alloc(n_cpu, opcode, instruction.params[0], -1);
     shelf.seq = shelf.d;
 
+    n_cpu.rob.set_spec(shelf.seq, false);
     n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
   }
   else if ( opcode == "sw" )
@@ -158,11 +165,13 @@ void Processor::decode(Processor &n_cpu)
     std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
     shelf.seq = this->alloc(n_cpu, opcode, -1, -1); // simply the rob entry
 
+    n_cpu.rob.set_spec(shelf.seq, false);
     n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
   }
   else if ( opcode == "end" )
   {
-    this->alloc(n_cpu, opcode, -1, -1);
+    int seq = this->alloc(n_cpu, opcode, -1, -1);
+    n_cpu.rob.set_spec(seq, false);
   }
 }
 

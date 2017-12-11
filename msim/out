@@ -1091,7 +1091,7 @@ instructions_per_cycle = 0.6
     d19   WB    r4    0     --    no    
     d20   SR    --    0     --    no    
     d21   WB    r1    0     --    no    
-    d22   BR    --    0     15    no    
+    d22   BR    --    0     15    yes   
     d23   DN    --    0     --    no     <-h-
   }
   rrf = {
@@ -1160,7 +1160,7 @@ instructions_per_cycle = 0.625
     d19   WB    r4    0     --    no    
     d20   SR    --    0     --    no    
     *d21  WB    r1    3     --    no    
-    d22   BR    --    0     15    no    
+    d22   BR    --    0     15    yes   
     d23   WB    r2    0     --    no    
   }
   rrf = {
@@ -1229,7 +1229,7 @@ instructions_per_cycle = 0.588235
     d19   WB    r4    0     --    no     <-t-
     d20   SR    --    0     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     d23   WB    r2    0     --    no    
   }
   rrf = {
@@ -1296,7 +1296,7 @@ instructions_per_cycle = 0.611111
     *d19  WB    r4    1     --    no     <-t-
     d20   SR    --    0     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     d23   WB    r2    0     --    no    
   }
   rrf = {
@@ -1367,7 +1367,7 @@ MARKED: 20
     *d19  WB    r4    1     --    no    
     d20   SR    --    0     --    no     <-t-
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     d23   WB    r2    0     --    no    
   }
   rrf = {
@@ -1438,7 +1438,7 @@ MARKED: 20
     *d19  WB    r4    1     --    no    
     d20   SR    --    0     --    no     <-t-
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     d23   WB    r2    0     --    no    
   }
   rrf = {
@@ -1508,7 +1508,7 @@ PREMARK: 20
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no     <-t-
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     d23   WB    r2    0     --    no    
   }
   rrf = {
@@ -1576,7 +1576,7 @@ instructions_per_cycle = 0.545455
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     d23   WB    r2    0     --    no     <-t-
   }
   rrf = {
@@ -1634,7 +1634,7 @@ instructions_per_cycle = 0.652174
     d9    WB    r4    0     --    no    
     d10   SR    --    0     --    no    
     d11   WB    r1    0     --    no    
-    d12   BR    --    0     15    no    
+    d12   BR    --    0     15    yes   
     *d13  WB    r1    1     --    no     <-h-
     *d14  WB    r3    1     --    no    
     *d15  SR    --    0     --    no    
@@ -1644,7 +1644,7 @@ instructions_per_cycle = 0.652174
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no     <-t-
   }
   rrf = {
@@ -1704,7 +1704,7 @@ instructions_per_cycle = 0.625
     d9    WB    r4    0     --    no    
     d10   SR    --    0     --    no    
     *d11  WB    r1    4     --    no    
-    d12   BR    --    0     15    no    
+    d12   BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     *d14  WB    r3    1     --    no     <-h-
     *d15  SR    --    0     --    no    
@@ -1714,7 +1714,7 @@ instructions_per_cycle = 0.625
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -1773,7 +1773,7 @@ instructions_per_cycle = 0.64
     d9    WB    r4    0     --    no    
     d10   SR    --    0     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     d14   WB    r3    0     --    no    
     *d15  SR    --    0     --    no     <-h-
@@ -1783,7 +1783,7 @@ instructions_per_cycle = 0.64
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -1841,7 +1841,7 @@ instructions_per_cycle = 0.615385
     d9    WB    r4    0     --    no     <-t-
     d10   SR    --    0     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
@@ -1851,7 +1851,7 @@ instructions_per_cycle = 0.615385
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -1910,7 +1910,7 @@ instructions_per_cycle = 0.62963
     *d9   WB    r4    2     --    no     <-t-
     d10   SR    --    0     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
@@ -1920,7 +1920,7 @@ instructions_per_cycle = 0.62963
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -1981,7 +1981,7 @@ MARKED: 10
     *d9   WB    r4    2     --    no    
     d10   SR    --    0     --    no     <-t-
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
@@ -1991,7 +1991,7 @@ MARKED: 10
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2052,7 +2052,7 @@ MARKED: 10
     *d9   WB    r4    2     --    no    
     d10   SR    --    0     --    no     <-t-
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
@@ -2062,7 +2062,7 @@ MARKED: 10
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2122,7 +2122,7 @@ PREMARK: 10
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no     <-t-
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no    
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
@@ -2132,7 +2132,7 @@ PREMARK: 10
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2190,7 +2190,7 @@ instructions_per_cycle = 0.580645
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     d13   WB    r2    0     --    no     <-t-
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
@@ -2200,7 +2200,7 @@ instructions_per_cycle = 0.580645
     *d19  WB    r4    1     --    no    
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2258,17 +2258,17 @@ instructions_per_cycle = 0.65625
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no     <-t-
     d14   WB    r3    0     --    no    
     d15   WB    r4    0     --    no    
     d16   SR    --    0     --    no    
     d17   WB    r1    0     --    no    
-    d18   BR    --    0     15    no    
+    d18   BR    --    0     15    yes   
     *d19  WB    r4    1     --    no     <-h-
     *d20  SR    --    1     --    no    
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2328,17 +2328,17 @@ instructions_per_cycle = 0.636364
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     d14   WB    r3    0     --    no     <-t-
     d15   WB    r4    0     --    no    
     d16   SR    --    0     --    no    
     *d17  WB    r1    5     --    no    
-    d18   BR    --    0     15    no    
+    d18   BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     *d20  SR    --    1     --    no     <-h-
     *d21  WB    r1    3     --    no    
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2397,17 +2397,17 @@ instructions_per_cycle = 0.647059
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no     <-t-
     d15   WB    r4    0     --    no    
     d16   SR    --    0     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     d20   WB    r3    0     --    no    
     *d21  WB    r1    3     --    no     <-h-
-    *d22  BR    --    0     15    no    
+    *d22  BR    --    0     15    yes   
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2465,17 +2465,17 @@ instructions_per_cycle = 0.628571
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     d15   WB    r4    0     --    no     <-t-
     d16   SR    --    0     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
-    *d22  BR    --    0     15    no     <-h-
+    *d22  BR    --    0     15    yes    <-h-
     *d23  WB    r2    1     --    no    
   }
   rrf = {
@@ -2534,13 +2534,13 @@ instructions_per_cycle = 0.638889
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no     <-t-
     d16   SR    --    0     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
@@ -2605,13 +2605,13 @@ MARKED: 16
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     d16   SR    --    0     --    no     <-t-
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
@@ -2676,13 +2676,13 @@ MARKED: 16
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     d16   SR    --    0     --    no     <-t-
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
@@ -2746,13 +2746,13 @@ PREMARK: 16
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no     <-t-
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no    
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
@@ -2814,13 +2814,13 @@ instructions_per_cycle = 0.6
     *d9   WB    r4    2     --    no    
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     d19   WB    r2    0     --    no     <-t-
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
@@ -2878,17 +2878,17 @@ instructions_per_cycle = 0.658537
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    BR    --    0     15    no    
+    d8    BR    --    0     15    yes   
     *d9   WB    r4    2     --    no     <-h-
     *d10  SR    --    1     --    no    
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no     <-t-
     d20   WB    r3    0     --    no    
     d21   WB    r4    0     --    no    
@@ -2948,17 +2948,17 @@ instructions_per_cycle = 0.642857
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    BR    --    0     15    no    
+    d8    BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     *d10  SR    --    1     --    no     <-h-
     *d11  WB    r1    4     --    no    
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     d20   WB    r3    0     --    no     <-t-
     d21   WB    r4    0     --    no    
@@ -3017,17 +3017,17 @@ instructions_per_cycle = 0.651163
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     d10   WB    r3    0     --    no    
     *d11  WB    r1    4     --    no     <-h-
-    *d12  BR    --    0     15    no    
+    *d12  BR    --    0     15    yes   
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no     <-t-
     d21   WB    r4    0     --    no    
@@ -3085,17 +3085,17 @@ instructions_per_cycle = 0.636364
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
-    *d12  BR    --    0     15    no     <-h-
+    *d12  BR    --    0     15    yes    <-h-
     *d13  WB    r2    1     --    no    
     *d14  WB    r3    2     --    no    
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     d21   WB    r4    0     --    no     <-t-
@@ -3154,7 +3154,7 @@ instructions_per_cycle = 0.644444
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
@@ -3164,7 +3164,7 @@ instructions_per_cycle = 0.644444
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no     <-t-
@@ -3225,7 +3225,7 @@ MARKED: 22
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
@@ -3235,7 +3235,7 @@ MARKED: 22
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3296,7 +3296,7 @@ MARKED: 22
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
@@ -3306,7 +3306,7 @@ MARKED: 22
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3366,7 +3366,7 @@ PREMARK: 22
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no    
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
@@ -3376,7 +3376,7 @@ PREMARK: 22
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3434,7 +3434,7 @@ instructions_per_cycle = 0.612245
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     d9    WB    r2    0     --    no     <-t-
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
@@ -3444,7 +3444,7 @@ instructions_per_cycle = 0.612245
     *d15  WB    r4    3     --    no    
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3502,17 +3502,17 @@ instructions_per_cycle = 0.66
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no     <-t-
     d10   WB    r3    0     --    no    
     d11   WB    r4    0     --    no    
     d12   SR    --    0     --    no    
     d13   WB    r1    0     --    no    
-    d14   BR    --    0     15    no    
+    d14   BR    --    0     15    yes   
     *d15  WB    r4    3     --    no     <-h-
     *d16  SR    --    2     --    no    
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3572,17 +3572,17 @@ instructions_per_cycle = 0.647059
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     d10   WB    r3    0     --    no     <-t-
     d11   WB    r4    0     --    no    
     d12   SR    --    0     --    no    
     *d13  WB    r1    7     --    no    
-    d14   BR    --    0     15    no    
+    d14   BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     *d16  SR    --    2     --    no     <-h-
     *d17  WB    r1    5     --    no    
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3641,17 +3641,17 @@ instructions_per_cycle = 0.653846
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no     <-t-
     d11   WB    r4    0     --    no    
     d12   SR    --    0     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     d16   WB    r3    0     --    no    
     *d17  WB    r1    5     --    no     <-h-
-    *d18  BR    --    0     15    no    
+    *d18  BR    --    0     15    yes   
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3709,17 +3709,17 @@ instructions_per_cycle = 0.641509
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     d11   WB    r4    0     --    no     <-t-
     d12   SR    --    0     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
-    *d18  BR    --    0     15    no     <-h-
+    *d18  BR    --    0     15    yes    <-h-
     *d19  WB    r2    2     --    no    
     *d20  WB    r3    3     --    no    
     *d21  WB    r4    5     --    no    
@@ -3778,13 +3778,13 @@ instructions_per_cycle = 0.648148
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no     <-t-
     d12   SR    --    0     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
@@ -3849,13 +3849,13 @@ MARKED: 12
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     d12   SR    --    0     --    no     <-t-
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
@@ -3920,13 +3920,13 @@ MARKED: 12
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     d12   SR    --    0     --    no     <-t-
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
@@ -3990,13 +3990,13 @@ PREMARK: 12
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no     <-t-
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no    
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
@@ -4058,13 +4058,13 @@ instructions_per_cycle = 0.62069
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     d15   WB    r2    0     --    no     <-t-
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
@@ -4126,19 +4126,19 @@ instructions_per_cycle = 0.661017
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no     <-t-
     d16   WB    r3    0     --    no    
     d17   WB    r4    0     --    no    
     d18   SR    --    0     --    no    
     d19   WB    r1    0     --    no    
-    d20   BR    --    0     15    no    
+    d20   BR    --    0     15    yes   
     *d21  WB    r4    5     --    no     <-h-
     *d22  SR    --    3     --    no    
     *d23  WB    r1    6     --    no    
@@ -4196,19 +4196,19 @@ instructions_per_cycle = 0.65
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     d16   WB    r3    0     --    no     <-t-
     d17   WB    r4    0     --    no    
     d18   SR    --    0     --    no    
     *d19  WB    r1    8     --    no    
-    d20   BR    --    0     15    no    
+    d20   BR    --    0     15    yes   
     d21   WB    r2    0     --    no    
     *d22  SR    --    3     --    no     <-h-
     *d23  WB    r1    6     --    no    
@@ -4265,19 +4265,19 @@ instructions_per_cycle = 0.655738
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no    
+    *d8   BR    --    0     15    yes   
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no     <-t-
     d17   WB    r4    0     --    no    
     d18   SR    --    0     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no    
     d22   WB    r3    0     --    no    
     *d23  WB    r1    6     --    no     <-h-
@@ -4333,19 +4333,19 @@ instructions_per_cycle = 0.645161
   rob = {
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    no     <-h-
+    *d8   BR    --    0     15    yes    <-h-
     *d9   WB    r2    3     --    no    
     *d10  WB    r3    5     --    no    
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     d17   WB    r4    0     --    no     <-t-
     d18   SR    --    0     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no    
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4408,13 +4408,13 @@ instructions_per_cycle = 0.650794
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no     <-t-
     d18   SR    --    0     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no    
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4479,13 +4479,13 @@ MARKED: 18
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     d18   SR    --    0     --    no     <-t-
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no    
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4550,13 +4550,13 @@ MARKED: 18
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     d18   SR    --    0     --    no     <-t-
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no    
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4620,13 +4620,13 @@ PREMARK: 18
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     *d18  SR    --    8     --    no     <-t-
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no    
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4688,13 +4688,13 @@ instructions_per_cycle = 0.626866
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     *d18  SR    --    8     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     d21   WB    r2    0     --    no     <-h- <-t-
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4751,13 +4751,13 @@ instructions_per_cycle = 0.647059
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     *d18  SR    --    8     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     *d21  WB    r2    8     --    no     <-h- <-t-
     d22   WB    r3    0     --    no    
     d23   WB    r4    0     --    no    
@@ -4815,13 +4815,13 @@ instructions_per_cycle = 0.637681
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     *d18  SR    --    8     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     *d21  END   --    8     --    no     <-t-
     d22   WB    r3    0     --    no     <-h-
     d23   WB    r4    0     --    no    
@@ -4878,13 +4878,13 @@ instructions_per_cycle = 0.628571
     *d11  WB    r4    8     --    no    
     *d12  SR    --    5     --    no    
     *d13  WB    r1    7     --    no    
-    *d14  BR    --    0     15    no    
+    *d14  BR    --    0     15    yes   
     *d15  WB    r2    5     --    no    
     *d16  WB    r3    8     --    no    
     *d17  WB    r4    13    --    no    
     *d18  SR    --    8     --    no    
     *d19  WB    r1    8     --    no    
-    *d20  BR    --    1     15    no    
+    *d20  BR    --    1     15    yes   
     *d21  END   --    8     --    no    
     d22   WB    r3    0     --    no     <-h- <-t-
     d23   WB    r4    0     --    no    

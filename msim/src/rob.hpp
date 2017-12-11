@@ -35,6 +35,7 @@ class ROB {
 
     void handle_store_to_load_forwarding();
     void reset();
+    void set_spec(int seq, bool spec);
 
     int get_tail();
 
