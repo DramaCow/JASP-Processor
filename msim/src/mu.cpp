@@ -19,12 +19,17 @@ void MU::dispatch(LSQ::Shelf shelf)
 
   if (this->shelf.type == LSQ::Shelf::LOAD)
   {
-    this->result = dcache[this->shelf.addr];
+    this->result = this->dcache[this->shelf.addr];
     this->duration = 1;
     this->writeback = true;
   }
   else if (this->shelf.type == LSQ::Shelf::STORE)
   {
+    // NOTE: this writes immediately but pretends to take a while, so
+    //       whilst the number of cycles take to perform operation is
+    //       somewhat realistic, the memory displayed is ahead for
+    //       a couple of cycles. This is really a problem though.
+    this->dcache[this->shelf.addr] = this->shelf.w;
     this->duration = 1;
     this->writeback = true;
   }

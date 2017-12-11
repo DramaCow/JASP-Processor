@@ -93,6 +93,7 @@ void LSQ::mark(int seq)
   {
     if (this->shelves[i].seq == seq)
     {
+      std::cout << "MARKED: " << this->shelves[i].seq << std::endl;
       this->shelves[i].ready = true;
       return;
     }

@@ -51,17 +51,21 @@ std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob, LSQ &n_lsq)
     int tail = (this->tail + c) % NUM_ROB_ENTRIES;
     if (!this->entries[tail].done || this->head == tail)
     {
-      // TODO: mom's spaghetti
-      if (this->entries[tail].type == ROB::Entry::SR)
-      {
-        n_lsq.mark(tail);
-      }
       break;
     }
     commits.push_back(std::make_tuple(tail + NUM_REGISTERS, this->entries[tail]));
   }
 
-  n_rob.tail = (this->tail + c) % NUM_ROB_ENTRIES;
+  // TODO: mom's spaghetti
+  int tail = (this->tail + c) % NUM_ROB_ENTRIES;
+  if (this->entries[tail].type == ROB::Entry::SR) std::cout << "@ SR\n";
+  if (this->head != tail && this->entries[tail].type == ROB::Entry::SR)
+  {
+    std::cout << "PREMARK: " << tail + NUM_REGISTERS << '\n';
+    n_lsq.mark(tail + NUM_REGISTERS);
+  }
+
+  n_rob.tail = tail;
 
   return commits;
 }
