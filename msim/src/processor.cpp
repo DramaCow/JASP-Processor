@@ -205,6 +205,14 @@ void Processor::execute(Processor &n_cpu)
     n_cpu.rs.update(n_cpu.alu.dest, n_cpu.alu.result);
     n_cpu.lsq.update(n_cpu.alu.dest, n_cpu.alu.result);
   }
+
+  if (n_cpu.mu.writeback && n_cpu.mu.duration == 0)
+  {
+    n_cpu.rob.write(n_cpu.mu.shelf.seq, n_cpu.mu.result);
+    n_cpu.rs.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
+    n_cpu.lsq.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
+    n_cpu.lsq.retire(n_cpu.mu.shelf.seq);
+  }
 }
 
 void Processor::writeback(Processor &n_cpu)
@@ -220,6 +228,13 @@ void Processor::writeback(Processor &n_cpu)
   if (this->bu.writeback)
   {
     n_cpu.rob.write(this->bu.dest, this->bu.result);
+  }
+
+  if (this->mu.writeback && this->mu.duration == 0)
+  {
+    n_cpu.rob.write(this->mu.shelf.seq, this->mu.result);
+    n_cpu.rs.update(this->mu.shelf.seq, this->mu.result);
+    n_cpu.lsq.update(this->mu.shelf.seq, this->mu.result);
   }
 }
 

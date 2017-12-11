@@ -21,8 +21,8 @@ void LSQ::issue(Shelf shelf, int tail)
 
     if (s1 < s2)
     {
-      std::cout << s1 << ' ' << s2 << '\n';
-      std::cout << shelf.seq << ' ' << this->shelves[i].seq << '\n';
+      //std::cout << s1 << ' ' << s2 << '\n';
+      //std::cout << shelf.seq << ' ' << this->shelves[i].seq << '\n';
       break;
     }
   }

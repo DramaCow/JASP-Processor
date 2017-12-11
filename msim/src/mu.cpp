@@ -15,18 +15,6 @@ bool MU::isReady()
 
 void MU::dispatch(LSQ::Shelf shelf)
 {
-  std::cout << "MUHERE\n";
-  std::cout << SPACE(shelf.type == LSQ::Shelf::LOAD ? "L" : shelf.type == LSQ::Shelf::STORE ? "S" : "--")
-     << SPACE(std::to_string(shelf.seq))
-     << SPACE(std::to_string(shelf.d))
-     << SPACE((shelf.vw ? std::string("") : std::string("d")) + std::to_string(shelf.w))
-     << SPACE((shelf.vb ? std::string("") : std::string("d")) + std::to_string(shelf.b))
-     << SPACE((shelf.vo ? std::string("") : std::string("d")) + std::to_string(shelf.o))
-     << SPACE((shelf.va ? std::string("") : std::string("d")) + std::to_string(shelf.addr))
-     << SPACE(std::to_string(shelf.ready))
-     << '\n';
-  std::cout << (*this) << std::endl;
-
   this->shelf = shelf;
 
   if (this->shelf.type == LSQ::Shelf::LOAD)
@@ -45,8 +33,6 @@ void MU::dispatch(LSQ::Shelf shelf)
     this->duration = 0;
     this->writeback = false;
   }
-
-  std::cout << (*this) << std::endl;
 }
 
 // applied to the current state, updates the next state
