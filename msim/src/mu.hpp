@@ -19,15 +19,16 @@ class MU
     void dispatch(LSQ::Shelf shelf);
     void execute(MU &n_mu);
 
+    LSQ::Shelf shelf;
+    int result;
+    int duration = 0;
+    bool writeback = false;
+
     MU& operator=(const MU& mu);
 
     friend std::ostream& operator<<(std::ostream& os, const MU& mu);
 
   private:
-    LSQ::Shelf shelf;
-    int result;
-    int duration = 0;
-    bool writeback = false;
     DCache &dcache;
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);

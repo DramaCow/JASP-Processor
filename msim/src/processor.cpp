@@ -170,15 +170,18 @@ void Processor::execute(Processor &n_cpu)
 {
   // determine which ports are available
   std::array<bool,NUM_EUS> port;
+  bool portm;
 
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     port[p] = this->alu.duration == 0;
   }
   port[NUM_EUS-1] = true; // bu port
+  portm = this->mu.duration == 0;
 
   // receive instructions to pass to execution units
-  std::array<RS::Shelf,NUM_EUS> e = rs.dispatch(n_cpu.rs, port);
+  std::array<RS::Shelf,NUM_EUS> e = this->rs.dispatch(n_cpu.rs, port);
+  LSQ::Shelf em = this->lsq.dispatch(n_cpu.lsq, portm);
 
   // dispatch when instruction has finished
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
@@ -186,12 +189,14 @@ void Processor::execute(Processor &n_cpu)
     if (port[p]) n_cpu.alu.dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
   }
   if (port[NUM_EUS-1]) n_cpu.bu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].o1, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].dest);
+  if (portm) n_cpu.mu.dispatch(em);
 
   // execute if instructions haven't finished
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     if (!port[p]) this->alu.execute(n_cpu.alu);
   }
+  if (!portm) this->mu.execute(n_cpu.mu);
 
   // === BYPASS ===
 
@@ -303,7 +308,7 @@ int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int target)
 
 bool Processor::isStalled()
 {
-  return this->rs.isFull();
+  return this->rs.isFull() || this->lsq.isFull();
 }
 
 void Processor::flush(int target)

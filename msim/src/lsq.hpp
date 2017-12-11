@@ -40,6 +40,8 @@ class LSQ
     void update(int dest, int result);
     void reset();
 
+    void wipe_isNew();
+
     LSQ& operator=(const LSQ& lsq);
 
     friend std::ostream& operator<<(std::ostream& os, const LSQ& lsq);

@@ -26,11 +26,8 @@ void LSQ::issue(Shelf shelf, int tail)
       break;
     }
   }
-  std::cout << "HERE: " << i << std::endl;
-  std::cout << (*this) << std::endl;
   this->shelves.insert(std::begin(this->shelves) + i, shelf);
-  this->isNew.insert(std::begin(this->isNew) +i, true);
-  std::cout << (*this) << std::endl;
+  this->isNew.insert(std::begin(this->isNew) + i, true);
 }
 
 LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
@@ -71,6 +68,8 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
       }
     }
   }
+
+  std::fill(std::begin(n_lsq.isNew), std::end(n_lsq.isNew), false);
 
   return e;
 }
@@ -121,10 +120,7 @@ void LSQ::reset()
 LSQ& LSQ::operator=(const LSQ& lsq)
 {
   this->shelves = lsq.shelves;
-
   this->isNew = lsq.isNew;
-  std::fill(std::begin(this->isNew), std::end(this->isNew), false);
-
   return *this;
 }
 
@@ -143,6 +139,7 @@ std::ostream& operator<<(std::ostream& os, const LSQ& lsq)
        << SPACE((lsq.shelves[i].vo ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].o))
        << SPACE((lsq.shelves[i].va ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].addr))
        << SPACE(std::to_string(lsq.shelves[i].ready))
+       << SPACE(lsq.isNew[i] ? "NEW" : "")
        << '\n';
   }
   return os;
