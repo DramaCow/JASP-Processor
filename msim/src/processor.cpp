@@ -265,7 +265,8 @@ bool Processor::commit(Processor &n_cpu)
       //       Otherwise the most "up to date" is held else-
       //       where, such as a different rob entry, and
       //       should NOT be modified.
-      if (this->rat.read(entry.reg) == idx)
+      //if (this->rat.read(entry.reg) == idx)
+      if (n_cpu.rat.read(entry.reg) == idx)
       {
         this->rat.write(n_cpu.rat, entry.reg, entry.reg);
       }

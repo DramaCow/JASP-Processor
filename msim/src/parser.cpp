@@ -31,7 +31,7 @@ class Parser
     void get_program(FILE *code, Instruction *program);
     
     int regval(char *arg);
-    int numval(char *arg);
+    int numval(char *arg, int *val);
     int labelval(char *label);
 
     Instruction parse_inst(const InstDef *inst, int line);
@@ -191,18 +191,24 @@ int Parser::regval(char *arg) {
   return -1;
 }
 
-int Parser::numval(char *arg) {
-  for (size_t i = 0; i < strlen(arg); i++) 
+int Parser::numval(char *arg, int *val) {
+  int size = strlen(arg);
+  for (int i = 0; i < size; i++) 
   {
+    if (i == 0 && arg[0] == '-' && size > 1) {
+      continue;
+    }
     if (arg[i] < '0' || arg[i] > '9') 
     {
-      return -1;
+      return 0;
     }
   }
 
   int num = 0;
   sscanf(arg, "%d", &num);
-  return num;
+  (*val) = num;
+
+  return 1;
 }
 
 int Parser::labelval(char *label) {
@@ -251,15 +257,19 @@ Instruction Parser::parse_inst(const InstDef *inst, int line)
       if (tok[0] == ':')
       {
         val = labelval(tok);
+        if (val == -1)
+        {
+          printf("*** error on line(%d) - invalid address vALUe. ***\n", line);
+          exit(EXIT_FAILURE);
+        }
       }
       else
       {
-        val = numval(tok);
-      }
-      if (val == -1)
-      {
-        printf("*** error on line(%d) - invalid address vALUe. ***\n", line);
-        exit(EXIT_FAILURE);
+        if (!numval(tok, &val))
+        {
+          printf("*** error on line(%d) - invalid address vALUe. ***\n", line);
+          exit(EXIT_FAILURE);
+        }
       }
     }
     else
