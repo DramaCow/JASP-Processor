@@ -87,6 +87,18 @@ void LSQ::retire(int seq)
   }
 }
 
+void LSQ::mark(int seq)
+{
+  for (std::size_t i = 0; i < this->shelves.size(); ++i)
+  {
+    if (this->shelves[i].seq == seq)
+    {
+      this->shelves[i].ready = true;
+      return;
+    }
+  }
+}
+
 void LSQ::update(int dest, int result)
 {
   for (std::size_t i = 0; i < this->shelves.size(); ++i)
@@ -126,21 +138,51 @@ LSQ& LSQ::operator=(const LSQ& lsq)
 
 std::ostream& operator<<(std::ostream& os, const LSQ& lsq)
 {
-  os << "    type  seq   dest  write base  off   addr  ready \n";
-  os << "    ------------------------------------------------\n";
+  os << "    type  seq   dest  write base  off   addr  \n";
+  os << "    ------------------------------------------\n";
   for (std::size_t i = 0; i < lsq.shelves.size(); ++i)
   {
     os << "    ";
-    os << SPACE(lsq.shelves[i].type == LSQ::Shelf::LOAD ? "L" : lsq.shelves[i].type == LSQ::Shelf::STORE ? "S" : "--")
-       << SPACE(std::to_string(lsq.shelves[i].seq))
-       << SPACE(std::to_string(lsq.shelves[i].d))
-       << SPACE((lsq.shelves[i].vw ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].w))
-       << SPACE((lsq.shelves[i].vb ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].b))
-       << SPACE((lsq.shelves[i].vo ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].o))
-       << SPACE((lsq.shelves[i].va ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].addr))
-       << SPACE(std::to_string(lsq.shelves[i].ready))
-       << SPACE(lsq.isNew[i] ? "NEW" : "")
-       << '\n';
+    os << SPACE(
+            (lsq.shelves[i].ready ? std::string("*") : std::string("")) + 
+            (lsq.shelves[i].type == LSQ::Shelf::LOAD ? "L" : lsq.shelves[i].type == LSQ::Shelf::STORE ? "S" : "--")
+          )
+       << SPACE(std::string("d") + std::to_string(lsq.shelves[i].seq));
+
+    if (lsq.shelves[i].type == LSQ::Shelf::LOAD)
+    {
+       os << SPACE(std::string("d") + std::to_string(lsq.shelves[i].d));
+    }
+    else
+    {
+      os << SPACE("--");
+    }
+
+    if (lsq.shelves[i].type == LSQ::Shelf::STORE)
+    {
+      os << SPACE(
+              (lsq.shelves[i].vw ? std::string("") : std::string("d")) + 
+              std::to_string(lsq.shelves[i].w) 
+            );
+    }
+    else
+    {
+      os << SPACE("--");
+    }
+
+    os << SPACE((lsq.shelves[i].vb ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].b))
+       << SPACE((lsq.shelves[i].vo ? std::string("") : std::string("d")) + std::to_string(lsq.shelves[i].o));
+
+    if (lsq.shelves[i].va)
+    {
+      os << SPACE(std::string("[") + std::to_string(lsq.shelves[i].addr) + std::string("]"));
+    }
+    else
+    {
+      os << SPACE("??");
+    }
+
+    os << '\n';
   }
   return os;
 }

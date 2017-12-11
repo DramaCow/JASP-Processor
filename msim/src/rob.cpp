@@ -41,7 +41,7 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   return e;
 }
 
-std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob)
+std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob, LSQ &n_lsq)
 {
   std::vector<std::tuple<int,ROB::Entry>> commits;
 
@@ -51,6 +51,11 @@ std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob)
     int tail = (this->tail + c) % NUM_ROB_ENTRIES;
     if (!this->entries[tail].done || this->head == tail)
     {
+      // TODO: mom's spaghetti
+      if (this->entries[tail].type == ROB::Entry::SR)
+      {
+        n_lsq.mark(tail);
+      }
       break;
     }
     commits.push_back(std::make_tuple(tail + NUM_REGISTERS, this->entries[tail]));
@@ -133,7 +138,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
     }
     else
     {
-      os << SPACE("n/a");
+      os << SPACE("--");
     }
 
     os << SPACE(rob.entries[i].val);
@@ -144,7 +149,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
     }
     else 
     {
-      os << SPACE("n/a");
+      os << SPACE("--");
     }
 
     os << SPACE(rob.entries[i].flush);

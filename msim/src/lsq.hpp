@@ -37,6 +37,7 @@ class LSQ
     Shelf dispatch(LSQ &n_lsq, bool port); // note: dispatch does not remove any entries
 
     void retire(int seq);
+    void mark(int seq);
     void update(int dest, int result);
     void reset();
 

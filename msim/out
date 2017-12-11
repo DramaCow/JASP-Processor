@@ -9,22 +9,22 @@
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    d8    DN    n/a   0     n/a   0      <-h- <-t-
-    d9    DN    n/a   0     n/a   0     
-    d10   DN    n/a   0     n/a   0     
-    d11   DN    n/a   0     n/a   0     
-    d12   DN    n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0     
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    d8    DN    --    0     --    0      <-h- <-t-
+    d9    DN    --    0     --    0     
+    d10   DN    --    0     --    0     
+    d11   DN    --    0     --    0     
+    d12   DN    --    0     --    0     
+    d13   DN    --    0     --    0     
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -34,8 +34,8 @@
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
   }
   alu = {
     --- nop ---
@@ -47,14 +47,14 @@
     --- nop ---
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -72,22 +72,22 @@ instructions_per_cycle = -nan
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    d8    DN    n/a   0     n/a   0      <-h- <-t-
-    d9    DN    n/a   0     n/a   0     
-    d10   DN    n/a   0     n/a   0     
-    d11   DN    n/a   0     n/a   0     
-    d12   DN    n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0     
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    d8    DN    --    0     --    0      <-h- <-t-
+    d9    DN    --    0     --    0     
+    d10   DN    --    0     --    0     
+    d11   DN    --    0     --    0     
+    d12   DN    --    0     --    0     
+    d13   DN    --    0     --    0     
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -97,8 +97,8 @@ instructions_per_cycle = -nan
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
   }
   alu = {
     --- nop ---
@@ -110,14 +110,14 @@ instructions_per_cycle = -nan
     --- nop ---
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -135,22 +135,22 @@ instructions_per_cycle = 0
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    d8    WB    r0    0     n/a   0      <-t-
-    d9    DN    n/a   0     n/a   0      <-h-
-    d10   DN    n/a   0     n/a   0     
-    d11   DN    n/a   0     n/a   0     
-    d12   DN    n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0     
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    d8    WB    r0    0     --    0      <-t-
+    d9    DN    --    0     --    0      <-h-
+    d10   DN    --    0     --    0     
+    d11   DN    --    0     --    0     
+    d12   DN    --    0     --    0     
+    d13   DN    --    0     --    0     
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -161,8 +161,8 @@ instructions_per_cycle = 0
     movi  0     0     0     d8    
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
   }
   alu = {
     --- nop ---
@@ -174,14 +174,14 @@ instructions_per_cycle = 0
     --- nop ---
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -200,22 +200,22 @@ instructions_per_cycle = 0
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    d8    WB    r0    0     n/a   0      <-t-
-    d9    WB    r1    0     n/a   0     
-    d10   DN    n/a   0     n/a   0      <-h-
-    d11   DN    n/a   0     n/a   0     
-    d12   DN    n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0     
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    d8    WB    r0    0     --    0      <-t-
+    d9    WB    r1    0     --    0     
+    d10   DN    --    0     --    0      <-h-
+    d11   DN    --    0     --    0     
+    d12   DN    --    0     --    0     
+    d13   DN    --    0     --    0     
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -225,9 +225,9 @@ instructions_per_cycle = 0
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     9     9     0     0     1     d0    0           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    L     d9    d9    --    0     1     ??    
   }
   alu = {
     d8 <-- 0 movi 0 (0)
@@ -240,14 +240,14 @@ instructions_per_cycle = 0
     --- nop ---
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -266,22 +266,22 @@ instructions_per_cycle = 0
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0      <-t-
-    d9    WB    r1    0     n/a   0     
-    d10   WB    r2    0     n/a   0     
-    d11   DN    n/a   0     n/a   0      <-h-
-    d12   DN    n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0     
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0      <-t-
+    d9    WB    r1    0     --    0     
+    d10   WB    r2    0     --    0     
+    d11   DN    --    0     --    0      <-h-
+    d12   DN    --    0     --    0     
+    d13   DN    --    0     --    0     
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -291,10 +291,10 @@ instructions_per_cycle = 0
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     9     9     0     0     1     1     1           
-    L     10    10    0     0     2     d0    0           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    *L    d9    d9    --    0     1     [1]   
+    L     d10   d10   --    0     2     ??    
   }
   alu = {
     --- nop ---
@@ -306,14 +306,14 @@ instructions_per_cycle = 0
     --- nop ---
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -332,22 +332,22 @@ instructions_per_cycle = 0
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    d9    WB    r1    0     n/a   0      <-t-
-    d10   WB    r2    0     n/a   0     
-    d11   WB    r3    0     n/a   0     
-    d12   DN    n/a   0     n/a   0      <-h-
-    d13   DN    n/a   0     n/a   0     
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    d9    WB    r1    0     --    0      <-t-
+    d10   WB    r2    0     --    0     
+    d11   WB    r3    0     --    0     
+    d12   DN    --    0     --    0      <-h-
+    d13   DN    --    0     --    0     
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -357,11 +357,11 @@ instructions_per_cycle = 0
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     9     9     0     0     1     1     1           
-    L     10    10    0     0     2     2     1           
-    L     11    11    0     0     3     d0    0           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    *L    d9    d9    --    0     1     [1]   
+    *L    d10   d10   --    0     2     [2]   
+    L     d11   d11   --    0     3     ??    
   }
   alu = {
     --- nop ---
@@ -373,14 +373,14 @@ instructions_per_cycle = 0
     d9 <-- MEM[1] (1)
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -398,22 +398,22 @@ instructions_per_cycle = 0.2
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    *d9   WB    r1    2     n/a   0      <-t-
-    d10   WB    r2    0     n/a   0     
-    d11   WB    r3    0     n/a   0     
-    *d12  END   n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0      <-h-
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    *d9   WB    r1    0     --    0      <-t-
+    d10   WB    r2    0     --    0     
+    d11   WB    r3    0     --    0     
+    *d12  END   --    0     --    0     
+    d13   DN    --    0     --    0      <-h-
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -423,10 +423,10 @@ instructions_per_cycle = 0.2
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     10    10    0     0     2     2     1           
-    L     11    11    0     0     3     3     1           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    *L    d10   d10   --    0     2     [2]   
+    *L    d11   d11   --    0     3     [3]   
   }
   alu = {
     --- nop ---
@@ -436,17 +436,17 @@ instructions_per_cycle = 0.2
   }
   mu = {
     d9 <-- MEM[1] (0)
-    = 2 writeback
+    = 0 writeback
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -464,35 +464,35 @@ instructions_per_cycle = 0.166667
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    *d9   WB    r1    2     n/a   0     
-    d10   WB    r2    0     n/a   0      <-t-
-    d11   WB    r3    0     n/a   0     
-    *d12  END   n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0      <-h-
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    *d9   WB    r1    0     --    0     
+    d10   WB    r2    0     --    0      <-t-
+    d11   WB    r3    0     --    0     
+    *d12  END   --    0     --    0     
+    d13   DN    --    0     --    0      <-h-
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
-    0 2 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
   rs = {
     OC    o1    o2    o3    dest  
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     10    10    0     0     2     2     1           
-    L     11    11    0     0     3     3     1           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    *L    d10   d10   --    0     2     [2]   
+    *L    d11   d11   --    0     3     [3]   
   }
   alu = {
     --- nop ---
@@ -504,14 +504,14 @@ instructions_per_cycle = 0.166667
     d10 <-- MEM[2] (1)
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -529,34 +529,34 @@ instructions_per_cycle = 0.285714
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    *d9   WB    r1    2     n/a   0     
-    *d10  WB    r2    3     n/a   0      <-t-
-    d11   WB    r3    0     n/a   0     
-    *d12  END   n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0      <-h-
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    *d9   WB    r1    0     --    0     
+    *d10  WB    r2    0     --    0      <-t-
+    d11   WB    r3    0     --    0     
+    *d12  END   --    0     --    0     
+    d13   DN    --    0     --    0      <-h-
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
-    0 2 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
   rs = {
     OC    o1    o2    o3    dest  
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     11    11    0     0     3     3     1           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    *L    d11   d11   --    0     3     [3]   
   }
   alu = {
     --- nop ---
@@ -566,17 +566,17 @@ instructions_per_cycle = 0.285714
   }
   mu = {
     d10 <-- MEM[2] (0)
-    = 3 writeback
+    = 0 writeback
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -594,34 +594,34 @@ instructions_per_cycle = 0.25
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    *d9   WB    r1    2     n/a   0     
-    *d10  WB    r2    3     n/a   0     
-    d11   WB    r3    0     n/a   0      <-t-
-    *d12  END   n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0      <-h-
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    *d9   WB    r1    0     --    0     
+    *d10  WB    r2    0     --    0     
+    d11   WB    r3    0     --    0      <-t-
+    *d12  END   --    0     --    0     
+    d13   DN    --    0     --    0      <-h-
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
-    0 2 3 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
   rs = {
     OC    o1    o2    o3    dest  
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
-    L     11    11    0     0     3     3     1           
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
+    *L    d11   d11   --    0     3     [3]   
   }
   alu = {
     --- nop ---
@@ -633,14 +633,14 @@ instructions_per_cycle = 0.25
     d11 <-- MEM[3] (1)
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -658,33 +658,33 @@ instructions_per_cycle = 0.333333
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    *d9   WB    r1    2     n/a   0     
-    *d10  WB    r2    3     n/a   0     
-    *d11  WB    r3    4     n/a   0      <-t-
-    *d12  END   n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0      <-h-
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    *d9   WB    r1    0     --    0     
+    *d10  WB    r2    0     --    0     
+    *d11  WB    r3    0     --    0      <-t-
+    *d12  END   --    0     --    0     
+    d13   DN    --    0     --    0      <-h-
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
-    0 2 3 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
   rs = {
     OC    o1    o2    o3    dest  
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
   }
   alu = {
     --- nop ---
@@ -694,17 +694,17 @@ instructions_per_cycle = 0.333333
   }
   mu = {
     d11 <-- MEM[3] (0)
-    = 4 writeback
+    = 0 writeback
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===
@@ -722,33 +722,33 @@ instructions_per_cycle = 0.3
   rob = {
     addr  type  reg   val   tgt   flush-
     ------------------------------------
-    *d8   WB    r0    0     n/a   0     
-    *d9   WB    r1    2     n/a   0     
-    *d10  WB    r2    3     n/a   0     
-    *d11  WB    r3    4     n/a   0     
-    *d12  END   n/a   0     n/a   0     
-    d13   DN    n/a   0     n/a   0      <-h- <-t-
-    d14   DN    n/a   0     n/a   0     
-    d15   DN    n/a   0     n/a   0     
-    d16   DN    n/a   0     n/a   0     
-    d17   DN    n/a   0     n/a   0     
-    d18   DN    n/a   0     n/a   0     
-    d19   DN    n/a   0     n/a   0     
-    d20   DN    n/a   0     n/a   0     
-    d21   DN    n/a   0     n/a   0     
-    d22   DN    n/a   0     n/a   0     
-    d23   DN    n/a   0     n/a   0     
+    *d8   WB    r0    0     --    0     
+    *d9   WB    r1    0     --    0     
+    *d10  WB    r2    0     --    0     
+    *d11  WB    r3    0     --    0     
+    *d12  END   --    0     --    0     
+    d13   DN    --    0     --    0      <-h- <-t-
+    d14   DN    --    0     --    0     
+    d15   DN    --    0     --    0     
+    d16   DN    --    0     --    0     
+    d17   DN    --    0     --    0     
+    d18   DN    --    0     --    0     
+    d19   DN    --    0     --    0     
+    d20   DN    --    0     --    0     
+    d21   DN    --    0     --    0     
+    d22   DN    --    0     --    0     
+    d23   DN    --    0     --    0     
   }
   rrf = {
-    0 2 3 4 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
   rs = {
     OC    o1    o2    o3    dest  
     ------------------------------
   }
   lsq = {
-    type  seq   dest  write base  off   addr  ready 
-    ------------------------------------------------
+    type  seq   dest  write base  off   addr  
+    ------------------------------------------
   }
   alu = {
     --- nop ---
@@ -760,14 +760,14 @@ instructions_per_cycle = 0.3
     --- nop ---
   }
   dcache = {
-    1 2 3 4 5 6 7 8 
-    9 10 11 12 13 14 15 16 
-    17 18 19 20 21 22 23 24 
-    25 26 27 28 29 30 31 32 
-    33 34 35 36 37 38 39 40 
-    41 42 43 44 45 46 47 48 
-    49 50 51 52 53 54 55 56 
-    57 58 59 60 61 62 63 64 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 
   }
 }
 === statistics ===

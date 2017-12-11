@@ -59,11 +59,11 @@ std::ostream& operator<<(std::ostream& os, const MU& mu)
   }
   else if (mu.shelf.type == LSQ::Shelf::LOAD)
   {
-    os << "    d" << mu.shelf.d << " <-- MEM[" << mu.shelf.addr << ']';
+    os << "    d" << mu.shelf.d << " <-- [" << mu.shelf.addr << ']';
   }
   else if (mu.shelf.type == LSQ::Shelf::STORE)
   {
-    os << "    MEM[" << mu.shelf.addr << "] <-- " << mu.shelf.w;
+    os << "    [" << mu.shelf.addr << "] <-- " << mu.shelf.w;
   }
 
   os << " (" << mu.duration << ")\n";

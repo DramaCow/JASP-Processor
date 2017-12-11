@@ -240,7 +240,7 @@ void Processor::writeback(Processor &n_cpu)
 
 bool Processor::commit(Processor &n_cpu)
 {
-  std::vector<std::tuple<int,ROB::Entry>> commits = this->rob.pop(n_cpu.rob);
+  std::vector<std::tuple<int,ROB::Entry>> commits = this->rob.pop(n_cpu.rob, n_cpu.lsq);
   if (commits.size() == 0)
   {
     return false;
@@ -281,7 +281,7 @@ bool Processor::commit(Processor &n_cpu)
     }
     else if (entry.type == ROB::Entry::SR)
     {
-      //TODO
+      // need not do anything
     }
     // end of program
     else if (entry.type == ROB::Entry::END)

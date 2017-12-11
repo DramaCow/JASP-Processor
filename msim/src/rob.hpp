@@ -3,6 +3,7 @@
 
 #include "config.hpp"
 #include "instruction.hpp"
+#include "lsq.hpp"
 #include <string>
 #include <iostream>
 #include <tuple>
@@ -26,7 +27,7 @@ class ROB {
 
   public:
     int push(ROB &n_rob, std::string opcode, int r, int target);
-    std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob);
+    std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
     std::tuple<int, bool> read(int addr);
     void write(int addr, int val);
