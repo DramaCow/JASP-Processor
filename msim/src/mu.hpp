@@ -19,6 +19,8 @@ class MU
     void dispatch(LSQ::Shelf shelf);
     void execute(MU &n_mu);
 
+    void reset();
+
     LSQ::Shelf shelf;
     int result;
     int duration = 0;

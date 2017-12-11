@@ -21,8 +21,8 @@ class ROB {
         int reg = -1;
         int val = 0;
         int target = -1;
+        bool spec = false;
         bool done = false;
-        bool flush = false;
     };
 
   public:

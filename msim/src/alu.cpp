@@ -55,6 +55,7 @@ void ALU::execute(ALU& n_alu)
 void ALU::reset()
 {
   this->opcode = "nop";
+  this->duration = 0;
   this->writeback = false;
 }
 

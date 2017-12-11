@@ -334,6 +334,7 @@ void Processor::flush(int target)
   this->rat.reset();
   this->rob.reset();
   this->rs.reset();
+  this->lsq.reset();
   this->alu.reset();
   this->bu.reset();
   this->pc = target;

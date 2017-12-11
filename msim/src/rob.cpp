@@ -117,7 +117,7 @@ ROB& ROB::operator=(const ROB& rob)
 
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
-  os << "    addr  type  reg   val   tgt   flush-\n";
+  os << "    addr  type  reg   val   tgt   spec  \n";
   os << "    ------------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
@@ -156,7 +156,14 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
       os << SPACE("--");
     }
 
-    os << SPACE(rob.entries[i].flush);
+    if (rob.entries[i].spec)
+    {
+      os << SPACE("yes");
+    }
+    else
+    {
+      os << SPACE("no");
+    }
 
     if (rob.head == i)
     {

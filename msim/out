@@ -7,24 +7,24 @@
     0 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    DN    --    0     --    0      <-h- <-t-
-    d9    DN    --    0     --    0     
-    d10   DN    --    0     --    0     
-    d11   DN    --    0     --    0     
-    d12   DN    --    0     --    0     
-    d13   DN    --    0     --    0     
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    d8    DN    --    0     --    no     <-h- <-t-
+    d9    DN    --    0     --    no    
+    d10   DN    --    0     --    no    
+    d11   DN    --    0     --    no    
+    d12   DN    --    0     --    no    
+    d13   DN    --    0     --    no    
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -70,24 +70,24 @@ instructions_per_cycle = -nan
     0 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    DN    --    0     --    0      <-h- <-t-
-    d9    DN    --    0     --    0     
-    d10   DN    --    0     --    0     
-    d11   DN    --    0     --    0     
-    d12   DN    --    0     --    0     
-    d13   DN    --    0     --    0     
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    d8    DN    --    0     --    no     <-h- <-t-
+    d9    DN    --    0     --    no    
+    d10   DN    --    0     --    no    
+    d11   DN    --    0     --    no    
+    d12   DN    --    0     --    no    
+    d13   DN    --    0     --    no    
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -133,24 +133,24 @@ instructions_per_cycle = 0
     8 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    0      <-t-
-    d9    DN    --    0     --    0      <-h-
-    d10   DN    --    0     --    0     
-    d11   DN    --    0     --    0     
-    d12   DN    --    0     --    0     
-    d13   DN    --    0     --    0     
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    d8    WB    r0    0     --    no     <-t-
+    d9    DN    --    0     --    no     <-h-
+    d10   DN    --    0     --    no    
+    d11   DN    --    0     --    no    
+    d12   DN    --    0     --    no    
+    d13   DN    --    0     --    no    
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -197,24 +197,24 @@ instructions_per_cycle = 0
     8 9 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    0      <-t-
-    d9    WB    r1    0     --    0     
-    d10   DN    --    0     --    0      <-h-
-    d11   DN    --    0     --    0     
-    d12   DN    --    0     --    0     
-    d13   DN    --    0     --    0     
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    d8    WB    r0    0     --    no     <-t-
+    d9    WB    r1    0     --    no    
+    d10   DN    --    0     --    no     <-h-
+    d11   DN    --    0     --    no    
+    d12   DN    --    0     --    no    
+    d13   DN    --    0     --    no    
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -262,24 +262,24 @@ instructions_per_cycle = 0
     8 9 2 3 4 5 6 10 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0      <-t-
-    d9    WB    r1    0     --    0     
-    d10   WB    r7    0     --    0     
-    d11   DN    --    0     --    0      <-h-
-    d12   DN    --    0     --    0     
-    d13   DN    --    0     --    0     
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no     <-t-
+    d9    WB    r1    0     --    no    
+    d10   WB    r7    0     --    no    
+    d11   DN    --    0     --    no     <-h-
+    d12   DN    --    0     --    no    
+    d13   DN    --    0     --    no    
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -327,24 +327,24 @@ instructions_per_cycle = 0
     0 9 11 3 4 5 6 10 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0      <-t-
-    d10   WB    r7    0     --    0     
-    d11   WB    r2    0     --    0     
-    d12   DN    --    0     --    0      <-h-
-    d13   DN    --    0     --    0     
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no     <-t-
+    d10   WB    r7    0     --    no    
+    d11   WB    r2    0     --    no    
+    d12   DN    --    0     --    no     <-h-
+    d13   DN    --    0     --    no    
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -393,24 +393,24 @@ instructions_per_cycle = 0.2
     0 1 11 3 4 5 6 10 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0      <-t-
-    d11   WB    r2    0     --    0     
-    d12   SR    --    0     --    0     
-    d13   DN    --    0     --    0      <-h-
-    d14   DN    --    0     --    0     
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no     <-t-
+    d11   WB    r2    0     --    no    
+    d12   SR    --    0     --    no    
+    d13   DN    --    0     --    no     <-h-
+    d14   DN    --    0     --    no    
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 0 
@@ -458,24 +458,24 @@ instructions_per_cycle = 0.333333
     0 13 11 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0      <-t-
-    d12   SR    --    0     --    0     
-    d13   WB    r1    0     --    0     
-    d14   DN    --    0     --    0      <-h-
-    d15   DN    --    0     --    0     
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no     <-t-
+    d12   SR    --    0     --    no    
+    d13   WB    r1    0     --    no    
+    d14   DN    --    0     --    no     <-h-
+    d15   DN    --    0     --    no    
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 8 
@@ -526,24 +526,24 @@ MARKED: 12
     0 13 2 14 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    d12   SR    --    0     --    0      <-t-
-    d13   WB    r1    0     --    0     
-    d14   WB    r3    0     --    0     
-    d15   DN    --    0     --    0      <-h-
-    d16   DN    --    0     --    0     
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    d12   SR    --    0     --    no     <-t-
+    d13   WB    r1    0     --    no    
+    d14   WB    r3    0     --    no    
+    d15   DN    --    0     --    no     <-h-
+    d16   DN    --    0     --    no    
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 8 
@@ -596,24 +596,24 @@ MARKED: 12
     0 13 2 14 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    d12   SR    --    0     --    0      <-t-
-    *d13  WB    r1    1     --    0     
-    d14   WB    r3    0     --    0     
-    d15   SR    --    0     --    0     
-    d16   DN    --    0     --    0      <-h-
-    d17   DN    --    0     --    0     
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    d12   SR    --    0     --    no     <-t-
+    *d13  WB    r1    1     --    no    
+    d14   WB    r3    0     --    no    
+    d15   SR    --    0     --    no    
+    d16   DN    --    0     --    no     <-h-
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 8 
@@ -664,24 +664,24 @@ PREMARK: 12
     0 16 2 14 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0      <-t-
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    d15   SR    --    0     --    0     
-    d16   WB    r1    0     --    0     
-    d17   DN    --    0     --    0      <-h-
-    d18   DN    --    0     --    0     
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no     <-t-
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    d15   SR    --    0     --    no    
+    d16   WB    r1    0     --    no    
+    d17   DN    --    0     --    no     <-h-
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 0 0 0 0 0 0 8 
@@ -734,24 +734,24 @@ MARKED: 15
     0 16 17 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    d15   SR    --    0     --    0      <-t-
-    d16   WB    r1    0     --    0     
-    d17   WB    r2    0     --    0     
-    d18   DN    --    0     --    0      <-h-
-    d19   DN    --    0     --    0     
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    d15   SR    --    0     --    no     <-t-
+    d16   WB    r1    0     --    no    
+    d17   WB    r2    0     --    no    
+    d18   DN    --    0     --    no     <-h-
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 1 0 1 0 0 0 8 
@@ -804,24 +804,24 @@ MARKED: 15
     0 16 17 18 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    d15   SR    --    0     --    0      <-t-
-    *d16  WB    r1    2     --    0     
-    d17   WB    r2    0     --    0     
-    d18   WB    r3    0     --    0     
-    d19   DN    --    0     --    0      <-h-
-    d20   DN    --    0     --    0     
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    d15   SR    --    0     --    no     <-t-
+    *d16  WB    r1    2     --    no    
+    d17   WB    r2    0     --    no    
+    d18   WB    r3    0     --    no    
+    d19   DN    --    0     --    no     <-h-
+    d20   DN    --    0     --    no    
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 1 0 1 0 0 0 8 
@@ -872,24 +872,24 @@ PREMARK: 15
     0 16 17 18 19 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0      <-t-
-    *d16  WB    r1    2     --    0     
-    d17   WB    r2    0     --    0     
-    d18   WB    r3    0     --    0     
-    d19   WB    r4    0     --    0     
-    d20   DN    --    0     --    0      <-h-
-    d21   DN    --    0     --    0     
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no     <-t-
+    *d16  WB    r1    2     --    no    
+    d17   WB    r2    0     --    no    
+    d18   WB    r3    0     --    no    
+    d19   WB    r4    0     --    no    
+    d20   DN    --    0     --    no     <-h-
+    d21   DN    --    0     --    no    
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 1 0 1 0 0 0 8 
@@ -940,24 +940,24 @@ instructions_per_cycle = 0.538462
     0 1 17 18 19 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    d17   WB    r2    0     --    0      <-t-
-    d18   WB    r3    0     --    0     
-    d19   WB    r4    0     --    0     
-    d20   SR    --    0     --    0     
-    d21   DN    --    0     --    0      <-h-
-    d22   DN    --    0     --    0     
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    d17   WB    r2    0     --    no     <-t-
+    d18   WB    r3    0     --    no    
+    d19   WB    r4    0     --    no    
+    d20   SR    --    0     --    no    
+    d21   DN    --    0     --    no     <-h-
+    d22   DN    --    0     --    no    
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 2 0 1 0 0 0 8 
@@ -1007,24 +1007,24 @@ instructions_per_cycle = 0.642857
     0 21 17 18 19 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0      <-t-
-    d18   WB    r3    0     --    0     
-    d19   WB    r4    0     --    0     
-    d20   SR    --    0     --    0     
-    d21   WB    r1    0     --    0     
-    d22   DN    --    0     --    0      <-h-
-    d23   DN    --    0     --    0     
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no     <-t-
+    d18   WB    r3    0     --    no    
+    d19   WB    r4    0     --    no    
+    d20   SR    --    0     --    no    
+    d21   WB    r1    0     --    no    
+    d22   DN    --    0     --    no     <-h-
+    d23   DN    --    0     --    no    
   }
   rrf = {
     0 2 0 1 0 0 0 8 
@@ -1075,24 +1075,24 @@ instructions_per_cycle = 0.6
     0 21 2 18 19 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0     
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    d18   WB    r3    0     --    0      <-t-
-    d19   WB    r4    0     --    0     
-    d20   SR    --    0     --    0     
-    d21   WB    r1    0     --    0     
-    d22   BR    --    0     15    0     
-    d23   DN    --    0     --    0      <-h-
+    *d8   WB    r0    0     --    no    
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    d18   WB    r3    0     --    no     <-t-
+    d19   WB    r4    0     --    no    
+    d20   SR    --    0     --    no    
+    d21   WB    r1    0     --    no    
+    d22   BR    --    0     15    no    
+    d23   DN    --    0     --    no     <-h-
   }
   rrf = {
     0 2 0 1 0 0 0 8 
@@ -1144,24 +1144,24 @@ instructions_per_cycle = 0.625
     0 21 23 18 19 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r0    0     --    0      <-h-
-    *d9   WB    r1    0     --    0     
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0      <-t-
-    d19   WB    r4    0     --    0     
-    d20   SR    --    0     --    0     
-    *d21  WB    r1    3     --    0     
-    d22   BR    --    0     15    0     
-    d23   WB    r2    0     --    0     
+    *d8   WB    r0    0     --    no     <-h-
+    *d9   WB    r1    0     --    no    
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no     <-t-
+    d19   WB    r4    0     --    no    
+    d20   SR    --    0     --    no    
+    *d21  WB    r1    3     --    no    
+    d22   BR    --    0     15    no    
+    d23   WB    r2    0     --    no    
   }
   rrf = {
     0 2 0 1 0 0 0 8 
@@ -1213,24 +1213,24 @@ instructions_per_cycle = 0.588235
     0 21 23 8 19 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    *d9   WB    r1    0     --    0      <-h-
-    *d10  WB    r7    8     --    0     
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    d19   WB    r4    0     --    0      <-t-
-    d20   SR    --    0     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    d23   WB    r2    0     --    0     
+    d8    WB    r3    0     --    no    
+    *d9   WB    r1    0     --    no     <-h-
+    *d10  WB    r7    8     --    no    
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    d19   WB    r4    0     --    no     <-t-
+    d20   SR    --    0     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    d23   WB    r2    0     --    no    
   }
   rrf = {
     0 2 0 1 0 0 0 8 
@@ -1280,24 +1280,24 @@ instructions_per_cycle = 0.611111
     0 21 23 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    d9    WB    r4    0     --    0     
-    *d10  WB    r7    8     --    0      <-h-
-    *d11  WB    r2    0     --    0     
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0      <-t-
-    d20   SR    --    0     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    d23   WB    r2    0     --    0     
+    d8    WB    r3    0     --    no    
+    d9    WB    r4    0     --    no    
+    *d10  WB    r7    8     --    no     <-h-
+    *d11  WB    r2    0     --    no    
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no     <-t-
+    d20   SR    --    0     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    d23   WB    r2    0     --    no    
   }
   rrf = {
     0 2 0 1 0 0 0 8 
@@ -1351,24 +1351,24 @@ MARKED: 20
     0 21 23 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    *d11  WB    r2    0     --    0      <-h-
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    d20   SR    --    0     --    0      <-t-
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    d23   WB    r2    0     --    0     
+    d8    WB    r3    0     --    no    
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    *d11  WB    r2    0     --    no     <-h-
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    d20   SR    --    0     --    no     <-t-
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    d23   WB    r2    0     --    no    
   }
   rrf = {
     0 2 0 1 1 0 0 8 
@@ -1422,24 +1422,24 @@ MARKED: 20
     0 21 23 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    *d11  WB    r2    0     --    0      <-h-
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    d20   SR    --    0     --    0      <-t-
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    d23   WB    r2    0     --    0     
+    d8    WB    r3    0     --    no    
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    *d11  WB    r2    0     --    no     <-h-
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    d20   SR    --    0     --    no     <-t-
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    d23   WB    r2    0     --    no    
   }
   rrf = {
     0 2 0 1 1 0 0 8 
@@ -1492,24 +1492,24 @@ PREMARK: 20
     0 21 23 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    *d11  WB    r2    0     --    0      <-h-
-    *d12  SR    --    0     --    0     
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0      <-t-
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    d23   WB    r2    0     --    0     
+    d8    WB    r3    0     --    no    
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    *d11  WB    r2    0     --    no     <-h-
+    *d12  SR    --    0     --    no    
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no     <-t-
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    d23   WB    r2    0     --    no    
   }
   rrf = {
     0 2 0 1 1 0 0 8 
@@ -1560,24 +1560,24 @@ instructions_per_cycle = 0.545455
     0 11 23 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    d11   WB    r1    0     --    0     
-    *d12  SR    --    0     --    0      <-h-
-    *d13  WB    r1    1     --    0     
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    d23   WB    r2    0     --    0      <-t-
+    d8    WB    r3    0     --    no    
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    d11   WB    r1    0     --    no    
+    *d12  SR    --    0     --    no     <-h-
+    *d13  WB    r1    1     --    no    
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    d23   WB    r2    0     --    no     <-t-
   }
   rrf = {
     0 3 0 1 1 0 0 8 
@@ -1628,24 +1628,24 @@ instructions_per_cycle = 0.652174
     0 11 23 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0     
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    d11   WB    r1    0     --    0     
-    d12   BR    --    0     15    0     
-    *d13  WB    r1    1     --    0      <-h-
-    *d14  WB    r3    1     --    0     
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0      <-t-
+    d8    WB    r3    0     --    no    
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    d11   WB    r1    0     --    no    
+    d12   BR    --    0     15    no    
+    *d13  WB    r1    1     --    no     <-h-
+    *d14  WB    r3    1     --    no    
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no     <-t-
   }
   rrf = {
     0 3 0 1 1 0 0 8 
@@ -1698,24 +1698,24 @@ instructions_per_cycle = 0.625
     0 11 13 8 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r3    0     --    0      <-t-
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    *d11  WB    r1    4     --    0     
-    d12   BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    *d14  WB    r3    1     --    0      <-h-
-    *d15  SR    --    0     --    0     
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    d8    WB    r3    0     --    no     <-t-
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    *d11  WB    r1    4     --    no    
+    d12   BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    *d14  WB    r3    1     --    no     <-h-
+    *d15  SR    --    0     --    no    
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 1 0 0 8 
@@ -1767,24 +1767,24 @@ instructions_per_cycle = 0.64
     0 11 13 14 9 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0      <-t-
-    d9    WB    r4    0     --    0     
-    d10   SR    --    0     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    d14   WB    r3    0     --    0     
-    *d15  SR    --    0     --    0      <-h-
-    *d16  WB    r1    2     --    0     
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no     <-t-
+    d9    WB    r4    0     --    no    
+    d10   SR    --    0     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    d14   WB    r3    0     --    no    
+    *d15  SR    --    0     --    no     <-h-
+    *d16  WB    r1    2     --    no    
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 1 0 0 8 
@@ -1835,24 +1835,24 @@ instructions_per_cycle = 0.615385
     0 11 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    d9    WB    r4    0     --    0      <-t-
-    d10   SR    --    0     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    *d16  WB    r1    2     --    0      <-h-
-    *d17  WB    r2    0     --    0     
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    d9    WB    r4    0     --    no     <-t-
+    d10   SR    --    0     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    *d16  WB    r1    2     --    no     <-h-
+    *d17  WB    r2    0     --    no    
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 1 0 0 8 
@@ -1904,24 +1904,24 @@ instructions_per_cycle = 0.62963
     0 11 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0      <-t-
-    d10   SR    --    0     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    *d17  WB    r2    0     --    0      <-h-
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no     <-t-
+    d10   SR    --    0     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    *d17  WB    r2    0     --    no     <-h-
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 1 0 0 8 
@@ -1975,24 +1975,24 @@ MARKED: 10
     0 11 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    d10   SR    --    0     --    0      <-t-
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    *d17  WB    r2    0     --    0      <-h-
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    d10   SR    --    0     --    no     <-t-
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    *d17  WB    r2    0     --    no     <-h-
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 2 0 0 8 
@@ -2046,24 +2046,24 @@ MARKED: 10
     0 11 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    d10   SR    --    0     --    0      <-t-
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    *d17  WB    r2    0     --    0      <-h-
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    d10   SR    --    0     --    no     <-t-
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    *d17  WB    r2    0     --    no     <-h-
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 2 0 0 8 
@@ -2116,24 +2116,24 @@ PREMARK: 10
     0 11 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0      <-t-
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0     
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    *d17  WB    r2    0     --    0      <-h-
-    *d18  WB    r3    1     --    0     
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no     <-t-
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no    
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    *d17  WB    r2    0     --    no     <-h-
+    *d18  WB    r3    1     --    no    
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 3 1 1 2 0 0 8 
@@ -2184,24 +2184,24 @@ instructions_per_cycle = 0.580645
     0 17 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    d13   WB    r2    0     --    0      <-t-
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    d17   WB    r1    0     --    0     
-    *d18  WB    r3    1     --    0      <-h-
-    *d19  WB    r4    1     --    0     
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    d13   WB    r2    0     --    no     <-t-
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    d17   WB    r1    0     --    no    
+    *d18  WB    r3    1     --    no     <-h-
+    *d19  WB    r4    1     --    no    
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 4 1 1 2 0 0 8 
@@ -2252,24 +2252,24 @@ instructions_per_cycle = 0.65625
     0 17 13 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0      <-t-
-    d14   WB    r3    0     --    0     
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    d17   WB    r1    0     --    0     
-    d18   BR    --    0     15    0     
-    *d19  WB    r4    1     --    0      <-h-
-    *d20  SR    --    1     --    0     
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no     <-t-
+    d14   WB    r3    0     --    no    
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    d17   WB    r1    0     --    no    
+    d18   BR    --    0     15    no    
+    *d19  WB    r4    1     --    no     <-h-
+    *d20  SR    --    1     --    no    
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 4 1 1 2 0 0 8 
@@ -2322,24 +2322,24 @@ instructions_per_cycle = 0.636364
     0 17 19 14 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    d14   WB    r3    0     --    0      <-t-
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    *d17  WB    r1    5     --    0     
-    d18   BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    *d20  SR    --    1     --    0      <-h-
-    *d21  WB    r1    3     --    0     
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    d14   WB    r3    0     --    no     <-t-
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    *d17  WB    r1    5     --    no    
+    d18   BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    *d20  SR    --    1     --    no     <-h-
+    *d21  WB    r1    3     --    no    
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 4 1 1 2 0 0 8 
@@ -2391,24 +2391,24 @@ instructions_per_cycle = 0.647059
     0 17 19 20 15 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0      <-t-
-    d15   WB    r4    0     --    0     
-    d16   SR    --    0     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    d20   WB    r3    0     --    0     
-    *d21  WB    r1    3     --    0      <-h-
-    *d22  BR    --    0     15    0     
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no     <-t-
+    d15   WB    r4    0     --    no    
+    d16   SR    --    0     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    d20   WB    r3    0     --    no    
+    *d21  WB    r1    3     --    no     <-h-
+    *d22  BR    --    0     15    no    
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 4 1 1 2 0 0 8 
@@ -2459,24 +2459,24 @@ instructions_per_cycle = 0.628571
     0 17 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    d15   WB    r4    0     --    0      <-t-
-    d16   SR    --    0     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    *d22  BR    --    0     15    0      <-h-
-    *d23  WB    r2    1     --    0     
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    d15   WB    r4    0     --    no     <-t-
+    d16   SR    --    0     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    *d22  BR    --    0     15    no     <-h-
+    *d23  WB    r2    1     --    no    
   }
   rrf = {
     0 4 1 2 2 0 0 8 
@@ -2528,24 +2528,24 @@ instructions_per_cycle = 0.638889
     0 17 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0      <-t-
-    d16   SR    --    0     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    *d23  WB    r2    1     --    0      <-h-
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no     <-t-
+    d16   SR    --    0     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    *d23  WB    r2    1     --    no     <-h-
   }
   rrf = {
     0 4 1 2 2 0 0 8 
@@ -2599,24 +2599,24 @@ MARKED: 16
     0 17 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    d16   SR    --    0     --    0      <-t-
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    *d23  WB    r2    1     --    0      <-h-
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    d16   SR    --    0     --    no     <-t-
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    *d23  WB    r2    1     --    no     <-h-
   }
   rrf = {
     0 4 1 2 3 0 0 8 
@@ -2670,24 +2670,24 @@ MARKED: 16
     0 17 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    d16   SR    --    0     --    0      <-t-
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    *d23  WB    r2    1     --    0      <-h-
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    d16   SR    --    0     --    no     <-t-
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    *d23  WB    r2    1     --    no     <-h-
   }
   rrf = {
     0 4 1 2 3 0 0 8 
@@ -2740,24 +2740,24 @@ PREMARK: 16
     0 17 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0     
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0      <-t-
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0     
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    *d23  WB    r2    1     --    0      <-h-
+    *d8   WB    r3    1     --    no    
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no     <-t-
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no    
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    *d23  WB    r2    1     --    no     <-h-
   }
   rrf = {
     0 4 1 2 3 0 0 8 
@@ -2808,24 +2808,24 @@ instructions_per_cycle = 0.6
     0 23 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   WB    r3    1     --    0      <-h-
-    *d9   WB    r4    2     --    0     
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    d19   WB    r2    0     --    0      <-t-
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    d23   WB    r1    0     --    0     
+    *d8   WB    r3    1     --    no     <-h-
+    *d9   WB    r4    2     --    no    
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    d19   WB    r2    0     --    no     <-t-
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    d23   WB    r1    0     --    no    
   }
   rrf = {
     0 5 1 2 3 0 0 8 
@@ -2876,24 +2876,24 @@ instructions_per_cycle = 0.658537
     0 23 19 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    BR    --    0     15    0     
-    *d9   WB    r4    2     --    0      <-h-
-    *d10  SR    --    1     --    0     
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0      <-t-
-    d20   WB    r3    0     --    0     
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    d23   WB    r1    0     --    0     
+    d8    BR    --    0     15    no    
+    *d9   WB    r4    2     --    no     <-h-
+    *d10  SR    --    1     --    no    
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no     <-t-
+    d20   WB    r3    0     --    no    
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    d23   WB    r1    0     --    no    
   }
   rrf = {
     0 5 1 2 3 0 0 8 
@@ -2946,24 +2946,24 @@ instructions_per_cycle = 0.642857
     0 23 9 20 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    *d10  SR    --    1     --    0      <-h-
-    *d11  WB    r1    4     --    0     
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    d20   WB    r3    0     --    0      <-t-
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    *d23  WB    r1    6     --    0     
+    d8    BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    *d10  SR    --    1     --    no     <-h-
+    *d11  WB    r1    4     --    no    
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    d20   WB    r3    0     --    no     <-t-
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 2 3 0 0 8 
@@ -3015,24 +3015,24 @@ instructions_per_cycle = 0.651163
     0 23 9 10 21 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    d10   WB    r3    0     --    0     
-    *d11  WB    r1    4     --    0      <-h-
-    *d12  BR    --    0     15    0     
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0      <-t-
-    d21   WB    r4    0     --    0     
-    d22   SR    --    0     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    d10   WB    r3    0     --    no    
+    *d11  WB    r1    4     --    no     <-h-
+    *d12  BR    --    0     15    no    
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no     <-t-
+    d21   WB    r4    0     --    no    
+    d22   SR    --    0     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 2 3 0 0 8 
@@ -3083,24 +3083,24 @@ instructions_per_cycle = 0.636364
     0 23 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    *d12  BR    --    0     15    0      <-h-
-    *d13  WB    r2    1     --    0     
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    d21   WB    r4    0     --    0      <-t-
-    d22   SR    --    0     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    *d12  BR    --    0     15    no     <-h-
+    *d13  WB    r2    1     --    no    
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    d21   WB    r4    0     --    no     <-t-
+    d22   SR    --    0     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 3 3 0 0 8 
@@ -3152,24 +3152,24 @@ instructions_per_cycle = 0.644444
     0 23 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    *d13  WB    r2    1     --    0      <-h-
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0      <-t-
-    d22   SR    --    0     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    *d13  WB    r2    1     --    no     <-h-
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no     <-t-
+    d22   SR    --    0     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 3 3 0 0 8 
@@ -3223,24 +3223,24 @@ MARKED: 22
     0 23 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    *d13  WB    r2    1     --    0      <-h-
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    d22   SR    --    0     --    0      <-t-
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    *d13  WB    r2    1     --    no     <-h-
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    d22   SR    --    0     --    no     <-t-
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 3 5 0 0 8 
@@ -3294,24 +3294,24 @@ MARKED: 22
     0 23 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    *d13  WB    r2    1     --    0      <-h-
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    d22   SR    --    0     --    0      <-t-
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    *d13  WB    r2    1     --    no     <-h-
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    d22   SR    --    0     --    no     <-t-
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 3 5 0 0 8 
@@ -3364,24 +3364,24 @@ PREMARK: 22
     0 23 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0     
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    *d13  WB    r2    1     --    0      <-h-
-    *d14  WB    r3    2     --    0     
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0      <-t-
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no    
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    *d13  WB    r2    1     --    no     <-h-
+    *d14  WB    r3    2     --    no    
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no     <-t-
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 5 2 3 5 0 0 8 
@@ -3432,24 +3432,24 @@ instructions_per_cycle = 0.612245
     0 13 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    d9    WB    r2    0     --    0      <-t-
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    d13   WB    r1    0     --    0     
-    *d14  WB    r3    2     --    0      <-h-
-    *d15  WB    r4    3     --    0     
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    d9    WB    r2    0     --    no     <-t-
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    d13   WB    r1    0     --    no    
+    *d14  WB    r3    2     --    no     <-h-
+    *d15  WB    r4    3     --    no    
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 2 3 5 0 0 8 
@@ -3500,24 +3500,24 @@ instructions_per_cycle = 0.66
     0 13 9 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0      <-t-
-    d10   WB    r3    0     --    0     
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    d13   WB    r1    0     --    0     
-    d14   BR    --    0     15    0     
-    *d15  WB    r4    3     --    0      <-h-
-    *d16  SR    --    2     --    0     
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no     <-t-
+    d10   WB    r3    0     --    no    
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    d13   WB    r1    0     --    no    
+    d14   BR    --    0     15    no    
+    *d15  WB    r4    3     --    no     <-h-
+    *d16  SR    --    2     --    no    
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 2 3 5 0 0 8 
@@ -3570,24 +3570,24 @@ instructions_per_cycle = 0.647059
     0 13 15 10 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    d10   WB    r3    0     --    0      <-t-
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    *d13  WB    r1    7     --    0     
-    d14   BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    *d16  SR    --    2     --    0      <-h-
-    *d17  WB    r1    5     --    0     
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    d10   WB    r3    0     --    no     <-t-
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    *d13  WB    r1    7     --    no    
+    d14   BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    *d16  SR    --    2     --    no     <-h-
+    *d17  WB    r1    5     --    no    
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 3 5 0 0 8 
@@ -3639,24 +3639,24 @@ instructions_per_cycle = 0.653846
     0 13 15 16 11 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0      <-t-
-    d11   WB    r4    0     --    0     
-    d12   SR    --    0     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    d16   WB    r3    0     --    0     
-    *d17  WB    r1    5     --    0      <-h-
-    *d18  BR    --    0     15    0     
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no     <-t-
+    d11   WB    r4    0     --    no    
+    d12   SR    --    0     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    d16   WB    r3    0     --    no    
+    *d17  WB    r1    5     --    no     <-h-
+    *d18  BR    --    0     15    no    
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 3 5 0 0 8 
@@ -3707,24 +3707,24 @@ instructions_per_cycle = 0.641509
     0 13 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    d11   WB    r4    0     --    0      <-t-
-    d12   SR    --    0     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    *d18  BR    --    0     15    0      <-h-
-    *d19  WB    r2    2     --    0     
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    d11   WB    r4    0     --    no     <-t-
+    d12   SR    --    0     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    *d18  BR    --    0     15    no     <-h-
+    *d19  WB    r2    2     --    no    
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 5 5 0 0 8 
@@ -3776,24 +3776,24 @@ instructions_per_cycle = 0.648148
     0 13 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0      <-t-
-    d12   SR    --    0     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    *d19  WB    r2    2     --    0      <-h-
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no     <-t-
+    d12   SR    --    0     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    *d19  WB    r2    2     --    no     <-h-
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 5 5 0 0 8 
@@ -3847,24 +3847,24 @@ MARKED: 12
     0 13 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    d12   SR    --    0     --    0      <-t-
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    *d19  WB    r2    2     --    0      <-h-
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    d12   SR    --    0     --    no     <-t-
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    *d19  WB    r2    2     --    no     <-h-
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 5 8 0 0 8 
@@ -3918,24 +3918,24 @@ MARKED: 12
     0 13 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    d12   SR    --    0     --    0      <-t-
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    *d19  WB    r2    2     --    0      <-h-
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    d12   SR    --    0     --    no     <-t-
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    *d19  WB    r2    2     --    no     <-h-
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 5 8 0 0 8 
@@ -3988,24 +3988,24 @@ PREMARK: 12
     0 13 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0      <-t-
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0     
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    *d19  WB    r2    2     --    0      <-h-
-    *d20  WB    r3    3     --    0     
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no     <-t-
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no    
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    *d19  WB    r2    2     --    no     <-h-
+    *d20  WB    r3    3     --    no    
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 6 3 5 8 0 0 8 
@@ -4056,24 +4056,24 @@ instructions_per_cycle = 0.62069
     0 19 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    d15   WB    r2    0     --    0      <-t-
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    d19   WB    r1    0     --    0     
-    *d20  WB    r3    3     --    0      <-h-
-    *d21  WB    r4    5     --    0     
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    d15   WB    r2    0     --    no     <-t-
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    d19   WB    r1    0     --    no    
+    *d20  WB    r3    3     --    no     <-h-
+    *d21  WB    r4    5     --    no    
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 7 3 5 8 0 0 8 
@@ -4124,24 +4124,24 @@ instructions_per_cycle = 0.661017
     0 19 15 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0      <-t-
-    d16   WB    r3    0     --    0     
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    d19   WB    r1    0     --    0     
-    d20   BR    --    0     15    0     
-    *d21  WB    r4    5     --    0      <-h-
-    *d22  SR    --    3     --    0     
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no     <-t-
+    d16   WB    r3    0     --    no    
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    d19   WB    r1    0     --    no    
+    d20   BR    --    0     15    no    
+    *d21  WB    r4    5     --    no     <-h-
+    *d22  SR    --    3     --    no    
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 7 3 5 8 0 0 8 
@@ -4194,24 +4194,24 @@ instructions_per_cycle = 0.65
     0 19 21 16 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    d16   WB    r3    0     --    0      <-t-
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    *d19  WB    r1    8     --    0     
-    d20   BR    --    0     15    0     
-    d21   WB    r2    0     --    0     
-    *d22  SR    --    3     --    0      <-h-
-    *d23  WB    r1    6     --    0     
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    d16   WB    r3    0     --    no     <-t-
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    *d19  WB    r1    8     --    no    
+    d20   BR    --    0     15    no    
+    d21   WB    r2    0     --    no    
+    *d22  SR    --    3     --    no     <-h-
+    *d23  WB    r1    6     --    no    
   }
   rrf = {
     0 7 5 5 8 0 0 8 
@@ -4263,24 +4263,24 @@ instructions_per_cycle = 0.655738
     0 19 21 22 17 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0     
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0      <-t-
-    d17   WB    r4    0     --    0     
-    d18   SR    --    0     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0     
-    d22   WB    r3    0     --    0     
-    *d23  WB    r1    6     --    0      <-h-
+    *d8   BR    --    0     15    no    
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no     <-t-
+    d17   WB    r4    0     --    no    
+    d18   SR    --    0     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no    
+    d22   WB    r3    0     --    no    
+    *d23  WB    r1    6     --    no     <-h-
   }
   rrf = {
     0 7 5 5 8 0 0 8 
@@ -4331,24 +4331,24 @@ instructions_per_cycle = 0.645161
     0 19 21 22 23 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    *d8   BR    --    0     15    0      <-h-
-    *d9   WB    r2    3     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    d17   WB    r4    0     --    0      <-t-
-    d18   SR    --    0     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0     
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    *d8   BR    --    0     15    no     <-h-
+    *d9   WB    r2    3     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    d17   WB    r4    0     --    no     <-t-
+    d18   SR    --    0     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no    
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 7 5 8 8 0 0 8 
@@ -4400,24 +4400,24 @@ instructions_per_cycle = 0.650794
     0 19 21 22 23 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    *d9   WB    r2    3     --    0      <-h-
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0      <-t-
-    d18   SR    --    0     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0     
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    *d9   WB    r2    3     --    no     <-h-
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no     <-t-
+    d18   SR    --    0     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no    
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 7 5 8 8 0 0 8 
@@ -4471,24 +4471,24 @@ MARKED: 18
     0 19 21 22 23 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    *d9   WB    r2    3     --    0      <-h-
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    d18   SR    --    0     --    0      <-t-
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0     
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    *d9   WB    r2    3     --    no     <-h-
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    d18   SR    --    0     --    no     <-t-
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no    
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 7 5 8 13 0 0 8 
@@ -4542,24 +4542,24 @@ MARKED: 18
     0 19 21 22 23 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    *d9   WB    r2    3     --    0      <-h-
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    d18   SR    --    0     --    0      <-t-
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0     
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    *d9   WB    r2    3     --    no     <-h-
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    d18   SR    --    0     --    no     <-t-
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no    
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 7 5 8 13 0 0 8 
@@ -4612,24 +4612,24 @@ PREMARK: 18
     0 19 21 22 23 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    *d9   WB    r2    3     --    0      <-h-
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    *d18  SR    --    8     --    0      <-t-
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0     
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    *d9   WB    r2    3     --    no     <-h-
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    *d18  SR    --    8     --    no     <-t-
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no    
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 7 5 8 13 0 0 8 
@@ -4680,24 +4680,24 @@ instructions_per_cycle = 0.626866
     0 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    d9    WB    r1    0     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    *d18  SR    --    8     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    d21   WB    r2    0     --    0      <-h- <-t-
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    d9    WB    r1    0     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    *d18  SR    --    8     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    d21   WB    r2    0     --    no     <-h- <-t-
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 8 5 8 13 0 0 8 
@@ -4709,9 +4709,6 @@ instructions_per_cycle = 0.626866
   lsq = {
     type  seq   dest  write base  off   addr  
     ------------------------------------------
-    *L    d21   d21   --    8     -2    [6]   
-    *L    d22   d22   --    8     -1    [7]   
-    S     d8    --    d23   8     0     ??    
   }
   alu = {
     --- nop ---
@@ -4746,24 +4743,24 @@ instructions_per_cycle = 0.647059
     0 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    d9    WB    r1    0     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    *d18  SR    --    8     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    *d21  WB    r2    8     --    0      <-h- <-t-
-    d22   WB    r3    0     --    0     
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    d9    WB    r1    0     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    *d18  SR    --    8     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    *d21  WB    r2    8     --    no     <-h- <-t-
+    d22   WB    r3    0     --    no    
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 8 5 8 13 0 0 8 
@@ -4775,8 +4772,6 @@ instructions_per_cycle = 0.647059
   lsq = {
     type  seq   dest  write base  off   addr  
     ------------------------------------------
-    *L    d22   d22   --    8     -1    [7]   
-    S     d8    --    d23   8     0     ??    
   }
   alu = {
     --- nop ---
@@ -4812,24 +4807,24 @@ instructions_per_cycle = 0.637681
     0 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    d9    WB    r1    0     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    *d18  SR    --    8     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    *d21  END   --    8     --    0      <-t-
-    d22   WB    r3    0     --    0      <-h-
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    d9    WB    r1    0     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    *d18  SR    --    8     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    *d21  END   --    8     --    no     <-t-
+    d22   WB    r3    0     --    no     <-h-
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 8 5 8 13 0 0 8 
@@ -4841,8 +4836,6 @@ instructions_per_cycle = 0.637681
   lsq = {
     type  seq   dest  write base  off   addr  
     ------------------------------------------
-    *L    d22   d22   --    8     -1    [7]   
-    S     d8    --    d23   8     0     ??    
   }
   alu = {
     --- nop ---
@@ -4851,7 +4844,7 @@ instructions_per_cycle = 0.637681
     --- nop ---
   }
   mu = {
-    d22 <-- [7] (1)
+    --- nop ---
   }
   dcache = {
     0 1 1 2 3 5 8 13 
@@ -4877,24 +4870,24 @@ instructions_per_cycle = 0.628571
     0 1 2 3 4 5 6 7 
   }
   rob = {
-    addr  type  reg   val   tgt   flush-
+    addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    SR    --    0     --    0     
-    d9    WB    r1    0     --    0     
-    *d10  WB    r3    5     --    0     
-    *d11  WB    r4    8     --    0     
-    *d12  SR    --    5     --    0     
-    *d13  WB    r1    7     --    0     
-    *d14  BR    --    0     15    0     
-    *d15  WB    r2    5     --    0     
-    *d16  WB    r3    8     --    0     
-    *d17  WB    r4    13    --    0     
-    *d18  SR    --    8     --    0     
-    *d19  WB    r1    8     --    0     
-    *d20  BR    --    1     15    0     
-    *d21  END   --    8     --    0     
-    *d22  WB    r3    13    --    0      <-h- <-t-
-    d23   WB    r4    0     --    0     
+    d8    SR    --    0     --    no    
+    d9    WB    r1    0     --    no    
+    *d10  WB    r3    5     --    no    
+    *d11  WB    r4    8     --    no    
+    *d12  SR    --    5     --    no    
+    *d13  WB    r1    7     --    no    
+    *d14  BR    --    0     15    no    
+    *d15  WB    r2    5     --    no    
+    *d16  WB    r3    8     --    no    
+    *d17  WB    r4    13    --    no    
+    *d18  SR    --    8     --    no    
+    *d19  WB    r1    8     --    no    
+    *d20  BR    --    1     15    no    
+    *d21  END   --    8     --    no    
+    d22   WB    r3    0     --    no     <-h- <-t-
+    d23   WB    r4    0     --    no    
   }
   rrf = {
     0 8 5 8 13 0 0 8 
@@ -4906,7 +4899,6 @@ instructions_per_cycle = 0.628571
   lsq = {
     type  seq   dest  write base  off   addr  
     ------------------------------------------
-    S     d8    --    d23   8     0     ??    
   }
   alu = {
     --- nop ---
@@ -4915,8 +4907,7 @@ instructions_per_cycle = 0.628571
     --- nop ---
   }
   mu = {
-    d22 <-- [7] (0)
-    = 13 writeback
+    --- nop ---
   }
   dcache = {
     0 1 1 2 3 5 8 13 

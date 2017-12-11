@@ -46,6 +46,14 @@ void MU::execute(MU& n_mu)
   n_mu.duration = this->duration-1 > 0 ? this->duration-1 : 0;
 }
 
+void MU::reset()
+{
+  LSQ::Shelf shelf;
+  this->shelf = shelf;
+  this->duration = 0;
+  this->writeback = false;
+}
+
 MU& MU::operator=(const MU& mu)
 {
   this->shelf = mu.shelf;
