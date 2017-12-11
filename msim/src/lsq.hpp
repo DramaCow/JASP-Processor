@@ -18,7 +18,7 @@ class LSQ
 
       int seq = 0; // effective sequence id
 
-      int d = 0; bool vd = true; // dest (used by load)
+      int d = 0; // dest (used by load)
       int w = 0; bool vw = true; // write data (used by store)
 
       int b = 0; bool vb = true; // base

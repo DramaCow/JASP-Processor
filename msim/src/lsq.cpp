@@ -11,6 +11,8 @@ bool LSQ::isFull()
 
 void LSQ::issue(Shelf shelf, int tail)
 {
+  std::cout << " ---- INSERTED ----\n";
+
   std::size_t i;
   for (i = 0; i < this->shelves.size(); ++i)
   {
@@ -24,8 +26,11 @@ void LSQ::issue(Shelf shelf, int tail)
       break;
     }
   }
+  std::cout << "HERE: " << i << std::endl;
+  std::cout << (*this) << std::endl;
   this->shelves.insert(std::begin(this->shelves) + i, shelf);
   this->isNew.insert(std::begin(this->isNew) +i, true);
+  std::cout << (*this) << std::endl;
 }
 
 LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
