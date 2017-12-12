@@ -21,8 +21,6 @@ void LSQ::issue(Shelf shelf, int tail)
 
     if (s1 < s2)
     {
-      //std::cout << s1 << ' ' << s2 << '\n';
-      //std::cout << shelf.seq << ' ' << this->shelves[i].seq << '\n';
       break;
     }
   }
@@ -36,16 +34,15 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
 
   if (port)
   {
-    //for (std::size_t i = 0; i < n_lsq.shelves.size(); ++i)
-    for (int i = 0; i < std::min(1, (int)n_lsq.shelves.size()); ++i)
+    for (std::size_t i = 0; i < n_lsq.shelves.size(); ++i)
+    //for (int i = 0; i < std::min(1, (int)n_lsq.shelves.size()); ++i)
     {
-      if (!n_lsq.isNew[i])
+      if (!n_lsq.isNew[i] && ((i == 0) || (i > 0 && n_lsq.shelves[i].type != LSQ::Shelf::STORE)))
       {
         if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && n_lsq.shelves[i].va && n_lsq.shelves[i].ready)
         {
-          e = shelves[i];
-//        n_lsq.shelves.erase(std::begin(n_lsq.shelves) + i);
-//        n_lsq.isNew.erase(std::begin(n_lsq.isNew) + i);
+          n_lsq.store_to_load_forward(i);
+          e = n_lsq.shelves[i];
           break;
         }
       }
@@ -56,7 +53,7 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
   {
     if (!n_lsq.isNew[i])
     {
-      if (n_lsq.shelves[i].vw && n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && !n_lsq.shelves[i].va)
+      if (n_lsq.shelves[i].vb && n_lsq.shelves[i].vo && !n_lsq.shelves[i].va)
       {
         n_lsq.shelves[i].addr = shelves[i].b + shelves[i].o;
         n_lsq.shelves[i].va = true;
@@ -69,6 +66,7 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
     }
   }
 
+  // meta - this is the last time it is used, thus needs to be reset
   std::fill(std::begin(n_lsq.isNew), std::end(n_lsq.isNew), false);
 
   return e;
@@ -76,28 +74,17 @@ LSQ::Shelf LSQ::dispatch(LSQ &n_lsq, bool port)
 
 void LSQ::retire(int seq)
 {
-  for (std::size_t i = 0; i < this->shelves.size(); ++i)
-  {
-    if (this->shelves[i].seq == seq)
-    {
-      this->shelves.erase(std::begin(this->shelves) + i);
-      this->isNew.erase(std::begin(this->isNew) + i);
-      return;
-    }
-  }
+  int i = this->get_shelf(seq);
+  if (i == -1) return;
+  this->shelves.erase(std::begin(this->shelves) + i);
+  this->isNew.erase(std::begin(this->isNew) + i);
 }
 
 void LSQ::mark(int seq)
 {
-  for (std::size_t i = 0; i < this->shelves.size(); ++i)
-  {
-    if (this->shelves[i].seq == seq)
-    {
-      std::cout << "MARKED: " << this->shelves[i].seq << std::endl;
-      this->shelves[i].ready = true;
-      return;
-    }
-  }
+  int i = this->get_shelf(seq);
+  if (i == -1) return;
+  this->shelves[i].ready = true;
 }
 
 void LSQ::update(int dest, int result)
@@ -130,6 +117,64 @@ void LSQ::reset()
   this->isNew.clear();
 }
 
+int LSQ::get_shelf(int seq)
+{
+  for (std::size_t i = 0; i < this->shelves.size(); ++i)
+  {
+    if (this->shelves[i].seq == seq)
+    {
+      return i;
+    }
+  }
+  return -1;
+}
+
+void LSQ::store_to_load_forward(int i)
+{
+  if (this->shelves[i].type == LSQ::Shelf::LOAD)
+  {
+    for (int j = i-1; j >= 0; --j)
+    {
+      if (!this->isNew[j])
+      {
+        if (this->shelves[j].type == LSQ::Shelf::STORE)
+        {
+          if (this->shelves[j].va && this->shelves[j].addr == this->shelves[i].addr)
+          {
+            this->shelves[i].w = this->shelves[j].w;
+            this->shelves[i].fwd = true;
+          }
+          return;
+        }
+      }
+    }
+  }
+  else if (this->shelves[i].type == LSQ::Shelf::STORE)
+  {
+    for (std::size_t j = i+1; j < this->shelves.size(); ++j)
+    {
+      if (!this->isNew[j])
+      {
+        if (
+          this->shelves[j].type == LSQ::Shelf::LOAD && 
+          this->shelves[j].va && this->shelves[j].addr == this->shelves[i].addr
+        )
+        {
+          this->shelves[j].w = this->shelves[i].w;
+          this->shelves[j].fwd = true;
+        }
+        else if (this->shelves[j].type == LSQ::Shelf::STORE && 
+          (!this->shelves[j].va || 
+          (this->shelves[j].va && this->shelves[j].addr == this->shelves[i].addr))
+        )
+        {
+          return;
+        }
+      }
+    }
+  }
+}
+
 LSQ& LSQ::operator=(const LSQ& lsq)
 {
   this->shelves = lsq.shelves;
@@ -159,7 +204,7 @@ std::ostream& operator<<(std::ostream& os, const LSQ& lsq)
       os << SPACE("--");
     }
 
-    if (lsq.shelves[i].type == LSQ::Shelf::STORE)
+    if (lsq.shelves[i].type == LSQ::Shelf::STORE || (lsq.shelves[i].type == LSQ::Shelf::LOAD && lsq.shelves[i].fwd))
     {
       os << SPACE(
               (lsq.shelves[i].vw ? std::string("") : std::string("d")) + 

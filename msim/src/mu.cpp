@@ -19,8 +19,16 @@ void MU::dispatch(LSQ::Shelf shelf)
 
   if (this->shelf.type == LSQ::Shelf::LOAD)
   {
-    this->result = this->dcache[this->shelf.addr];
-    this->duration = 1;
+    if (this->shelf.fwd)
+    {
+      this->result = this->shelf.w;
+      this->duration = 0;
+    }
+    else
+    {
+      this->result = this->dcache[this->shelf.addr];
+      this->duration = 1;
+    }
     this->writeback = true;
   }
   else if (this->shelf.type == LSQ::Shelf::STORE)
@@ -72,7 +80,14 @@ std::ostream& operator<<(std::ostream& os, const MU& mu)
   }
   else if (mu.shelf.type == LSQ::Shelf::LOAD)
   {
-    os << "    d" << mu.shelf.d << " <-- [" << mu.shelf.addr << ']';
+    if (!mu.shelf.fwd)
+    {
+      os << "    d" << mu.shelf.d << " <-- [" << mu.shelf.addr << ']';
+    }
+    else
+    {
+      os << "    d" << mu.shelf.d << " <-- " << mu.shelf.w << " (fowarded)";
+    }
   }
   else if (mu.shelf.type == LSQ::Shelf::STORE)
   {

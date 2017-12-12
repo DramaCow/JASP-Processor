@@ -37,6 +37,14 @@ DCache::DCache(int size) :
 //  {
 //    this->data[i] = i+1;
 //  }
+  this->data[0] = 5;
+  this->data[1] = 1;
+  this->data[2] = 3;
+  this->data[3] = 7;
+  this->data[4] = 8;
+  this->data[5] = 2;
+  this->data[6] = 4;
+  this->data[7] = 6;
 }
 
 DCache::DCache(int *data, int size) :

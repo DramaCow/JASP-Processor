@@ -27,7 +27,11 @@ bool Instruction::isBrch(std::string opcode)
 {
   return opcode == "b"    ||
          opcode == "beq"  ||
-         opcode == "bneq";
+         opcode == "bneq" ||
+         opcode == "blt"  ||
+         opcode == "ble"  ||
+         opcode == "bgt"  ||
+         opcode == "ble";
 }
 
 bool Instruction::isLdsr(std::string opcode)

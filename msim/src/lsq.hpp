@@ -41,8 +41,6 @@ class LSQ
     void update(int dest, int result);
     void reset();
 
-    void wipe_isNew();
-
     LSQ& operator=(const LSQ& lsq);
 
     friend std::ostream& operator<<(std::ostream& os, const LSQ& lsq);
@@ -50,6 +48,9 @@ class LSQ
   private:
     std::vector<Shelf> shelves;
     std::vector<bool> isNew; // meta
+
+    int get_shelf(int seq);
+    void store_to_load_forward(int i);
 };
 std::ostream& operator<<(std::ostream& os, const LSQ& lsq);
 

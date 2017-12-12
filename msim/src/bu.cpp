@@ -23,6 +23,26 @@ void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
     this->result = this->pred != (this->o1 != this->o2);
     this->writeback = true;
   }
+  else if (this->opcode == "blt")
+  {
+    this->result = this->pred != (this->o1 < this->o2);
+    this->writeback = true;
+  }
+  else if (this->opcode == "ble")
+  {
+    this->result = this->pred != (this->o1 <= this->o2);
+    this->writeback = true;
+  }
+  else if (this->opcode == "bgt")
+  {
+    this->result = this->pred != (this->o1 > this->o2);
+    this->writeback = true;
+  }
+  else if (this->opcode == "bge")
+  {
+    this->result = this->pred != (this->o1 >= this->o2);
+    this->writeback = true;
+  }
   // Unexpected OP
   else {
     this->result = false;

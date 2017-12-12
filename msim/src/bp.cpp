@@ -9,7 +9,11 @@ std::tuple<int, bool> BP::predict(Instruction instruction, int pc)
     target = instruction.params[0];
   }
   else if (instruction.opcode == "beq"  ||
-           instruction.opcode == "bneq"    )
+           instruction.opcode == "bneq" ||
+           instruction.opcode == "blt"  ||
+           instruction.opcode == "ble"  ||
+           instruction.opcode == "bgt"  ||
+           instruction.opcode == "bge"     )
   {
     target = instruction.params[2];
   }

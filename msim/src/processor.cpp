@@ -127,8 +127,12 @@ void Processor::decode(Processor &n_cpu)
     n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
     n_cpu.rs.issue(shelf);
   }
-  else if ( opcode == "beq" ||
-            opcode == "bneq"   )
+  else if ( opcode == "beq"  ||
+            opcode == "bneq" ||
+            opcode == "blt"  ||
+            opcode == "ble"  ||
+            opcode == "bgt"  ||
+            opcode == "bge"     )
   {
     int target = instruction.params[2];
     bool prediction = instruction.params[3];
@@ -296,6 +300,7 @@ bool Processor::commit(Processor &n_cpu)
     // end of program
     else if (entry.type == ROB::Entry::END)
     {
+      n_cpu.instructions_executed = this->instructions_executed + i;
       return true; // TODO: not counted as an instruction?
     }
   }
@@ -346,6 +351,7 @@ void Processor::flush(int target)
   this->lsq.reset();
   this->alu.reset();
   this->bu.reset();
+  this->mu.reset();
   this->pc = target;
 }
 
