@@ -57,5 +57,6 @@ const InstDef instset[ISIZE] = {
 // =========================
 
 std::tuple<Instruction*,int> load_program(char *filename);
+std::tuple<int*,int> load_data(char *filename);
 
 #endif

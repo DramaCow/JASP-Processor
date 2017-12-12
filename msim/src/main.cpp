@@ -6,20 +6,27 @@
 #include "cache.hpp"
 #include "processor.hpp"
 
-#define LIMIT 1000
+#define LIMIT 100000
 
 int main(int argc, char* argv[])
 {
   if (argc < 2)
   {
-    std::cerr << "usage: ./msim <program_name>" << std::endl;
+    std::cerr << "usage: ./msim <program_name> [<data_name>]?" << std::endl;
     exit(EXIT_FAILURE);
   }
 
   Instruction *program; int isize;
   std::tie(program, isize) = load_program(argv[1]);
   ICache icache(program, isize);
+
   DCache dcache(64);
+  if (argc >= 3)
+  {
+    int *data; int dsize;
+    std::tie(data, dsize) = load_data(argv[2]);
+    dcache.initialise(data, dsize);
+  }
 
   Processor cpu1(icache, dcache); Processor *cpu   = &cpu1;
   Processor cpu2(icache, dcache); Processor *n_cpu = &cpu2;

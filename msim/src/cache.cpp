@@ -33,29 +33,18 @@ DCache::DCache(int size) :
   size(size)
 {
   this->data = new int[size]{ 0 };
-//  for (int i = 0; i < size; ++i)
-//  {
-//    this->data[i] = i+1;
-//  }
-  this->data[0] = 5;
-  this->data[1] = 1;
-  this->data[2] = 3;
-  this->data[3] = 7;
-  this->data[4] = 8;
-  this->data[5] = 2;
-  this->data[6] = 4;
-  this->data[7] = 6;
-}
-
-DCache::DCache(int *data, int size) :
-  data(data),
-  size(size)
-{
 }
 
 DCache::~DCache()
 {
   delete[] data;
+}
+
+void DCache::initialise(int *data, int size)
+{
+  delete[] this->data;
+  this->data = data;
+  this->size = size;
 }
 
 int& DCache::operator[](int i)

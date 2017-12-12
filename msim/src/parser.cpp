@@ -47,6 +47,36 @@ std::tuple<Instruction*,int> load_program(char *filename)
   return parser.load_program(filename);
 }
 
+std::tuple<int*,int> load_data(char *filename)
+{
+  FILE *datafile = fopen(filename, "r");
+  if (datafile == NULL) 
+  {
+    printf("Error while opening the file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  int size = 0;
+  char buffer[256];
+
+  while (fgets(buffer, sizeof(buffer), datafile) != NULL)
+  {
+    size++;
+  }
+
+  rewind(datafile);
+
+  int *data = new int[size];
+  for (int i = 0; fgets(buffer, sizeof(buffer), datafile) != NULL; ++i)
+  {
+    sscanf(buffer, "%d", &data[i]);
+  }
+
+  fclose(datafile);
+
+  return std::make_tuple(data, size);
+}
+
 // ================================
 // === HELPER CLASS DEFINITIONS ===
 // ================================
@@ -78,15 +108,15 @@ std::tuple<Instruction*,int> Parser::load_program(char *filename)
 
 void Parser::get_metadata(FILE *code)
 {
-  char BUffer[256];
+  char buffer[256];
   char *tok = NULL;
 
   this->lnum = 0;
   this->inum = 0;
 
-  while (fgets(BUffer, sizeof(BUffer), code) != NULL)
+  while (fgets(buffer, sizeof(buffer), code) != NULL)
   {
-    tok = strtok(BUffer, " \t\n\0");
+    tok = strtok(buffer, " \t\n\0");
 
     if (tok != NULL && tok[0] != ';')
     {
@@ -104,12 +134,12 @@ void Parser::get_metadata(FILE *code)
 
 void Parser::get_labels(FILE *code)
 {
-  char BUffer[256];
+  char buffer[256];
   char *tok = NULL;
 
-  for (int ln = 1, addr = 0, i = 0; fgets(BUffer, sizeof(BUffer), code) != NULL; ++ln)
+  for (int ln = 1, addr = 0, i = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
   {
-    tok = strtok(BUffer, " \t\n\0");
+    tok = strtok(buffer, " \t\n\0");
 
     if (tok != NULL && tok[0] != ';') 
     {
@@ -141,12 +171,12 @@ void Parser::get_labels(FILE *code)
 
 void Parser::get_program(FILE *code, Instruction *program)
 {
-  char BUffer[256];
+  char buffer[256];
   char *tok = NULL;
 
-  for (int ln = 1, p = 0; fgets(BUffer, sizeof(BUffer), code) != NULL; ++ln)
+  for (int ln = 1, p = 0; fgets(buffer, sizeof(buffer), code) != NULL; ++ln)
   {
-    tok = strtok(BUffer, " \t\n\0");
+    tok = strtok(buffer, " \t\n\0");
 
     // skip blank lines, comments, or labels
     if (tok != NULL && tok[0] != ';' && tok[0] != ':') 
