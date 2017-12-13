@@ -13,7 +13,9 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   mu(dcache),
 
   cycles(0),
-  instructions_executed(0)
+  instructions_executed(0),
+  branch_corpred(0),
+  branch_mispred(0)
 {
 }
 
@@ -289,9 +291,12 @@ bool Processor::commit(Processor &n_cpu)
     {
       if (entry.val)
       {
+        n_cpu.branch_mispred = this->branch_mispred + 1;
         n_cpu.flush(entry.target);
         break; // following commits refer to mispredicts, so stop
       }
+      std::cout << "BRANCH" << std::endl;
+      n_cpu.branch_corpred = this->branch_corpred + 1;
     }
     else if (entry.type == ROB::Entry::SR)
     {
@@ -375,6 +380,8 @@ Processor& Processor::operator=(const Processor& cpu)
 
   this->cycles = cpu.cycles;
   this->instructions_executed = cpu.instructions_executed;
+  this->branch_corpred = cpu.branch_corpred;
+  this->branch_mispred = cpu.branch_mispred;
 
   return *this;
 }
@@ -411,8 +418,9 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "}\n";
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
-     << "instructions_executed = " << cpu.instructions_executed << '\n'
-     << "instructions_per_cycle = " << ((double)cpu.instructions_executed / (double)cpu.cycles);
+     //<< "instructions_executed = " << cpu.instructions_executed << '\n'
+     << "cpi = " << ((double)cpu.cycles / (double)cpu.instructions_executed) << '\n'
+     << "branch pred rate = " << (double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred);
 #else
   os << cpu.rrf;
 #endif

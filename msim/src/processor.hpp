@@ -60,6 +60,8 @@ class Processor
     // statistics recorders
     int cycles;
     int instructions_executed;
+    int branch_corpred;
+    int branch_mispred;
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);
