@@ -26,6 +26,8 @@ class ROB {
     };
 
   public:
+    bool isFull();
+
     int push(ROB &n_rob, std::string opcode, int r, int target);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
@@ -38,6 +40,7 @@ class ROB {
     void set_spec(int seq, bool spec);
 
     int get_tail();
+    int size = 0;
 
     ROB& operator=(const ROB& rob);
 

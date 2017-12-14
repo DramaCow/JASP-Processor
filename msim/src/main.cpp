@@ -6,7 +6,7 @@
 #include "cache.hpp"
 #include "processor.hpp"
 
-#define LIMIT 100000
+#define LIMIT 1000
 
 int main(int argc, char* argv[])
 {
@@ -51,6 +51,7 @@ int main(int argc, char* argv[])
     }
 #endif
     *cpu = *n_cpu;
+    std::cout << "WHY---> " << cpu->rob.size << std::endl;
   }
   std::cout << "(t" << t << ") " << (*cpu) << std::endl;
 

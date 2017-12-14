@@ -27,7 +27,7 @@ class Processor
     unsigned int pc = 0;
 
     //Instruction ibuf;
-    std::tuple<int, Instruction> ibuf;
+    std::array<std::tuple<int, Instruction>, FETCHRATE> ibuf;
     BP bp;
     RAT rat;
     ROB rob;

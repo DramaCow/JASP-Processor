@@ -4,6 +4,11 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
+bool ROB::isFull()
+{
+  return (NUM_ROB_ENTRIES - this->size) <= FETCHRATE;
+}
+
 int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 {
   Entry::Type type = Entry::DN;
@@ -38,6 +43,9 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   // move the head (w/ wrap around)
   n_rob.head = (this->head + 1) % NUM_ROB_ENTRIES;
 
+  n_rob.size = this->size + 1;
+  std::cout << "-----> " << n_rob.size << std::endl;
+
   return e;
 }
 
@@ -58,14 +66,15 @@ std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob, LSQ &n_lsq)
 
   // TODO: mom's spaghetti
   int tail = (this->tail + c) % NUM_ROB_ENTRIES;
-  if (this->entries[tail].type == ROB::Entry::SR) std::cout << "@ SR\n";
   if (this->head != tail && this->entries[tail].type == ROB::Entry::SR)
   {
-    std::cout << "PREMARK: " << tail + NUM_REGISTERS << '\n';
     n_lsq.mark(tail + NUM_REGISTERS);
   }
 
   n_rob.tail = tail;
+
+  //n_rob.size = this->size - commits.size();
+  n_rob.size = n_rob.size - commits.size();
 
   return commits;
 }
@@ -100,6 +109,7 @@ void ROB::write(int addr, int val, int target)
 void ROB::reset()
 {
   this->head = this->tail;
+  this->size = 0;
 }
 
 void ROB::set_spec(int seq, bool spec)
@@ -117,12 +127,16 @@ ROB& ROB::operator=(const ROB& rob)
 {
   this->head = rob.head;
   this->tail = rob.tail;
+  std::cout << "------> " << this->size << " = " << rob.size << '\n';
+  this->size = rob.size;
+  std::cout << "------> " << this->size << " = " << rob.size << '\n';
   memcpy(this->entries, rob.entries, NUM_ROB_ENTRIES*sizeof(Entry));
   return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
+  os << "    size=" << rob.size << '\n';
   os << "    addr  type  reg   val   tgt   spec  \n";
   os << "    ------------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)

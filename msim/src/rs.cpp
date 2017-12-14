@@ -7,7 +7,8 @@
 
 bool RS::isFull()
 {
-  return this->shelves.size() >= NUM_RS_ENTRIES;
+  //return this->shelves.size() >= NUM_RS_ENTRIES;
+  return (NUM_RS_ENTRIES - this->shelves.size()) <= FETCHRATE;
 }
 
 void RS::issue(RS::Shelf shelf)
