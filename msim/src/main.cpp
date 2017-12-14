@@ -54,12 +54,5 @@ int main(int argc, char* argv[])
   }
   std::cout << "(t" << t << ") " << (*cpu) << std::endl;
 
-  std::cout << "START";
-  for (std::size_t i = 0; i < cpu->exe.size(); ++i)
-  {
-    std::cout << cpu->exe[i] << std::endl;
-  }
-  std::cout << "END";
-
   return 0;
 }

@@ -4,12 +4,12 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
-bool ROB::isFull()
+int ROB::space()
 {
-  return (NUM_ROB_ENTRIES - this->size) <= FETCHRATE;
+  return NUM_ROB_ENTRIES - this->size;
 }
 
-int ROB::push(ROB &n_rob, std::string opcode, int r, int target, Instruction instruction)
+int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 {
   Entry::Type type = Entry::DN;
   if (Instruction::isArth(opcode) || opcode == "lw")
@@ -36,9 +36,6 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target, Instruction ins
   n_rob.entries[this->head].target = target;
   n_rob.entries[this->head].done = opcode == "end";
   
-  // for debugging
-  n_rob.entries[this->head].instruction = instruction;
-
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
   //       to differentiate them fron architectural addresses
   int e = this->head + NUM_REGISTERS;
@@ -56,7 +53,7 @@ std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob, LSQ &n_lsq)
   std::vector<std::tuple<int,ROB::Entry>> commits;
 
   int c;
-  for (c = 0; c < 4; ++c) // max commits per cycle is 4
+  for (c = 0; c < RETIRERATE; ++c)
   {
     int tail = (this->tail + c) % NUM_ROB_ENTRIES;
     if (!this->entries[tail].done || this->head == tail)
@@ -187,11 +184,11 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
 
     if (rob.head == i)
     {
-      os << " <-h-";
+      os << " <-h-(issue)";
     }
     if (rob.tail == i)
     {
-      os << " <-t-";
+      os << " <-t-(retire)";
     }
     os << '\n';
   }

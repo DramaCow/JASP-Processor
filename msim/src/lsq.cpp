@@ -4,10 +4,11 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
-bool LSQ::isFull()
+int LSQ::space()
 {
   //return this->shelves.size() >= NUM_LSQ_ENTRIES;
-  return (NUM_LSQ_ENTRIES - this->shelves.size()) < FETCHRATE;
+  //return (NUM_LSQ_ENTRIES - this->shelves.size()) < FETCHRATE;
+  return NUM_LSQ_ENTRIES - this->shelves.size();
 }
 
 void LSQ::issue(Shelf shelf, int tail)
