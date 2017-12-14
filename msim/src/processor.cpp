@@ -80,7 +80,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1, instruction);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -92,7 +92,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1, instruction);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -107,7 +107,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[2]);
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1, instruction);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -121,7 +121,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1, instruction);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -136,7 +136,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
+      shelf.dest = n_cpu.alloc(n_cpu, opcode, -1, prediction ? pc+1 : target, instruction);
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
       n_cpu.rs.issue(shelf);
@@ -156,7 +156,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.o3, shelf.v3) = n_cpu.read(instruction.params[1]);
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
+      shelf.dest = n_cpu.alloc(n_cpu, opcode, -1, prediction ? pc+1 : target, instruction);
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality
       n_cpu.rs.issue(shelf);
@@ -168,7 +168,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = std::make_tuple(0, true);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.d = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.d = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1, instruction);
       shelf.seq = shelf.d;
 
       n_cpu.rob.set_spec(shelf.seq, false);
@@ -181,14 +181,14 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.seq = n_cpu.alloc(n_cpu, opcode, -1, -1); // simply the rob entry
+      shelf.seq = n_cpu.alloc(n_cpu, opcode, -1, -1, instruction); // simply the rob entry
 
       n_cpu.rob.set_spec(shelf.seq, false);
       n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
     }
     else if ( opcode == "end" )
     {
-      int seq = n_cpu.alloc(n_cpu, opcode, -1, -1);
+      int seq = n_cpu.alloc(n_cpu, opcode, -1, -1, instruction);
       n_cpu.rob.set_spec(seq, false);
     }
   }
@@ -298,27 +298,31 @@ bool Processor::commit(Processor &n_cpu)
       {
         this->rat.write(n_cpu.rat, entry.reg, entry.reg);
       }
+
+//      n_cpu.exe.push_back(entry.instruction); // debug
     }
     // branch
     else if (entry.type == ROB::Entry::BR)
     {
+//      n_cpu.exe.push_back(entry.instruction); // debug
+
       if (entry.val)
       {
         n_cpu.branch_mispred = this->branch_mispred + 1;
         n_cpu.flush(entry.target);
         break; // following commits refer to mispredicts, so stop
       }
-      std::cout << "BRANCH" << std::endl;
       n_cpu.branch_corpred = this->branch_corpred + 1;
     }
     else if (entry.type == ROB::Entry::SR)
     {
-      // need not do anything
+//      n_cpu.exe.push_back(entry.instruction); // debug
     }
     // end of program
     else if (entry.type == ROB::Entry::END)
     {
       n_cpu.instructions_executed = this->instructions_executed + i;
+//      n_cpu.exe.push_back(entry.instruction); // debug
       return true; // TODO: not counted as an instruction?
     }
   }
@@ -347,10 +351,10 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int target)
+int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int target, Instruction instruction)
 {
   //int a = this->rob.push(n_cpu.rob, opcode, r, target);
-  int a = n_cpu.rob.push(n_cpu.rob, opcode, r, target);
+  int a = n_cpu.rob.push(n_cpu.rob, opcode, r, target, instruction);
   this->rat.write(n_cpu.rat, r, a);
   return a;
 }
@@ -362,8 +366,15 @@ bool Processor::isStalled()
 
 void Processor::flush(int target)
 {
+  std::cout << "=========================" << std::endl;
+  std::cout << "=== MISPREDICT BRANCH ===" << std::endl;
+  std::cout << "=========================" << std::endl;
+
   // flush and jump to entry.target
-  this->ibuf[0] = std::make_tuple(0, Instruction("nop"));
+  for (int i = 0; i < FETCHRATE; ++i)
+  {
+    this->ibuf[i] = std::make_tuple(0, Instruction("nop"));
+  }
   this->rat.reset();
   this->rob.reset();
   this->rs.reset();
@@ -396,6 +407,8 @@ Processor& Processor::operator=(const Processor& cpu)
   this->instructions_executed = cpu.instructions_executed;
   this->branch_corpred = cpu.branch_corpred;
   this->branch_mispred = cpu.branch_mispred;
+
+  this->exe = cpu.exe;
 
   return *this;
 }
@@ -438,6 +451,11 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      //<< "instructions_executed = " << cpu.instructions_executed << '\n'
      << "cpi = " << ((double)cpu.cycles / (double)cpu.instructions_executed) << '\n'
      << "branch pred rate = " << (double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred);
+  os << '\n';
+  for (std::size_t i = 0; i < cpu.exe.size(); ++i)
+  {
+    os << cpu.exe[i] << std::endl;
+  }
 #else
   os << cpu.rrf;
 #endif

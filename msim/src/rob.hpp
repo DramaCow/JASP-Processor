@@ -23,12 +23,15 @@ class ROB {
         int target = -1;
         bool spec = false;
         bool done = false;
+
+        // for debugging
+        Instruction instruction;
     };
 
   public:
     bool isFull();
 
-    int push(ROB &n_rob, std::string opcode, int r, int target);
+    int push(ROB &n_rob, std::string opcode, int r, int target, Instruction instruction);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
     std::tuple<int, bool> read(int addr);

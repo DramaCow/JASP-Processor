@@ -12,8 +12,6 @@ bool LSQ::isFull()
 
 void LSQ::issue(Shelf shelf, int tail)
 {
-  std::cout << " ---- INSERTED ----\n";
-
   std::size_t i;
   for (i = 0; i < this->shelves.size(); ++i)
   {

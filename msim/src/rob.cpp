@@ -9,7 +9,7 @@ bool ROB::isFull()
   return (NUM_ROB_ENTRIES - this->size) <= FETCHRATE;
 }
 
-int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
+int ROB::push(ROB &n_rob, std::string opcode, int r, int target, Instruction instruction)
 {
   Entry::Type type = Entry::DN;
   if (Instruction::isArth(opcode) || opcode == "lw")
@@ -35,6 +35,9 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].target = target;
   n_rob.entries[this->head].done = opcode == "end";
+  
+  // for debugging
+  n_rob.entries[this->head].instruction = instruction;
 
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
   //       to differentiate them fron architectural addresses

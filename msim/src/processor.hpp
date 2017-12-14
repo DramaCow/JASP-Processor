@@ -2,6 +2,7 @@
 #define PROCESSOR_H
 
 #include <array>
+#include <vector>
 
 #include "cache.hpp"
 #include "bp.hpp"
@@ -39,6 +40,9 @@ class Processor
     BU bu;
     MU mu;
 
+    // for debugging
+    std::vector<Instruction> exe;
+
     Processor& operator=(const Processor& cpu);
 
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
@@ -53,7 +57,7 @@ class Processor
 
     // helper functions
     std::tuple<int, bool> read(int r);
-    int alloc(Processor &n_cpu, std::string opcode, int r, int target);
+    int alloc(Processor &n_cpu, std::string opcode, int r, int target, Instruction instruction);
     bool isStalled();
     void flush(int target);
 
