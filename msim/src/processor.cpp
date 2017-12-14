@@ -202,7 +202,7 @@ void Processor::execute(Processor &n_cpu)
 
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
-    port[p] = this->alu.duration == 0;
+    port[p] = this->alu[p].duration == 0;
   }
   port[NUM_EUS-1] = true; // bu port
   portm = this->mu.duration == 0;
@@ -214,7 +214,7 @@ void Processor::execute(Processor &n_cpu)
   // dispatch when instruction has finished
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
-    if (port[p]) n_cpu.alu.dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
+    if (port[p]) n_cpu.alu[p].dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
   }
   if (port[NUM_EUS-1]) n_cpu.bu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].o1, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].dest);
   if (portm) n_cpu.mu.dispatch(em);
@@ -222,7 +222,7 @@ void Processor::execute(Processor &n_cpu)
   // execute if instructions haven't finished
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
-    if (!port[p]) this->alu.execute(n_cpu.alu);
+    if (!port[p]) this->alu[p].execute(n_cpu.alu[p]);
   }
   if (!portm) this->mu.execute(n_cpu.mu);
 
@@ -230,10 +230,10 @@ void Processor::execute(Processor &n_cpu)
 
   for (int i = 0; i < NUM_ALUS; ++i)
   {
-    if (n_cpu.alu.writeback && n_cpu.alu.duration == 0)
+    if (n_cpu.alu[i].writeback && n_cpu.alu[i].duration == 0)
     {
-      n_cpu.rs.update(n_cpu.alu.dest, n_cpu.alu.result);
-      n_cpu.lsq.update(n_cpu.alu.dest, n_cpu.alu.result);
+      n_cpu.rs.update(n_cpu.alu[i].dest, n_cpu.alu[i].result);
+      n_cpu.lsq.update(n_cpu.alu[i].dest, n_cpu.alu[i].result);
     }
   }
 
@@ -251,11 +251,11 @@ void Processor::writeback(Processor &n_cpu)
   // writeback only when flag is set and instruction has finished
   for (int i = 0; i < NUM_ALUS; ++i)
   {
-    if (this->alu.writeback && this->alu.duration == 0)
+    if (this->alu[i].writeback && this->alu[i].duration == 0)
     {
-      n_cpu.rob.write(this->alu.dest, this->alu.result);
-      n_cpu.rs.update(this->alu.dest, this->alu.result);
-      n_cpu.lsq.update(this->alu.dest, this->alu.result);
+      n_cpu.rob.write(this->alu[i].dest, this->alu[i].result);
+      n_cpu.rs.update(this->alu[i].dest, this->alu[i].result);
+      n_cpu.lsq.update(this->alu[i].dest, this->alu[i].result);
     }
   }
 
@@ -387,7 +387,7 @@ void Processor::flush(int target)
   this->lsq.reset();
   for (int i = 0; i < NUM_ALUS; ++i)
   {
-    this->alu.reset();
+    this->alu[i].reset();
   }
   this->bu.reset();
   this->mu.reset();
@@ -410,7 +410,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->lsq = cpu.lsq;
   for (int i = 0; i < NUM_ALUS; ++i)
   {
-    this->alu = cpu.alu;
+    this->alu[i] = cpu.alu[i];
   }
   this->bu = cpu.bu;
   this->mu = cpu.mu;
@@ -451,7 +451,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   for (int i = 0; i < NUM_ALUS; ++i)
   {
-    os << "  alu = {\n" << cpu.alu
+    os << "  alu[" << i << "] = {\n" << cpu.alu[i]
        << "  }\n";
   }
   os << "  bu = {\n" << cpu.bu

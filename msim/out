@@ -41,7 +41,7 @@
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {
@@ -109,7 +109,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {
@@ -181,7 +181,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {
@@ -256,7 +256,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 100 movi 0 (0)
     = 100 writeback
   }
@@ -335,7 +335,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 0 addi 1 (0)
     = 1 writeback
   }
@@ -412,7 +412,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 0 addi 1 (0)
     = 1 writeback
   }
@@ -493,7 +493,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 0 addi 1 (0)
     = 1 writeback
   }
@@ -572,7 +572,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 0 addi 1 (0)
     = 1 writeback
   }
@@ -650,7 +650,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 1 addi 1 (0)
     = 2 writeback
   }
@@ -726,7 +726,7 @@ branch pred rate = -nan
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 1 addi 1 (0)
     = 2 writeback
   }
@@ -806,7 +806,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 1 addi 1 (0)
     = 2 writeback
   }
@@ -884,7 +884,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 1 addi 1 (0)
     = 2 writeback
   }
@@ -961,7 +961,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 2 addi 1 (0)
     = 3 writeback
   }
@@ -1040,7 +1040,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 2 addi 1 (0)
     = 3 writeback
   }
@@ -1119,7 +1119,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 2 addi 1 (0)
     = 3 writeback
   }
@@ -1196,7 +1196,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 2 addi 1 (0)
     = 3 writeback
   }
@@ -1276,7 +1276,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 3 addi 1 (0)
     = 4 writeback
   }
@@ -1354,7 +1354,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 3 addi 1 (0)
     = 4 writeback
   }
@@ -1432,7 +1432,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 3 addi 1 (0)
     = 4 writeback
   }
@@ -1512,7 +1512,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 3 addi 1 (0)
     = 4 writeback
   }
@@ -1591,7 +1591,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 4 addi 1 (0)
     = 5 writeback
   }
@@ -1668,7 +1668,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 4 addi 1 (0)
     = 5 writeback
   }
@@ -1749,7 +1749,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 4 addi 1 (0)
     = 5 writeback
   }
@@ -1828,7 +1828,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 4 addi 1 (0)
     = 5 writeback
   }
@@ -1906,7 +1906,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 5 addi 1 (0)
     = 6 writeback
   }
@@ -1982,7 +1982,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 5 addi 1 (0)
     = 6 writeback
   }
@@ -2062,7 +2062,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 5 addi 1 (0)
     = 6 writeback
   }
@@ -2140,7 +2140,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 5 addi 1 (0)
     = 6 writeback
   }
@@ -2217,7 +2217,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 6 addi 1 (0)
     = 7 writeback
   }
@@ -2296,7 +2296,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 6 addi 1 (0)
     = 7 writeback
   }
@@ -2375,7 +2375,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 6 addi 1 (0)
     = 7 writeback
   }
@@ -2452,7 +2452,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 6 addi 1 (0)
     = 7 writeback
   }
@@ -2532,7 +2532,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 7 addi 1 (0)
     = 8 writeback
   }
@@ -2610,7 +2610,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 7 addi 1 (0)
     = 8 writeback
   }
@@ -2688,7 +2688,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 7 addi 1 (0)
     = 8 writeback
   }
@@ -2768,7 +2768,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 7 addi 1 (0)
     = 8 writeback
   }
@@ -2847,7 +2847,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 8 addi 1 (0)
     = 9 writeback
   }
@@ -2924,7 +2924,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 8 addi 1 (0)
     = 9 writeback
   }
@@ -3005,7 +3005,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 8 addi 1 (0)
     = 9 writeback
   }
@@ -3084,7 +3084,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 8 addi 1 (0)
     = 9 writeback
   }
@@ -3162,7 +3162,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 9 addi 1 (0)
     = 10 writeback
   }
@@ -3238,7 +3238,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 9 addi 1 (0)
     = 10 writeback
   }
@@ -3318,7 +3318,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 9 addi 1 (0)
     = 10 writeback
   }
@@ -3396,7 +3396,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 9 addi 1 (0)
     = 10 writeback
   }
@@ -3473,7 +3473,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 10 addi 1 (0)
     = 11 writeback
   }
@@ -3552,7 +3552,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 10 addi 1 (0)
     = 11 writeback
   }
@@ -3631,7 +3631,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 10 addi 1 (0)
     = 11 writeback
   }
@@ -3708,7 +3708,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 10 addi 1 (0)
     = 11 writeback
   }
@@ -3788,7 +3788,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 11 addi 1 (0)
     = 12 writeback
   }
@@ -3866,7 +3866,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 11 addi 1 (0)
     = 12 writeback
   }
@@ -3944,7 +3944,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 11 addi 1 (0)
     = 12 writeback
   }
@@ -4024,7 +4024,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 11 addi 1 (0)
     = 12 writeback
   }
@@ -4103,7 +4103,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 12 addi 1 (0)
     = 13 writeback
   }
@@ -4180,7 +4180,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 12 addi 1 (0)
     = 13 writeback
   }
@@ -4261,7 +4261,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 12 addi 1 (0)
     = 13 writeback
   }
@@ -4340,7 +4340,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 12 addi 1 (0)
     = 13 writeback
   }
@@ -4418,7 +4418,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 13 addi 1 (0)
     = 14 writeback
   }
@@ -4494,7 +4494,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 13 addi 1 (0)
     = 14 writeback
   }
@@ -4574,7 +4574,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 13 addi 1 (0)
     = 14 writeback
   }
@@ -4652,7 +4652,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 13 addi 1 (0)
     = 14 writeback
   }
@@ -4729,7 +4729,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 14 addi 1 (0)
     = 15 writeback
   }
@@ -4808,7 +4808,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 14 addi 1 (0)
     = 15 writeback
   }
@@ -4887,7 +4887,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 14 addi 1 (0)
     = 15 writeback
   }
@@ -4964,7 +4964,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 14 addi 1 (0)
     = 15 writeback
   }
@@ -5044,7 +5044,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 15 addi 1 (0)
     = 16 writeback
   }
@@ -5122,7 +5122,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 15 addi 1 (0)
     = 16 writeback
   }
@@ -5200,7 +5200,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 15 addi 1 (0)
     = 16 writeback
   }
@@ -5280,7 +5280,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 15 addi 1 (0)
     = 16 writeback
   }
@@ -5359,7 +5359,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 16 addi 1 (0)
     = 17 writeback
   }
@@ -5436,7 +5436,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 16 addi 1 (0)
     = 17 writeback
   }
@@ -5517,7 +5517,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 16 addi 1 (0)
     = 17 writeback
   }
@@ -5596,7 +5596,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 16 addi 1 (0)
     = 17 writeback
   }
@@ -5674,7 +5674,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 17 addi 1 (0)
     = 18 writeback
   }
@@ -5750,7 +5750,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 17 addi 1 (0)
     = 18 writeback
   }
@@ -5830,7 +5830,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 17 addi 1 (0)
     = 18 writeback
   }
@@ -5908,7 +5908,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 17 addi 1 (0)
     = 18 writeback
   }
@@ -5985,7 +5985,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 18 addi 1 (0)
     = 19 writeback
   }
@@ -6064,7 +6064,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 18 addi 1 (0)
     = 19 writeback
   }
@@ -6143,7 +6143,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 18 addi 1 (0)
     = 19 writeback
   }
@@ -6220,7 +6220,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 18 addi 1 (0)
     = 19 writeback
   }
@@ -6300,7 +6300,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 19 addi 1 (0)
     = 20 writeback
   }
@@ -6378,7 +6378,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 19 addi 1 (0)
     = 20 writeback
   }
@@ -6456,7 +6456,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 19 addi 1 (0)
     = 20 writeback
   }
@@ -6536,7 +6536,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 19 addi 1 (0)
     = 20 writeback
   }
@@ -6615,7 +6615,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 20 addi 1 (0)
     = 21 writeback
   }
@@ -6692,7 +6692,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 20 addi 1 (0)
     = 21 writeback
   }
@@ -6773,7 +6773,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 20 addi 1 (0)
     = 21 writeback
   }
@@ -6852,7 +6852,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 20 addi 1 (0)
     = 21 writeback
   }
@@ -6930,7 +6930,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 21 addi 1 (0)
     = 22 writeback
   }
@@ -7006,7 +7006,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 21 addi 1 (0)
     = 22 writeback
   }
@@ -7086,7 +7086,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 21 addi 1 (0)
     = 22 writeback
   }
@@ -7164,7 +7164,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 21 addi 1 (0)
     = 22 writeback
   }
@@ -7241,7 +7241,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 22 addi 1 (0)
     = 23 writeback
   }
@@ -7320,7 +7320,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 22 addi 1 (0)
     = 23 writeback
   }
@@ -7399,7 +7399,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 22 addi 1 (0)
     = 23 writeback
   }
@@ -7476,7 +7476,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 22 addi 1 (0)
     = 23 writeback
   }
@@ -7556,7 +7556,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 23 addi 1 (0)
     = 24 writeback
   }
@@ -7634,7 +7634,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 23 addi 1 (0)
     = 24 writeback
   }
@@ -7712,7 +7712,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 23 addi 1 (0)
     = 24 writeback
   }
@@ -7792,7 +7792,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 23 addi 1 (0)
     = 24 writeback
   }
@@ -7871,7 +7871,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 24 addi 1 (0)
     = 25 writeback
   }
@@ -7948,7 +7948,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 24 addi 1 (0)
     = 25 writeback
   }
@@ -8029,7 +8029,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 24 addi 1 (0)
     = 25 writeback
   }
@@ -8108,7 +8108,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 24 addi 1 (0)
     = 25 writeback
   }
@@ -8186,7 +8186,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 25 addi 1 (0)
     = 26 writeback
   }
@@ -8262,7 +8262,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 25 addi 1 (0)
     = 26 writeback
   }
@@ -8342,7 +8342,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 25 addi 1 (0)
     = 26 writeback
   }
@@ -8420,7 +8420,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 25 addi 1 (0)
     = 26 writeback
   }
@@ -8497,7 +8497,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 26 addi 1 (0)
     = 27 writeback
   }
@@ -8576,7 +8576,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 26 addi 1 (0)
     = 27 writeback
   }
@@ -8655,7 +8655,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 26 addi 1 (0)
     = 27 writeback
   }
@@ -8732,7 +8732,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 26 addi 1 (0)
     = 27 writeback
   }
@@ -8812,7 +8812,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 27 addi 1 (0)
     = 28 writeback
   }
@@ -8890,7 +8890,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 27 addi 1 (0)
     = 28 writeback
   }
@@ -8968,7 +8968,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 27 addi 1 (0)
     = 28 writeback
   }
@@ -9048,7 +9048,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 27 addi 1 (0)
     = 28 writeback
   }
@@ -9127,7 +9127,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 28 addi 1 (0)
     = 29 writeback
   }
@@ -9204,7 +9204,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 28 addi 1 (0)
     = 29 writeback
   }
@@ -9285,7 +9285,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 28 addi 1 (0)
     = 29 writeback
   }
@@ -9364,7 +9364,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 28 addi 1 (0)
     = 29 writeback
   }
@@ -9442,7 +9442,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 29 addi 1 (0)
     = 30 writeback
   }
@@ -9518,7 +9518,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 29 addi 1 (0)
     = 30 writeback
   }
@@ -9598,7 +9598,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 29 addi 1 (0)
     = 30 writeback
   }
@@ -9676,7 +9676,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 29 addi 1 (0)
     = 30 writeback
   }
@@ -9753,7 +9753,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 30 addi 1 (0)
     = 31 writeback
   }
@@ -9832,7 +9832,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 30 addi 1 (0)
     = 31 writeback
   }
@@ -9911,7 +9911,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 30 addi 1 (0)
     = 31 writeback
   }
@@ -9988,7 +9988,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 30 addi 1 (0)
     = 31 writeback
   }
@@ -10068,7 +10068,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 31 addi 1 (0)
     = 32 writeback
   }
@@ -10146,7 +10146,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 31 addi 1 (0)
     = 32 writeback
   }
@@ -10224,7 +10224,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 31 addi 1 (0)
     = 32 writeback
   }
@@ -10304,7 +10304,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 31 addi 1 (0)
     = 32 writeback
   }
@@ -10383,7 +10383,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 32 addi 1 (0)
     = 33 writeback
   }
@@ -10460,7 +10460,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 32 addi 1 (0)
     = 33 writeback
   }
@@ -10541,7 +10541,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 32 addi 1 (0)
     = 33 writeback
   }
@@ -10620,7 +10620,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 32 addi 1 (0)
     = 33 writeback
   }
@@ -10698,7 +10698,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 33 addi 1 (0)
     = 34 writeback
   }
@@ -10774,7 +10774,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 33 addi 1 (0)
     = 34 writeback
   }
@@ -10854,7 +10854,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 33 addi 1 (0)
     = 34 writeback
   }
@@ -10932,7 +10932,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 33 addi 1 (0)
     = 34 writeback
   }
@@ -11009,7 +11009,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 34 addi 1 (0)
     = 35 writeback
   }
@@ -11088,7 +11088,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 34 addi 1 (0)
     = 35 writeback
   }
@@ -11167,7 +11167,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 34 addi 1 (0)
     = 35 writeback
   }
@@ -11244,7 +11244,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 34 addi 1 (0)
     = 35 writeback
   }
@@ -11324,7 +11324,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 35 addi 1 (0)
     = 36 writeback
   }
@@ -11402,7 +11402,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 35 addi 1 (0)
     = 36 writeback
   }
@@ -11480,7 +11480,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 35 addi 1 (0)
     = 36 writeback
   }
@@ -11560,7 +11560,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 35 addi 1 (0)
     = 36 writeback
   }
@@ -11639,7 +11639,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 36 addi 1 (0)
     = 37 writeback
   }
@@ -11716,7 +11716,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 36 addi 1 (0)
     = 37 writeback
   }
@@ -11797,7 +11797,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 36 addi 1 (0)
     = 37 writeback
   }
@@ -11876,7 +11876,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 36 addi 1 (0)
     = 37 writeback
   }
@@ -11954,7 +11954,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 37 addi 1 (0)
     = 38 writeback
   }
@@ -12030,7 +12030,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 37 addi 1 (0)
     = 38 writeback
   }
@@ -12110,7 +12110,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 37 addi 1 (0)
     = 38 writeback
   }
@@ -12188,7 +12188,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 37 addi 1 (0)
     = 38 writeback
   }
@@ -12265,7 +12265,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 38 addi 1 (0)
     = 39 writeback
   }
@@ -12344,7 +12344,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 38 addi 1 (0)
     = 39 writeback
   }
@@ -12423,7 +12423,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 38 addi 1 (0)
     = 39 writeback
   }
@@ -12500,7 +12500,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 38 addi 1 (0)
     = 39 writeback
   }
@@ -12580,7 +12580,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 39 addi 1 (0)
     = 40 writeback
   }
@@ -12658,7 +12658,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 39 addi 1 (0)
     = 40 writeback
   }
@@ -12736,7 +12736,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 39 addi 1 (0)
     = 40 writeback
   }
@@ -12816,7 +12816,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 39 addi 1 (0)
     = 40 writeback
   }
@@ -12895,7 +12895,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 40 addi 1 (0)
     = 41 writeback
   }
@@ -12972,7 +12972,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 40 addi 1 (0)
     = 41 writeback
   }
@@ -13053,7 +13053,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 40 addi 1 (0)
     = 41 writeback
   }
@@ -13132,7 +13132,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 40 addi 1 (0)
     = 41 writeback
   }
@@ -13210,7 +13210,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 41 addi 1 (0)
     = 42 writeback
   }
@@ -13286,7 +13286,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 41 addi 1 (0)
     = 42 writeback
   }
@@ -13366,7 +13366,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 41 addi 1 (0)
     = 42 writeback
   }
@@ -13444,7 +13444,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 41 addi 1 (0)
     = 42 writeback
   }
@@ -13521,7 +13521,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 42 addi 1 (0)
     = 43 writeback
   }
@@ -13600,7 +13600,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 42 addi 1 (0)
     = 43 writeback
   }
@@ -13679,7 +13679,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 42 addi 1 (0)
     = 43 writeback
   }
@@ -13756,7 +13756,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 42 addi 1 (0)
     = 43 writeback
   }
@@ -13836,7 +13836,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 43 addi 1 (0)
     = 44 writeback
   }
@@ -13914,7 +13914,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 43 addi 1 (0)
     = 44 writeback
   }
@@ -13992,7 +13992,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 43 addi 1 (0)
     = 44 writeback
   }
@@ -14072,7 +14072,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 43 addi 1 (0)
     = 44 writeback
   }
@@ -14151,7 +14151,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 44 addi 1 (0)
     = 45 writeback
   }
@@ -14228,7 +14228,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 44 addi 1 (0)
     = 45 writeback
   }
@@ -14309,7 +14309,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 44 addi 1 (0)
     = 45 writeback
   }
@@ -14388,7 +14388,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 44 addi 1 (0)
     = 45 writeback
   }
@@ -14466,7 +14466,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 45 addi 1 (0)
     = 46 writeback
   }
@@ -14542,7 +14542,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 45 addi 1 (0)
     = 46 writeback
   }
@@ -14622,7 +14622,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 45 addi 1 (0)
     = 46 writeback
   }
@@ -14700,7 +14700,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 45 addi 1 (0)
     = 46 writeback
   }
@@ -14777,7 +14777,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 46 addi 1 (0)
     = 47 writeback
   }
@@ -14856,7 +14856,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 46 addi 1 (0)
     = 47 writeback
   }
@@ -14935,7 +14935,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 46 addi 1 (0)
     = 47 writeback
   }
@@ -15012,7 +15012,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 46 addi 1 (0)
     = 47 writeback
   }
@@ -15092,7 +15092,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 47 addi 1 (0)
     = 48 writeback
   }
@@ -15170,7 +15170,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 47 addi 1 (0)
     = 48 writeback
   }
@@ -15248,7 +15248,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 47 addi 1 (0)
     = 48 writeback
   }
@@ -15328,7 +15328,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 47 addi 1 (0)
     = 48 writeback
   }
@@ -15407,7 +15407,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 48 addi 1 (0)
     = 49 writeback
   }
@@ -15484,7 +15484,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 48 addi 1 (0)
     = 49 writeback
   }
@@ -15565,7 +15565,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 48 addi 1 (0)
     = 49 writeback
   }
@@ -15644,7 +15644,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 48 addi 1 (0)
     = 49 writeback
   }
@@ -15722,7 +15722,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 49 addi 1 (0)
     = 50 writeback
   }
@@ -15798,7 +15798,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 49 addi 1 (0)
     = 50 writeback
   }
@@ -15878,7 +15878,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 49 addi 1 (0)
     = 50 writeback
   }
@@ -15956,7 +15956,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 49 addi 1 (0)
     = 50 writeback
   }
@@ -16033,7 +16033,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 50 addi 1 (0)
     = 51 writeback
   }
@@ -16112,7 +16112,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 50 addi 1 (0)
     = 51 writeback
   }
@@ -16191,7 +16191,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 50 addi 1 (0)
     = 51 writeback
   }
@@ -16268,7 +16268,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 50 addi 1 (0)
     = 51 writeback
   }
@@ -16348,7 +16348,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 51 addi 1 (0)
     = 52 writeback
   }
@@ -16426,7 +16426,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 51 addi 1 (0)
     = 52 writeback
   }
@@ -16504,7 +16504,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 51 addi 1 (0)
     = 52 writeback
   }
@@ -16584,7 +16584,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 51 addi 1 (0)
     = 52 writeback
   }
@@ -16663,7 +16663,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 52 addi 1 (0)
     = 53 writeback
   }
@@ -16740,7 +16740,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 52 addi 1 (0)
     = 53 writeback
   }
@@ -16821,7 +16821,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 52 addi 1 (0)
     = 53 writeback
   }
@@ -16900,7 +16900,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 52 addi 1 (0)
     = 53 writeback
   }
@@ -16978,7 +16978,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 53 addi 1 (0)
     = 54 writeback
   }
@@ -17054,7 +17054,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 53 addi 1 (0)
     = 54 writeback
   }
@@ -17134,7 +17134,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 53 addi 1 (0)
     = 54 writeback
   }
@@ -17212,7 +17212,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 53 addi 1 (0)
     = 54 writeback
   }
@@ -17289,7 +17289,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 54 addi 1 (0)
     = 55 writeback
   }
@@ -17368,7 +17368,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 54 addi 1 (0)
     = 55 writeback
   }
@@ -17447,7 +17447,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 54 addi 1 (0)
     = 55 writeback
   }
@@ -17524,7 +17524,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 54 addi 1 (0)
     = 55 writeback
   }
@@ -17604,7 +17604,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 55 addi 1 (0)
     = 56 writeback
   }
@@ -17682,7 +17682,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 55 addi 1 (0)
     = 56 writeback
   }
@@ -17760,7 +17760,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 55 addi 1 (0)
     = 56 writeback
   }
@@ -17840,7 +17840,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 55 addi 1 (0)
     = 56 writeback
   }
@@ -17919,7 +17919,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 56 addi 1 (0)
     = 57 writeback
   }
@@ -17996,7 +17996,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 56 addi 1 (0)
     = 57 writeback
   }
@@ -18077,7 +18077,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 56 addi 1 (0)
     = 57 writeback
   }
@@ -18156,7 +18156,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 56 addi 1 (0)
     = 57 writeback
   }
@@ -18234,7 +18234,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 57 addi 1 (0)
     = 58 writeback
   }
@@ -18310,7 +18310,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 57 addi 1 (0)
     = 58 writeback
   }
@@ -18390,7 +18390,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 57 addi 1 (0)
     = 58 writeback
   }
@@ -18468,7 +18468,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 57 addi 1 (0)
     = 58 writeback
   }
@@ -18545,7 +18545,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 58 addi 1 (0)
     = 59 writeback
   }
@@ -18624,7 +18624,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 58 addi 1 (0)
     = 59 writeback
   }
@@ -18703,7 +18703,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 58 addi 1 (0)
     = 59 writeback
   }
@@ -18780,7 +18780,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 58 addi 1 (0)
     = 59 writeback
   }
@@ -18860,7 +18860,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 59 addi 1 (0)
     = 60 writeback
   }
@@ -18938,7 +18938,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 59 addi 1 (0)
     = 60 writeback
   }
@@ -19016,7 +19016,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 59 addi 1 (0)
     = 60 writeback
   }
@@ -19096,7 +19096,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 59 addi 1 (0)
     = 60 writeback
   }
@@ -19175,7 +19175,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 60 addi 1 (0)
     = 61 writeback
   }
@@ -19252,7 +19252,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 60 addi 1 (0)
     = 61 writeback
   }
@@ -19333,7 +19333,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 60 addi 1 (0)
     = 61 writeback
   }
@@ -19412,7 +19412,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 60 addi 1 (0)
     = 61 writeback
   }
@@ -19490,7 +19490,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 61 addi 1 (0)
     = 62 writeback
   }
@@ -19566,7 +19566,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 61 addi 1 (0)
     = 62 writeback
   }
@@ -19646,7 +19646,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 61 addi 1 (0)
     = 62 writeback
   }
@@ -19724,7 +19724,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 61 addi 1 (0)
     = 62 writeback
   }
@@ -19801,7 +19801,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 62 addi 1 (0)
     = 63 writeback
   }
@@ -19880,7 +19880,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 62 addi 1 (0)
     = 63 writeback
   }
@@ -19959,7 +19959,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 62 addi 1 (0)
     = 63 writeback
   }
@@ -20036,7 +20036,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 62 addi 1 (0)
     = 63 writeback
   }
@@ -20116,7 +20116,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 63 addi 1 (0)
     = 64 writeback
   }
@@ -20194,7 +20194,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 63 addi 1 (0)
     = 64 writeback
   }
@@ -20272,7 +20272,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 63 addi 1 (0)
     = 64 writeback
   }
@@ -20352,7 +20352,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 63 addi 1 (0)
     = 64 writeback
   }
@@ -20431,7 +20431,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 64 addi 1 (0)
     = 65 writeback
   }
@@ -20508,7 +20508,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 64 addi 1 (0)
     = 65 writeback
   }
@@ -20589,7 +20589,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 64 addi 1 (0)
     = 65 writeback
   }
@@ -20668,7 +20668,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 64 addi 1 (0)
     = 65 writeback
   }
@@ -20746,7 +20746,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 65 addi 1 (0)
     = 66 writeback
   }
@@ -20822,7 +20822,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 65 addi 1 (0)
     = 66 writeback
   }
@@ -20902,7 +20902,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 65 addi 1 (0)
     = 66 writeback
   }
@@ -20980,7 +20980,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 65 addi 1 (0)
     = 66 writeback
   }
@@ -21057,7 +21057,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 66 addi 1 (0)
     = 67 writeback
   }
@@ -21136,7 +21136,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 66 addi 1 (0)
     = 67 writeback
   }
@@ -21215,7 +21215,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 66 addi 1 (0)
     = 67 writeback
   }
@@ -21292,7 +21292,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 66 addi 1 (0)
     = 67 writeback
   }
@@ -21372,7 +21372,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 67 addi 1 (0)
     = 68 writeback
   }
@@ -21450,7 +21450,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 67 addi 1 (0)
     = 68 writeback
   }
@@ -21528,7 +21528,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 67 addi 1 (0)
     = 68 writeback
   }
@@ -21608,7 +21608,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 67 addi 1 (0)
     = 68 writeback
   }
@@ -21687,7 +21687,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 68 addi 1 (0)
     = 69 writeback
   }
@@ -21764,7 +21764,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 68 addi 1 (0)
     = 69 writeback
   }
@@ -21845,7 +21845,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 68 addi 1 (0)
     = 69 writeback
   }
@@ -21924,7 +21924,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 68 addi 1 (0)
     = 69 writeback
   }
@@ -22002,7 +22002,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 69 addi 1 (0)
     = 70 writeback
   }
@@ -22078,7 +22078,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 69 addi 1 (0)
     = 70 writeback
   }
@@ -22158,7 +22158,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 69 addi 1 (0)
     = 70 writeback
   }
@@ -22236,7 +22236,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 69 addi 1 (0)
     = 70 writeback
   }
@@ -22313,7 +22313,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 70 addi 1 (0)
     = 71 writeback
   }
@@ -22392,7 +22392,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 70 addi 1 (0)
     = 71 writeback
   }
@@ -22471,7 +22471,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 70 addi 1 (0)
     = 71 writeback
   }
@@ -22548,7 +22548,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 70 addi 1 (0)
     = 71 writeback
   }
@@ -22628,7 +22628,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 71 addi 1 (0)
     = 72 writeback
   }
@@ -22706,7 +22706,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 71 addi 1 (0)
     = 72 writeback
   }
@@ -22784,7 +22784,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 71 addi 1 (0)
     = 72 writeback
   }
@@ -22864,7 +22864,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 71 addi 1 (0)
     = 72 writeback
   }
@@ -22943,7 +22943,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 72 addi 1 (0)
     = 73 writeback
   }
@@ -23020,7 +23020,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 72 addi 1 (0)
     = 73 writeback
   }
@@ -23101,7 +23101,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 72 addi 1 (0)
     = 73 writeback
   }
@@ -23180,7 +23180,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 72 addi 1 (0)
     = 73 writeback
   }
@@ -23258,7 +23258,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 73 addi 1 (0)
     = 74 writeback
   }
@@ -23334,7 +23334,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 73 addi 1 (0)
     = 74 writeback
   }
@@ -23414,7 +23414,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 73 addi 1 (0)
     = 74 writeback
   }
@@ -23492,7 +23492,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 73 addi 1 (0)
     = 74 writeback
   }
@@ -23569,7 +23569,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 74 addi 1 (0)
     = 75 writeback
   }
@@ -23648,7 +23648,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 74 addi 1 (0)
     = 75 writeback
   }
@@ -23727,7 +23727,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 74 addi 1 (0)
     = 75 writeback
   }
@@ -23804,7 +23804,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 74 addi 1 (0)
     = 75 writeback
   }
@@ -23884,7 +23884,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 75 addi 1 (0)
     = 76 writeback
   }
@@ -23962,7 +23962,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 75 addi 1 (0)
     = 76 writeback
   }
@@ -24040,7 +24040,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 75 addi 1 (0)
     = 76 writeback
   }
@@ -24120,7 +24120,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 75 addi 1 (0)
     = 76 writeback
   }
@@ -24199,7 +24199,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 76 addi 1 (0)
     = 77 writeback
   }
@@ -24276,7 +24276,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 76 addi 1 (0)
     = 77 writeback
   }
@@ -24357,7 +24357,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 76 addi 1 (0)
     = 77 writeback
   }
@@ -24436,7 +24436,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 76 addi 1 (0)
     = 77 writeback
   }
@@ -24514,7 +24514,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 77 addi 1 (0)
     = 78 writeback
   }
@@ -24590,7 +24590,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 77 addi 1 (0)
     = 78 writeback
   }
@@ -24670,7 +24670,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 77 addi 1 (0)
     = 78 writeback
   }
@@ -24748,7 +24748,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 77 addi 1 (0)
     = 78 writeback
   }
@@ -24825,7 +24825,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 78 addi 1 (0)
     = 79 writeback
   }
@@ -24904,7 +24904,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 78 addi 1 (0)
     = 79 writeback
   }
@@ -24983,7 +24983,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 78 addi 1 (0)
     = 79 writeback
   }
@@ -25060,7 +25060,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 78 addi 1 (0)
     = 79 writeback
   }
@@ -25140,7 +25140,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 79 addi 1 (0)
     = 80 writeback
   }
@@ -25218,7 +25218,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 79 addi 1 (0)
     = 80 writeback
   }
@@ -25296,7 +25296,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 79 addi 1 (0)
     = 80 writeback
   }
@@ -25376,7 +25376,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 79 addi 1 (0)
     = 80 writeback
   }
@@ -25455,7 +25455,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 80 addi 1 (0)
     = 81 writeback
   }
@@ -25532,7 +25532,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 80 addi 1 (0)
     = 81 writeback
   }
@@ -25613,7 +25613,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 80 addi 1 (0)
     = 81 writeback
   }
@@ -25692,7 +25692,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 80 addi 1 (0)
     = 81 writeback
   }
@@ -25770,7 +25770,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 81 addi 1 (0)
     = 82 writeback
   }
@@ -25846,7 +25846,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 81 addi 1 (0)
     = 82 writeback
   }
@@ -25926,7 +25926,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 81 addi 1 (0)
     = 82 writeback
   }
@@ -26004,7 +26004,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 81 addi 1 (0)
     = 82 writeback
   }
@@ -26081,7 +26081,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 82 addi 1 (0)
     = 83 writeback
   }
@@ -26160,7 +26160,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 82 addi 1 (0)
     = 83 writeback
   }
@@ -26239,7 +26239,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 82 addi 1 (0)
     = 83 writeback
   }
@@ -26316,7 +26316,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 82 addi 1 (0)
     = 83 writeback
   }
@@ -26396,7 +26396,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 83 addi 1 (0)
     = 84 writeback
   }
@@ -26474,7 +26474,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 83 addi 1 (0)
     = 84 writeback
   }
@@ -26552,7 +26552,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 83 addi 1 (0)
     = 84 writeback
   }
@@ -26632,7 +26632,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 83 addi 1 (0)
     = 84 writeback
   }
@@ -26711,7 +26711,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 84 addi 1 (0)
     = 85 writeback
   }
@@ -26788,7 +26788,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 84 addi 1 (0)
     = 85 writeback
   }
@@ -26869,7 +26869,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 84 addi 1 (0)
     = 85 writeback
   }
@@ -26948,7 +26948,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 84 addi 1 (0)
     = 85 writeback
   }
@@ -27026,7 +27026,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 85 addi 1 (0)
     = 86 writeback
   }
@@ -27102,7 +27102,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 85 addi 1 (0)
     = 86 writeback
   }
@@ -27182,7 +27182,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 85 addi 1 (0)
     = 86 writeback
   }
@@ -27260,7 +27260,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 85 addi 1 (0)
     = 86 writeback
   }
@@ -27337,7 +27337,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 86 addi 1 (0)
     = 87 writeback
   }
@@ -27416,7 +27416,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 86 addi 1 (0)
     = 87 writeback
   }
@@ -27495,7 +27495,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 86 addi 1 (0)
     = 87 writeback
   }
@@ -27572,7 +27572,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 86 addi 1 (0)
     = 87 writeback
   }
@@ -27652,7 +27652,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 87 addi 1 (0)
     = 88 writeback
   }
@@ -27730,7 +27730,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 87 addi 1 (0)
     = 88 writeback
   }
@@ -27808,7 +27808,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 87 addi 1 (0)
     = 88 writeback
   }
@@ -27888,7 +27888,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 87 addi 1 (0)
     = 88 writeback
   }
@@ -27967,7 +27967,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 88 addi 1 (0)
     = 89 writeback
   }
@@ -28044,7 +28044,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 88 addi 1 (0)
     = 89 writeback
   }
@@ -28125,7 +28125,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 88 addi 1 (0)
     = 89 writeback
   }
@@ -28204,7 +28204,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 88 addi 1 (0)
     = 89 writeback
   }
@@ -28282,7 +28282,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 89 addi 1 (0)
     = 90 writeback
   }
@@ -28358,7 +28358,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 89 addi 1 (0)
     = 90 writeback
   }
@@ -28438,7 +28438,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 89 addi 1 (0)
     = 90 writeback
   }
@@ -28516,7 +28516,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 89 addi 1 (0)
     = 90 writeback
   }
@@ -28593,7 +28593,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 90 addi 1 (0)
     = 91 writeback
   }
@@ -28672,7 +28672,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 90 addi 1 (0)
     = 91 writeback
   }
@@ -28751,7 +28751,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 90 addi 1 (0)
     = 91 writeback
   }
@@ -28828,7 +28828,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 90 addi 1 (0)
     = 91 writeback
   }
@@ -28908,7 +28908,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 91 addi 1 (0)
     = 92 writeback
   }
@@ -28986,7 +28986,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 91 addi 1 (0)
     = 92 writeback
   }
@@ -29064,7 +29064,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 91 addi 1 (0)
     = 92 writeback
   }
@@ -29144,7 +29144,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 91 addi 1 (0)
     = 92 writeback
   }
@@ -29223,7 +29223,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 92 addi 1 (0)
     = 93 writeback
   }
@@ -29300,7 +29300,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 92 addi 1 (0)
     = 93 writeback
   }
@@ -29381,7 +29381,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 92 addi 1 (0)
     = 93 writeback
   }
@@ -29460,7 +29460,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 92 addi 1 (0)
     = 93 writeback
   }
@@ -29538,7 +29538,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 93 addi 1 (0)
     = 94 writeback
   }
@@ -29614,7 +29614,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 93 addi 1 (0)
     = 94 writeback
   }
@@ -29694,7 +29694,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 93 addi 1 (0)
     = 94 writeback
   }
@@ -29772,7 +29772,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 93 addi 1 (0)
     = 94 writeback
   }
@@ -29849,7 +29849,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 94 addi 1 (0)
     = 95 writeback
   }
@@ -29928,7 +29928,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 94 addi 1 (0)
     = 95 writeback
   }
@@ -30007,7 +30007,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 94 addi 1 (0)
     = 95 writeback
   }
@@ -30084,7 +30084,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d18 <-- 94 addi 1 (0)
     = 95 writeback
   }
@@ -30164,7 +30164,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 95 addi 1 (0)
     = 96 writeback
   }
@@ -30242,7 +30242,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 95 addi 1 (0)
     = 96 writeback
   }
@@ -30320,7 +30320,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 95 addi 1 (0)
     = 96 writeback
   }
@@ -30400,7 +30400,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d23 <-- 95 addi 1 (0)
     = 96 writeback
   }
@@ -30479,7 +30479,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 96 addi 1 (0)
     = 97 writeback
   }
@@ -30556,7 +30556,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 96 addi 1 (0)
     = 97 writeback
   }
@@ -30637,7 +30637,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 96 addi 1 (0)
     = 97 writeback
   }
@@ -30716,7 +30716,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d12 <-- 96 addi 1 (0)
     = 97 writeback
   }
@@ -30794,7 +30794,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d14 <-- 97 addi 1 (0)
     = 98 writeback
   }
@@ -30870,7 +30870,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d15 <-- 97 addi 1 (0)
     = 98 writeback
   }
@@ -30950,7 +30950,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d16 <-- 97 addi 1 (0)
     = 98 writeback
   }
@@ -31028,7 +31028,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d17 <-- 97 addi 1 (0)
     = 98 writeback
   }
@@ -31105,7 +31105,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d19 <-- 98 addi 1 (0)
     = 99 writeback
   }
@@ -31184,7 +31184,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d20 <-- 98 addi 1 (0)
     = 99 writeback
   }
@@ -31263,7 +31263,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d21 <-- 98 addi 1 (0)
     = 99 writeback
   }
@@ -31340,7 +31340,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d22 <-- 98 addi 1 (0)
     = 99 writeback
   }
@@ -31420,7 +31420,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d8 <-- 99 addi 1 (0)
     = 100 writeback
   }
@@ -31498,7 +31498,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d9 <-- 99 addi 1 (0)
     = 100 writeback
   }
@@ -31576,7 +31576,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d10 <-- 99 addi 1 (0)
     = 100 writeback
   }
@@ -31656,7 +31656,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d11 <-- 99 addi 1 (0)
     = 100 writeback
   }
@@ -31735,7 +31735,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     d13 <-- 100 addi 1 (0)
     = 101 writeback
   }
@@ -31807,7 +31807,7 @@ branch pred rate = 1
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {
@@ -31875,7 +31875,7 @@ branch pred rate = 0.99
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {
@@ -31943,7 +31943,7 @@ branch pred rate = 0.99
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {
@@ -32011,7 +32011,7 @@ branch pred rate = 0.99
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
-  alu = {
+  alu[0] = {
     --- nop ---
   }
   bu = {

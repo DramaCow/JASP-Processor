@@ -35,8 +35,8 @@ class Processor
     RRF rrf;
     RS rs;
     LSQ lsq;
-    //std::array<ALU, NUM_ALUS> alu;
-    ALU alu;
+    std::array<ALU, NUM_ALUS> alu;
+    //ALU alu;
     BU bu;
     MU mu;
 
