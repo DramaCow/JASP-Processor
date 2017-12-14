@@ -228,10 +228,13 @@ void Processor::execute(Processor &n_cpu)
 
   // === BYPASS ===
 
-  if (n_cpu.alu.writeback && n_cpu.alu.duration == 0)
+  for (int i = 0; i < NUM_ALUS; ++i)
   {
-    n_cpu.rs.update(n_cpu.alu.dest, n_cpu.alu.result);
-    n_cpu.lsq.update(n_cpu.alu.dest, n_cpu.alu.result);
+    if (n_cpu.alu.writeback && n_cpu.alu.duration == 0)
+    {
+      n_cpu.rs.update(n_cpu.alu.dest, n_cpu.alu.result);
+      n_cpu.lsq.update(n_cpu.alu.dest, n_cpu.alu.result);
+    }
   }
 
   if (n_cpu.mu.writeback && n_cpu.mu.duration == 0)
@@ -246,11 +249,14 @@ void Processor::execute(Processor &n_cpu)
 void Processor::writeback(Processor &n_cpu)
 {
   // writeback only when flag is set and instruction has finished
-  if (this->alu.writeback && this->alu.duration == 0)
+  for (int i = 0; i < NUM_ALUS; ++i)
   {
-    n_cpu.rob.write(this->alu.dest, this->alu.result);
-    n_cpu.rs.update(this->alu.dest, this->alu.result);
-    n_cpu.lsq.update(this->alu.dest, this->alu.result);
+    if (this->alu.writeback && this->alu.duration == 0)
+    {
+      n_cpu.rob.write(this->alu.dest, this->alu.result);
+      n_cpu.rs.update(this->alu.dest, this->alu.result);
+      n_cpu.lsq.update(this->alu.dest, this->alu.result);
+    }
   }
 
   if (this->bu.writeback)
@@ -379,7 +385,10 @@ void Processor::flush(int target)
   this->rob.reset();
   this->rs.reset();
   this->lsq.reset();
-  this->alu.reset();
+  for (int i = 0; i < NUM_ALUS; ++i)
+  {
+    this->alu.reset();
+  }
   this->bu.reset();
   this->mu.reset();
   this->pc = target;
@@ -399,7 +408,10 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
   this->lsq = cpu.lsq;
-  this->alu = cpu.alu;
+  for (int i = 0; i < NUM_ALUS; ++i)
+  {
+    this->alu = cpu.alu;
+  }
   this->bu = cpu.bu;
   this->mu = cpu.mu;
 
@@ -437,8 +449,11 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  lsq = {\n" << cpu.lsq
      << "  }\n";
-  os << "  alu = {\n" << cpu.alu
-     << "  }\n";
+  for (int i = 0; i < NUM_ALUS; ++i)
+  {
+    os << "  alu = {\n" << cpu.alu
+       << "  }\n";
+  }
   os << "  bu = {\n" << cpu.bu
      << "  }\n";
   os << "  mu = {\n" << cpu.mu
