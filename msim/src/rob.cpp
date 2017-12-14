@@ -44,7 +44,6 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
   n_rob.head = (this->head + 1) % NUM_ROB_ENTRIES;
 
   n_rob.size = this->size + 1;
-  std::cout << "-----> " << n_rob.size << std::endl;
 
   return e;
 }
@@ -127,9 +126,7 @@ ROB& ROB::operator=(const ROB& rob)
 {
   this->head = rob.head;
   this->tail = rob.tail;
-  std::cout << "------> " << this->size << " = " << rob.size << '\n';
   this->size = rob.size;
-  std::cout << "------> " << this->size << " = " << rob.size << '\n';
   memcpy(this->entries, rob.entries, NUM_ROB_ENTRIES*sizeof(Entry));
   return *this;
 }

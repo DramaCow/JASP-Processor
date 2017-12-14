@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define FETCHRATE 4
+#define FETCHRATE 8
 #define NUM_REGISTERS 8
 #define NUM_RS_ENTRIES 16
 #define NUM_LSQ_ENTRIES 8

@@ -5,6 +5,10 @@
     0: 
     0: 
     0: 
+    0: 
+    0: 
+    0: 
+    0: 
   }
   rat = {
     0 1 2 3 4 5 6 7 
@@ -65,17 +69,15 @@
 cycles = 0
 cpi = -nan
 branch pred rate = -nan
--------> 0
-WHY1---> 0
-WHY2---> 0
-------> 0 = 0
-------> 0 = 0
-WHY---> 0
 (t1) {
   pc = 2
   ibuf = {
     0: movi 0 0
     1: movi 1 100
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
   }
@@ -138,18 +140,6 @@ WHY---> 0
 cycles = 1
 cpi = inf
 branch pred rate = -nan
----> 0
------> 1
----> 100
------> 2
------> 3
------> 4
--------> 4
-WHY1---> 4
-WHY2---> 4
-------> 0 = 4
-------> 4 = 4
-WHY---> 4
 (t2) {
   pc = 2
   ibuf = {
@@ -157,23 +147,27 @@ WHY---> 4
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 9 2 3 4 5 6 7 
+    14 9 2 3 4 5 6 7 
   }
   rob = {
-    size=4
+    size=8
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     d8    WB    r0    0     --    no     <-t-
     d9    WB    r1    0     --    no    
     d10   WB    r0    0     --    no    
     d11   BR    --    0     4     yes   
-    d12   DN    --    0     --    no     <-h-
-    d13   DN    --    0     --    no    
-    d14   DN    --    0     --    no    
-    d15   DN    --    0     --    no    
-    d16   DN    --    0     --    no    
+    d12   WB    r0    0     --    no    
+    d13   BR    --    0     4     yes   
+    d14   WB    r0    0     --    no    
+    d15   BR    --    0     4     yes   
+    d16   DN    --    0     --    no     <-h-
     d17   DN    --    0     --    no    
     d18   DN    --    0     --    no    
     d19   DN    --    0     --    no    
@@ -192,6 +186,10 @@ WHY---> 4
     movi  100   0     0     d9    
     addi  d8    1     0     d10   
     bneq  1     d10   d9    d11   
+    addi  d10   1     0     d12   
+    bneq  1     d12   d9    d13   
+    addi  d12   1     0     d14   
+    bneq  1     d14   d9    d15   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -221,19 +219,13 @@ WHY---> 4
 cycles = 2
 cpi = inf
 branch pred rate = -nan
------> 5
------> 6
------> 7
------> 8
--------> 8
-WHY1---> 8
-WHY2---> 8
-------> 4 = 8
-------> 8 = 8
-WHY---> 8
 (t3) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -306,16 +298,6 @@ WHY---> 8
 cycles = 3
 cpi = inf
 branch pred rate = -nan
------> 9
------> 10
------> 11
------> 12
--------> 12
-WHY1---> 12
-WHY2---> 12
-------> 8 = 12
-------> 12 = 12
-WHY---> 12
 (t4) {
   pc = 2
   ibuf = {
@@ -323,12 +305,16 @@ WHY---> 12
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 9 2 3 4 5 6 7 
+    14 9 2 3 4 5 6 7 
   }
   rob = {
-    size=12
+    size=8
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    0     --    no     <-t-
@@ -339,11 +325,11 @@ WHY---> 12
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    d20   DN    --    0     --    no     <-h-
+    d16   DN    --    0     --    no     <-h-
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
     d21   DN    --    0     --    no    
     d22   DN    --    0     --    no    
     d23   DN    --    0     --    no    
@@ -360,10 +346,6 @@ WHY---> 12
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -394,12 +376,6 @@ WHY---> 12
 cycles = 4
 cpi = inf
 branch pred rate = -nan
--------> 12
-WHY1---> 12
-WHY2---> 11
-------> 12 = 11
-------> 11 = 11
-WHY---> 11
 (t5) {
   pc = 2
   ibuf = {
@@ -407,12 +383,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 9 2 3 4 5 6 7 
+    14 9 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    0     --    no    
@@ -423,11 +403,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    d20   DN    --    0     --    no     <-h-
+    d16   DN    --    0     --    no     <-h-
+    d17   DN    --    0     --    no    
+    d18   DN    --    0     --    no    
+    d19   DN    --    0     --    no    
+    d20   DN    --    0     --    no    
     d21   DN    --    0     --    no    
     d22   DN    --    0     --    no    
     d23   DN    --    0     --    no    
@@ -443,10 +423,6 @@ WHY---> 11
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -477,19 +453,13 @@ WHY---> 11
 cycles = 5
 cpi = 5
 branch pred rate = -nan
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 14
-------> 11 = 14
-------> 14 = 14
-WHY---> 14
 (t6) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -567,15 +537,13 @@ WHY---> 14
 cycles = 6
 cpi = 3
 branch pred rate = -nan
--------> 14
-WHY1---> 14
-WHY2---> 13
-------> 14 = 13
-------> 13 = 13
-WHY---> 13
 (t7) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -651,16 +619,14 @@ WHY---> 13
 cycles = 7
 cpi = 2.33333
 branch pred rate = -nan
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t8) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -734,17 +700,7 @@ WHY---> 11
 cycles = 8
 cpi = 1.6
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t9) {
   pc = 2
   ibuf = {
@@ -752,19 +708,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    2     --    no     <-h-
+    *d8   WB    r0    0     --    no     <-h-
+    *d9   WB    r1    100   --    no    
+    *d10  WB    r0    1     --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    2     --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    3     --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -788,10 +748,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -823,13 +779,7 @@ WHY---> 13
 cycles = 9
 cpi = 1.28571
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t10) {
   pc = 2
   ibuf = {
@@ -837,19 +787,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    2     --    no     <-h-
+    *d8   WB    r0    0     --    no     <-h-
+    *d9   WB    r1    100   --    no    
+    *d10  WB    r0    1     --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    2     --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    3     --    no    
     *d15  BR    --    0     4     yes   
@@ -871,10 +825,6 @@ WHY---> 11
     bneq  1     6     100   d21   
     addi  6     1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -906,20 +856,14 @@ WHY---> 11
 cycles = 10
 cpi = 1.11111
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t11) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -995,16 +939,14 @@ WHY---> 13
 cycles = 11
 cpi = 1
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t12) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -1078,17 +1020,7 @@ WHY---> 11
 cycles = 12
 cpi = 0.923077
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t13) {
   pc = 2
   ibuf = {
@@ -1096,12 +1028,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    8     --    no    
@@ -1112,11 +1048,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    6     --    no     <-h-
+    *d16  WB    r0    4     --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    5     --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    6     --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    7     --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -1132,10 +1068,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -1167,13 +1099,7 @@ WHY---> 13
 cycles = 13
 cpi = 0.866667
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t14) {
   pc = 2
   ibuf = {
@@ -1181,12 +1107,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    8     --    no    
@@ -1197,11 +1127,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    6     --    no     <-h-
+    *d16  WB    r0    4     --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    5     --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    6     --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    7     --    no    
     *d23  BR    --    0     4     yes   
@@ -1215,10 +1145,6 @@ WHY---> 11
     bneq  1     10    100   d13   
     addi  10    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -1250,20 +1176,14 @@ WHY---> 11
 cycles = 14
 cpi = 0.823529
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t15) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -1339,16 +1259,14 @@ WHY---> 13
 cycles = 15
 cpi = 0.789474
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t16) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -1422,17 +1340,7 @@ WHY---> 11
 cycles = 16
 cpi = 0.761905
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t17) {
   pc = 2
   ibuf = {
@@ -1440,19 +1348,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    10    --    no     <-h-
+    *d8   WB    r0    8     --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    9     --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    10    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    11    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -1476,10 +1388,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -1511,13 +1419,7 @@ WHY---> 13
 cycles = 17
 cpi = 0.73913
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t18) {
   pc = 2
   ibuf = {
@@ -1525,19 +1427,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    10    --    no     <-h-
+    *d8   WB    r0    8     --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    9     --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    10    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    11    --    no    
     *d15  BR    --    0     4     yes   
@@ -1559,10 +1465,6 @@ WHY---> 11
     bneq  1     14    100   d21   
     addi  14    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -1594,20 +1496,14 @@ WHY---> 11
 cycles = 18
 cpi = 0.72
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t19) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -1683,16 +1579,14 @@ WHY---> 13
 cycles = 19
 cpi = 0.703704
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t20) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -1766,17 +1660,7 @@ WHY---> 11
 cycles = 20
 cpi = 0.689655
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t21) {
   pc = 2
   ibuf = {
@@ -1784,12 +1668,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    16    --    no    
@@ -1800,11 +1688,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    14    --    no     <-h-
+    *d16  WB    r0    12    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    13    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    14    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    15    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -1820,10 +1708,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -1855,13 +1739,7 @@ WHY---> 13
 cycles = 21
 cpi = 0.677419
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t22) {
   pc = 2
   ibuf = {
@@ -1869,12 +1747,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    16    --    no    
@@ -1885,11 +1767,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    14    --    no     <-h-
+    *d16  WB    r0    12    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    13    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    14    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    15    --    no    
     *d23  BR    --    0     4     yes   
@@ -1903,10 +1785,6 @@ WHY---> 11
     bneq  1     18    100   d13   
     addi  18    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -1938,20 +1816,14 @@ WHY---> 11
 cycles = 22
 cpi = 0.666667
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t23) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -2027,16 +1899,14 @@ WHY---> 13
 cycles = 23
 cpi = 0.657143
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t24) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -2110,17 +1980,7 @@ WHY---> 11
 cycles = 24
 cpi = 0.648649
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t25) {
   pc = 2
   ibuf = {
@@ -2128,19 +1988,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    18    --    no     <-h-
+    *d8   WB    r0    16    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    17    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    18    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    19    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -2164,10 +2028,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -2199,13 +2059,7 @@ WHY---> 13
 cycles = 25
 cpi = 0.641026
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t26) {
   pc = 2
   ibuf = {
@@ -2213,19 +2067,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    18    --    no     <-h-
+    *d8   WB    r0    16    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    17    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    18    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    19    --    no    
     *d15  BR    --    0     4     yes   
@@ -2247,10 +2105,6 @@ WHY---> 11
     bneq  1     22    100   d21   
     addi  22    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -2282,20 +2136,14 @@ WHY---> 11
 cycles = 26
 cpi = 0.634146
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t27) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -2371,16 +2219,14 @@ WHY---> 13
 cycles = 27
 cpi = 0.627907
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t28) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -2454,17 +2300,7 @@ WHY---> 11
 cycles = 28
 cpi = 0.622222
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t29) {
   pc = 2
   ibuf = {
@@ -2472,12 +2308,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    24    --    no    
@@ -2488,11 +2328,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    22    --    no     <-h-
+    *d16  WB    r0    20    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    21    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    22    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    23    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -2508,10 +2348,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -2543,13 +2379,7 @@ WHY---> 13
 cycles = 29
 cpi = 0.617021
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t30) {
   pc = 2
   ibuf = {
@@ -2557,12 +2387,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    24    --    no    
@@ -2573,11 +2407,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    22    --    no     <-h-
+    *d16  WB    r0    20    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    21    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    22    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    23    --    no    
     *d23  BR    --    0     4     yes   
@@ -2591,10 +2425,6 @@ WHY---> 11
     bneq  1     26    100   d13   
     addi  26    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -2626,20 +2456,14 @@ WHY---> 11
 cycles = 30
 cpi = 0.612245
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t31) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -2715,16 +2539,14 @@ WHY---> 13
 cycles = 31
 cpi = 0.607843
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t32) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -2798,17 +2620,7 @@ WHY---> 11
 cycles = 32
 cpi = 0.603774
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t33) {
   pc = 2
   ibuf = {
@@ -2816,19 +2628,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    26    --    no     <-h-
+    *d8   WB    r0    24    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    25    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    26    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    27    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -2852,10 +2668,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -2887,13 +2699,7 @@ WHY---> 13
 cycles = 33
 cpi = 0.6
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t34) {
   pc = 2
   ibuf = {
@@ -2901,19 +2707,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    26    --    no     <-h-
+    *d8   WB    r0    24    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    25    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    26    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    27    --    no    
     *d15  BR    --    0     4     yes   
@@ -2935,10 +2745,6 @@ WHY---> 11
     bneq  1     30    100   d21   
     addi  30    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -2970,20 +2776,14 @@ WHY---> 11
 cycles = 34
 cpi = 0.596491
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t35) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -3059,16 +2859,14 @@ WHY---> 13
 cycles = 35
 cpi = 0.59322
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t36) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -3142,17 +2940,7 @@ WHY---> 11
 cycles = 36
 cpi = 0.590164
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t37) {
   pc = 2
   ibuf = {
@@ -3160,12 +2948,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    32    --    no    
@@ -3176,11 +2968,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    30    --    no     <-h-
+    *d16  WB    r0    28    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    29    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    30    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    31    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -3196,10 +2988,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -3231,13 +3019,7 @@ WHY---> 13
 cycles = 37
 cpi = 0.587302
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t38) {
   pc = 2
   ibuf = {
@@ -3245,12 +3027,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    32    --    no    
@@ -3261,11 +3047,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    30    --    no     <-h-
+    *d16  WB    r0    28    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    29    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    30    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    31    --    no    
     *d23  BR    --    0     4     yes   
@@ -3279,10 +3065,6 @@ WHY---> 11
     bneq  1     34    100   d13   
     addi  34    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -3314,20 +3096,14 @@ WHY---> 11
 cycles = 38
 cpi = 0.584615
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t39) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -3403,16 +3179,14 @@ WHY---> 13
 cycles = 39
 cpi = 0.58209
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t40) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -3486,17 +3260,7 @@ WHY---> 11
 cycles = 40
 cpi = 0.57971
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t41) {
   pc = 2
   ibuf = {
@@ -3504,19 +3268,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    34    --    no     <-h-
+    *d8   WB    r0    32    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    33    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    34    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    35    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -3540,10 +3308,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -3575,13 +3339,7 @@ WHY---> 13
 cycles = 41
 cpi = 0.577465
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t42) {
   pc = 2
   ibuf = {
@@ -3589,19 +3347,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    34    --    no     <-h-
+    *d8   WB    r0    32    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    33    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    34    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    35    --    no    
     *d15  BR    --    0     4     yes   
@@ -3623,10 +3385,6 @@ WHY---> 11
     bneq  1     38    100   d21   
     addi  38    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -3658,20 +3416,14 @@ WHY---> 11
 cycles = 42
 cpi = 0.575342
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t43) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -3747,16 +3499,14 @@ WHY---> 13
 cycles = 43
 cpi = 0.573333
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t44) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -3830,17 +3580,7 @@ WHY---> 11
 cycles = 44
 cpi = 0.571429
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t45) {
   pc = 2
   ibuf = {
@@ -3848,12 +3588,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    40    --    no    
@@ -3864,11 +3608,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    38    --    no     <-h-
+    *d16  WB    r0    36    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    37    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    38    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    39    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -3884,10 +3628,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -3919,13 +3659,7 @@ WHY---> 13
 cycles = 45
 cpi = 0.56962
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t46) {
   pc = 2
   ibuf = {
@@ -3933,12 +3667,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    40    --    no    
@@ -3949,11 +3687,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    38    --    no     <-h-
+    *d16  WB    r0    36    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    37    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    38    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    39    --    no    
     *d23  BR    --    0     4     yes   
@@ -3967,10 +3705,6 @@ WHY---> 11
     bneq  1     42    100   d13   
     addi  42    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -4002,20 +3736,14 @@ WHY---> 11
 cycles = 46
 cpi = 0.567901
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t47) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -4091,16 +3819,14 @@ WHY---> 13
 cycles = 47
 cpi = 0.566265
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t48) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -4174,17 +3900,7 @@ WHY---> 11
 cycles = 48
 cpi = 0.564706
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t49) {
   pc = 2
   ibuf = {
@@ -4192,19 +3908,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    42    --    no     <-h-
+    *d8   WB    r0    40    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    41    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    42    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    43    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -4228,10 +3948,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -4263,13 +3979,7 @@ WHY---> 13
 cycles = 49
 cpi = 0.563218
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t50) {
   pc = 2
   ibuf = {
@@ -4277,19 +3987,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    42    --    no     <-h-
+    *d8   WB    r0    40    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    41    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    42    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    43    --    no    
     *d15  BR    --    0     4     yes   
@@ -4311,10 +4025,6 @@ WHY---> 11
     bneq  1     46    100   d21   
     addi  46    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -4346,20 +4056,14 @@ WHY---> 11
 cycles = 50
 cpi = 0.561798
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t51) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -4435,16 +4139,14 @@ WHY---> 13
 cycles = 51
 cpi = 0.56044
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t52) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -4518,17 +4220,7 @@ WHY---> 11
 cycles = 52
 cpi = 0.55914
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t53) {
   pc = 2
   ibuf = {
@@ -4536,12 +4228,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    48    --    no    
@@ -4552,11 +4248,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    46    --    no     <-h-
+    *d16  WB    r0    44    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    45    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    46    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    47    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -4572,10 +4268,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -4607,13 +4299,7 @@ WHY---> 13
 cycles = 53
 cpi = 0.557895
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t54) {
   pc = 2
   ibuf = {
@@ -4621,12 +4307,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    48    --    no    
@@ -4637,11 +4327,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    46    --    no     <-h-
+    *d16  WB    r0    44    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    45    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    46    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    47    --    no    
     *d23  BR    --    0     4     yes   
@@ -4655,10 +4345,6 @@ WHY---> 11
     bneq  1     50    100   d13   
     addi  50    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -4690,20 +4376,14 @@ WHY---> 11
 cycles = 54
 cpi = 0.556701
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t55) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -4779,16 +4459,14 @@ WHY---> 13
 cycles = 55
 cpi = 0.555556
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t56) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -4862,17 +4540,7 @@ WHY---> 11
 cycles = 56
 cpi = 0.554455
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t57) {
   pc = 2
   ibuf = {
@@ -4880,19 +4548,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    50    --    no     <-h-
+    *d8   WB    r0    48    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    49    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    50    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    51    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -4916,10 +4588,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -4951,13 +4619,7 @@ WHY---> 13
 cycles = 57
 cpi = 0.553398
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t58) {
   pc = 2
   ibuf = {
@@ -4965,19 +4627,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    50    --    no     <-h-
+    *d8   WB    r0    48    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    49    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    50    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    51    --    no    
     *d15  BR    --    0     4     yes   
@@ -4999,10 +4665,6 @@ WHY---> 11
     bneq  1     54    100   d21   
     addi  54    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -5034,20 +4696,14 @@ WHY---> 11
 cycles = 58
 cpi = 0.552381
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t59) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -5123,16 +4779,14 @@ WHY---> 13
 cycles = 59
 cpi = 0.551402
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t60) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -5206,17 +4860,7 @@ WHY---> 11
 cycles = 60
 cpi = 0.550459
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t61) {
   pc = 2
   ibuf = {
@@ -5224,12 +4868,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    56    --    no    
@@ -5240,11 +4888,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    54    --    no     <-h-
+    *d16  WB    r0    52    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    53    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    54    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    55    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -5260,10 +4908,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -5295,13 +4939,7 @@ WHY---> 13
 cycles = 61
 cpi = 0.54955
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t62) {
   pc = 2
   ibuf = {
@@ -5309,12 +4947,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    56    --    no    
@@ -5325,11 +4967,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    54    --    no     <-h-
+    *d16  WB    r0    52    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    53    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    54    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    55    --    no    
     *d23  BR    --    0     4     yes   
@@ -5343,10 +4985,6 @@ WHY---> 11
     bneq  1     58    100   d13   
     addi  58    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -5378,20 +5016,14 @@ WHY---> 11
 cycles = 62
 cpi = 0.548673
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t63) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -5467,16 +5099,14 @@ WHY---> 13
 cycles = 63
 cpi = 0.547826
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t64) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -5550,17 +5180,7 @@ WHY---> 11
 cycles = 64
 cpi = 0.547009
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t65) {
   pc = 2
   ibuf = {
@@ -5568,19 +5188,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    58    --    no     <-h-
+    *d8   WB    r0    56    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    57    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    58    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    59    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -5604,10 +5228,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -5639,13 +5259,7 @@ WHY---> 13
 cycles = 65
 cpi = 0.546218
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t66) {
   pc = 2
   ibuf = {
@@ -5653,19 +5267,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    58    --    no     <-h-
+    *d8   WB    r0    56    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    57    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    58    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    59    --    no    
     *d15  BR    --    0     4     yes   
@@ -5687,10 +5305,6 @@ WHY---> 11
     bneq  1     62    100   d21   
     addi  62    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -5722,20 +5336,14 @@ WHY---> 11
 cycles = 66
 cpi = 0.545455
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t67) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -5811,16 +5419,14 @@ WHY---> 13
 cycles = 67
 cpi = 0.544715
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t68) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -5894,17 +5500,7 @@ WHY---> 11
 cycles = 68
 cpi = 0.544
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t69) {
   pc = 2
   ibuf = {
@@ -5912,12 +5508,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    64    --    no    
@@ -5928,11 +5528,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    62    --    no     <-h-
+    *d16  WB    r0    60    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    61    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    62    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    63    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -5948,10 +5548,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -5983,13 +5579,7 @@ WHY---> 13
 cycles = 69
 cpi = 0.543307
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t70) {
   pc = 2
   ibuf = {
@@ -5997,12 +5587,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    64    --    no    
@@ -6013,11 +5607,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    62    --    no     <-h-
+    *d16  WB    r0    60    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    61    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    62    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    63    --    no    
     *d23  BR    --    0     4     yes   
@@ -6031,10 +5625,6 @@ WHY---> 11
     bneq  1     66    100   d13   
     addi  66    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -6066,20 +5656,14 @@ WHY---> 11
 cycles = 70
 cpi = 0.542636
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t71) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -6155,16 +5739,14 @@ WHY---> 13
 cycles = 71
 cpi = 0.541985
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t72) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -6238,17 +5820,7 @@ WHY---> 11
 cycles = 72
 cpi = 0.541353
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t73) {
   pc = 2
   ibuf = {
@@ -6256,19 +5828,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    66    --    no     <-h-
+    *d8   WB    r0    64    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    65    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    66    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    67    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -6292,10 +5868,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -6327,13 +5899,7 @@ WHY---> 13
 cycles = 73
 cpi = 0.540741
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t74) {
   pc = 2
   ibuf = {
@@ -6341,19 +5907,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    66    --    no     <-h-
+    *d8   WB    r0    64    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    65    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    66    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    67    --    no    
     *d15  BR    --    0     4     yes   
@@ -6375,10 +5945,6 @@ WHY---> 11
     bneq  1     70    100   d21   
     addi  70    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -6410,20 +5976,14 @@ WHY---> 11
 cycles = 74
 cpi = 0.540146
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t75) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -6499,16 +6059,14 @@ WHY---> 13
 cycles = 75
 cpi = 0.539568
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t76) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -6582,17 +6140,7 @@ WHY---> 11
 cycles = 76
 cpi = 0.539007
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t77) {
   pc = 2
   ibuf = {
@@ -6600,12 +6148,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    72    --    no    
@@ -6616,11 +6168,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    70    --    no     <-h-
+    *d16  WB    r0    68    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    69    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    70    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    71    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -6636,10 +6188,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -6671,13 +6219,7 @@ WHY---> 13
 cycles = 77
 cpi = 0.538462
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t78) {
   pc = 2
   ibuf = {
@@ -6685,12 +6227,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    72    --    no    
@@ -6701,11 +6247,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    70    --    no     <-h-
+    *d16  WB    r0    68    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    69    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    70    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    71    --    no    
     *d23  BR    --    0     4     yes   
@@ -6719,10 +6265,6 @@ WHY---> 11
     bneq  1     74    100   d13   
     addi  74    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -6754,20 +6296,14 @@ WHY---> 11
 cycles = 78
 cpi = 0.537931
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t79) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -6843,16 +6379,14 @@ WHY---> 13
 cycles = 79
 cpi = 0.537415
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t80) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -6926,17 +6460,7 @@ WHY---> 11
 cycles = 80
 cpi = 0.536913
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t81) {
   pc = 2
   ibuf = {
@@ -6944,19 +6468,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    74    --    no     <-h-
+    *d8   WB    r0    72    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    73    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    74    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    75    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -6980,10 +6508,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -7015,13 +6539,7 @@ WHY---> 13
 cycles = 81
 cpi = 0.536424
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t82) {
   pc = 2
   ibuf = {
@@ -7029,19 +6547,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    74    --    no     <-h-
+    *d8   WB    r0    72    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    73    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    74    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    75    --    no    
     *d15  BR    --    0     4     yes   
@@ -7063,10 +6585,6 @@ WHY---> 11
     bneq  1     78    100   d21   
     addi  78    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -7098,20 +6616,14 @@ WHY---> 11
 cycles = 82
 cpi = 0.535948
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t83) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -7187,16 +6699,14 @@ WHY---> 13
 cycles = 83
 cpi = 0.535484
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t84) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -7270,17 +6780,7 @@ WHY---> 11
 cycles = 84
 cpi = 0.535032
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t85) {
   pc = 2
   ibuf = {
@@ -7288,12 +6788,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    80    --    no    
@@ -7304,11 +6808,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    78    --    no     <-h-
+    *d16  WB    r0    76    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    77    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    78    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    79    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -7324,10 +6828,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -7359,13 +6859,7 @@ WHY---> 13
 cycles = 85
 cpi = 0.534591
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t86) {
   pc = 2
   ibuf = {
@@ -7373,12 +6867,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    80    --    no    
@@ -7389,11 +6887,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    78    --    no     <-h-
+    *d16  WB    r0    76    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    77    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    78    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    79    --    no    
     *d23  BR    --    0     4     yes   
@@ -7407,10 +6905,6 @@ WHY---> 11
     bneq  1     82    100   d13   
     addi  82    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -7442,20 +6936,14 @@ WHY---> 11
 cycles = 86
 cpi = 0.534161
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t87) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -7531,16 +7019,14 @@ WHY---> 13
 cycles = 87
 cpi = 0.533742
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t88) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -7614,17 +7100,7 @@ WHY---> 11
 cycles = 88
 cpi = 0.533333
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t89) {
   pc = 2
   ibuf = {
@@ -7632,19 +7108,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    82    --    no     <-h-
+    *d8   WB    r0    80    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    81    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    82    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    83    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -7668,10 +7148,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -7703,13 +7179,7 @@ WHY---> 13
 cycles = 89
 cpi = 0.532934
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t90) {
   pc = 2
   ibuf = {
@@ -7717,19 +7187,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    82    --    no     <-h-
+    *d8   WB    r0    80    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    81    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    82    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    83    --    no    
     *d15  BR    --    0     4     yes   
@@ -7751,10 +7225,6 @@ WHY---> 11
     bneq  1     86    100   d21   
     addi  86    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -7786,20 +7256,14 @@ WHY---> 11
 cycles = 90
 cpi = 0.532544
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t91) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -7875,16 +7339,14 @@ WHY---> 13
 cycles = 91
 cpi = 0.532164
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t92) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -7958,17 +7420,7 @@ WHY---> 11
 cycles = 92
 cpi = 0.531792
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t93) {
   pc = 2
   ibuf = {
@@ -7976,12 +7428,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    88    --    no    
@@ -7992,11 +7448,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    86    --    no     <-h-
+    *d16  WB    r0    84    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    85    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    86    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    87    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -8012,10 +7468,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -8047,13 +7499,7 @@ WHY---> 13
 cycles = 93
 cpi = 0.531429
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t94) {
   pc = 2
   ibuf = {
@@ -8061,12 +7507,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    88    --    no    
@@ -8077,11 +7527,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    86    --    no     <-h-
+    *d16  WB    r0    84    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    85    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    86    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    87    --    no    
     *d23  BR    --    0     4     yes   
@@ -8095,10 +7545,6 @@ WHY---> 11
     bneq  1     90    100   d13   
     addi  90    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -8130,20 +7576,14 @@ WHY---> 11
 cycles = 94
 cpi = 0.531073
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t95) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -8219,16 +7659,14 @@ WHY---> 13
 cycles = 95
 cpi = 0.530726
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t96) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -8302,17 +7740,7 @@ WHY---> 11
 cycles = 96
 cpi = 0.530387
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t97) {
   pc = 2
   ibuf = {
@@ -8320,19 +7748,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    90    --    no     <-h-
+    *d8   WB    r0    88    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    89    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    90    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    91    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -8356,10 +7788,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -8391,13 +7819,7 @@ WHY---> 13
 cycles = 97
 cpi = 0.530055
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t98) {
   pc = 2
   ibuf = {
@@ -8405,19 +7827,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    90    --    no     <-h-
+    *d8   WB    r0    88    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    89    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    90    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    91    --    no    
     *d15  BR    --    0     4     yes   
@@ -8439,10 +7865,6 @@ WHY---> 11
     bneq  1     94    100   d21   
     addi  94    1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -8474,20 +7896,14 @@ WHY---> 11
 cycles = 98
 cpi = 0.52973
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t99) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -8563,16 +7979,14 @@ WHY---> 13
 cycles = 99
 cpi = 0.529412
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t100) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -8646,17 +8060,7 @@ WHY---> 11
 cycles = 100
 cpi = 0.529101
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t101) {
   pc = 2
   ibuf = {
@@ -8664,12 +8068,16 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    96    --    no    
@@ -8680,11 +8088,11 @@ WHY---> 13
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    94    --    no     <-h-
+    *d16  WB    r0    92    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    93    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    94    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    95    --    no    
     *d23  BR    --    0     4     yes    <-t-
@@ -8700,10 +8108,6 @@ WHY---> 13
     bneq  1     d12   100   d13   
     addi  d12   1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -8735,13 +8139,7 @@ WHY---> 13
 cycles = 101
 cpi = 0.528796
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t102) {
   pc = 2
   ibuf = {
@@ -8749,12 +8147,16 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    18 1 2 3 4 5 6 7 
+    14 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     *d8   WB    r0    96    --    no    
@@ -8765,11 +8167,11 @@ WHY---> 11
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
     d15   BR    --    0     4     yes   
-    d16   WB    r0    0     --    no    
-    d17   BR    --    0     4     yes   
-    d18   WB    r0    0     --    no    
-    d19   BR    --    0     4     yes   
-    *d20  WB    r0    94    --    no     <-h-
+    *d16  WB    r0    92    --    no     <-h-
+    *d17  BR    --    0     4     yes   
+    *d18  WB    r0    93    --    no    
+    *d19  BR    --    0     4     yes   
+    *d20  WB    r0    94    --    no    
     *d21  BR    --    0     4     yes   
     *d22  WB    r0    95    --    no    
     *d23  BR    --    0     4     yes   
@@ -8783,10 +8185,6 @@ WHY---> 11
     bneq  1     98    100   d13   
     addi  98    1     0     d14   
     bneq  1     d14   100   d15   
-    addi  d14   1     0     d16   
-    bneq  1     d16   100   d17   
-    addi  d16   1     0     d18   
-    bneq  1     d18   100   d19   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -8818,20 +8216,14 @@ WHY---> 11
 cycles = 102
 cpi = 0.528497
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t103) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -8907,16 +8299,14 @@ WHY---> 13
 cycles = 103
 cpi = 0.528205
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t104) {
   pc = 2
   ibuf = {
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
@@ -8990,17 +8380,7 @@ WHY---> 11
 cycles = 104
 cpi = 0.527919
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
 BRANCH
-------> 11 = 13
-------> 13 = 13
-WHY---> 13
 (t105) {
   pc = 2
   ibuf = {
@@ -9008,19 +8388,23 @@ WHY---> 13
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=13
+    size=9
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    98    --    no     <-h-
+    *d8   WB    r0    96    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    97    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    98    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    99    --    no    
     *d15  BR    --    0     4     yes    <-t-
@@ -9044,10 +8428,6 @@ WHY---> 13
     bneq  1     d20   100   d21   
     addi  d20   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -9079,13 +8459,7 @@ WHY---> 13
 cycles = 105
 cpi = 0.527638
 branch pred rate = 1
--------> 13
-WHY1---> 13
-WHY2---> 11
 BRANCH
-------> 13 = 11
-------> 11 = 11
-WHY---> 11
 (t106) {
   pc = 2
   ibuf = {
@@ -9093,19 +8467,23 @@ WHY---> 11
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
   }
   rat = {
-    10 1 2 3 4 5 6 7 
+    22 1 2 3 4 5 6 7 
   }
   rob = {
-    size=11
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
-    d8    WB    r0    0     --    no    
-    d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
-    *d12  WB    r0    98    --    no     <-h-
+    *d8   WB    r0    96    --    no     <-h-
+    *d9   BR    --    0     4     yes   
+    *d10  WB    r0    97    --    no    
+    *d11  BR    --    0     4     yes   
+    *d12  WB    r0    98    --    no    
     *d13  BR    --    0     4     yes   
     *d14  WB    r0    99    --    no    
     *d15  BR    --    0     4     yes   
@@ -9127,10 +8505,6 @@ WHY---> 11
     bneq  1     102   100   d21   
     addi  102   1     0     d22   
     bneq  1     d22   100   d23   
-    addi  d22   1     0     d8    
-    bneq  1     d8    100   d9    
-    addi  d8    1     0     d10   
-    bneq  1     d10   100   d11   
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -9162,20 +8536,14 @@ WHY---> 11
 cycles = 106
 cpi = 0.527363
 branch pred rate = 1
------> 12
------> 13
------> 14
------> 15
--------> 15
-WHY1---> 15
-WHY2---> 13
-------> 11 = 0
-------> 0 = 0
-WHY---> 0
 (t107) {
   pc = 4
   ibuf = {
     0: nop
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
+    3: bneq 0 1 2 1
+    2: addi 0 0 1
     3: bneq 0 1 2 1
     2: addi 0 0 1
     3: bneq 0 1 2 1
@@ -9239,33 +8607,28 @@ WHY---> 0
 cycles = 107
 cpi = 0.532338
 branch pred rate = 0.99
------> 1
------> 2
------> 3
--------> 3
-WHY1---> 3
-WHY2---> 3
-------> 0 = 3
-------> 3 = 3
-WHY---> 3
 (t108) {
-  pc = 8
+  pc = 12
   ibuf = {
     4: end
     5: nop
     6: nop
     7: nop
+    8: nop
+    9: nop
+    10: nop
+    11: nop
   }
   rat = {
-    20 1 2 3 4 5 6 7 
+    8 1 2 3 4 5 6 7 
   }
   rob = {
-    size=3
+    size=7
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
+    d10   WB    r0    0     --    no     <-h-
     d11   BR    --    0     4     yes   
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
@@ -9277,7 +8640,7 @@ WHY---> 3
     d19   BR    --    0     4     yes    <-t-
     d20   WB    r0    0     --    no    
     d21   BR    --    0     4     yes   
-    d22   WB    r0    0     --    no     <-h-
+    d22   WB    r0    0     --    no    
     d23   BR    --    0     4     yes   
   }
   rrf = {
@@ -9289,6 +8652,10 @@ WHY---> 3
     bneq  1     100   100   d19   
     addi  100   1     0     d20   
     bneq  1     d20   100   d21   
+    addi  d20   1     0     d22   
+    bneq  1     d22   100   d23   
+    addi  d22   1     0     d8    
+    bneq  1     d8    100   d9    
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -9318,32 +8685,29 @@ WHY---> 3
 cycles = 108
 cpi = 0.537313
 branch pred rate = 0.99
------> 4
--------> 4
-WHY1---> 4
-WHY2---> 4
-------> 3 = 4
-------> 4 = 4
-WHY---> 4
 (t109) {
-  pc = 12
+  pc = 20
   ibuf = {
-    8: nop
-    9: nop
-    10: nop
-    11: nop
+    12: nop
+    13: nop
+    14: nop
+    15: nop
+    16: nop
+    17: nop
+    18: nop
+    19: nop
   }
   rat = {
-    20 1 2 3 4 5 6 7 
+    8 1 2 3 4 5 6 7 
   }
   rob = {
-    size=4
+    size=8
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
+    *d10  END   --    0     --    no    
+    d11   BR    --    0     4     yes    <-h-
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
@@ -9354,8 +8718,8 @@ WHY---> 4
     d19   BR    --    0     4     yes    <-t-
     d20   WB    r0    0     --    no    
     d21   BR    --    0     4     yes   
-    *d22  END   --    0     --    no    
-    d23   BR    --    0     4     yes    <-h-
+    d22   WB    r0    0     --    no    
+    d23   BR    --    0     4     yes   
   }
   rrf = {
     100 100 0 0 0 0 0 0 
@@ -9364,6 +8728,10 @@ WHY---> 4
     OC    o1    o2    o3    dest  
     ------------------------------
     bneq  1     101   100   d21   
+    addi  101   1     0     d22   
+    bneq  1     d22   100   d23   
+    addi  d22   1     0     d8    
+    bneq  1     d8    100   d9    
   }
   lsq = {
     type  seq   dest  write base  off   addr  
@@ -9395,31 +8763,29 @@ WHY---> 4
 cycles = 109
 cpi = 0.542289
 branch pred rate = 0.99
--------> 4
-WHY1---> 4
-WHY2---> 4
-------> 4 = 4
-------> 4 = 4
-WHY---> 4
 (t110) {
-  pc = 16
+  pc = 20
   ibuf = {
     12: nop
     13: nop
     14: nop
     15: nop
+    16: nop
+    17: nop
+    18: nop
+    19: nop
   }
   rat = {
-    20 1 2 3 4 5 6 7 
+    8 1 2 3 4 5 6 7 
   }
   rob = {
-    size=4
+    size=8
     addr  type  reg   val   tgt   spec  
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
-    d11   BR    --    0     4     yes   
+    *d10  END   --    0     --    no    
+    d11   BR    --    0     4     yes    <-h-
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
     d14   WB    r0    0     --    no    
@@ -9430,8 +8796,8 @@ WHY---> 4
     *d19  BR    --    1     4     yes    <-t-
     *d20  WB    r0    101   --    no    
     d21   BR    --    0     4     yes   
-    *d22  END   --    0     --    no    
-    d23   BR    --    0     4     yes    <-h-
+    d22   WB    r0    0     --    no    
+    d23   BR    --    0     4     yes   
   }
   rrf = {
     100 100 0 0 0 0 0 0 
@@ -9439,13 +8805,17 @@ WHY---> 4
   rs = {
     OC    o1    o2    o3    dest  
     ------------------------------
+    bneq  1     102   100   d23   
+    addi  102   1     0     d8    
+    bneq  1     d8    100   d9    
   }
   lsq = {
     type  seq   dest  write base  off   addr  
     ------------------------------------------
   }
   alu = {
-    --- nop ---
+    d22 <-- 101 addi 1 (0)
+    = 102 writeback
   }
   bu = {
     d21 = 101 bneq 100
@@ -9469,16 +8839,14 @@ WHY---> 4
 cycles = 110
 cpi = 0.547264
 branch pred rate = 0.99
--------> 4
-WHY1---> 4
-WHY2---> 2
-------> 4 = 0
-------> 0 = 0
-WHY---> 0
 (t111) {
   pc = 4
   ibuf = {
     0: nop
+    13: nop
+    14: nop
+    15: nop
+    16: nop
     17: nop
     18: nop
     19: nop
@@ -9492,7 +8860,7 @@ WHY---> 0
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
+    *d10  END   --    0     --    no    
     d11   BR    --    0     4     yes   
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
@@ -9504,7 +8872,7 @@ WHY---> 0
     *d19  BR    --    1     4     yes   
     *d20  WB    r0    101   --    no    
     *d21  BR    --    0     4     yes    <-h- <-t-
-    *d22  END   --    0     --    no    
+    *d22  WB    r0    102   --    no    
     d23   BR    --    0     4     yes   
   }
   rrf = {
@@ -9542,19 +8910,17 @@ WHY---> 0
 cycles = 111
 cpi = 0.552239
 branch pred rate = 0.980198
--------> 0
-WHY1---> 0
-WHY2---> 0
-------> 0 = 0
-------> 0 = 0
-WHY---> 0
 (t112) {
-  pc = 8
+  pc = 12
   ibuf = {
     4: end
     5: nop
     6: nop
     7: nop
+    8: nop
+    9: nop
+    10: nop
+    11: nop
   }
   rat = {
     0 1 2 3 4 5 6 7 
@@ -9565,7 +8931,7 @@ WHY---> 0
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
+    *d10  END   --    0     --    no    
     d11   BR    --    0     4     yes   
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
@@ -9577,7 +8943,7 @@ WHY---> 0
     *d19  BR    --    1     4     yes   
     *d20  WB    r0    101   --    no    
     *d21  BR    --    0     4     yes    <-h- <-t-
-    *d22  END   --    0     --    no    
+    *d22  WB    r0    102   --    no    
     d23   BR    --    0     4     yes   
   }
   rrf = {
@@ -9615,20 +8981,17 @@ WHY---> 0
 cycles = 112
 cpi = 0.557214
 branch pred rate = 0.980198
------> 1
--------> 1
-WHY1---> 1
-WHY2---> 1
-------> 0 = 1
-------> 1 = 1
-WHY---> 1
 (t113) {
-  pc = 12
+  pc = 20
   ibuf = {
-    8: nop
-    9: nop
-    10: nop
-    11: nop
+    12: nop
+    13: nop
+    14: nop
+    15: nop
+    16: nop
+    17: nop
+    18: nop
+    19: nop
   }
   rat = {
     0 1 2 3 4 5 6 7 
@@ -9639,7 +9002,7 @@ WHY---> 1
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
+    *d10  END   --    0     --    no    
     d11   BR    --    0     4     yes   
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
@@ -9651,7 +9014,7 @@ WHY---> 1
     *d19  BR    --    1     4     yes   
     *d20  WB    r0    101   --    no    
     *d21  END   --    0     --    no     <-t-
-    *d22  END   --    0     --    no     <-h-
+    *d22  WB    r0    102   --    no     <-h-
     d23   BR    --    0     4     yes   
   }
   rrf = {
@@ -9689,19 +9052,17 @@ WHY---> 1
 cycles = 113
 cpi = 0.562189
 branch pred rate = 0.980198
--------> 1
-WHY1---> 1
-WHY2---> 0
-------> 1 = 0
-------> 0 = 0
-WHY---> 0
 (t114) {
-  pc = 16
+  pc = 28
   ibuf = {
-    12: nop
-    13: nop
-    14: nop
-    15: nop
+    20: nop
+    21: nop
+    22: nop
+    23: nop
+    24: nop
+    25: nop
+    26: nop
+    27: nop
   }
   rat = {
     0 1 2 3 4 5 6 7 
@@ -9712,7 +9073,7 @@ WHY---> 0
     ------------------------------------
     d8    WB    r0    0     --    no    
     d9    BR    --    0     4     yes   
-    d10   WB    r0    0     --    no    
+    *d10  END   --    0     --    no    
     d11   BR    --    0     4     yes   
     d12   WB    r0    0     --    no    
     d13   BR    --    0     4     yes   
@@ -9724,7 +9085,7 @@ WHY---> 0
     *d19  BR    --    1     4     yes   
     *d20  WB    r0    101   --    no    
     *d21  END   --    0     --    no    
-    *d22  END   --    0     --    no     <-h- <-t-
+    *d22  WB    r0    102   --    no     <-h- <-t-
     d23   BR    --    0     4     yes   
   }
   rrf = {

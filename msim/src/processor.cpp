@@ -31,7 +31,6 @@ bool Processor::tick(Processor &n_cpu)
     fetch(n_cpu);
     decode(n_cpu);
   }
-  std::cout << "-------> " << n_cpu.rob.size << '\n';
   execute(n_cpu);
   writeback(n_cpu);
   return commit(n_cpu);
@@ -91,7 +90,6 @@ void Processor::decode(Processor &n_cpu)
       RS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
-      std::cout << "---> " << shelf.o1 << std::endl;
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
       shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
@@ -270,9 +268,7 @@ void Processor::writeback(Processor &n_cpu)
 
 bool Processor::commit(Processor &n_cpu)
 {
-  std::cout << "WHY1---> " << n_cpu.rob.size << std::endl;
   std::vector<std::tuple<int,ROB::Entry>> commits = this->rob.pop(n_cpu.rob, n_cpu.lsq);
-  std::cout << "WHY2---> " << n_cpu.rob.size << std::endl;
   if (commits.size() == 0)
   {
     return false;

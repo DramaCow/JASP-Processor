@@ -7,7 +7,7 @@
 bool LSQ::isFull()
 {
   //return this->shelves.size() >= NUM_LSQ_ENTRIES;
-  return (NUM_LSQ_ENTRIES - this->shelves.size()) <= FETCHRATE;
+  return (NUM_LSQ_ENTRIES - this->shelves.size()) < FETCHRATE;
 }
 
 void LSQ::issue(Shelf shelf, int tail)
