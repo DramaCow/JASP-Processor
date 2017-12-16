@@ -64,6 +64,7 @@ class Processor
     int instructions_executed;
     int branch_corpred;
     int branch_mispred;
+    int instructions_fetched;
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);

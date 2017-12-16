@@ -4,7 +4,7 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
-int ROB::space()
+int ROB::space() const
 {
   return NUM_ROB_ENTRIES - this->size;
 }
@@ -61,6 +61,7 @@ std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob, LSQ &n_lsq)
       break;
     }
     commits.push_back(std::make_tuple(tail + NUM_REGISTERS, this->entries[tail]));
+    n_rob.size--;
   }
 
   // TODO: mom's spaghetti
@@ -71,9 +72,6 @@ std::vector<std::tuple<int,ROB::Entry>> ROB::pop(ROB &n_rob, LSQ &n_lsq)
   }
 
   n_rob.tail = tail;
-
-  //n_rob.size = this->size - commits.size();
-  n_rob.size = n_rob.size - commits.size();
 
   return commits;
 }
@@ -133,7 +131,7 @@ ROB& ROB::operator=(const ROB& rob)
 
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
-  os << "    size=" << rob.size << '\n';
+  os << "    space=" << rob.space() << '\n';
   os << "    addr  type  reg   val   tgt   spec  \n";
   os << "    ------------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)

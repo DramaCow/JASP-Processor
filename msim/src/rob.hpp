@@ -26,7 +26,7 @@ class ROB {
     };
 
   public:
-    int space();
+    int space() const;
 
     int push(ROB &n_rob, std::string opcode, int r, int target);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);

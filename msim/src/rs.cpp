@@ -5,7 +5,7 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
-int RS::space()
+int RS::space() const
 {
   //return this->shelves.size() >= NUM_RS_ENTRIES;
   return NUM_RS_ENTRIES - this->shelves.size();
@@ -99,6 +99,7 @@ RS& RS::operator=(const RS& rs)
 
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
+  os << "    space=" << rs.space() << '\n';
   os << "    OC    o1    o2    o3    dest  \n";
   os << "    ------------------------------\n";
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)

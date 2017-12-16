@@ -24,7 +24,7 @@ class RS
     };
 
   public:
-    int space();
+    int space() const;
 
     void issue(Shelf shelf);
     std::array<Shelf,NUM_EUS> dispatch(RS &n_rs, std::array<bool,NUM_EUS> port);

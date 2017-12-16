@@ -1,4 +1,4 @@
-  movi r4 100
+  movi r4 1000
 
 :loop
   addi r0 r0 1

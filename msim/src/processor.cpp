@@ -16,7 +16,8 @@ Processor::Processor(ICache &icache, DCache &dcache) :
   cycles(0),
   instructions_executed(0),
   branch_corpred(0),
-  branch_mispred(0)
+  branch_mispred(0),
+  instructions_fetched(0)
 {
 }
 
@@ -29,9 +30,18 @@ bool Processor::tick(Processor &n_cpu)
   n_cpu.cycles++;
   if (!isStalled())
   {
+    n_cpu.instructions_fetched = this->instructions_fetched + FETCHRATE;
     fetch(n_cpu);
     decode(n_cpu);
   }
+#ifdef DEBUG
+  else
+  {
+    std::cout << "===============" << std::endl;
+    std::cout << "=== STALLED ===" << std::endl;
+    std::cout << "===============" << std::endl;
+  }
+#endif
   execute(n_cpu);
   writeback(n_cpu);
   return commit(n_cpu);
@@ -345,7 +355,7 @@ bool Processor::commit(Processor &n_cpu)
   }
 
   n_cpu.instructions_executed = this->instructions_executed + i;
-  std::cout << "BAR " << i << std::endl;
+  std::cout << "RETIRING: " << i << std::endl;
   return false;
 }
 
@@ -417,9 +427,11 @@ int Processor::space()
 
 void Processor::flush(int target)
 {
+#ifdef DEBUG
   std::cout << "=========================" << std::endl;
   std::cout << "=== MISPREDICT BRANCH ===" << std::endl;
   std::cout << "=========================" << std::endl;
+#endif
 
   // flush and jump to entry.target
   for (int i = 0; i < FETCHRATE; ++i)
@@ -464,6 +476,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->instructions_executed = cpu.instructions_executed;
   this->branch_corpred = cpu.branch_corpred;
   this->branch_mispred = cpu.branch_mispred;
+  this->instructions_fetched = cpu.instructions_fetched;
 
   return *this;
 }
@@ -506,10 +519,9 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "}\n";
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
-     //<< "instructions_executed = " << cpu.instructions_executed << '\n'
-     << "cpi = " << ((double)cpu.cycles / (double)cpu.instructions_executed) << '\n'
-     << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << '\n'
-     << "branch pred rate = " << (double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred);
+     << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"
+     << "bpa = " << (double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred) << '\n'
+     << "fpc = " << ((double)cpu.instructions_fetched / (double)cpu.cycles) << " (best = " << FETCHRATE << ')';
 #else
   os << cpu.rrf;
 #endif

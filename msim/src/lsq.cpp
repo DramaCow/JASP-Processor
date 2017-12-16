@@ -4,7 +4,7 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
-int LSQ::space()
+int LSQ::space() const
 {
   //return this->shelves.size() >= NUM_LSQ_ENTRIES;
   //return (NUM_LSQ_ENTRIES - this->shelves.size()) < FETCHRATE;
@@ -184,6 +184,7 @@ LSQ& LSQ::operator=(const LSQ& lsq)
 
 std::ostream& operator<<(std::ostream& os, const LSQ& lsq)
 {
+  os << "    space=" << lsq.space() << '\n';
   os << "    type  seq   dest  write base  off   addr  \n";
   os << "    ------------------------------------------\n";
   for (std::size_t i = 0; i < lsq.shelves.size(); ++i)

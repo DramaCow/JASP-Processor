@@ -31,7 +31,7 @@ class LSQ
     };
 
   public:
-    int space();
+    int space() const;
 
     void issue(Shelf shelf, int tail);
     Shelf dispatch(LSQ &n_lsq, bool port); // note: dispatch does not remove any entries
