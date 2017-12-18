@@ -9,7 +9,7 @@ int ROB::space() const
   return NUM_ROB_ENTRIES - this->size - 1;
 }
 
-int ROB::push(ROB &n_rob, Instruction instruction, int reg, int target)
+int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, int target)
 {
   std::string opcode = instruction.opcode;
 
@@ -33,6 +33,7 @@ int ROB::push(ROB &n_rob, Instruction instruction, int reg, int target)
 
   // alloc the rob entry
   n_rob.entries[this->head].type = type;
+  n_rob.entries[this->head].pc = pc;
   n_rob.entries[this->head].reg = reg;
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].target = target;
@@ -125,8 +126,8 @@ ROB& ROB::operator=(const ROB& rob)
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
   os << "    space=" << rob.space() << '\n';
-  os << "    addr  type  reg   val   tgt   spec  \n";
-  os << "    ------------------------------------\n";
+  os << "    addr  type  pc    reg   val   tgt   spec  \n";
+  os << "    ------------------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
     os << "    ";
@@ -142,6 +143,15 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
       case ROB::Entry::SR: os << SPACE("SR"); break;
       case ROB::Entry::END: os << SPACE("END"); break;
       default: os << SPACE("??"); break;
+    }
+
+    if (rob.entries[i].pc >= 0)
+    {
+      os << SPACE(rob.entries[i].pc);
+    }
+    else
+    {
+      os << SPACE("--");
     }
 
     if (rob.entries[i].reg >= 0)

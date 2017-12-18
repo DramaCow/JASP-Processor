@@ -103,7 +103,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -114,7 +114,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -128,7 +128,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[2]);
-      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -141,7 +141,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
-      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -155,7 +155,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.tgt = instruction.params[0];
       shelf.npc = instruction.params[1];
       shelf.pred = instruction.params[2];
-      shelf.dest = n_cpu.alloc(n_cpu, instruction, -1, shelf.pred);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred);
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
       n_cpu.brs.issue(shelf);
@@ -177,7 +177,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.tgt = instruction.params[2];
       shelf.npc = instruction.params[3];
       shelf.pred = instruction.params[4];
-      shelf.dest = n_cpu.alloc(n_cpu, instruction, -1, shelf.pred);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred);
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality
       n_cpu.brs.issue(shelf);
@@ -189,7 +189,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = std::make_tuple(0, true);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.d = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
+      shelf.d = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
       shelf.seq = shelf.d;
 
       n_cpu.rob.set_spec(shelf.seq, false);
@@ -202,14 +202,14 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.seq = n_cpu.alloc(n_cpu, instruction, -1, -1); // simply the rob entry
+      shelf.seq = n_cpu.alloc(n_cpu, pc, instruction, -1, -1); // simply the rob entry
 
       n_cpu.rob.set_spec(shelf.seq, false);
       n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
     }
     else if ( opcode == "end" )
     {
-      int seq = n_cpu.alloc(n_cpu, instruction, -1, -1);
+      int seq = n_cpu.alloc(n_cpu, pc, instruction, -1, -1);
       n_cpu.rob.set_spec(seq, false);
     }
   }
@@ -393,9 +393,9 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, Instruction instruction, int reg, int target)
+int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, int target)
 {
-  int a = n_cpu.rob.push(n_cpu.rob, instruction, reg, target);
+  int a = n_cpu.rob.push(n_cpu.rob, pc, instruction, reg, target);
 
   // if valid register
   if (reg != -1)

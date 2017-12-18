@@ -62,7 +62,7 @@ class Processor
 
     // helper functions
     std::tuple<int, bool> read(int r);
-    int alloc(Processor &n_cpu, Instruction instruction, int r, int target);
+    int alloc(Processor &n_cpu, int pc, Instruction instruction, int r, int target);
     bool isStalled();
     int space();
     void flush(int target);

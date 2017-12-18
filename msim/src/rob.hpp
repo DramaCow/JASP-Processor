@@ -18,6 +18,7 @@ class ROB {
         enum Type { DN, WB, BR, SR, END };
 
         Type type = DN;
+        int pc = -1;
         int reg = -1;
         int val = 0;
         int target = -1;
@@ -30,7 +31,7 @@ class ROB {
   public:
     int space() const;
 
-    int push(ROB &n_rob, Instruction instruction, int reg, int target);
+    int push(ROB &n_rob, int pc, Instruction instruction, int reg, int target);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
     std::tuple<int, bool> read(int addr);
