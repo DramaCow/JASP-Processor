@@ -59,11 +59,11 @@ void Processor::fetch(Processor &n_cpu)
 
     if (Instruction::isBrch(instruction.opcode))
     {
-      //npc = instruction.getTakenBTA();
-      //instruction.params.push_back(true);
-      bool prediction;
-      std::tie(npc, prediction) = bp.predict(instruction, pc);
-      instruction.params.push_back(prediction);
+      npc = instruction.getTakenBTA();
+      instruction.params.push_back(true);
+      //bool prediction;
+      //std::tie(npc, prediction) = bp.predict(instruction, pc);
+      //instruction.params.push_back(prediction);
     }
     else 
     {
@@ -389,11 +389,16 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, Instruction instruction, int r, int target)
+int Processor::alloc(Processor &n_cpu, Instruction instruction, int reg, int target)
 {
-  //int a = this->rob.push(n_cpu.rob, opcode, r, target);
-  int a = n_cpu.rob.push(n_cpu.rob, instruction, r, target);
-  this->rat.write(n_cpu.rat, r, a);
+  int a = n_cpu.rob.push(n_cpu.rob, instruction, reg, target);
+
+  // if valid register
+  if (reg != -1)
+  {
+    this->rat.write(n_cpu.rat, reg, a);
+  }
+
   return a;
 }
 

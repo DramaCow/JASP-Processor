@@ -13,6 +13,8 @@ class BHT
     bool predict(int pc);
     void update(int pc, bool wasTaken);
 
+    BHT& operator=(const BHT& bht);
+
     friend std::ostream& operator<<(std::ostream& os, const BHT& bht);
     
   private:

@@ -18,6 +18,12 @@ void BHT::update(int pc, bool wasTaken)
   this->entries[idx] = e + (wasTaken && e < 0x3 ? 1 : (!wasTaken && e > 0x0 ? -1 : 0));
 }
 
+BHT& BHT::operator=(const BHT& bht)
+{
+  this->entries = bht.entries;
+  return *this;
+}
+
 std::ostream& operator<<(std::ostream& os, const BHT& bht)
 {
   for (int i = 0; i < NUM_BHT_ENTRIES; ++i)
