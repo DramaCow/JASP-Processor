@@ -1,6 +1,7 @@
 #ifndef BU_H
 #define BU_H
 
+#include "brs.hpp"
 #include <string>
 #include <iostream>
 
@@ -8,19 +9,15 @@
 class BU
 {
   public:
-    void dispatch(std::string opcode, bool pred, int o1, int o2, int dest);
+    void dispatch(BRS::Shelf shelf);
 
     void reset();
 
     // input latch
-    std::string opcode = "nop"; 
-    bool pred = false;
-    int o1 = 0; 
-    int o2 = 0; 
+    BRS::Shelf shelf;
 
     // output latch
-    int dest = 0; 
-    bool result = false;
+    int result = false;
 
     // control flags
     bool writeback = false;

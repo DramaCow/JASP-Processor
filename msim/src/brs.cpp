@@ -25,7 +25,7 @@ BRS::Shelf BRS::dispatch(BRS &n_brs, bool port)
 
   for (std::size_t i = 0; i < shelves.size(); ++i)
   {
-    if (this->shelves[i].v1 && this->shelves[i].v2 && this->shelves[i].v3)
+    if (this->shelves[i].v1 && this->shelves[i].v2)
     {
       e = this->shelves[i];
       n_brs.shelves.erase(std::begin(n_brs.shelves) + i);
@@ -51,12 +51,6 @@ void BRS::update(int dest, int result)
       this->shelves[i].o2 = result;
       this->shelves[i].v2 = true;
     }
-
-    if (!this->shelves[i].v3 && this->shelves[i].o3 == dest)
-    {
-      this->shelves[i].o3 = result;
-      this->shelves[i].v3 = true;
-    }
   }
 }
 
@@ -74,15 +68,16 @@ BRS& BRS::operator=(const BRS& brs)
 std::ostream& operator<<(std::ostream& os, const BRS& brs)
 {
   os << "    space=" << brs.space() << '\n';
-  os << "    OC    o1    o2    o3    dest  \n";
-  os << "    ------------------------------\n";
+  os << "    OC    o1    o2    npc   tgt   dest  \n";
+  os << "    ------------------------------------\n";
   for (std::size_t i = 0; i < brs.shelves.size(); ++i)
   {
     os << "    ";
     os << SPACE(brs.shelves[i].opcode)
        << SPACE((brs.shelves[i].v1 ? std::string("") : std::string("d")) + std::to_string(brs.shelves[i].o1))
        << SPACE((brs.shelves[i].v2 ? std::string("") : std::string("d")) + std::to_string(brs.shelves[i].o2))
-       << SPACE((brs.shelves[i].v3 ? std::string("") : std::string("d")) + std::to_string(brs.shelves[i].o3))
+       << SPACE(brs.shelves[i].npc)
+       << SPACE(brs.shelves[i].tgt)
        << SPACE(std::string("d") + std::to_string(brs.shelves[i].dest))
        << '\n';
   }

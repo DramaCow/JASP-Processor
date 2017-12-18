@@ -18,7 +18,9 @@ class BRS
       std::string opcode = "nop";
       int o1 = 0; bool v1 = true;
       int o2 = 0; bool v2 = true;
-      int o3 = 0; bool v3 = true;
+      int tgt = 0;
+      int npc = 0;
+      int pred = 0;
       int dest = 0; 
     };
 

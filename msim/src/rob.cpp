@@ -96,16 +96,6 @@ void ROB::write(int addr, int val)
   this->entries[a].done = true;
 }
 
-void ROB::write(int addr, int val, int target)
-{
-  // NOTE: rob addresses are offset by NUM_REGISTERS in order
-  //       to differentiate them fron architectural addresses
-  int a = addr - NUM_REGISTERS;
-  this->entries[a].val = val;
-  this->entries[a].target = target;
-  this->entries[a].done = true;
-}
-
 void ROB::reset()
 {
   this->head = this->tail;

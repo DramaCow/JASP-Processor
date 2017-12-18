@@ -1,69 +1,64 @@
 #include "bu.hpp"
 
-void BU::dispatch(std::string opcode, bool pred, int o1, int o2, int dest)
+void BU::dispatch(BRS::Shelf shelf)
 {
-  this->opcode = opcode;
-  this->pred = pred;
-  this->o1 = o1;
-  this->o2 = o2;
-  this->dest = dest;
+  this->shelf = shelf;
 
-  if (this->opcode == "b")
+  if (this->shelf.opcode == "b")
   {
-    this->result = this->pred != true;
+    this->result = shelf.tgt;
     this->writeback = true;
   }
-  else if (this->opcode == "beq")
+  else if (this->shelf.opcode == "beq")
   {
-    this->result = this->pred != (this->o1 == this->o2);
+    this->result = (shelf.o1 == shelf.o2) ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
-  else if (this->opcode == "bneq")
+  else if (this->shelf.opcode == "bneq")
   {
-    this->result = this->pred != (this->o1 != this->o2);
+    this->result = (shelf.o1 != shelf.o2) ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
-  else if (this->opcode == "blt")
+  else if (this->shelf.opcode == "blt")
   {
-    this->result = this->pred != (this->o1 < this->o2);
+    this->result = (shelf.o1 < shelf.o2) ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
-  else if (this->opcode == "ble")
+  else if (this->shelf.opcode == "ble")
   {
-    this->result = this->pred != (this->o1 <= this->o2);
+    this->result = (shelf.o1 <= shelf.o2) ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
-  else if (this->opcode == "bgt")
+  else if (this->shelf.opcode == "bgt")
   {
-    this->result = this->pred != (this->o1 > this->o2);
+    this->result = (shelf.o1 > shelf.o2) ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
-  else if (this->opcode == "bge")
+  else if (this->shelf.opcode == "bge")
   {
-    this->result = this->pred != (this->o1 >= this->o2);
+    this->result = (shelf.o1 >= shelf.o2) ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   // Unexpected OP
   else {
-    this->result = false;
     this->writeback = false;
   }
 }
 
 void BU::reset()
 {
-  this->opcode = "nop";
+  this->shelf.opcode = "nop";
   this->writeback = false;
 }
 
 std::ostream& operator<<(std::ostream& os, const BU& bu)
 {
-  if (bu.opcode == "nop")
+  if (bu.shelf.opcode == "nop")
   {
     os << "    --- nop ---\n";
     return os;
   }
-  os << "    d" << bu.dest << " = " << bu.o1 << ' ' << bu.opcode << ' ' << bu.o2 << '\n';
-  os << "    " << (bu.result ? "mispredicted :(" : "correctly predicted :)") << '\n';
+  os << "    d" << bu.shelf.dest << " = (" << bu.shelf.o1 << ' ' << bu.shelf.opcode << ' ' << bu.shelf.o2 << ") ? " << bu.shelf.tgt << " : " << bu.shelf.npc << '\n';
+  os << "    " << (bu.result != bu.shelf.pred ? "mispredicted X" : "correctly predicted O") << '\n';
   return os;
 }

@@ -34,7 +34,7 @@ std::array<RS::Shelf,NUM_ALUS> RS::dispatch(RS &n_rs, std::array<bool,NUM_ALUS> 
     { 
       for (std::size_t i = 0; i < shelves.size(); ++i)
       {
-        if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3)
+        if (shelves[i].v1 && shelves[i].v2)
         {
           e[p] = shelves[i];
           shelves.erase(std::begin(shelves) + i);
@@ -63,12 +63,6 @@ void RS::update(int dest, int result)
       this->shelves[i].o2 = result;
       this->shelves[i].v2 = true;
     }
-
-    if (!this->shelves[i].v3 && this->shelves[i].o3 == dest)
-    {
-      this->shelves[i].o3 = result;
-      this->shelves[i].v3 = true;
-    }
   }
 }
 
@@ -86,16 +80,14 @@ RS& RS::operator=(const RS& rs)
 std::ostream& operator<<(std::ostream& os, const RS& rs)
 {
   os << "    space=" << rs.space() << '\n';
-  os << "    OC    o1    o2    o3    dest  \n";
-  os << "    ------------------------------\n";
+  os << "    OC    o1    o2    dest  \n";
+  os << "    ------------------------\n";
   for (std::size_t i = 0; i < rs.shelves.size(); ++i)
   {
     os << "    ";
     os << SPACE(rs.shelves[i].opcode)
-       //<< SPACE(rs.shelves[i].seq)
        << SPACE((rs.shelves[i].v1 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o1))
        << SPACE((rs.shelves[i].v2 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o2))
-       << SPACE((rs.shelves[i].v3 ? std::string("") : std::string("d")) + std::to_string(rs.shelves[i].o3))
        << SPACE(std::string("d") + std::to_string(rs.shelves[i].dest))
        << '\n';
   }

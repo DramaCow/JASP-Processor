@@ -35,7 +35,6 @@ class ROB {
 
     std::tuple<int, bool> read(int addr);
     void write(int addr, int val);
-    void write(int addr, int val, int target);
 
     void handle_store_to_load_forwarding();
     void reset();
