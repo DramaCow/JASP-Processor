@@ -20,9 +20,9 @@ void RS::issue(RS::Shelf shelf)
   this->shelves.push_back(shelf);
 }
 
-std::array<RS::Shelf,NUM_EUS> RS::dispatch(RS &n_rs, std::array<bool,NUM_EUS> port)
+std::array<RS::Shelf,NUM_ALUS> RS::dispatch(RS &n_rs, std::array<bool,NUM_ALUS> port)
 {
-  std::array<RS::Shelf,NUM_EUS> e;
+  std::array<RS::Shelf,NUM_ALUS> e;
   std::vector<RS::Shelf> shelves(this->shelves); // copy
 
   // only looks at the entries that exist this iteration AND next iteration
@@ -34,27 +34,13 @@ std::array<RS::Shelf,NUM_EUS> RS::dispatch(RS &n_rs, std::array<bool,NUM_EUS> po
     { 
       for (std::size_t i = 0; i < shelves.size(); ++i)
       {
-        if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isArth(shelves[i].opcode))
+        if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3)
         {
           e[p] = shelves[i];
           shelves.erase(std::begin(shelves) + i);
           n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
           break;
         }
-      }
-    }
-  }
-
-  if (port[NUM_EUS-1])
-  {
-    for (std::size_t i = 0; i < shelves.size(); ++i)
-    {
-      if (shelves[i].v1 && shelves[i].v2 && shelves[i].v3 && Instruction::isBrch(shelves[i].opcode))
-      {
-        e[NUM_EUS-1] = shelves[i];
-        shelves.erase(std::begin(shelves) + i);
-        n_rs.shelves.erase(std::begin(n_rs.shelves) + i);
-        break;
       }
     }
   }

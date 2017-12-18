@@ -11,6 +11,7 @@
 #include "rob.hpp"
 #include "rrf.hpp"
 #include "rs.hpp"
+#include "brs.hpp"
 #include "lsq.hpp"
 #include "alu.hpp"
 #include "bu.hpp"
@@ -36,6 +37,7 @@ class Processor
     ROB rob;
     RRF rrf;
     RS rs;
+    BRS brs;
     LSQ lsq;
     std::array<ALU, NUM_ALUS> alu;
     //ALU alu;

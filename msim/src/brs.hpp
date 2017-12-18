@@ -1,5 +1,5 @@
-#ifndef RS_H
-#define RS_H
+#ifndef BRS_H
+#define BRS_H
 
 #include "config.hpp"
 
@@ -9,14 +9,13 @@
 #include <vector>
 #include <iostream>
 
-// Reservation Station
-class RS
+// Branch Reservation Station
+class BRS
 {
   public:
     struct Shelf
     {
       std::string opcode = "nop";
-      //int seq = 0; // rob entry index
       int o1 = 0; bool v1 = true;
       int o2 = 0; bool v2 = true;
       int o3 = 0; bool v3 = true;
@@ -27,18 +26,18 @@ class RS
     int space() const;
 
     void issue(Shelf shelf);
-    std::array<Shelf,NUM_ALUS> dispatch(RS &n_rs, std::array<bool,NUM_ALUS> port);
+    Shelf dispatch(BRS &n_brs, bool port);
 
     void update(int dest, int result);
     void reset();
 
-    RS& operator=(const RS& rs);
+    BRS& operator=(const BRS& brs);
 
-    friend std::ostream& operator<<(std::ostream& os, const RS& rs);
+    friend std::ostream& operator<<(std::ostream& os, const BRS& brs);
 
   private:
     std::vector<Shelf> shelves;
 };
-std::ostream& operator<<(std::ostream& os, const RS& rs);
+std::ostream& operator<<(std::ostream& os, const BRS& brs);
 
 #endif

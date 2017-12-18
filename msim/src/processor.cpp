@@ -154,7 +154,7 @@ void Processor::decode(Processor &n_cpu)
       int target = instruction.params[0];
       bool prediction = instruction.params[1];
 
-      RS::Shelf shelf;
+      BRS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
@@ -162,7 +162,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.dest = n_cpu.alloc(n_cpu, instruction, -1, prediction ? pc+1 : target);
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
-      n_cpu.rs.issue(shelf);
+      n_cpu.brs.issue(shelf);
     }
     else if ( opcode == "beq"  ||
               opcode == "bneq" ||
@@ -174,7 +174,7 @@ void Processor::decode(Processor &n_cpu)
       int target = instruction.params[2];
       bool prediction = instruction.params[3];
 
-      RS::Shelf shelf;
+      BRS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[0]);
@@ -182,7 +182,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.dest = n_cpu.alloc(n_cpu, instruction, -1, prediction ? pc+1 : target);
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality
-      n_cpu.rs.issue(shelf);
+      n_cpu.brs.issue(shelf);
     }
     else if ( opcode == "lw" )
     {
@@ -220,18 +220,20 @@ void Processor::decode(Processor &n_cpu)
 void Processor::execute(Processor &n_cpu)
 {
   // determine which ports are available
-  std::array<bool,NUM_EUS> port;
+  std::array<bool,NUM_ALUS> port;
+  bool portb;
   bool portm;
 
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     port[p] = this->alu[p].duration == 0;
   }
-  port[NUM_EUS-1] = true; // bu port
+  portb = true;
   portm = this->mu.duration == 0;
 
   // receive instructions to pass to execution units
-  std::array<RS::Shelf,NUM_EUS> e = this->rs.dispatch(n_cpu.rs, port);
+  std::array<RS::Shelf,NUM_ALUS> e = this->rs.dispatch(n_cpu.rs, port);
+  BRS::Shelf eb = this->brs.dispatch(n_cpu.brs, portb);
   LSQ::Shelf em = this->lsq.dispatch(n_cpu.lsq, portm);
 
   // dispatch when instruction has finished
@@ -239,7 +241,7 @@ void Processor::execute(Processor &n_cpu)
   {
     if (port[p]) n_cpu.alu[p].dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
   }
-  if (port[NUM_EUS-1]) n_cpu.bu.dispatch(e[NUM_EUS-1].opcode, e[NUM_EUS-1].o1, e[NUM_EUS-1].o2, e[NUM_EUS-1].o3, e[NUM_EUS-1].dest);
+  if (portb) n_cpu.bu.dispatch(eb.opcode, eb.o1, eb.o2, eb.o3, eb.dest);
   if (portm) n_cpu.mu.dispatch(em);
 
   // execute if instructions haven't finished
@@ -256,6 +258,7 @@ void Processor::execute(Processor &n_cpu)
     if (n_cpu.alu[i].writeback && n_cpu.alu[i].duration == 0)
     {
       n_cpu.rs.update(n_cpu.alu[i].dest, n_cpu.alu[i].result);
+      n_cpu.brs.update(n_cpu.alu[i].dest, n_cpu.alu[i].result);
       n_cpu.lsq.update(n_cpu.alu[i].dest, n_cpu.alu[i].result);
     }
   }
@@ -264,6 +267,7 @@ void Processor::execute(Processor &n_cpu)
   {
     n_cpu.rob.write(n_cpu.mu.shelf.seq, n_cpu.mu.result);
     n_cpu.rs.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
+    n_cpu.brs.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
     n_cpu.lsq.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
     n_cpu.lsq.retire(n_cpu.mu.shelf.seq);
   }
@@ -278,6 +282,7 @@ void Processor::writeback(Processor &n_cpu)
     {
       n_cpu.rob.write(this->alu[i].dest, this->alu[i].result);
       n_cpu.rs.update(this->alu[i].dest, this->alu[i].result);
+      n_cpu.brs.update(this->alu[i].dest, this->alu[i].result);
       n_cpu.lsq.update(this->alu[i].dest, this->alu[i].result);
     }
   }
@@ -291,6 +296,7 @@ void Processor::writeback(Processor &n_cpu)
   {
     n_cpu.rob.write(this->mu.shelf.seq, this->mu.result);
     n_cpu.rs.update(this->mu.shelf.seq, this->mu.result);
+    n_cpu.brs.update(this->mu.shelf.seq, this->mu.result);
     n_cpu.lsq.update(this->mu.shelf.seq, this->mu.result);
   }
 }
@@ -405,9 +411,8 @@ int Processor::alloc(Processor &n_cpu, Instruction instruction, int reg, int tar
 bool Processor::isStalled()
 {
   int rsspace = 0; 
-  //int rsspace = FETCHRATE; 
+  int brsspace = 0;
   int lsqspace = 0; 
-  //int lsqspace = FETCHRATE; 
   int robspace = FETCHRATE; 
 
   int pc; Instruction instruction;
@@ -415,9 +420,13 @@ bool Processor::isStalled()
   {
     std::tie(pc, instruction) = ibuf[i];
     std::string opcode = instruction.opcode;
-    if (Instruction::isBrch(opcode) || Instruction::isArth(opcode))
+    if (Instruction::isArth(opcode))
     {
       rsspace++;
+    }
+    else if (Instruction::isBrch(opcode))
+    {
+      brsspace++;
     }
     else if (Instruction::isLdsr(opcode))
     {
@@ -425,10 +434,7 @@ bool Processor::isStalled()
     }
   }
 
-  if (rsspace > FETCHRATE) std::cout << "ERROR" << std::endl;
-  if (lsqspace > FETCHRATE) std::cout << "ERROR" << std::endl;
-
-  return this->rs.space() < rsspace || this->lsq.space() < lsqspace || this->rob.space() < robspace;
+  return this->rs.space() < rsspace || this->brs.space() < brsspace || this->lsq.space() < lsqspace || this->rob.space() < robspace;
 }
 
 int Processor::space()
@@ -479,6 +485,7 @@ void Processor::flush(int target)
   this->rat.reset();
   this->rob.reset();
   this->rs.reset();
+  this->brs.reset();
   this->lsq.reset();
   for (int i = 0; i < NUM_ALUS; ++i)
   {
@@ -503,6 +510,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
   this->rs = cpu.rs;
+  this->brs = cpu.brs;
   this->lsq = cpu.lsq;
   for (int i = 0; i < NUM_ALUS; ++i)
   {
@@ -547,6 +555,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  rrf = {\n    " << cpu.rrf << '\n';
   os << "  }\n";
   os << "  rs = {\n" << cpu.rs
+     << "  }\n";
+  os << "  brs = {\n" << cpu.brs
      << "  }\n";
   os << "  lsq = {\n" << cpu.lsq
      << "  }\n";
