@@ -4,10 +4,33 @@ Instruction::Instruction()
 {
 }
 
+/*
 Instruction::Instruction(std::string opcode) : 
   Instruction()
 {
   this->opcode = opcode;
+}
+*/
+
+int Instruction::getTakenBTA()
+{
+  int target = -1; // TODO: what happens if used incorrectly?
+
+  if (this->opcode == "b")
+  {
+    target = this->params[0];
+  }
+  else if (this->opcode == "beq"  ||
+           this->opcode == "bneq" ||
+           this->opcode == "blt"  ||
+           this->opcode == "ble"  ||
+           this->opcode == "bgt"  ||
+           this->opcode == "bge"     )
+  {
+    target = this->params[2];
+  }
+
+  return target;  
 }
 
 bool Instruction::isArth(std::string opcode)

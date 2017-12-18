@@ -23,12 +23,14 @@ class ROB {
         int target = -1;
         bool spec = false;
         bool done = false;
+
+        Instruction instruction;
     };
 
   public:
     int space() const;
 
-    int push(ROB &n_rob, std::string opcode, int r, int target);
+    int push(ROB &n_rob, Instruction instruction, int reg, int target);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
     std::tuple<int, bool> read(int addr);
@@ -47,7 +49,7 @@ class ROB {
     friend std::ostream& operator<<(std::ostream& os, const ROB& rob);
 
   private:
-    Entry entries[NUM_ROB_ENTRIES];
+    std::array<Entry,NUM_ROB_ENTRIES> entries;
 
     int head = 0; // issue
     int tail = 0; // commit / retire

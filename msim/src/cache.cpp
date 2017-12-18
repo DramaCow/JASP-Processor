@@ -12,7 +12,7 @@ Instruction ICache::operator[](int i)
   {
     return this->program[i];
   }
-  return Instruction("nop");
+  return Instruction();
 }
 
 ICache::~ICache()

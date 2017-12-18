@@ -6,11 +6,13 @@
 
 int ROB::space() const
 {
-  return NUM_ROB_ENTRIES - this->size;
+  return NUM_ROB_ENTRIES - this->size - 1;
 }
 
-int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
+int ROB::push(ROB &n_rob, Instruction instruction, int reg, int target)
 {
+  std::string opcode = instruction.opcode;
+
   Entry::Type type = Entry::DN;
   if (Instruction::isArth(opcode) || opcode == "lw")
   {
@@ -31,10 +33,11 @@ int ROB::push(ROB &n_rob, std::string opcode, int r, int target)
 
   // alloc the rob entry
   n_rob.entries[this->head].type = type;
-  n_rob.entries[this->head].reg = r;
+  n_rob.entries[this->head].reg = reg;
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].target = target;
   n_rob.entries[this->head].done = opcode == "end";
+  n_rob.entries[this->head].instruction = instruction;
   
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
   //       to differentiate them fron architectural addresses
@@ -125,7 +128,7 @@ ROB& ROB::operator=(const ROB& rob)
   this->head = rob.head;
   this->tail = rob.tail;
   this->size = rob.size;
-  memcpy(this->entries, rob.entries, NUM_ROB_ENTRIES*sizeof(Entry));
+  this->entries = rob.entries;
   return *this;
 }
 

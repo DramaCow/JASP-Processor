@@ -56,9 +56,11 @@ void Processor::fetch(Processor &n_cpu)
   for (int i = 0; i < FETCHRATE; ++i)
   {
     Instruction instruction = icache[pc];
-    
+
     if (Instruction::isBrch(instruction.opcode))
     {
+      //npc = instruction.getTakenBTA();
+      //instruction.params.push_back(true);
       bool prediction;
       std::tie(npc, prediction) = bp.predict(instruction, pc);
       instruction.params.push_back(prediction);
@@ -101,7 +103,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -113,7 +115,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -128,7 +130,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[2]);
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -142,7 +144,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -157,7 +159,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       std::tie(shelf.o3, shelf.v3) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
+      shelf.dest = n_cpu.alloc(n_cpu, instruction, -1, prediction ? pc+1 : target);
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
       n_cpu.rs.issue(shelf);
@@ -177,7 +179,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(prediction, true); // prediction
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.o3, shelf.v3) = n_cpu.read(instruction.params[1]);
-      shelf.dest = n_cpu.alloc(n_cpu, opcode, -1, prediction ? pc+1 : target);
+      shelf.dest = n_cpu.alloc(n_cpu, instruction, -1, prediction ? pc+1 : target);
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality
       n_cpu.rs.issue(shelf);
@@ -189,7 +191,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = std::make_tuple(0, true);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.d = n_cpu.alloc(n_cpu, opcode, instruction.params[0], -1);
+      shelf.d = n_cpu.alloc(n_cpu, instruction, instruction.params[0], -1);
       shelf.seq = shelf.d;
 
       n_cpu.rob.set_spec(shelf.seq, false);
@@ -202,14 +204,14 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.seq = n_cpu.alloc(n_cpu, opcode, -1, -1); // simply the rob entry
+      shelf.seq = n_cpu.alloc(n_cpu, instruction, -1, -1); // simply the rob entry
 
       n_cpu.rob.set_spec(shelf.seq, false);
       n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
     }
     else if ( opcode == "end" )
     {
-      int seq = n_cpu.alloc(n_cpu, opcode, -1, -1);
+      int seq = n_cpu.alloc(n_cpu, instruction, -1, -1);
       n_cpu.rob.set_spec(seq, false);
     }
   }
@@ -326,12 +328,16 @@ bool Processor::commit(Processor &n_cpu)
         this->rat.write(n_cpu.rat, entry.reg, entry.reg);
       }
 
-//      n_cpu.exe.push_back(entry.instruction); // debug
+#ifdef EXE_TRACE
+      n_cpu.exe.push_back(entry.instruction); // debug
+#endif
     }
     // branch
     else if (entry.type == ROB::Entry::BR)
     {
-//      n_cpu.exe.push_back(entry.instruction); // debug
+#ifdef EXE_TRACE
+      n_cpu.exe.push_back(entry.instruction); // debug
+#endif
 
       if (entry.val)
       {
@@ -343,19 +349,23 @@ bool Processor::commit(Processor &n_cpu)
     }
     else if (entry.type == ROB::Entry::SR)
     {
-//      n_cpu.exe.push_back(entry.instruction); // debug
+#ifdef EXE_TRACE
+      n_cpu.exe.push_back(entry.instruction); // debug
+#endif
     }
     // end of program
     else if (entry.type == ROB::Entry::END)
     {
       n_cpu.instructions_executed = this->instructions_executed + i;
-//      n_cpu.exe.push_back(entry.instruction); // debug
+#ifdef EXE_TRACE
+      n_cpu.exe.push_back(entry.instruction); // debug
+#endif
       return true; // TODO: not counted as an instruction?
     }
   }
 
   n_cpu.instructions_executed = this->instructions_executed + i;
-  std::cout << "RETIRING: " << i << std::endl;
+  //std::cout << "RETIRING: " << i << std::endl;
   return false;
 }
 
@@ -379,18 +389,41 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, std::string opcode, int r, int target)
+int Processor::alloc(Processor &n_cpu, Instruction instruction, int r, int target)
 {
   //int a = this->rob.push(n_cpu.rob, opcode, r, target);
-  int a = n_cpu.rob.push(n_cpu.rob, opcode, r, target);
+  int a = n_cpu.rob.push(n_cpu.rob, instruction, r, target);
   this->rat.write(n_cpu.rat, r, a);
   return a;
 }
 
 bool Processor::isStalled()
 {
-  //return this->rs.isFull() || this->lsq.isFull() || this->rob.isFull();
-  return this->rs.space() < FETCHRATE || this->lsq.space() < FETCHRATE || this->rob.space() < FETCHRATE;
+  int rsspace = 0; 
+  //int rsspace = FETCHRATE; 
+  int lsqspace = 0; 
+  //int lsqspace = FETCHRATE; 
+  int robspace = FETCHRATE; 
+
+  int pc; Instruction instruction;
+  for (std::size_t i = 0; i < ibuf.size(); ++i)
+  {
+    std::tie(pc, instruction) = ibuf[i];
+    std::string opcode = instruction.opcode;
+    if (Instruction::isBrch(opcode) || Instruction::isArth(opcode))
+    {
+      rsspace++;
+    }
+    else if (Instruction::isLdsr(opcode))
+    {
+      lsqspace++;
+    }
+  }
+
+  if (rsspace > FETCHRATE) std::cout << "ERROR" << std::endl;
+  if (lsqspace > FETCHRATE) std::cout << "ERROR" << std::endl;
+
+  return this->rs.space() < rsspace || this->lsq.space() < lsqspace || this->rob.space() < robspace;
 }
 
 int Processor::space()
@@ -436,7 +469,7 @@ void Processor::flush(int target)
   // flush and jump to entry.target
   for (int i = 0; i < FETCHRATE; ++i)
   {
-    this->ibuf[i] = std::make_tuple(0, Instruction("nop"));
+    this->ibuf[i] = std::make_tuple(0, Instruction());
   }
   this->rat.reset();
   this->rob.reset();
@@ -460,6 +493,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
   this->bp = cpu.bp; // TODO: does this need to be copied (does it even need to be an object)
+  this->bht = cpu.bht;
   this->rat = cpu.rat;
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
@@ -478,12 +512,15 @@ Processor& Processor::operator=(const Processor& cpu)
   this->branch_mispred = cpu.branch_mispred;
   this->instructions_fetched = cpu.instructions_fetched;
 
+#ifdef EXE_TRACE
+  this->exe = cpu.exe;
+#endif
+
   return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
-#ifdef DEBUG
   os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
   os << "  ibuf = {\n";
@@ -494,6 +531,9 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
     os << "    " << pc << ": " << instruction << '\n';
   }
   os << "  }\n";
+  os << "  bht = {\n"
+     << "    " << cpu.bht << '\n'
+     << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'
      << "  }\n";
@@ -522,8 +562,5 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"
      << "bpa = " << (double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred) << '\n'
      << "fpc = " << ((double)cpu.instructions_fetched / (double)cpu.cycles) << " (best = " << FETCHRATE << ')';
-#else
-  os << cpu.rrf;
-#endif
   return os;
 }

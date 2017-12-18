@@ -141,10 +141,14 @@ void LSQ::store_to_load_forward(int i)
         {
           if (this->shelves[j].va && this->shelves[j].addr == this->shelves[i].addr)
           {
+            std::cout << "FORWARDED: " << this->shelves[j].seq << " --> " << this->shelves[i].seq << std::endl;
             this->shelves[i].w = this->shelves[j].w;
             this->shelves[i].fwd = true;
           }
-          return;
+          else if (!this->shelves[j].va)
+          {
+            return;
+          }
         }
       }
     }

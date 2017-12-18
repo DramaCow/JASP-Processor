@@ -6,6 +6,7 @@
 
 #include "cache.hpp"
 #include "bp.hpp"
+#include "bht.hpp"
 #include "rat.hpp"
 #include "rob.hpp"
 #include "rrf.hpp"
@@ -30,6 +31,7 @@ class Processor
     //Instruction ibuf;
     std::array<std::tuple<int, Instruction>, FETCHRATE> ibuf;
     BP bp;
+    BHT bht;
     RAT rat;
     ROB rob;
     RRF rrf;
@@ -39,6 +41,10 @@ class Processor
     //ALU alu;
     BU bu;
     MU mu;
+
+#ifdef EXE_TRACE
+    std::vector<Instruction> exe;
+#endif
 
     Processor& operator=(const Processor& cpu);
 
@@ -54,7 +60,7 @@ class Processor
 
     // helper functions
     std::tuple<int, bool> read(int r);
-    int alloc(Processor &n_cpu, std::string opcode, int r, int target);
+    int alloc(Processor &n_cpu, Instruction instruction, int r, int target);
     bool isStalled();
     int space();
     void flush(int target);

@@ -9,10 +9,12 @@ class Instruction
 {
   public:
     Instruction();
-    Instruction(std::string opcode);
+    //Instruction(std::string opcode);
 
-    std::string opcode;
+    std::string opcode = "nop";
     std::vector<int> params;
+
+    int getTakenBTA();
 
     static bool isArth(std::string opcode); // is logical/arithmetic instruction
     static bool isBrch(std::string opcode); // is branch instruction
@@ -20,7 +22,6 @@ class Instruction
 
     friend std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);
 };
-
 std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);
 
 #endif

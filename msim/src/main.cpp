@@ -28,31 +28,40 @@ int main(int argc, char* argv[])
     dcache.initialise(data, dsize);
   }
 
-  Processor cpu1(icache, dcache); Processor *cpu   = &cpu1;
-  Processor cpu2(icache, dcache); Processor *n_cpu = &cpu2;
+  Processor cpu(icache, dcache); 
+  Processor n_cpu = cpu; 
 
   int t = 0;
   bool done = false;
 
-#ifndef DEBUG
-  std::cout << "(t" << t << ") " << (*cpu) << std::endl;
-#endif
-
+#ifdef DEBUG
   for (; t < LIMIT && !done; ++t)
   {
-#ifdef DEBUG
-    std::cout << "(t" << t << ") " << (*cpu) << std::endl;
-#endif
-    done = cpu->tick(*n_cpu);
-#ifndef DEBUG
-    if (!(cpu->rrf == n_cpu->rrf))
-    {
-      std::cout << "(t" << t << ") " << (*n_cpu) << std::endl;
-    }
-#endif
-    *cpu = *n_cpu;
+    std::cout << "(t" << t << ") " << cpu << std::endl;
+    done = cpu.tick(n_cpu);
+    cpu = n_cpu;
   }
-  std::cout << "(t" << t << ") " << (*cpu) << std::endl;
+  std::cout << "(t" << t << ") " << cpu << std::endl;
+#else
+  std::cout << "(t" << t << ") " << cpu.rrf << std::endl;
+  for (; t < LIMIT && !done; ++t)
+  {
+    done = cpu.tick(n_cpu);
+    if (!(cpu.rrf == n_cpu.rrf))
+    {
+      std::cout << "(t" << t << ") " << n_cpu.rrf << std::endl;
+    }
+    cpu = n_cpu;
+  }
+  std::cout << "(t" << t << ") " << cpu.rrf << std::endl;
+#endif
+
+#ifdef EXE_TRACE
+  for (std::size_t i = 0; i < cpu.exe.size(); ++i)
+  {
+    std::cout << cpu.exe[i] << std::endl;
+  }
+#endif
 
   return 0;
 }
