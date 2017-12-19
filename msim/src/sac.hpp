@@ -16,6 +16,7 @@ class SAC
       bool valid = false;
       int  tag   = 0;
       bool dirty = false;
+      int lru = 0;
     };
 
   public:
@@ -24,12 +25,15 @@ class SAC
     std::tuple<int,bool> load(int addr);
     bool store(int addr, int val);
 
-    std::array<int,BLOCKSIZE> getline(int a);
+    std::tuple<Line,bool> getline(int a);
     void writeline(int a, Line line);
 
   private:
     std::vector<Line> lines;
+    int numSets;
     int setSize;
+
+    void adjustLRU(int idx, int l);
 };
 
 #endif
