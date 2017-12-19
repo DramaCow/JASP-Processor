@@ -21,7 +21,8 @@ class ROB {
         int pc = -1;
         int reg = -1;
         int val = 0;
-        int target = -1;
+        bool pred = false;
+        bool taken = false;
         bool spec = false;
         bool done = false;
 
@@ -31,11 +32,12 @@ class ROB {
   public:
     int space() const;
 
-    int push(ROB &n_rob, int pc, Instruction instruction, int reg, int target);
+    int push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
     std::tuple<int, bool> read(int addr);
     void write(int addr, int val);
+    void write(int addr, int val, bool t);
 
     void handle_store_to_load_forwarding();
     void reset();

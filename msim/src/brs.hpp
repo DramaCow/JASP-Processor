@@ -20,7 +20,7 @@ class BRS
       int o2 = 0; bool v2 = true;
       int tgt = 0;
       int npc = 0;
-      int pred = 0;
+      bool pred = 0;
       int dest = 0; 
     };
 

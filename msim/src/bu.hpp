@@ -18,6 +18,7 @@ class BU
 
     // output latch
     int result = false;
+    bool taken = false;
 
     // control flags
     bool writeback = false;

@@ -6,37 +6,44 @@ void BU::dispatch(BRS::Shelf shelf)
 
   if (this->shelf.opcode == "b")
   {
+    this->taken = true;
     this->result = shelf.tgt;
     this->writeback = true;
   }
   else if (this->shelf.opcode == "beq")
   {
-    this->result = (shelf.o1 == shelf.o2) ? shelf.tgt : shelf.npc;
+    this->taken = shelf.o1 == shelf.o2;
+    this->result = this->taken ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   else if (this->shelf.opcode == "bneq")
   {
-    this->result = (shelf.o1 != shelf.o2) ? shelf.tgt : shelf.npc;
+    this->taken = shelf.o1 != shelf.o2;
+    this->result = this->taken ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   else if (this->shelf.opcode == "blt")
   {
-    this->result = (shelf.o1 < shelf.o2) ? shelf.tgt : shelf.npc;
+    this->taken = shelf.o1 < shelf.o2;
+    this->result = this->taken ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   else if (this->shelf.opcode == "ble")
   {
-    this->result = (shelf.o1 <= shelf.o2) ? shelf.tgt : shelf.npc;
+    this->taken = shelf.o1 <= shelf.o2;
+    this->result = this->taken ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   else if (this->shelf.opcode == "bgt")
   {
-    this->result = (shelf.o1 > shelf.o2) ? shelf.tgt : shelf.npc;
+    this->taken = shelf.o1 > shelf.o2;
+    this->result = this->taken ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   else if (this->shelf.opcode == "bge")
   {
-    this->result = (shelf.o1 >= shelf.o2) ? shelf.tgt : shelf.npc;
+    this->taken = shelf.o1 >= shelf.o2;
+    this->result = this->taken ? shelf.tgt : shelf.npc;
     this->writeback = true;
   }
   // Unexpected OP

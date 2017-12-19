@@ -9,7 +9,7 @@ int ROB::space() const
   return NUM_ROB_ENTRIES - this->size - 1;
 }
 
-int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, int target)
+int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred)
 {
   std::string opcode = instruction.opcode;
 
@@ -36,7 +36,7 @@ int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, int target)
   n_rob.entries[this->head].pc = pc;
   n_rob.entries[this->head].reg = reg;
   n_rob.entries[this->head].val = 0;
-  n_rob.entries[this->head].target = target;
+  n_rob.entries[this->head].pred = pred;
   n_rob.entries[this->head].done = opcode == "end";
   n_rob.entries[this->head].instruction = instruction;
   
@@ -97,6 +97,16 @@ void ROB::write(int addr, int val)
   this->entries[a].done = true;
 }
 
+void ROB::write(int addr, int val, bool t)
+{
+  // NOTE: rob addresses are offset by NUM_REGISTERS in order
+  //       to differentiate them fron architectural addresses
+  int a = addr - NUM_REGISTERS;
+  this->entries[a].val = val;
+  this->entries[a].taken = t;
+  this->entries[a].done = true;
+}
+
 void ROB::reset()
 {
   this->head = this->tail;
@@ -126,7 +136,7 @@ ROB& ROB::operator=(const ROB& rob)
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
   os << "    space=" << rob.space() << '\n';
-  os << "    addr  type  pc    reg   val   tgt   spec  \n";
+  os << "    addr  type  pc    reg   val   p/t   spec  \n";
   os << "    ------------------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
@@ -165,13 +175,13 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
 
     os << SPACE(rob.entries[i].val);
 
-    if (rob.entries[i].target >= 0)
+    if (rob.entries[i].type == ROB::Entry::BR)
     {
-      os << SPACE(std::to_string(rob.entries[i].target));
+      os << SPACE(std::to_string(rob.entries[i].pred) + std::string(" ") + (rob.entries[i].done ? std::to_string(rob.entries[i].taken) : std::string("-")));
     }
-    else 
+    else
     {
-      os << SPACE("--");
+      os << SPACE("- -");
     }
 
     if (rob.entries[i].spec)

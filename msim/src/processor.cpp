@@ -61,7 +61,7 @@ void Processor::fetch(Processor &n_cpu)
     {
       npc = instruction.getTakenBTA();
       instruction.params.push_back(pc+1);
-      instruction.params.push_back(npc);
+      instruction.params.push_back(true);
       //bool prediction;
       //std::tie(npc, prediction) = bp.predict(instruction, pc);
       //instruction.params.push_back(prediction);
@@ -103,7 +103,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0]);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -114,7 +114,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0]);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -128,7 +128,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[2]);
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0]);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -141,7 +141,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(instruction.params[2], true);
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0]);
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
@@ -189,7 +189,7 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = std::make_tuple(0, true);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.d = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0], -1);
+      shelf.d = n_cpu.alloc(n_cpu, pc, instruction, instruction.params[0]);
       shelf.seq = shelf.d;
 
       n_cpu.rob.set_spec(shelf.seq, false);
@@ -202,14 +202,14 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.w, shelf.vw) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.b, shelf.vb) = n_cpu.read(instruction.params[1]);
       std::tie(shelf.o, shelf.vo) = std::make_tuple(instruction.params[2], true);
-      shelf.seq = n_cpu.alloc(n_cpu, pc, instruction, -1, -1); // simply the rob entry
+      shelf.seq = n_cpu.alloc(n_cpu, pc, instruction, -1); // simply the rob entry
 
       n_cpu.rob.set_spec(shelf.seq, false);
       n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
     }
     else if ( opcode == "end" )
     {
-      int seq = n_cpu.alloc(n_cpu, pc, instruction, -1, -1);
+      int seq = n_cpu.alloc(n_cpu, pc, instruction, -1);
       n_cpu.rob.set_spec(seq, false);
     }
   }
@@ -287,7 +287,7 @@ void Processor::writeback(Processor &n_cpu)
 
   if (this->bu.writeback)
   {
-    n_cpu.rob.write(this->bu.shelf.dest, this->bu.result);
+    n_cpu.rob.write(this->bu.shelf.dest, this->bu.result, this->bu.taken);
   }
 
   if (this->mu.writeback && this->mu.duration == 0)
@@ -343,11 +343,14 @@ bool Processor::commit(Processor &n_cpu)
       n_cpu.exe.push_back(entry.instruction); // debug
 #endif
 
-      if (entry.val != entry.target)
+      n_cpu.bht.update(entry.pc, entry.taken);
+
+      // if mispredicted
+      if (entry.pred != entry.taken)
       {
         n_cpu.branch_mispred = this->branch_mispred + 1;
         n_cpu.flush(entry.val);
-        break; // following commits refer to mispredicts, so stop
+        break; // subsequent commits are incorrectly speculated, so stop
       }
       n_cpu.branch_corpred = this->branch_corpred + 1;
     }
@@ -393,9 +396,14 @@ std::tuple<int, bool> Processor::read(int r)
   }
 }
 
-int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, int target)
+int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg)
 {
-  int a = n_cpu.rob.push(n_cpu.rob, pc, instruction, reg, target);
+  return this->alloc(n_cpu, pc, instruction, reg, false);
+}
+
+int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, bool pred)
+{
+  int a = n_cpu.rob.push(n_cpu.rob, pc, instruction, reg, pred);
 
   // if valid register
   if (reg != -1)
