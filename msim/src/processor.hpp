@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "cache.hpp"
-#include "bp.hpp"
 #include "bht.hpp"
 #include "rat.hpp"
 #include "rob.hpp"
@@ -31,7 +30,6 @@ class Processor
 
     //Instruction ibuf;
     std::array<std::tuple<int, Instruction>, FETCHRATE> ibuf;
-    BP bp;
     BHT bht;
     RAT rat;
     ROB rob;

@@ -62,9 +62,6 @@ void Processor::fetch(Processor &n_cpu)
       npc = instruction.getTakenBTA();
       instruction.params.push_back(pc+1);
       instruction.params.push_back(true);
-      //bool prediction;
-      //std::tie(npc, prediction) = bp.predict(instruction, pc);
-      //instruction.params.push_back(prediction);
     }
     else 
     {
@@ -510,7 +507,6 @@ Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
-  this->bp = cpu.bp; // TODO: does this need to be copied (does it even need to be an object)
   this->bht = cpu.bht;
   this->rat = cpu.rat;
   this->rob = cpu.rob;
