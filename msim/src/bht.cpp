@@ -1,4 +1,9 @@
 #include "bht.hpp"
+#include <bitset>
+#include <iomanip>
+
+#define SPACE2 std::left<<std::setfill((char)32)<<std::setw(2)<<
+#define SPACE4 std::left<<std::setfill((char)32)<<std::setw(4)<<
 
 BHT::BHT()
 {
@@ -26,12 +31,26 @@ BHT& BHT::operator=(const BHT& bht)
 
 std::ostream& operator<<(std::ostream& os, const BHT& bht)
 {
+  os << "     ";
+  for (int i = 0; i < 16; ++i)
+  {
+    os << SPACE2(i) << ' ';
+  }
+  os << "\n        -------------------------------------------------\n";
+
+  int j = 0;
   for (int i = 0; i < NUM_BHT_ENTRIES; ++i)
   {
-    os << bht.entries[i] << ' ';
-    if (i % 64 == 63 && i != NUM_BHT_ENTRIES-1)
+    if (i % 16 == 0)
     {
-      os << "\n    ";
+      os << "    " << SPACE4(j) << '|';
+    }
+    std::bitset<2> e(bht.entries[i]);
+    os << e << ' ';
+    if (i % 16 == 15 && i != NUM_BHT_ENTRIES-1)
+    {
+      j += 16;
+      os << '\n';
     }
   }
   return os;

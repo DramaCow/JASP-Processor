@@ -7,7 +7,7 @@
 #define FETCHRATE 4
 #define RETIRERATE 6
 
-#define NUM_BHT_ENTRIES 32
+#define NUM_BHT_ENTRIES 64
 #define NUM_REGISTERS 8
 #define NUM_ROB_ENTRIES 16
 #define NUM_RS_ENTRIES 8

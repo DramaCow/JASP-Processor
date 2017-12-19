@@ -59,9 +59,12 @@ void Processor::fetch(Processor &n_cpu)
 
     if (Instruction::isBrch(instruction.opcode))
     {
-      npc = instruction.getTakenBTA();
+      //bool pred = true;
+      //npc = instruction.getTakenBTA();
+      bool pred = this->bht.predict(pc);
+      npc = pred ? instruction.getTakenBTA() : pc+1;
       instruction.params.push_back(pc+1);
-      instruction.params.push_back(true);
+      instruction.params.push_back(pred);
     }
     else 
     {

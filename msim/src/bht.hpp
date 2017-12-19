@@ -4,6 +4,7 @@
 #include "config.hpp"
 #include <array>
 #include <iostream>
+#include <cstdint>
 
 // Branch History Table
 class BHT
@@ -18,7 +19,7 @@ class BHT
     friend std::ostream& operator<<(std::ostream& os, const BHT& bht);
     
   private:
-    std::array<int,NUM_BHT_ENTRIES> entries;
+    std::array<uint32_t,NUM_BHT_ENTRIES> entries;
 };
 std::ostream& operator<<(std::ostream& os, const BHT& bht);
 
