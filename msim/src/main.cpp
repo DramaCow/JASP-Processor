@@ -25,6 +25,12 @@ int main(int argc, char* argv[])
   {
     int *data; int dsize;
     std::tie(data, dsize) = load_data(argv[2]);
+
+    MEM mem(data, dsize);
+    std::cout << mem;
+    delete data;
+    return 0;
+
     dcache.initialise(data, dsize);
   }
 

@@ -16,6 +16,7 @@
 #include "bu.hpp"
 #include "mu.hpp"
 #include "sac.hpp"
+#include "mem.hpp"
 
 class Processor
 {

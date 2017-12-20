@@ -3,18 +3,22 @@
 
 #include "config.hpp"
 #include <array>
+#include <vector>
+#include <iostream>
 
 class MEM
 {
   public:
-    MEM();
-    MEM(int *data);
+    MEM(int *data, int size);
 
     std::array<int,BLOCKSIZE> getblock(int a);
     void writeblock(int a, std::array<int,BLOCKSIZE> block);
 
+    friend std::ostream& operator<<(std::ostream& os, const MEM& mem);
+
   private:
-    std::array<std::array<int,BLOCKSIZE>,MEM_NUM_BLOCKS> blocks;
+    std::vector<std::array<int,BLOCKSIZE>> blocks;
 };
+std::ostream& operator<<(std::ostream& os, const MEM& mem);
 
 #endif
