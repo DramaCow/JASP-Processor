@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdio>
+#include <sstream>
 
-//#include "loader.hpp"
 #include "parser.hpp"
 #include "cache.hpp"
 #include "processor.hpp"
@@ -10,9 +10,9 @@
 
 int main(int argc, char* argv[])
 {
-  if (argc < 2)
+  if (argc < 3)
   {
-    std::cerr << "usage: ./msim <program_name> [<data_name>]?" << std::endl;
+    std::cerr << "usage: ./msim <program_name> <data_name>" << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -20,19 +20,10 @@ int main(int argc, char* argv[])
   std::tie(program, isize) = load_program(argv[1]);
   ICache icache(program, isize);
 
-  DCache dcache(64);
-  if (argc >= 3)
-  {
-    int *data; int dsize;
-    std::tie(data, dsize) = load_data(argv[2]);
-
-    MEM mem(data, dsize);
-    std::cout << mem;
-    delete data;
-    return 0;
-
-    dcache.initialise(data, dsize);
-  }
+  int *data; int dsize;
+  std::tie(data, dsize) = load_data(argv[2]);
+  DCache dcache(data, dsize);
+  delete data;
 
   Processor cpu(icache, dcache); 
   Processor n_cpu = cpu; 
@@ -71,3 +62,11 @@ int main(int argc, char* argv[])
 
   return 0;
 }
+/*
+    MEM mem(data, dsize);
+    std::stringstream buffer;
+    buffer << mem;
+    std::cout << buffer.str();
+    delete data;
+    return 0;
+*/

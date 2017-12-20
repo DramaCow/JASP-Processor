@@ -21,12 +21,15 @@
 class Processor
 {
   public:
+//    Processor(ICache &icache, DCache &dcache, MEM &mem, SAC &l2cache);
     Processor(ICache &icache, DCache &dcache);
 
     bool tick(Processor &n_cpu);
 
     ICache &icache; // Instruction cache
     DCache &dcache; // data cache
+//    MEM &mem;
+//    SAC &l2cache;
 
     unsigned int pc = 0;
 
@@ -36,13 +39,13 @@ class Processor
     RAT rat;
     ROB rob;
     RRF rrf;
-    RS rs;
+    RS  rs;
     BRS brs;
     LSQ lsq;
     std::array<ALU, NUM_ALUS> alu;
-    //ALU alu;
-    BU bu;
-    MU mu;
+    BU  bu;
+    MU  mu;
+//    SAC l1cache;
 
 #ifdef EXE_TRACE
     std::vector<Instruction> exe;

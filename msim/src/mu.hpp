@@ -32,6 +32,8 @@ class MU
 
   private:
     DCache &dcache;
+    void l1_cachemiss();
+    void l2_cachemiss();
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);
 

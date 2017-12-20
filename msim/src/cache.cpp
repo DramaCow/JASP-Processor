@@ -1,4 +1,5 @@
 #include "cache.hpp"
+#include <cstring>
 
 ICache::ICache(Instruction *program, int size) :
   program(program),
@@ -35,16 +36,16 @@ DCache::DCache(int size) :
   this->data = new int[size]{ 0 };
 }
 
+DCache::DCache(int *data, int size) :
+  size(size)
+{
+  this->data = new int[size];
+  memcpy(this->data, data, size*sizeof(int));
+}
+
 DCache::~DCache()
 {
   delete[] data;
-}
-
-void DCache::initialise(int *data, int size)
-{
-  delete[] this->data;
-  this->data = data;
-  this->size = size;
 }
 
 int& DCache::operator[](int i)

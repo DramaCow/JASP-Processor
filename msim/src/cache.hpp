@@ -22,8 +22,8 @@ class DCache
 {
   public:
     DCache(int size);
+    DCache(int *data, int size);
     ~DCache();
-    void initialise(int *data, int size);
     int& operator[](int i);
 
     friend std::ostream& operator<<(std::ostream& os, const DCache& dcache);

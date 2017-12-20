@@ -62,6 +62,14 @@ void MU::reset()
   this->writeback = false;
 }
 
+void MU::l1_cachemiss()
+{
+}
+
+void MU::l2_cachemiss()
+{
+}
+
 MU& MU::operator=(const MU& mu)
 {
   this->shelf = mu.shelf;
