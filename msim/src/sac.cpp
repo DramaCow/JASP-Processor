@@ -54,7 +54,21 @@ std::tuple<SAC::Line*,SAC::Line*> SAC::stash(int baddr, Line *line)
   int startLine = this->setSize*idx; // meta-index of first line in set
   SAC::Line *replaceLine = nullptr;  // copy of line being replaced
 
-  // first pass; check if any lines are invalid --> can be used
+  // first pass; check if line exists in cache, override if so
+  // (strictly necessary for L1-replaceLine --> L2)
+  for (int l = startLine; l < startLine + this->setSize; ++l)
+  {
+    if (this->lines[l].valid && this->lines[l].tag == tag)
+    {
+      this->lines[l] = (*line);
+      this->lines[l].tag = tag;
+      this->lines[l].lru = 0;
+      this->adjustLRU(idx, l);
+      return std::make_tuple(&this->lines[l],replaceLine);
+    }
+  }
+
+  // second pass; check if any lines are invalid --> can be used
   for (int l = startLine; l < startLine + this->setSize; ++l)
   {
     if (!this->lines[l].valid)
@@ -67,7 +81,7 @@ std::tuple<SAC::Line*,SAC::Line*> SAC::stash(int baddr, Line *line)
     }
   }
 
-  // second pass; pick Least Recently Used line to replace
+  // third pass; pick Least Recently Used line to replace
   for (int l = startLine; l < startLine + this->setSize; ++l)
   {
     if (this->lines[l].lru == 0)
@@ -134,6 +148,11 @@ std::ostream& operator<<(std::ostream& os, const SAC& sac)
       {
         os << "INVALID\n-------\n";
       }
+    }
+
+    if (j < sac.numSets-1)
+    {
+      os << "~~~\n";
     }
   }
 
