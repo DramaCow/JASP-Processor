@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "cache.hpp"
-#include "bht.hpp"
 #include "hrt.hpp"
+#include "pht.hpp"
 #include "rat.hpp"
 #include "rob.hpp"
 #include "rrf.hpp"
@@ -35,8 +35,8 @@ class Processor
 
     //Instruction ibuf;
     std::array<std::tuple<int, Instruction>, FETCHRATE> ibuf;
-    BHT bht;
     HRT hrt;
+    PHT pht;
     RAT rat;
     ROB rob;
     RRF rrf;

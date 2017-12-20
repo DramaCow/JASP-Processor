@@ -7,7 +7,7 @@
 #define FETCHRATE 4
 #define RETIRERATE 6
 
-#define NUM_BHT_ENTRIES 64
+#define NUM_PHT_ENTRIES 64
 #define NUM_HRT_ENTRIES 64
 #define HREG_BITS 4
 
