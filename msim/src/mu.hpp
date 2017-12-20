@@ -39,6 +39,7 @@ class MU
     MEM &mem;
     void l1_cachemiss();
     void l2_cachemiss();
+    SAC::Line * getline(int baddr);
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);
 

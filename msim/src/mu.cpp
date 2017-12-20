@@ -73,6 +73,24 @@ void MU::l2_cachemiss()
 {
 }
 
+SAC::Line * MU::getline(int baddr)
+{
+  SAC::Line *line = nullptr;
+
+  line = this->l1cache.access(baddr);
+  if (line == nullptr)
+  {
+    line = this->l2cache.access(baddr);
+    if (line == nullptr)
+    {
+      line = new SAC::Line(mem.getblock(baddr), baddr);
+      
+    }
+  }
+
+  return line;
+}
+
 MU& MU::operator=(const MU& mu)
 {
   this->shelf = mu.shelf;

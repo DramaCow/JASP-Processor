@@ -5,11 +5,29 @@ SAC::SAC(int n, int k) :
 {
 }
 
-std::tuple<int,bool> SAC::load(int addr)
+SAC::Line::Line() :
+  valid(false)
 {
-  int off = addr % BLOCKSIZE;             // offset in block/line
-  int idx = (addr / BLOCKSIZE) % numSets; // which set of lines
-  int tag = (addr / BLOCKSIZE) / numSets; // global mem-id on block
+}
+
+SAC::Line::Line(std::array<int,BLOCKSIZE> data, int baddr) :
+  data(data),
+  valid(true),
+  baddr(baddr),
+  dirty(false),
+  lru(0)
+{
+}
+
+SAC::Line::Line(const SAC::Line &line)
+{
+  (*this) = line;
+}
+
+SAC::Line * SAC::access(int baddr)
+{
+  int idx = baddr % numSets; // which set of lines
+  int tag = baddr / numSets; // global mem-id on block
 
   int startLine = setSize*idx; // meta-index of first line in set
 
@@ -19,63 +37,18 @@ std::tuple<int,bool> SAC::load(int addr)
     {
       // cache-hit
       this->adjustLRU(idx, l);
-      return std::make_tuple(this->lines[l].data[off], true);
+      return &this->lines[l];
     }
   }
 
   // cache-miss
-  return std::make_tuple(0, false);
+  return nullptr;
 }
 
-bool SAC::store(int addr, int val)
+SAC::Line * SAC::stash(int baddr, Line line)
 {
-  int off = addr % BLOCKSIZE;                   // offset in block/line
-  int idx = (addr / BLOCKSIZE) % this->numSets; // which set of lines
-  int tag = (addr / BLOCKSIZE) / this->numSets; // global mem-id on block
-
-  int startLine = this->setSize*idx; // meta-index of first line in set
-
-  for (int l = startLine; l < startLine + this->setSize; ++l)
-  {
-    if (this->lines[l].tag == tag)
-    {
-      // cache-hit
-      this->adjustLRU(idx, l);
-      this->lines[l].data[off] = val;
-      this->lines[l].dirty = true;
-      return true;
-    }
-  }
-
-  // cache-miss
-  return false;
-}
-
-std::tuple<SAC::Line,bool> SAC::getline(int a)
-{
-  int idx = a % this->numSets; // which set of lines
-  int tag = a / this->numSets; // global mem-id on block
-
-  int startLine = this->setSize*idx; // meta-index of first line in set
-
-  for (int l = startLine; l < startLine + this->setSize; ++l)
-  {
-    if (this->lines[l].tag == tag)
-    {
-      // line exists in cache
-      this->adjustLRU(idx, l);
-      return std::make_tuple(this->lines[l], true);
-    }
-  }
-
-  // line doesn't exist in cache (TODO: better dummy value?)
-  return std::make_tuple(Line(), false);
-} 
-
-void SAC::writeline(int a, Line line)
-{
-  int idx = a % this->numSets; // which set of lines
-  int tag = a / this->numSets; // global mem-id on block
+  int idx = baddr % this->numSets; // which set of lines
+  int tag = baddr / this->numSets; // global mem-id on block
 
   int startLine = this->setSize*idx; // meta-index of first line in set
 
@@ -85,9 +58,10 @@ void SAC::writeline(int a, Line line)
     if (!this->lines[l].valid)
     {
       this->lines[l] = line;
+      this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);
-      return;
+      return nullptr;
     }
   }
 
@@ -96,10 +70,14 @@ void SAC::writeline(int a, Line line)
   {
     if (!this->lines[l].lru == 0)
     {
+      // copy of line being replaced
+      SAC::Line *replaceLine = new SAC::Line(this->lines[l]);
+
       this->lines[l] = line;
+      this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);
-      return;
+      return replaceLine;
     }
   }
 }
