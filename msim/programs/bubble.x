@@ -1,7 +1,7 @@
   movi r0 0
   movi r1 0
   movi r2 0
-  movi r3 63
+  movi r3 511
 
 :outer
 :inner
