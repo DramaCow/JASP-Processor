@@ -21,6 +21,7 @@ class MU
     void dispatch(LSQ::Shelf shelf);
     void execute(MU &n_mu);
 
+    void complete_writethrough();
     void reset();
 
     LSQ::Shelf shelf;
@@ -49,8 +50,6 @@ class MU
     SAC::Line * wL2(SAC::Line *line);
     void bL2(SAC::Line *line);
     void bMEM(SAC::Line *line);
-
-    void complete_writethrough();
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);
 

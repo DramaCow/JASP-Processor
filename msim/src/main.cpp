@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdio>
-#include <sstream>
+#include <fstream>
 
 #include "parser.hpp"
 #include "cache.hpp"
@@ -63,13 +63,10 @@ int main(int argc, char* argv[])
   }
 #endif
 
+  cpu.mu.complete_writethrough();
+  std::ofstream file("mem.txt");
+  file << cpu.mem;
+  file.close();
+
   return 0;
 }
-/*
-    MEM mem(data, dsize);
-    std::stringstream buffer;
-    buffer << mem;
-    std::cout << buffer.str();
-    delete data;
-    return 0;
-*/
