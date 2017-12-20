@@ -82,6 +82,7 @@ void MU::store(int addr, int val)
 
   SAC::Line * line = this->rL1(baddr);
   line->data[offset];
+  line->dirty = true;
 }
 
 SAC::Line * MU::rL1(int baddr)
@@ -128,6 +129,7 @@ SAC::Line * MU::wL2(SAC::Line *line)
   if (replaceLine != nullptr) // dirty
   {
     this->bMEM(replaceLine);
+    delete replaceLine;
   }
   return this->wL1(newLine);
 }
@@ -139,14 +141,34 @@ void MU::bL2(SAC::Line *line)
   if (replaceLine != nullptr) // dirty
   {
     this->bMEM(replaceLine);
+    delete replaceLine;
   }
-  delete line;
 }
 
 void MU::bMEM(SAC::Line *line)
 {
   this->mem.writeblock(line->baddr, line->data);
-  delete line;
+}
+
+void MU::complete_writethrough()
+{
+  // first pass: writethrough l2cache (dirty entries will be older than l1cache)
+  for (std::size_t i = 0; i < this->l2cache.lines.size(); ++i)
+  {
+    if (this->l2cache.lines[i].dirty)
+    {
+      this->bMEM(&this->l2cache.lines[i]);
+    }
+  }
+
+  // second pass: writethrough l1cache
+  for (std::size_t i = 0; i < this->l1cache.lines.size(); ++i)
+  {
+    if (this->l1cache.lines[i].dirty)
+    {
+      this->bMEM(&this->l1cache.lines[i]); // fuck it; go directly to memory
+    }
+  }
 }
 
 MU& MU::operator=(const MU& mu)

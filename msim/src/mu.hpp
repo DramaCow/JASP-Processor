@@ -49,6 +49,8 @@ class MU
     SAC::Line * wL2(SAC::Line *line);
     void bL2(SAC::Line *line);
     void bMEM(SAC::Line *line);
+
+    void complete_writethrough();
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);
 

@@ -30,8 +30,9 @@ class SAC
     Line * access(int baddr);
     std::tuple<Line*,Line*> stash(int baddr, Line *line);
 
+    std::vector<Line> lines; // TODO: ideally not public (necessary for complete_writethrough)
+
   private:
-    std::vector<Line> lines;
     int numSets;
     int setSize;
 
