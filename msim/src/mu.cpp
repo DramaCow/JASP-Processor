@@ -65,11 +65,27 @@ void MU::reset()
   this->writeback = false;
 }
 
-void MU::l1_cachemiss()
+SAC::Line * MU::rL1(int baddr)
 {
 }
 
-void MU::l2_cachemiss()
+SAC::Line * MU::rL2(int baddr)
+{
+}
+
+SAC::Line * MU::rMEM(int baddr)
+{
+}
+
+SAC::Line * MU::wL1(int baddr)
+{
+}
+
+SAC::Line * MU::wL2(int baddr)
+{
+}
+
+SAC::Line * MU::wMEM(int baddr)
 {
 }
 

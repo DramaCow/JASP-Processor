@@ -51,6 +51,7 @@ SAC::Line * SAC::stash(int baddr, Line line)
   int tag = baddr / this->numSets; // global mem-id on block
 
   int startLine = this->setSize*idx; // meta-index of first line in set
+  SAC::Line *replaceLine = nullptr;  // copy of line being replaced
 
   // first pass; check if any lines are invalid --> can be used
   for (int l = startLine; l < startLine + this->setSize; ++l)
@@ -61,7 +62,7 @@ SAC::Line * SAC::stash(int baddr, Line line)
       this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);
-      return nullptr;
+      return replaceLine;
     }
   }
 
@@ -70,8 +71,11 @@ SAC::Line * SAC::stash(int baddr, Line line)
   {
     if (!this->lines[l].lru == 0)
     {
-      // copy of line being replaced
-      SAC::Line *replaceLine = new SAC::Line(this->lines[l]);
+      // copy of line being replaced (only if dirty for writeback)
+      if (this->lines[l].dirty)
+      {
+        replaceLine = new SAC::Line(this->lines[l]);
+      }
 
       this->lines[l] = line;
       this->lines[l].tag = tag;

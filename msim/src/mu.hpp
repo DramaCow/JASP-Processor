@@ -37,8 +37,12 @@ class MU
     SAC &l1cache;
     SAC &l2cache;
     MEM &mem;
-    void l1_cachemiss();
-    void l2_cachemiss();
+    SAC::Line * rL1(int baddr);
+    SAC::Line * rL2(int baddr);
+    SAC::Line * rMEM(int baddr);
+    SAC::Line * wL1(int baddr);
+    SAC::Line * wL2(int baddr);
+    SAC::Line * wMEM(int baddr);
     SAC::Line * getline(int baddr);
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);
