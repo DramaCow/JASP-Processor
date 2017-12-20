@@ -2,7 +2,8 @@
 #include <cmath>
 
 MEM::MEM(int *data, int size) :
-  blocks((int)std::ceil((double)size/BLOCKSIZE))
+  //blocks((int)std::ceil((double)size/BLOCKSIZE))
+  blocks((size/BLOCKSIZE)+1)
 {
   int numBlocks = blocks.size();
   for (int j = 0; j < numBlocks; ++j)

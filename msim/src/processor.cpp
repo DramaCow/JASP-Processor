@@ -580,6 +580,12 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  dcache = {\n" << cpu.dcache
      << "  }\n";
   os << "}\n";
+  os << "=== L1 CACHE ===\n"
+     << cpu.l1cache;
+  os << "=== L2 CACHE ===\n"
+     << cpu.l2cache;
+  os << "=== MEMORY ===\n"
+     << cpu.mem;
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"

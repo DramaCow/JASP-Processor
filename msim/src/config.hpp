@@ -17,8 +17,8 @@
 
 #define BLOCKSIZE 16
 #define L1_NUM_SETS 2
-#define L1_SET_SIZE 1
-#define L2_NUM_SETS 4
-#define L2_SET_SIZE 2
+#define L1_SET_SIZE 1 // Direct Mapped Cache
+#define L2_NUM_SETS 2
+#define L2_SET_SIZE 4
 
 #endif

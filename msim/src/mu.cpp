@@ -140,6 +140,7 @@ SAC::Line * MU::wL1(SAC::Line *line)
   if (replaceLine != nullptr) // dirty
   {
     this->bL2(replaceLine);
+    delete replaceLine;
   }
   return newLine;
 }

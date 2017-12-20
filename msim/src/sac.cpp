@@ -70,7 +70,7 @@ std::tuple<SAC::Line*,SAC::Line*> SAC::stash(int baddr, Line *line)
   // second pass; pick Least Recently Used line to replace
   for (int l = startLine; l < startLine + this->setSize; ++l)
   {
-    if (!this->lines[l].lru == 0)
+    if (this->lines[l].lru == 0)
     {
       // copy of line being replaced (only if dirty for writeback)
       if (this->lines[l].dirty)
