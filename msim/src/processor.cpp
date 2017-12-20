@@ -14,7 +14,7 @@ Processor::Processor(ICache &icache, DCache &dcache, SAC &l1cache, SAC &l2cache,
   l2cache(l2cache),
   mem(mem),
 
-  mu(dcache),
+  mu(dcache, l1cache, l2cache, mem),
 
   cycles(0),
   instructions_executed(0),

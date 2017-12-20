@@ -7,12 +7,14 @@
 #include "lsq.hpp"
 #include "config.hpp"
 #include "cache.hpp"
+#include "sac.hpp"
+#include "mem.hpp"
 
 // Memory Unit
 class MU
 {
   public:
-    MU(DCache &dcache);
+    MU(DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem);
 
     bool isReady();
 
@@ -32,6 +34,9 @@ class MU
 
   private:
     DCache &dcache;
+    SAC &l1cache;
+    SAC &l2cache;
+    MEM &mem;
     void l1_cachemiss();
     void l2_cachemiss();
 };
