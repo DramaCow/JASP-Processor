@@ -14,7 +14,7 @@
 class MU
 {
   public:
-    MU(DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem);
+    MU(SAC &l1cache, SAC &l2cache, MEM &mem);
 
     bool isReady();
 
@@ -34,7 +34,6 @@ class MU
     friend std::ostream& operator<<(std::ostream& os, const MU& mu);
 
   private:
-    DCache &dcache;
     SAC &l1cache;
     SAC &l2cache;
     MEM &mem;

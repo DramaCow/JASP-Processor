@@ -21,13 +21,11 @@
 class Processor
 {
   public:
-    Processor(ICache &icache, DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem);
-//    Processor(ICache &icache, DCache &dcache);
+    Processor(ICache &icache, SAC &l1cache, SAC &l2cache, MEM &mem);
 
     bool tick(Processor &n_cpu);
 
     ICache &icache; // Instruction cache
-    DCache &dcache; // data cache
     SAC &l1cache;
     SAC &l2cache;
     MEM &mem;

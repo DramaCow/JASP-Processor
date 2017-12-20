@@ -7,14 +7,13 @@
 #define HEX1 "0x"<<std::setfill('0')<< std::setw(1)<<std::hex
 #define DEC std::dec
 
-Processor::Processor(ICache &icache, DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem) :
+Processor::Processor(ICache &icache, SAC &l1cache, SAC &l2cache, MEM &mem) :
   icache(icache),
-  dcache(dcache),
   l1cache(l1cache),
   l2cache(l2cache),
   mem(mem),
 
-  mu(dcache, l1cache, l2cache, mem),
+  mu(l1cache, l2cache, mem),
 
   cycles(0),
   instructions_executed(0),
@@ -577,15 +576,11 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "  }\n";
   os << "  mu = {\n" << cpu.mu
      << "  }\n";
-  os << "  dcache = {\n" << cpu.dcache
-     << "  }\n";
   os << "}\n";
   os << "=== L1 CACHE ===\n"
      << cpu.l1cache;
   os << "=== L2 CACHE ===\n"
      << cpu.l2cache;
-  os << "=== MEMORY ===\n"
-     << cpu.mem;
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"

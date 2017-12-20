@@ -18,20 +18,4 @@ class ICache
 };
 std::ostream& operator<<(std::ostream& os, const ICache& icache);
 
-class DCache
-{
-  public:
-    DCache(int size);
-    DCache(int *data, int size);
-    ~DCache();
-    int& operator[](int i);
-
-    friend std::ostream& operator<<(std::ostream& os, const DCache& dcache);
-
-  private:
-    int *data;
-    int size;  
-};
-std::ostream& operator<<(std::ostream& os, const DCache& dcache);
-
 #endif

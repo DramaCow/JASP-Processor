@@ -3,8 +3,7 @@
 
 #define SPACE std::left<<std::setfill((char)32)<<std::setw(6)<<
 
-MU::MU(DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem) :
-  dcache(dcache),
+MU::MU(SAC &l1cache, SAC &l2cache, MEM &mem) :
   l1cache(l1cache),
   l2cache(l2cache),
   mem(mem)

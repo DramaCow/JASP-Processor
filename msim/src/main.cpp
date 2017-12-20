@@ -22,14 +22,13 @@ int main(int argc, char* argv[])
 
   int *data; int dsize;
   std::tie(data, dsize) = load_data(argv[2]);
-  DCache dcache(data, dsize);
   SAC l1cache(L1_NUM_SETS, L1_SET_SIZE);
   SAC l2cache(L2_NUM_SETS, L2_SET_SIZE);
   MEM mem(data, dsize);
   delete data;
 
-  Processor cpu(icache, dcache, l1cache, l2cache, mem); 
-  Processor n_cpu(icache, dcache, l1cache, l2cache, mem); 
+  Processor cpu(icache, l1cache, l2cache, mem); 
+  Processor n_cpu(icache, l1cache, l2cache, mem); 
 
   int t = 0;
   bool done = false;
@@ -63,13 +62,6 @@ int main(int argc, char* argv[])
   }
 #endif
 
-/*
-  std::cout << std::endl;
-  std::cout << "=== L1 CACHE ===" << std::endl;
-  std::cout << l1cache << std::endl;
-  std::cout << "=== L2 CACHE ===" << std::endl;
-  std::cout << l2cache << std::endl;
-*/
   cpu.mu.complete_writethrough();
   std::cout << "=== MEMORY ===" << std::endl;
   std::cout << mem << std::endl;
