@@ -28,7 +28,7 @@ class SAC
     SAC(int n, int k);
 
     Line * access(int baddr);
-    Line * stash(int baddr, Line *line);
+    std::tuple<Line*,Line*> stash(int baddr, Line *line);
 
   private:
     std::vector<Line> lines;

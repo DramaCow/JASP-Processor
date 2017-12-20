@@ -65,6 +65,25 @@ void MU::reset()
   this->writeback = false;
 }
 
+int MU::load(int addr)
+{
+  int offset = addr % BLOCKSIZE; // offset in block
+  int baddr  = addr / BLOCKSIZE; // address of block in memory
+
+  const SAC::Line * line = this->rL1(baddr);
+  int val = line->data[offset];
+  return val;
+}
+
+void MU::store(int addr, int val)
+{
+  int offset = addr % BLOCKSIZE; // offset in block
+  int baddr  = addr / BLOCKSIZE; // address of block in memory
+
+  SAC::Line * line = this->rL1(baddr);
+  line->data[offset];
+}
+
 SAC::Line * MU::rL1(int baddr)
 {
   SAC::Line *line = this->l1cache.access(baddr);
@@ -92,27 +111,31 @@ SAC::Line * MU::rMEM(int baddr)
 
 SAC::Line * MU::wL1(SAC::Line *line)
 {
-  SAC::Line *replaceLine = this->l1cache.stash(line->baddr, line);
+  SAC::Line *newLine, *replaceLine;
+  std::tie(newLine, replaceLine) = this->l1cache.stash(line->baddr, line);
   if (replaceLine != nullptr) // dirty
   {
     this->bL2(replaceLine);
   }
-  return line;
+  return newLine;
 }
 
 SAC::Line * MU::wL2(SAC::Line *line)
 {
-  SAC::Line *replaceLine = this->l2cache.stash(line->baddr, line);
+  SAC::Line *newLine, *replaceLine;
+  std::tie(newLine, replaceLine) = this->l2cache.stash(line->baddr, line);
+  delete line; // line is from memory (I know, this line hurts me too...)
   if (replaceLine != nullptr) // dirty
   {
     this->bMEM(replaceLine);
   }
-  return this->wL1(line);
+  return this->wL1(newLine);
 }
 
 void MU::bL2(SAC::Line *line)
 {
-  SAC::Line *replaceLine = this->l2cache.stash(line->baddr, line);
+  SAC::Line *replaceLine;
+  std::tie(std::ignore, replaceLine) = this->l2cache.stash(line->baddr, line);
   if (replaceLine != nullptr) // dirty
   {
     this->bMEM(replaceLine);

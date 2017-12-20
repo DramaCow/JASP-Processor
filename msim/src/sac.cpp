@@ -37,7 +37,7 @@ SAC::Line * SAC::access(int baddr)
     {
       // cache-hit
       this->adjustLRU(idx, l);
-      return new SAC::Line(this->lines[l]);
+      return &this->lines[l];
     }
   }
 
@@ -45,7 +45,7 @@ SAC::Line * SAC::access(int baddr)
   return nullptr;
 }
 
-SAC::Line * SAC::stash(int baddr, Line *line)
+std::tuple<SAC::Line*,SAC::Line*> SAC::stash(int baddr, Line *line)
 {
   int idx = baddr % this->numSets; // which set of lines
   int tag = baddr / this->numSets; // global mem-id on block
@@ -62,7 +62,7 @@ SAC::Line * SAC::stash(int baddr, Line *line)
       this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);
-      return replaceLine;
+      return std::make_tuple(&this->lines[l],replaceLine);
     }
   }
 
@@ -81,7 +81,7 @@ SAC::Line * SAC::stash(int baddr, Line *line)
       this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);
-      return replaceLine;
+      return std::make_tuple(&this->lines[l],replaceLine);
     }
   }
 }

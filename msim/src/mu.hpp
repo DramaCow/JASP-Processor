@@ -37,6 +37,11 @@ class MU
     SAC &l1cache;
     SAC &l2cache;
     MEM &mem;
+
+    int  load(int addr);
+    void store(int addr, int val);
+
+    // writeback statemachine functions
     SAC::Line * rL1(int baddr);
     SAC::Line * rL2(int baddr);
     SAC::Line * rMEM(int baddr);
