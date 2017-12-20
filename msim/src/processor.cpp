@@ -163,7 +163,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.tgt = instruction.params[0];
       shelf.npc = instruction.npc;
       shelf.pred = instruction.pred;
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred, instruction.pattern);
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
       n_cpu.brs.issue(shelf);
@@ -185,7 +185,7 @@ void Processor::decode(Processor &n_cpu)
       shelf.tgt = instruction.params[2];
       shelf.npc = instruction.npc;
       shelf.pred = instruction.pred;
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred);
+      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred, instruction.pattern);
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality
       n_cpu.brs.issue(shelf);
@@ -407,12 +407,12 @@ std::tuple<int, bool> Processor::read(int r)
 
 int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg)
 {
-  return this->alloc(n_cpu, pc, instruction, reg, false);
+  return this->alloc(n_cpu, pc, instruction, reg, false, 0);
 }
 
-int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, bool pred)
+int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, bool pred, int pattern)
 {
-  int a = n_cpu.rob.push(n_cpu.rob, pc, instruction, reg, pred);
+  int a = n_cpu.rob.push(n_cpu.rob, pc, instruction, reg, pred, pattern);
 
   // if valid register
   if (reg != -1)

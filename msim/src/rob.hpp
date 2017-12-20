@@ -23,6 +23,7 @@ class ROB {
         int val = 0;
         bool pred = false;
         bool taken = false;
+        int pattern = 0;
         bool spec = false;
         bool done = false;
 
@@ -32,7 +33,7 @@ class ROB {
   public:
     int space() const;
 
-    int push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred);
+    int push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred, int pattern);
     std::vector<std::tuple<int,ROB::Entry>> pop(ROB &n_rob, LSQ &n_lsq);
 
     std::tuple<int, bool> read(int addr);

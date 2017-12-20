@@ -9,7 +9,7 @@ int ROB::space() const
   return NUM_ROB_ENTRIES - this->size - 1;
 }
 
-int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred)
+int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred, int pattern)
 {
   std::string opcode = instruction.opcode;
 
@@ -37,6 +37,7 @@ int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred)
   n_rob.entries[this->head].reg = reg;
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].pred = pred;
+  n_rob.entries[this->head].pattern = pattern;
   n_rob.entries[this->head].done = opcode == "end";
   n_rob.entries[this->head].instruction = instruction;
   
@@ -136,8 +137,8 @@ ROB& ROB::operator=(const ROB& rob)
 std::ostream& operator<<(std::ostream& os, const ROB& rob)
 {
   os << "    space=" << rob.space() << '\n';
-  os << "    addr  type  pc    reg   val   p/t   spec  \n";
-  os << "    ------------------------------------------\n";
+  os << "    addr  type  pc    reg   val   p/t   patt  spec  \n";
+  os << "    ------------------------------------------------\n";
   for (int i = 0; i < NUM_ROB_ENTRIES; ++i)
   {
     os << "    ";
@@ -182,6 +183,15 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
     else
     {
       os << SPACE("- -");
+    }
+
+    if (rob.entries[i].type == ROB::Entry::BR)
+    {
+      os << SPACE(rob.entries[i].pattern);
+    }
+    else
+    {
+      os << SPACE("--");
     }
 
     if (rob.entries[i].spec)
