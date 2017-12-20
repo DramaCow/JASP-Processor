@@ -66,8 +66,8 @@ void Processor::fetch(Processor &n_cpu)
 
       bool pred = this->pt.predict(pc);
       npc = pred ? instruction.getTakenBTA() : pc+1;
-      instruction.params.push_back(pc+1);
-      instruction.params.push_back(pred);
+      instruction.npc = pc+1;
+      instruction.pred = pred;
 
       //int pattern = this->hrt.history(pc);
       //bool pred = this->pt.predict(pattern);
@@ -161,8 +161,8 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(0, true); // prediction
       std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
       shelf.tgt = instruction.params[0];
-      shelf.npc = instruction.params[1];
-      shelf.pred = instruction.params[2];
+      shelf.npc = instruction.npc;
+      shelf.pred = instruction.pred;
       shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred);
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
@@ -183,8 +183,8 @@ void Processor::decode(Processor &n_cpu)
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[0]);
       std::tie(shelf.o2, shelf.v2) = n_cpu.read(instruction.params[1]);
       shelf.tgt = instruction.params[2];
-      shelf.npc = instruction.params[3];
-      shelf.pred = instruction.params[4];
+      shelf.npc = instruction.npc;
+      shelf.pred = instruction.pred;
       shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred);
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality

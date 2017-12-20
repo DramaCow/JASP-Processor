@@ -9,10 +9,15 @@ class Instruction
 {
   public:
     Instruction();
-    //Instruction(std::string opcode);
 
     std::string opcode = "nop";
     std::vector<int> params;
+
+    // "hidden" members - used for meta stuff
+    // (would be part of ibuf if I wasn't lazy)
+    int npc;
+    int pattern;
+    bool pred;
 
     int getTakenBTA();
 
