@@ -21,15 +21,16 @@
 class Processor
 {
   public:
-//    Processor(ICache &icache, DCache &dcache, MEM &mem, SAC &l2cache);
-    Processor(ICache &icache, DCache &dcache);
+    Processor(ICache &icache, DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem);
+//    Processor(ICache &icache, DCache &dcache);
 
     bool tick(Processor &n_cpu);
 
     ICache &icache; // Instruction cache
     DCache &dcache; // data cache
-//    MEM &mem;
-//    SAC &l2cache;
+    SAC &l1cache;
+    SAC &l2cache;
+    MEM &mem;
 
     unsigned int pc = 0;
 
@@ -45,7 +46,6 @@ class Processor
     std::array<ALU, NUM_ALUS> alu;
     BU  bu;
     MU  mu;
-//    SAC l1cache;
 
 #ifdef EXE_TRACE
     std::vector<Instruction> exe;

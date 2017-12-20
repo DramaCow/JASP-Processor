@@ -7,9 +7,12 @@
 #define HEX1 "0x"<<std::setfill('0')<< std::setw(1)<<std::hex
 #define DEC std::dec
 
-Processor::Processor(ICache &icache, DCache &dcache) :
+Processor::Processor(ICache &icache, DCache &dcache, SAC &l1cache, SAC &l2cache, MEM &mem) :
   icache(icache),
   dcache(dcache),
+  l1cache(l1cache),
+  l2cache(l2cache),
+  mem(mem),
 
   mu(dcache),
 

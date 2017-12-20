@@ -23,10 +23,13 @@ int main(int argc, char* argv[])
   int *data; int dsize;
   std::tie(data, dsize) = load_data(argv[2]);
   DCache dcache(data, dsize);
+  SAC l1cache(L1_NUM_SETS, L1_SET_SIZE);
+  SAC l2cache(L2_NUM_SETS, L2_SET_SIZE);
+  MEM mem(data, dsize);
   delete data;
 
-  Processor cpu(icache, dcache); 
-  Processor n_cpu = cpu; 
+  Processor cpu(icache, dcache, l1cache, l2cache, mem); 
+  Processor n_cpu(icache, dcache, l1cache, l2cache, mem); 
 
   int t = 0;
   bool done = false;
