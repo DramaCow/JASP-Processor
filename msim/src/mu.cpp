@@ -104,7 +104,7 @@ void MU::store(int addr, int val)
   int baddr  = addr / BLOCKSIZE; // address of block in memory
 
   SAC::Line * line = this->rL1(baddr);
-  line->data[offset];
+  line->data[offset] = val;
   line->dirty = true;
 }
 
