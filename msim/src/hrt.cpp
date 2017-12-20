@@ -10,6 +10,12 @@ HRT::HRT()
   std::fill(std::begin(this->entries), std::end(this->entries), 0x0);
 }
 
+int HRT::history(int pc)
+{
+  int idx = pc % NUM_HRT_ENTRIES;
+  return this->entries[idx];
+}
+
 void HRT::update(int pc, bool wasTaken)
 {
   int idx = pc % NUM_HRT_ENTRIES;

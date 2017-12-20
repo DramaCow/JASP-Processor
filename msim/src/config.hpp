@@ -7,9 +7,10 @@
 #define FETCHRATE 4
 #define RETIRERATE 6
 
-#define NUM_PHT_ENTRIES 64
 #define NUM_HRT_ENTRIES 64
 #define HREG_BITS 4
+#define NUM_PT_ENTRIES 1<<HREG_BITS // used for 2-level
+//#define NUM_PT_ENTRIES 64 // used for simple 2bit saturated counter
 
 #define NUM_REGISTERS 8
 

@@ -6,7 +6,7 @@
 
 #include "cache.hpp"
 #include "hrt.hpp"
-#include "pht.hpp"
+#include "pt.hpp"
 #include "rat.hpp"
 #include "rob.hpp"
 #include "rrf.hpp"
@@ -36,7 +36,7 @@ class Processor
     //Instruction ibuf;
     std::array<std::tuple<int, Instruction>, FETCHRATE> ibuf;
     HRT hrt;
-    PHT pht;
+    PT pt;
     RAT rat;
     ROB rob;
     RRF rrf;

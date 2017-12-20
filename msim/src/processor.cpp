@@ -63,7 +63,7 @@ void Processor::fetch(Processor &n_cpu)
     {
       //bool pred = true;
       //npc = instruction.getTakenBTA();
-      bool pred = this->pht.predict(pc);
+      bool pred = this->pt.predict(pc);
       npc = pred ? instruction.getTakenBTA() : pc+1;
       instruction.params.push_back(pc+1);
       instruction.params.push_back(pred);
@@ -346,7 +346,7 @@ bool Processor::commit(Processor &n_cpu)
 #endif
 
       n_cpu.hrt.update(entry.pc, entry.taken);
-      n_cpu.pht.update(entry.pc, entry.taken);
+      n_cpu.pt.update(entry.pc, entry.taken);
 
       // if mispredicted
       if (entry.pred != entry.taken)
@@ -514,7 +514,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
   this->hrt = cpu.hrt;
-  this->pht = cpu.pht;
+  this->pt = cpu.pt;
   this->rat = cpu.rat;
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
@@ -556,8 +556,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  hrt = {\n"
      << "    " << cpu.hrt << '\n'
      << "  }\n";
-  os << "  pht = {\n"
-     << "    " << cpu.pht << '\n'
+  os << "  pt = {\n"
+     << "    " << cpu.pt << '\n'
      << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'
