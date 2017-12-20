@@ -68,21 +68,21 @@ void MU::reset()
 SAC::Line * MU::rL1(int baddr)
 {
   SAC::Line *line = this->l1cache.access(baddr);
-  if (line == nullptr)
+  if (line == nullptr) // miss
   {
     return this->rL2(baddr);
   }
-  return line;
+  return line; // hit
 }
 
 SAC::Line * MU::rL2(int baddr)
 {
   SAC::Line *line = this->l2cache.access(baddr);
-  if (line == nullptr)
+  if (line == nullptr) // miss
   {
     return this->rMEM(baddr);
   }
-  return this->wL1(line);
+  return this->wL1(line); // hit
 }
 
 SAC::Line * MU::rMEM(int baddr)
@@ -93,7 +93,7 @@ SAC::Line * MU::rMEM(int baddr)
 SAC::Line * MU::wL1(SAC::Line *line)
 {
   SAC::Line *replaceLine = this->l1cache.stash(line->baddr, line);
-  if (replaceLine != nullptr)
+  if (replaceLine != nullptr) // dirty
   {
     this->bL2(replaceLine);
   }
@@ -103,7 +103,7 @@ SAC::Line * MU::wL1(SAC::Line *line)
 SAC::Line * MU::wL2(SAC::Line *line)
 {
   SAC::Line *replaceLine = this->l2cache.stash(line->baddr, line);
-  if (replaceLine != nullptr)
+  if (replaceLine != nullptr) // dirty
   {
     this->bMEM(replaceLine);
   }
@@ -113,15 +113,17 @@ SAC::Line * MU::wL2(SAC::Line *line)
 void MU::bL2(SAC::Line *line)
 {
   SAC::Line *replaceLine = this->l2cache.stash(line->baddr, line);
-  if (replaceLine != nullptr)
+  if (replaceLine != nullptr) // dirty
   {
     this->bMEM(replaceLine);
   }
+  delete line;
 }
 
 void MU::bMEM(SAC::Line *line)
 {
   this->mem.writeblock(line->baddr, line->data);
+  delete line;
 }
 
 MU& MU::operator=(const MU& mu)
