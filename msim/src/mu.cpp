@@ -21,16 +21,15 @@ void MU::dispatch(LSQ::Shelf shelf)
 
   if (this->shelf.type == LSQ::Shelf::LOAD)
   {
+    this->duration = 0;
     if (this->shelf.fwd)
     {
       this->result = this->shelf.w;
-      this->duration = 0;
     }
     else
     {
-//      this->result = this->dcache[this->shelf.addr];
       this->result = this->load(this->shelf.addr);
-      this->duration = 1;
+      this->duration--; // account for this iteration
     }
     this->writeback = true;
   }
@@ -40,9 +39,9 @@ void MU::dispatch(LSQ::Shelf shelf)
     //       whilst the number of cycles take to perform operation is
     //       somewhat realistic, the memory displayed is ahead for
     //       a couple of cycles. This is really a problem though.
-//    this->dcache[this->shelf.addr] = this->shelf.w;
+    this->duration = 0;
     this->store(this->shelf.addr, this->shelf.w);
-    this->duration = 1;
+    this->duration--; // account for this iteration
     this->writeback = true;
   }
   else
@@ -109,6 +108,8 @@ void MU::store(int addr, int val)
 
 SAC::Line * MU::rL1(int baddr)
 {
+  this->duration += L1_ACCESS_COST;
+
   SAC::Line *line = this->l1cache.access(baddr);
   if (line == nullptr) // miss
   {
@@ -119,6 +120,8 @@ SAC::Line * MU::rL1(int baddr)
 
 SAC::Line * MU::rL2(int baddr)
 {
+  this->duration += L2_ACCESS_COST;
+
   SAC::Line *line = this->l2cache.access(baddr);
   if (line == nullptr) // miss
   {
@@ -129,11 +132,15 @@ SAC::Line * MU::rL2(int baddr)
 
 SAC::Line * MU::rMEM(int baddr)
 {
+  this->duration += MEM_ACCESS_COST;
+
   return this->wL2(new SAC::Line(this->mem.getblock(baddr), baddr));
 }
 
 SAC::Line * MU::wL1(SAC::Line *line)
 {
+  this->duration += L1_ACCESS_COST;
+
   SAC::Line *newLine, *replaceLine;
   std::tie(newLine, replaceLine) = this->l1cache.stash(line->baddr, line);
   if (replaceLine != nullptr) // dirty
@@ -146,6 +153,8 @@ SAC::Line * MU::wL1(SAC::Line *line)
 
 SAC::Line * MU::wL2(SAC::Line *line)
 {
+  this->duration += L2_ACCESS_COST;
+
   SAC::Line *newLine, *replaceLine;
   std::tie(newLine, replaceLine) = this->l2cache.stash(line->baddr, line);
   delete line; // line is from memory (I know, this line hurts me too...)
@@ -159,6 +168,8 @@ SAC::Line * MU::wL2(SAC::Line *line)
 
 void MU::bL2(SAC::Line *line)
 {
+  this->duration += L2_ACCESS_COST;
+
   SAC::Line *replaceLine;
   std::tie(std::ignore, replaceLine) = this->l2cache.stash(line->baddr, line);
   if (replaceLine != nullptr) // dirty
@@ -170,6 +181,8 @@ void MU::bL2(SAC::Line *line)
 
 void MU::bMEM(SAC::Line *line)
 {
+  this->duration += MEM_ACCESS_COST;
+
   this->mem.writeblock(line->baddr, line->data);
 }
 

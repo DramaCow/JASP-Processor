@@ -21,4 +21,8 @@
 #define L2_NUM_SETS 2
 #define L2_SET_SIZE 4
 
+#define L1_ACCESS_COST 2
+#define L2_ACCESS_COST 4
+#define MEM_ACCESS_COST 8
+
 #endif
