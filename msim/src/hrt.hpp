@@ -10,6 +10,7 @@ class HRT
 {
   public:
     HRT();
+    void update(int pc, bool wasTaken);
 
     friend std::ostream& operator<<(std::ostream& os, const HRT& hrt);
     

@@ -346,6 +346,7 @@ bool Processor::commit(Processor &n_cpu)
 #endif
 
       n_cpu.bht.update(entry.pc, entry.taken);
+      n_cpu.hrt.update(entry.pc, entry.taken);
 
       // if mispredicted
       if (entry.pred != entry.taken)

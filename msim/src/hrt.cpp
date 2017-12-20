@@ -10,6 +10,13 @@ HRT::HRT()
   std::fill(std::begin(this->entries), std::end(this->entries), 0x0);
 }
 
+void HRT::update(int pc, bool wasTaken)
+{
+  int idx = pc % NUM_HRT_ENTRIES;
+  int e = this->entries[idx];
+  this->entries[idx] = ((e << 1) | wasTaken) % (1 << HREG_BITS);
+}
+
 std::ostream& operator<<(std::ostream& os, const HRT& hrt)
 {
   os << "     ";
