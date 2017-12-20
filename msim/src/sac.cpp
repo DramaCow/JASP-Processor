@@ -37,7 +37,7 @@ SAC::Line * SAC::access(int baddr)
     {
       // cache-hit
       this->adjustLRU(idx, l);
-      return &this->lines[l];
+      return new SAC::Line(this->lines[l]);
     }
   }
 
