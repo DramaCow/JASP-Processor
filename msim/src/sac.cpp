@@ -8,6 +8,7 @@ SAC::SAC(int n, int k) :
 SAC::Line::Line() :
   valid(false)
 {
+  std::fill(std::begin(this->data), std::end(this->data), 0);
 }
 
 SAC::Line::Line(std::array<int,BLOCKSIZE> data, int baddr) :
@@ -33,7 +34,7 @@ SAC::Line * SAC::access(int baddr)
 
   for (int l = startLine; l < startLine + this->setSize; ++l)
   {
-    if (this->lines[l].tag == tag)
+    if (this->lines[l].valid && this->lines[l].tag == tag)
     {
       // cache-hit
       this->adjustLRU(idx, l);
@@ -125,7 +126,7 @@ std::ostream& operator<<(std::ostream& os, const SAC& sac)
         os << "baddr: " << line.baddr << " tag: " << line.tag << " dirty: " << line.dirty << " lru: " << line.lru << '\n';
         for (int k = 0; k < BLOCKSIZE; ++k)
         {
-          os << line.data[k];
+          os << line.data[k] << ' ';
         }
         os << '\n';
       }
