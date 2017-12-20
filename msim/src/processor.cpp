@@ -63,10 +63,16 @@ void Processor::fetch(Processor &n_cpu)
     {
       //bool pred = true;
       //npc = instruction.getTakenBTA();
+
       bool pred = this->pt.predict(pc);
       npc = pred ? instruction.getTakenBTA() : pc+1;
       instruction.params.push_back(pc+1);
       instruction.params.push_back(pred);
+
+      //int pattern = this->hrt.history(pc);
+      //bool pred = this->pt.predict(pattern);
+      //instruction.params.push_back(pc+1);
+      //instructions.params.push_back(pred);
     }
     else 
     {
