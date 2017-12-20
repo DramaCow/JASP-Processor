@@ -45,7 +45,7 @@ SAC::Line * SAC::access(int baddr)
   return nullptr;
 }
 
-SAC::Line * SAC::stash(int baddr, Line line)
+SAC::Line * SAC::stash(int baddr, Line *line)
 {
   int idx = baddr % this->numSets; // which set of lines
   int tag = baddr / this->numSets; // global mem-id on block
@@ -58,7 +58,7 @@ SAC::Line * SAC::stash(int baddr, Line line)
   {
     if (!this->lines[l].valid)
     {
-      this->lines[l] = line;
+      this->lines[l] = (*line);
       this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);
@@ -77,7 +77,7 @@ SAC::Line * SAC::stash(int baddr, Line line)
         replaceLine = new SAC::Line(this->lines[l]);
       }
 
-      this->lines[l] = line;
+      this->lines[l] = (*line);
       this->lines[l].tag = tag;
       this->lines[l].lru = 0;
       this->adjustLRU(idx, l);

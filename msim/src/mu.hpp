@@ -40,10 +40,10 @@ class MU
     SAC::Line * rL1(int baddr);
     SAC::Line * rL2(int baddr);
     SAC::Line * rMEM(int baddr);
-    SAC::Line * wL1(int baddr);
-    SAC::Line * wL2(int baddr);
-    SAC::Line * wMEM(int baddr);
-    SAC::Line * getline(int baddr);
+    SAC::Line * wL1(SAC::Line *line);
+    SAC::Line * wL2(SAC::Line *line);
+    void bL2(SAC::Line *line);
+    void bMEM(SAC::Line *line);
 };
 std::ostream& operator<<(std::ostream& os, const MU& mu);
 

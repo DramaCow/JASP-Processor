@@ -67,44 +67,61 @@ void MU::reset()
 
 SAC::Line * MU::rL1(int baddr)
 {
+  SAC::Line *line = this->l1cache.access(baddr);
+  if (line == nullptr)
+  {
+    return this->rL2(baddr);
+  }
+  return line;
 }
 
 SAC::Line * MU::rL2(int baddr)
 {
+  SAC::Line *line = this->l2cache.access(baddr);
+  if (line == nullptr)
+  {
+    return this->rMEM(baddr);
+  }
+  return this->wL1(line);
 }
 
 SAC::Line * MU::rMEM(int baddr)
 {
+  return this->wL2(new SAC::Line(this->mem.getblock(baddr), baddr));
 }
 
-SAC::Line * MU::wL1(int baddr)
+SAC::Line * MU::wL1(SAC::Line *line)
 {
-}
-
-SAC::Line * MU::wL2(int baddr)
-{
-}
-
-SAC::Line * MU::wMEM(int baddr)
-{
-}
-
-SAC::Line * MU::getline(int baddr)
-{
-  SAC::Line *line = nullptr;
-
-  line = this->l1cache.access(baddr);
-  if (line == nullptr)
+  SAC::Line *replaceLine = this->l1cache.stash(line->baddr, line);
+  if (replaceLine != nullptr)
   {
-    line = this->l2cache.access(baddr);
-    if (line == nullptr)
-    {
-      line = new SAC::Line(mem.getblock(baddr), baddr);
-      
-    }
+    this->bL2(replaceLine);
   }
-
   return line;
+}
+
+SAC::Line * MU::wL2(SAC::Line *line)
+{
+  SAC::Line *replaceLine = this->l2cache.stash(line->baddr, line);
+  if (replaceLine != nullptr)
+  {
+    this->bMEM(replaceLine);
+  }
+  return this->wL1(line);
+}
+
+void MU::bL2(SAC::Line *line)
+{
+  SAC::Line *replaceLine = this->l2cache.stash(line->baddr, line);
+  if (replaceLine != nullptr)
+  {
+    this->bMEM(replaceLine);
+  }
+}
+
+void MU::bMEM(SAC::Line *line)
+{
+  this->mem.writeblock(line->baddr, line->data);
 }
 
 MU& MU::operator=(const MU& mu)
