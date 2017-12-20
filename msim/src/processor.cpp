@@ -513,6 +513,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->pc = cpu.pc;
   this->ibuf = cpu.ibuf;
   this->bht = cpu.bht;
+  this->hrt = cpu.hrt;
   this->rat = cpu.rat;
   this->rob = cpu.rob;
   this->rrf = cpu.rrf;
@@ -553,6 +554,9 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "  }\n";
   os << "  bht = {\n"
      << "    " << cpu.bht << '\n'
+     << "  }\n";
+  os << "  hrt = {\n"
+     << "    " << cpu.hrt << '\n'
      << "  }\n";
   os << "  rat = {\n"
      << "    " << cpu.rat << '\n'
