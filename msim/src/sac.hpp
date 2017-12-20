@@ -5,6 +5,7 @@
 #include <array>
 #include <vector>
 #include <tuple>
+#include <iostream>
 
 // Set-Associative Cache
 class SAC
@@ -32,11 +33,14 @@ class SAC
 
     std::vector<Line> lines; // TODO: ideally not public (necessary for complete_writethrough)
 
+    friend std::ostream& operator<<(std::ostream& os, const SAC& sac);
+
   private:
     int numSets;
     int setSize;
 
     void adjustLRU(int idx, int l);
 };
+std::ostream& operator<<(std::ostream& os, const SAC& sac);
 
 #endif

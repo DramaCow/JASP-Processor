@@ -63,6 +63,9 @@ int main(int argc, char* argv[])
   }
 #endif
 
+  std::cout << l1cache << std::endl;
+  std::cout << l2cache << std::endl;
+
   cpu.mu.complete_writethrough();
   std::ofstream file("mem.txt");
   file << cpu.mem;

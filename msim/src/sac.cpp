@@ -111,3 +111,30 @@ void SAC::adjustLRU(int idx, int l)
   // set lru value
   this->lines[l].lru = validCount-1;
 }
+
+std::ostream& operator<<(std::ostream& os, const SAC& sac)
+{
+  for (int j = 0; j < sac.numSets; ++j)
+  {
+    for (int i = 0; i < sac.setSize; ++i)
+    {
+      //SAC::Line& line = sac.lines[sac.setSize*j + i];
+      SAC::Line line = sac.lines[sac.setSize*j + i];
+      if (line.valid)
+      {
+        os << "baddr: " << line.baddr << " tag: " << line.tag << " dirty: " << line.dirty << " lru: " << line.lru << '\n';
+        for (int k = 0; k < BLOCKSIZE; ++k)
+        {
+          os << line.data[k];
+        }
+        os << '\n';
+      }
+      else
+      {
+        os << "INVALID\n-------\n";
+      }
+    }
+  }
+
+  return os;
+}
