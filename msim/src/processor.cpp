@@ -34,10 +34,10 @@ bool Processor::tick(Processor &n_cpu)
 {
   n_cpu.cycles++;
 
-  execute(n_cpu);
-  writeback(n_cpu);
   decode(n_cpu);
   fetch(n_cpu);
+  execute(n_cpu);
+  writeback(n_cpu);
   return commit(n_cpu); // done last in-case of branch mispredict
 }
 
@@ -93,6 +93,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", rsspace = " << n_cpu.rs.space() << '\n';
         break;
       }
 
@@ -112,6 +114,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", rsspace = " << n_cpu.rs.space() << '\n';
         break;
       }
 
@@ -134,6 +138,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", rsspace = " << n_cpu.rs.space() << '\n';
         break;
       }
 
@@ -155,6 +161,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", rsspace = " << n_cpu.rs.space() << '\n';
         break;
       }
 
@@ -197,6 +205,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.brs.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", brsspace = " << n_cpu.brs.space() << '\n';
         break;
       }
 
@@ -222,6 +232,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.lsq.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", lsqspace = " << n_cpu.lsq.space() << '\n';
         break;
       }
 
@@ -243,6 +255,8 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0 || n_cpu.lsq.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space()
+                  << ", lsqspace = " << n_cpu.lsq.space() << '\n';
         break;
       }
 
@@ -263,6 +277,7 @@ void Processor::decode(Processor &n_cpu)
     {
       if (n_cpu.rob.space() == 0)
       {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space() << '\n';
         break;
       }
 

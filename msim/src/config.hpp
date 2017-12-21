@@ -20,7 +20,7 @@
 
 #define NUM_ALUS 4
 
-#define FETCHRATE 4
+#define FETCHRATE 6
 #define ISSUERATE 6
 #define DISPATCHRATE NUM_ALUS+2
 #define RETIRERATE 6
