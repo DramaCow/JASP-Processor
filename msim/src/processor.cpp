@@ -290,6 +290,8 @@ void Processor::execute(Processor &n_cpu)
   bool portb;
   bool portm;
 
+  // === CHECK PORTS ===
+
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     port[p] = this->alu[p].duration == 0;
@@ -297,12 +299,14 @@ void Processor::execute(Processor &n_cpu)
   portb = true;
   portm = this->mu.duration == 0;
 
-  // receive instructions to pass to execution units
+  // === RECEIVE INSTRUCTIONS === 
+
   std::array<RS::Shelf,NUM_ALUS> e = this->rs.dispatch(n_cpu.rs, port);
   BRS::Shelf eb = this->brs.dispatch(n_cpu.brs, portb);
   LSQ::Shelf em = this->lsq.dispatch(n_cpu.lsq, portm);
 
-  // dispatch when instruction has finished
+  // === DISPATCH === (when instruction has finished)
+
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     if (port[p]) n_cpu.alu[p].dispatch(e[p].opcode, e[p].o1, e[p].o2, e[p].dest);
@@ -310,7 +314,8 @@ void Processor::execute(Processor &n_cpu)
   if (portb) n_cpu.bu.dispatch(eb);
   if (portm) n_cpu.mu.dispatch(em);
 
-  // execute if instructions haven't finished
+  // === EXECUTE === (if instructions haven't finished)
+
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
     if (!port[p]) this->alu[p].execute(n_cpu.alu[p]);
@@ -338,15 +343,15 @@ void Processor::execute(Processor &n_cpu)
     n_cpu.lsq.retire(n_cpu.mu.shelf.seq);
   }
 
-  // === statistics === 
+  // === STATISTICS === 
 
   int instructionsDispatched = 0;
-  for (int i = 0; i < NUM_ALUS; ++i)
+  for (int p = 0; p < NUM_ALUS; ++p)
   {
-    instructionsDispatched += port[i];
+    instructionsDispatched += e[p].opcode != "nop" ? 1 : 0;
   }
-  instructionsDispatched += portb;
-  instructionsDispatched += portm;
+  instructionsDispatched += eb.opcode != "nop" ? 1 : 0;
+  instructionsDispatched += em.type != LSQ::Shelf::NA ? 1 : 0;
 
   n_cpu.instructions_dispatched = this->instructions_dispatched + instructionsDispatched;
 }
@@ -615,6 +620,5 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "issues-per-cycle     = " << DP3 << ((double)cpu.instructions_issued / (double)cpu.cycles) << " (best = " << ISSUERATE << ")\n"
      << "dispatches-per-cycle = " << DP3 << ((double)cpu.instructions_dispatched / (double)cpu.cycles) << " (best = " << DISPATCHRATE << ")\n"
      << "commits-per-cycle    = " << DP3 <<((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << RETIRERATE << ")\n";
-  os << std::resetiosflags;
   return os;
 }
