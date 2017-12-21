@@ -29,5 +29,6 @@
 #define L1_ACCESS_COST 2
 #define L2_ACCESS_COST 4
 #define MEM_ACCESS_COST 8
+#define BASE_MU_COST -1
 
 #endif

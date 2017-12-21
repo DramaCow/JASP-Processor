@@ -64,15 +64,18 @@ void Processor::fetch(Processor &n_cpu)
       //bool pred = true;
       //npc = instruction.getTakenBTA();
 
-      bool pred = this->pt.predict(pc);
+      //bool pred = this->pt.predict(pc);
+      //npc = pred ? instruction.getTakenBTA() : pc+1;
+      //instruction.npc = pc+1;
+      //instruction.pred = pred;
+
+      int pattern = this->hrt.history(pc);
+      std::cout << "PATTERN: " << pattern << std::endl;
+      bool pred = this->pt.predict(pattern);
       npc = pred ? instruction.getTakenBTA() : pc+1;
       instruction.npc = pc+1;
+      instruction.pattern = pattern;
       instruction.pred = pred;
-
-      //int pattern = this->hrt.history(pc);
-      //bool pred = this->pt.predict(pattern);
-      //instruction.params.push_back(pc+1);
-      //instructions.params.push_back(pred);
     }
     else 
     {
@@ -352,7 +355,8 @@ bool Processor::commit(Processor &n_cpu)
 #endif
 
       n_cpu.hrt.update(entry.pc, entry.taken);
-      n_cpu.pt.update(entry.pc, entry.taken);
+      n_cpu.pt.update(entry.pattern, entry.taken);
+      //n_cpu.pt.update(entry.pc, entry.taken);
 
       // if mispredicted
       if (entry.pred != entry.taken)

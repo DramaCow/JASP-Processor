@@ -29,7 +29,7 @@ void MU::dispatch(LSQ::Shelf shelf)
     else
     {
       this->result = this->load(this->shelf.addr);
-      this->duration--; // account for this iteration
+      this->duration += BASE_MU_COST;
     }
     this->writeback = true;
   }
@@ -41,7 +41,7 @@ void MU::dispatch(LSQ::Shelf shelf)
     //       a couple of cycles. This is really a problem though.
     this->duration = 0;
     this->store(this->shelf.addr, this->shelf.w);
-    this->duration--; // account for this iteration
+    this->duration += BASE_MU_COST;
     this->writeback = true;
   }
   else

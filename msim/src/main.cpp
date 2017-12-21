@@ -63,11 +63,13 @@ int main(int argc, char* argv[])
 #endif
 
   cpu.mu.complete_writethrough();
+/*
   std::cout << "=== MEMORY ===" << std::endl;
   std::cout << mem << std::endl;
   std::ofstream file("mem.txt");
   file << cpu.mem;
   file.close();
+*/
 
   return 0;
 }
