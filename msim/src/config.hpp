@@ -1,11 +1,14 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define DEBUG
-//#define EXE_TRACE
+#define DEBUG 1
+#define EXE_TRACE 0
 
 #define FETCHRATE 4
+#define ISSUERATE 6
 #define RETIRERATE 6
+
+#define IBUF_MAX_SIZE 10
 
 #define NUM_HRT_ENTRIES 64
 #define HREG_BITS 4

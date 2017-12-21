@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
   int t = 0;
   bool done = false;
 
-#ifdef DEBUG
+#if DEBUG
   for (; t < LIMIT && !done; ++t)
   {
     std::cout << "(t" << t << ") " << cpu << std::endl;
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
   std::cout << "(t" << t << ") " << cpu.rrf << std::endl;
 #endif
 
-#ifdef EXE_TRACE
+#if EXE_TRACE
   for (std::size_t i = 0; i < cpu.exe.size(); ++i)
   {
     std::cout << cpu.exe[i] << std::endl;
@@ -63,13 +63,11 @@ int main(int argc, char* argv[])
 #endif
 
   cpu.mu.complete_writethrough();
-/*
   std::cout << "=== MEMORY ===" << std::endl;
   std::cout << mem << std::endl;
   std::ofstream file("mem.txt");
   file << cpu.mem;
   file.close();
-*/
 
   return 0;
 }

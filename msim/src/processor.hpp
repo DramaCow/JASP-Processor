@@ -34,7 +34,8 @@ class Processor
     unsigned int pc = 0;
 
     //Instruction ibuf;
-    std::array<std::tuple<int, Instruction>, FETCHRATE> ibuf;
+    std::vector<std::tuple<int, Instruction>> ibuf;
+    //std::array<std::tuple<int, Instruction>,FETCHRATE> ibuf;
     HRT hrt;
     PT pt;
     RAT rat;
@@ -47,7 +48,7 @@ class Processor
     BU  bu;
     MU  mu;
 
-#ifdef EXE_TRACE
+#if EXE_TRACE
     std::vector<Instruction> exe;
 #endif
 
@@ -67,8 +68,6 @@ class Processor
     std::tuple<int, bool> read(int r);
     int alloc(Processor &n_cpu, int pc, Instruction instruction, int reg);
     int alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, bool pred, int pattern);
-    bool isStalled();
-    int space();
     void flush(int target);
 
     // statistics recorders

@@ -57,6 +57,16 @@ bool Instruction::isBrch(std::string opcode)
          opcode == "ble";
 }
 
+bool Instruction::isCondBrch(std::string opcode)
+{
+  return opcode == "beq"  ||
+         opcode == "bneq" ||
+         opcode == "blt"  ||
+         opcode == "ble"  ||
+         opcode == "bgt"  ||
+         opcode == "ble";
+}
+
 bool Instruction::isLdsr(std::string opcode)
 {
   return opcode == "lw" ||

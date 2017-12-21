@@ -23,6 +23,7 @@ class Instruction
 
     static bool isArth(std::string opcode); // is logical/arithmetic instruction
     static bool isBrch(std::string opcode); // is branch instruction
+    static bool isCondBrch(std::string opcode); // is conditional branch instruction
     static bool isLdsr(std::string opcode); // is load/store instruction
 
     friend std::ostream& operator<<(std::ostream& os, const Instruction& Instruction);

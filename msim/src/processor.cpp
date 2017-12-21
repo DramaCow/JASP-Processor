@@ -30,35 +30,24 @@ Processor::Processor(ICache &icache, SAC &l1cache, SAC &l2cache, MEM &mem) :
 bool Processor::tick(Processor &n_cpu)
 {
   n_cpu.cycles++;
-  if (!isStalled())
-  {
-    n_cpu.instructions_fetched = this->instructions_fetched + FETCHRATE;
-    fetch(n_cpu);
-    decode(n_cpu);
-  }
-#ifdef DEBUG
-  else
-  {
-    std::cout << "===============" << std::endl;
-    std::cout << "=== STALLED ===" << std::endl;
-    std::cout << "===============" << std::endl;
-  }
-#endif
+
   execute(n_cpu);
   writeback(n_cpu);
-  return commit(n_cpu);
+  decode(n_cpu);
+  fetch(n_cpu);
+  return commit(n_cpu); // done last in-case of branch mispredict
 }
 
 void Processor::fetch(Processor &n_cpu)
 {
   int pc = this->pc;
-  int npc;
 
-  //for (int i = 0; i < this->space(); ++i)
-  for (int i = 0; i < FETCHRATE; ++i)
+  for (int i = 0; i < FETCHRATE && n_cpu.ibuf.size() < IBUF_MAX_SIZE; ++i)
   {
     Instruction instruction = icache[pc];
+    int npc = pc + 1;
 
+    // pre-decode (branch detect)
     if (Instruction::isBrch(instruction.opcode))
     {
       //bool pred = true;
@@ -76,39 +65,32 @@ void Processor::fetch(Processor &n_cpu)
       instruction.pattern = pattern;
       instruction.pred = pred;
     }
-    else 
-    {
-      npc = pc + 1;
-    }
 
-    n_cpu.ibuf[i] = std::make_tuple(pc, instruction);
-
+    n_cpu.ibuf.push_back(std::make_tuple(pc, instruction));
     pc = npc;
   }
-
-  // fill remainder with nops
-  /*
-  std::cout << "FOO " << this->space() << std::endl;
-  for (int i = this->space(); i < FETCHRATE; ++i)
-  {
-    n_cpu.ibuf[i] = std::make_tuple(0, Instruction("nop"));
-  }
-  */
 
   n_cpu.pc = pc;
 }
 
 void Processor::decode(Processor &n_cpu)
 {
-  for (int i = 0; i < FETCHRATE; ++i)
+  int instructionsIssued = 0;
+
+  //for (int i = 0; i < FETCHRATE; ++i)
+  while (instructionsIssued < FETCHRATE && n_cpu.ibuf.size() > 0)
   {
     int pc; Instruction instruction;
-    std::tie(pc, instruction) = this->ibuf[i];
-
+    std::tie(pc, instruction) = n_cpu.ibuf[0];
     std::string opcode = instruction.opcode;
 
-    if      ( opcode == "mov" )
+    if ( opcode == "mov" )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
+      {
+        break;
+      }
+
       RS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
@@ -117,9 +99,17 @@ void Processor::decode(Processor &n_cpu)
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "movi" )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
+      {
+        break;
+      }
+
       RS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(instruction.params[1], true);
@@ -128,12 +118,20 @@ void Processor::decode(Processor &n_cpu)
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "add" ||
               opcode == "sub" ||
               opcode == "mul" ||
               opcode == "xor"    )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
+      {
+        break;
+      }
+
       RS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
@@ -142,11 +140,19 @@ void Processor::decode(Processor &n_cpu)
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "addi" ||
               opcode == "subi" ||
               opcode == "muli"    )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.rs.space() == 0)
+      {
+        break;
+      }
+
       RS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = n_cpu.read(instruction.params[1]);
@@ -155,6 +161,9 @@ void Processor::decode(Processor &n_cpu)
 
       n_cpu.rob.set_spec(shelf.dest, false);
       n_cpu.rs.issue(shelf);
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "b" )
     {
@@ -171,6 +180,8 @@ void Processor::decode(Processor &n_cpu)
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
       n_cpu.brs.issue(shelf);
 */
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "beq"  ||
               opcode == "bneq" ||
@@ -179,6 +190,11 @@ void Processor::decode(Processor &n_cpu)
               opcode == "bgt"  ||
               opcode == "bge"     )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.brs.space() == 0)
+      {
+        break;
+      }
+
       int target = instruction.params[2];
       bool prediction = instruction.params[3];
 
@@ -193,9 +209,17 @@ void Processor::decode(Processor &n_cpu)
  
       n_cpu.rob.set_spec(shelf.dest, true); // just a formality
       n_cpu.brs.issue(shelf);
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "lw" )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.lsq.space() == 0)
+      {
+        break;
+      }
+
       LSQ::Shelf shelf;
       shelf.type = LSQ::Shelf::LOAD;
       std::tie(shelf.w, shelf.vw) = std::make_tuple(0, true);
@@ -206,9 +230,17 @@ void Processor::decode(Processor &n_cpu)
 
       n_cpu.rob.set_spec(shelf.seq, false);
       n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "sw" )
     {
+      if (n_cpu.rob.space() == 0 || n_cpu.lsq.space() == 0)
+      {
+        break;
+      }
+
       LSQ::Shelf shelf;
       shelf.type = LSQ::Shelf::STORE;
       std::tie(shelf.w, shelf.vw) = n_cpu.read(instruction.params[0]);
@@ -218,11 +250,28 @@ void Processor::decode(Processor &n_cpu)
 
       n_cpu.rob.set_spec(shelf.seq, false);
       n_cpu.lsq.issue(shelf, n_cpu.rob.get_tail());
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
     else if ( opcode == "end" )
     {
+      if (n_cpu.rob.space() == 0)
+      {
+        break;
+      }
+
       int seq = n_cpu.alloc(n_cpu, pc, instruction, -1);
       n_cpu.rob.set_spec(seq, false);
+
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
+    }
+    //else if ( opcode == "nop" )
+    else
+    {
+      instructionsIssued++;
+      n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
   }
 }
@@ -344,14 +393,14 @@ bool Processor::commit(Processor &n_cpu)
         this->rat.write(n_cpu.rat, entry.reg, entry.reg);
       }
 
-#ifdef EXE_TRACE
+#if EXE_TRACE
       n_cpu.exe.push_back(entry.instruction); // debug
 #endif
     }
     // branch
     else if (entry.type == ROB::Entry::BR)
     {
-#ifdef EXE_TRACE
+#if EXE_TRACE
       n_cpu.exe.push_back(entry.instruction); // debug
 #endif
 
@@ -370,7 +419,7 @@ bool Processor::commit(Processor &n_cpu)
     }
     else if (entry.type == ROB::Entry::SR)
     {
-#ifdef EXE_TRACE
+#if EXE_TRACE
       n_cpu.exe.push_back(entry.instruction); // debug
 #endif
     }
@@ -378,7 +427,7 @@ bool Processor::commit(Processor &n_cpu)
     else if (entry.type == ROB::Entry::END)
     {
       n_cpu.instructions_executed = this->instructions_executed + i;
-#ifdef EXE_TRACE
+#if EXE_TRACE
       n_cpu.exe.push_back(entry.instruction); // debug
 #endif
       return true; // TODO: not counted as an instruction?
@@ -428,80 +477,20 @@ int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg,
   return a;
 }
 
-bool Processor::isStalled()
-{
-  int rsspace = 0; 
-  int brsspace = 0;
-  int lsqspace = 0; 
-  int robspace = FETCHRATE; 
-
-  int pc; Instruction instruction;
-  for (std::size_t i = 0; i < ibuf.size(); ++i)
-  {
-    std::tie(pc, instruction) = ibuf[i];
-    std::string opcode = instruction.opcode;
-    if (Instruction::isArth(opcode))
-    {
-      rsspace++;
-    }
-    else if (Instruction::isBrch(opcode))
-    {
-      brsspace++;
-    }
-    else if (Instruction::isLdsr(opcode))
-    {
-      lsqspace++;
-    }
-  }
-
-  return this->rs.space() < rsspace || this->brs.space() < brsspace || this->lsq.space() < lsqspace || this->rob.space() < robspace;
-}
-
-int Processor::space()
-{
-  int count = 0;
-  int abc = 0;
-  int lsc = 0;
-
-  for (int i = 0; i < FETCHRATE; ++i)
-  {
-    int pc; Instruction instruction;
-    std::tie(pc, instruction) = this->ibuf[i];
-    std::string opcode = instruction.opcode;
-
-    if (Instruction::isArth(opcode) || Instruction::isBrch(opcode))
-    {
-      abc++;
-    }
-    else if (Instruction::isLdsr(opcode))
-    {
-      lsc++;
-    }
-    count++;
-  }
-
-  int robspace = std::max(this->rob.space()-1-count, 0);
-  int rsspace  = std::max(this->rs.space()-abc, 0);
-  int lsqspace = std::max(this->lsq.space()-lsc, 0);
-
-  std::cout << "SPACE: " << robspace << ' ' << rsspace << ' ' << lsqspace << std::endl;
-
-  return std::min({robspace, rsspace,lsqspace, FETCHRATE});
-}
-
 void Processor::flush(int target)
 {
-#ifdef DEBUG
+#if DEBUG
   std::cout << "=========================" << std::endl;
   std::cout << "=== MISPREDICT BRANCH ===" << std::endl;
   std::cout << "=========================" << std::endl;
 #endif
 
   // flush and jump to entry.target
-  for (int i = 0; i < FETCHRATE; ++i)
-  {
-    this->ibuf[i] = std::make_tuple(0, Instruction());
-  }
+  //for (int i = 0; i < FETCHRATE; ++i)
+  //{
+  //  this->ibuf[i] = std::make_tuple(0, Instruction());
+  //}
+  this->ibuf.clear();
   this->rat.reset();
   this->rob.reset();
   this->rs.reset();
@@ -545,7 +534,7 @@ Processor& Processor::operator=(const Processor& cpu)
   this->branch_mispred = cpu.branch_mispred;
   this->instructions_fetched = cpu.instructions_fetched;
 
-#ifdef EXE_TRACE
+#if EXE_TRACE
   this->exe = cpu.exe;
 #endif
 
@@ -556,8 +545,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
   os << "  pc = " << cpu.pc << '\n';
-  os << "  ibuf = {\n";
-  for (int i = 0; i < FETCHRATE; ++i)
+  os << "  ibuf(" << cpu.ibuf.size() << ") = {\n";
+  for (std::size_t i = 0; i < cpu.ibuf.size(); ++i)
   {
     int pc; Instruction instruction;
     std::tie(pc, instruction) = cpu.ibuf[i];
