@@ -38,7 +38,7 @@ int ROB::push(ROB &n_rob, int pc, Instruction instruction, int reg, bool pred, i
   n_rob.entries[this->head].val = 0;
   n_rob.entries[this->head].pred = pred;
   n_rob.entries[this->head].pattern = pattern;
-  n_rob.entries[this->head].done = opcode == "end";
+  n_rob.entries[this->head].done = opcode == "b" || opcode == "end";
   n_rob.entries[this->head].instruction = instruction;
   
   // NOTE: rob addresses are offset by NUM_REGISTERS in order
@@ -176,7 +176,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
 
     os << SPACE(rob.entries[i].val);
 
-    if (rob.entries[i].type == ROB::Entry::BR)
+    if (rob.entries[i].type == ROB::Entry::BR && rob.entries[i].spec)
     {
       os << SPACE(std::to_string(rob.entries[i].pred) + std::string(" ") + (rob.entries[i].done ? std::to_string(rob.entries[i].taken) : std::string("-")));
     }
@@ -185,7 +185,7 @@ std::ostream& operator<<(std::ostream& os, const ROB& rob)
       os << SPACE("- -");
     }
 
-    if (rob.entries[i].type == ROB::Entry::BR)
+    if (rob.entries[i].type == ROB::Entry::BR && rob.entries[i].spec)
     {
       os << SPACE(rob.entries[i].pattern);
     }

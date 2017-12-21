@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 #define DEBUG 1
-#define EXE_TRACE 1
+#define EXE_TRACE 0
 
 #define IBUF_MAX_SIZE 10
 

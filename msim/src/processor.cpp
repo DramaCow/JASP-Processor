@@ -191,19 +191,16 @@ void Processor::decode(Processor &n_cpu)
     }
     else if ( opcode == "b" )
     {
-/*
-      BRS::Shelf shelf;
-      shelf.opcode = opcode;
-      std::tie(shelf.o1, shelf.v1) = std::make_tuple(0, true); // prediction
-      std::tie(shelf.o2, shelf.v2) = std::make_tuple(0, true); // not used
-      shelf.tgt = instruction.params[0];
-      shelf.npc = instruction.npc;
-      shelf.pred = instruction.pred;
-      shelf.dest = n_cpu.alloc(n_cpu, pc, instruction, -1, shelf.pred, instruction.pattern);
- 
-      n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
-      n_cpu.brs.issue(shelf);
-*/
+      if (n_cpu.rob.space() == 0)
+      {
+        std::cout << "STALL: can't insert " << instruction << " - robspace = " << n_cpu.rob.space() << '\n';
+        break;
+      }
+
+      // inserted into rob for purely debug purposes (not actually executed)
+      int seq = n_cpu.alloc(n_cpu, pc, instruction, -1);
+      n_cpu.rob.set_spec(seq, false); // unconditional branches are not speculative
+
       instructionsIssued++;
       n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
@@ -459,18 +456,22 @@ bool Processor::commit(Processor &n_cpu)
       n_cpu.exe.push_back(entry.instruction);
 #endif
 
-      n_cpu.hrt.update(entry.pc, entry.taken);
-      n_cpu.pt.update(entry.pattern, entry.taken);
-      //n_cpu.pt.update(entry.pc, entry.taken);
-
-      // if mispredicted
-      if (entry.pred != entry.taken)
+      // ignores unconditional branches
+      if (entry.spec)
       {
-        n_cpu.branch_mispred = this->branch_mispred + 1;
-        n_cpu.flush(entry.val);
-        break; // subsequent commits are incorrectly speculated, so stop
+        n_cpu.hrt.update(entry.pc, entry.taken);
+        n_cpu.pt.update(entry.pattern, entry.taken);
+        //n_cpu.pt.update(entry.pc, entry.taken);
+
+        // if mispredicted
+        if (entry.pred != entry.taken)
+        {
+          n_cpu.branch_mispred = this->branch_mispred + 1;
+          n_cpu.flush(entry.val);
+          break; // subsequent commits are incorrectly speculated, so stop
+        }
+        n_cpu.branch_corpred = this->branch_corpred + 1;
       }
-      n_cpu.branch_corpred = this->branch_corpred + 1;
     }
     else if (entry.type == ROB::Entry::SR)
     {
@@ -609,7 +610,7 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
     os << "  ===============\n";
   }
   os << "  pc = " << cpu.pc << '\n';
-  os << "  ibuf(" << cpu.ibuf.size() << ") = {\n";
+  os << "  ibuf(" << cpu.ibuf.size() << '/' << IBUF_MAX_SIZE << ") = {\n";
   for (std::size_t i = 0; i < cpu.ibuf.size(); ++i)
   {
     int pc; Instruction instruction;
