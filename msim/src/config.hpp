@@ -4,10 +4,6 @@
 #define DEBUG 1
 #define EXE_TRACE 0
 
-#define FETCHRATE 4
-#define ISSUERATE 6
-#define RETIRERATE 6
-
 #define IBUF_MAX_SIZE 10
 
 #define NUM_HRT_ENTRIES 64
@@ -23,6 +19,11 @@
 #define NUM_LSQ_ENTRIES 8
 
 #define NUM_ALUS 4
+
+#define FETCHRATE 4
+#define ISSUERATE 6
+#define DISPATCHRATE NUM_ALUS+2
+#define RETIRERATE 6
 
 #define BLOCKSIZE 16
 #define L1_NUM_SETS 2

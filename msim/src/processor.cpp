@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iomanip>
 
+#define DP3 std::fixed<<std::setprecision(3)
 #define HEX8 "0x"<<std::setfill('0')<< std::setw(8)<<std::hex
 #define HEX2 "0x"<<std::setfill('0')<< std::setw(2)<<std::hex
 #define HEX1 "0x"<<std::setfill('0')<< std::setw(1)<<std::hex
@@ -16,10 +17,12 @@ Processor::Processor(ICache &icache, SAC &l1cache, SAC &l2cache, MEM &mem) :
   mu(l1cache, l2cache, mem),
 
   cycles(0),
-  instructions_executed(0),
   branch_corpred(0),
   branch_mispred(0),
-  instructions_fetched(0)
+  instructions_fetched(0),
+  instructions_issued(0),
+  instructions_dispatched(0),
+  instructions_executed(0)
 {
 }
 
@@ -42,7 +45,8 @@ void Processor::fetch(Processor &n_cpu)
 {
   int pc = this->pc;
 
-  for (int i = 0; i < FETCHRATE && n_cpu.ibuf.size() < IBUF_MAX_SIZE; ++i)
+  int i;
+  for (i = 0; i < FETCHRATE && n_cpu.ibuf.size() < IBUF_MAX_SIZE; ++i)
   {
     Instruction instruction = icache[pc];
     int npc = pc + 1;
@@ -71,14 +75,15 @@ void Processor::fetch(Processor &n_cpu)
   }
 
   n_cpu.pc = pc;
+
+  n_cpu.instructions_fetched = this->instructions_fetched + i;
 }
 
 void Processor::decode(Processor &n_cpu)
 {
   int instructionsIssued = 0;
 
-  //for (int i = 0; i < FETCHRATE; ++i)
-  while (instructionsIssued < FETCHRATE && n_cpu.ibuf.size() > 0)
+  while (instructionsIssued < ISSUERATE && n_cpu.ibuf.size() > 0)
   {
     int pc; Instruction instruction;
     std::tie(pc, instruction) = n_cpu.ibuf[0];
@@ -274,6 +279,8 @@ void Processor::decode(Processor &n_cpu)
       n_cpu.ibuf.erase(std::begin(n_cpu.ibuf));
     }
   }
+
+  n_cpu.instructions_issued = this->instructions_issued + instructionsIssued;
 }
 
 void Processor::execute(Processor &n_cpu)
@@ -330,6 +337,18 @@ void Processor::execute(Processor &n_cpu)
     n_cpu.lsq.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
     n_cpu.lsq.retire(n_cpu.mu.shelf.seq);
   }
+
+  // === statistics === 
+
+  int instructionsDispatched = 0;
+  for (int i = 0; i < NUM_ALUS; ++i)
+  {
+    instructionsDispatched += port[i];
+  }
+  instructionsDispatched += portb;
+  instructionsDispatched += portm;
+
+  n_cpu.instructions_dispatched = this->instructions_dispatched + instructionsDispatched;
 }
 
 void Processor::writeback(Processor &n_cpu)
@@ -529,10 +548,12 @@ Processor& Processor::operator=(const Processor& cpu)
   this->mu = cpu.mu;
 
   this->cycles = cpu.cycles;
-  this->instructions_executed = cpu.instructions_executed;
   this->branch_corpred = cpu.branch_corpred;
   this->branch_mispred = cpu.branch_mispred;
   this->instructions_fetched = cpu.instructions_fetched;
+  this->instructions_issued = cpu.instructions_issued;
+  this->instructions_dispatched = cpu.instructions_dispatched;
+  this->instructions_executed = cpu.instructions_executed;
 
 #if EXE_TRACE
   this->exe = cpu.exe;
@@ -588,9 +609,12 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << cpu.l2cache;
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
-     << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"
-     << "bpa = " << ((double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred))
+     << "branch-pred-acc = " << DP3 << ((double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred))
                  << " = " << cpu.branch_corpred << '/' << cpu.branch_corpred + cpu.branch_mispred << '\n'
-     << "fpc = " << ((double)cpu.instructions_fetched / (double)cpu.cycles) << " (best = " << FETCHRATE << ')';
+     << "fetches-per-cycle    = " << DP3 << ((double)cpu.instructions_fetched / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"
+     << "issues-per-cycle     = " << DP3 << ((double)cpu.instructions_issued / (double)cpu.cycles) << " (best = " << ISSUERATE << ")\n"
+     << "dispatches-per-cycle = " << DP3 << ((double)cpu.instructions_dispatched / (double)cpu.cycles) << " (best = " << DISPATCHRATE << ")\n"
+     << "commits-per-cycle    = " << DP3 <<((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << RETIRERATE << ")\n";
+  os << std::resetiosflags;
   return os;
 }
