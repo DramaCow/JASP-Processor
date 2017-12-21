@@ -146,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, const SAC& sac)
       }
       else
       {
-        os << "INVALID\n-------\n";
+        os << "invalid\n-------\n";
       }
     }
 

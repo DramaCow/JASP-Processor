@@ -1,18 +1,35 @@
  ; zero
   movi r0 0
  ; index
-  movi r1 0
+  movi r1 1
  ; loop limit
-  movi r2 1024
+  lw r2 r0 0
+  addi r2 r2 1
  ; hamming weight
   movi r3 0
 
 :loop
   lw r4 r1 0
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
   beq r4 r0 :skip
   addi r3 r3 1
 :skip
   addi r1 r1 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
+  lw r5 r5 1
   bneq r1 r2 :loop
 
   end

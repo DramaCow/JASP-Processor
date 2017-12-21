@@ -70,7 +70,6 @@ void Processor::fetch(Processor &n_cpu)
       //instruction.pred = pred;
 
       int pattern = this->hrt.history(pc);
-      std::cout << "PATTERN: " << pattern << std::endl;
       bool pred = this->pt.predict(pattern);
       npc = pred ? instruction.getTakenBTA() : pc+1;
       instruction.npc = pc+1;
@@ -159,6 +158,7 @@ void Processor::decode(Processor &n_cpu)
     }
     else if ( opcode == "b" )
     {
+/*
       BRS::Shelf shelf;
       shelf.opcode = opcode;
       std::tie(shelf.o1, shelf.v1) = std::make_tuple(0, true); // prediction
@@ -170,6 +170,7 @@ void Processor::decode(Processor &n_cpu)
  
       n_cpu.rob.set_spec(shelf.dest, false); // unconditional branches are not speculative
       n_cpu.brs.issue(shelf);
+*/
     }
     else if ( opcode == "beq"  ||
               opcode == "bneq" ||
@@ -599,7 +600,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
   os << "=== statistics ===\n"
      << "cycles = " << cpu.cycles << '\n'
      << "ipc = " << ((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << FETCHRATE << ")\n"
-     << "bpa = " << (double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred) << '\n'
+     << "bpa = " << ((double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred))
+                 << " = " << cpu.branch_corpred << '/' << cpu.branch_corpred + cpu.branch_mispred << '\n'
      << "fpc = " << ((double)cpu.instructions_fetched / (double)cpu.cycles) << " (best = " << FETCHRATE << ')';
   return os;
 }

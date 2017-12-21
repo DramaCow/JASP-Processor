@@ -19,6 +19,7 @@ bool PT::predict(int pattern)
 void PT::update(int pattern, bool wasTaken)
 {
   int idx = pattern % NUM_PT_ENTRIES;
+  std::cout << "PATTERN: " << idx << ' ' << wasTaken << std::endl;
   int e = this->entries[idx];
   this->entries[idx] = e + (wasTaken && e < 0x3 ? 1 : (!wasTaken && e > 0x0 ? -1 : 0));
 }
