@@ -33,12 +33,19 @@ Processor::Processor(ICache &icache, SAC &l1cache, SAC &l2cache, MEM &mem) :
 bool Processor::tick(Processor &n_cpu)
 {
   n_cpu.cycles++;
+  n_cpu.flushed = false; // reset flushed flag
 
-  decode(n_cpu);
-  fetch(n_cpu);
-  execute(n_cpu);
-  writeback(n_cpu);
-  return commit(n_cpu); // done last in-case of branch mispredict
+  bool done = commit(n_cpu);
+  if (!n_cpu.flushed)
+  {
+    writeback(n_cpu);
+    execute(n_cpu);
+    decode(n_cpu);
+    execute_bypass(n_cpu);
+    fetch(n_cpu);
+  }
+
+  return done;
 }
 
 void Processor::fetch(Processor &n_cpu)
@@ -52,7 +59,11 @@ void Processor::fetch(Processor &n_cpu)
     int npc = pc + 1;
 
     // pre-decode (branch detect)
-    if (Instruction::isBrch(instruction.opcode))
+    if (instruction.opcode == "b")
+    {
+      npc = instruction.getTakenBTA();
+    }
+    else if (Instruction::isCondBrch(instruction.opcode))
     {
       //bool pred = true;
       //npc = instruction.getTakenBTA();
@@ -309,16 +320,16 @@ void Processor::execute(Processor &n_cpu)
 
   for (std::size_t p = 0; p < NUM_ALUS; ++p)
   {
-    port[p] = this->alu[p].duration == 0;
+    port[p] = n_cpu.alu[p].duration == 0;
   }
   portb = true;
-  portm = this->mu.duration == 0;
+  portm = n_cpu.mu.duration == 0;
 
   // === RECEIVE INSTRUCTIONS === 
 
-  std::array<RS::Shelf,NUM_ALUS> e = this->rs.dispatch(n_cpu.rs, port);
-  BRS::Shelf eb = this->brs.dispatch(n_cpu.brs, portb);
-  LSQ::Shelf em = this->lsq.dispatch(n_cpu.lsq, portm);
+  std::array<RS::Shelf,NUM_ALUS> e = n_cpu.rs.dispatch(n_cpu.rs, port);
+  BRS::Shelf eb = n_cpu.brs.dispatch(n_cpu.brs, portb);
+  LSQ::Shelf em = n_cpu.lsq.dispatch(n_cpu.lsq, portm);
 
   // === DISPATCH === (when instruction has finished)
 
@@ -339,6 +350,23 @@ void Processor::execute(Processor &n_cpu)
 
   // === BYPASS ===
 
+  //this->execute_bypass(n_cpu);
+
+  // === STATISTICS === 
+
+  int instructionsDispatched = 0;
+  for (int p = 0; p < NUM_ALUS; ++p)
+  {
+    instructionsDispatched += e[p].opcode != "nop" ? 1 : 0;
+  }
+  instructionsDispatched += eb.opcode != "nop" ? 1 : 0;
+  instructionsDispatched += em.type != LSQ::Shelf::NA ? 1 : 0;
+
+  n_cpu.instructions_dispatched = this->instructions_dispatched + instructionsDispatched;
+}
+
+void Processor::execute_bypass(Processor &n_cpu)
+{
   for (int i = 0; i < NUM_ALUS; ++i)
   {
     if (n_cpu.alu[i].writeback && n_cpu.alu[i].duration == 0)
@@ -357,18 +385,6 @@ void Processor::execute(Processor &n_cpu)
     n_cpu.lsq.update(n_cpu.mu.shelf.seq, n_cpu.mu.result);
     n_cpu.lsq.retire(n_cpu.mu.shelf.seq);
   }
-
-  // === STATISTICS === 
-
-  int instructionsDispatched = 0;
-  for (int p = 0; p < NUM_ALUS; ++p)
-  {
-    instructionsDispatched += e[p].opcode != "nop" ? 1 : 0;
-  }
-  instructionsDispatched += eb.opcode != "nop" ? 1 : 0;
-  instructionsDispatched += em.type != LSQ::Shelf::NA ? 1 : 0;
-
-  n_cpu.instructions_dispatched = this->instructions_dispatched + instructionsDispatched;
 }
 
 void Processor::writeback(Processor &n_cpu)
@@ -418,6 +434,10 @@ bool Processor::commit(Processor &n_cpu)
     // writeback to rrf
     if (entry.type == ROB::Entry::WB)
     {
+#if EXE_TRACE
+      n_cpu.exe.push_back(entry.instruction);
+#endif
+
       n_cpu.rrf.write(entry.reg, entry.val);
       // NOTE: The rat entry should be freed IFF
       //       the rat entry points to the rob entry.
@@ -431,16 +451,12 @@ bool Processor::commit(Processor &n_cpu)
       {
         this->rat.write(n_cpu.rat, entry.reg, entry.reg);
       }
-
-#if EXE_TRACE
-      n_cpu.exe.push_back(entry.instruction); // debug
-#endif
     }
     // branch
     else if (entry.type == ROB::Entry::BR)
     {
 #if EXE_TRACE
-      n_cpu.exe.push_back(entry.instruction); // debug
+      n_cpu.exe.push_back(entry.instruction);
 #endif
 
       n_cpu.hrt.update(entry.pc, entry.taken);
@@ -459,7 +475,7 @@ bool Processor::commit(Processor &n_cpu)
     else if (entry.type == ROB::Entry::SR)
     {
 #if EXE_TRACE
-      n_cpu.exe.push_back(entry.instruction); // debug
+      n_cpu.exe.push_back(entry.instruction);
 #endif
     }
     // end of program
@@ -467,14 +483,14 @@ bool Processor::commit(Processor &n_cpu)
     {
       n_cpu.instructions_executed = this->instructions_executed + i;
 #if EXE_TRACE
-      n_cpu.exe.push_back(entry.instruction); // debug
+      n_cpu.exe.push_back(entry.instruction);
 #endif
-      return true; // TODO: not counted as an instruction?
+      return true;
     }
   }
 
   n_cpu.instructions_executed = this->instructions_executed + i;
-  //std::cout << "RETIRING: " << i << std::endl;
+
   return false;
 }
 
@@ -518,17 +534,15 @@ int Processor::alloc(Processor &n_cpu, int pc, Instruction instruction, int reg,
 
 void Processor::flush(int target)
 {
+/*
 #if DEBUG
   std::cout << "=========================" << std::endl;
   std::cout << "=== MISPREDICT BRANCH ===" << std::endl;
   std::cout << "=========================" << std::endl;
 #endif
+*/
 
   // flush and jump to entry.target
-  //for (int i = 0; i < FETCHRATE; ++i)
-  //{
-  //  this->ibuf[i] = std::make_tuple(0, Instruction());
-  //}
   this->ibuf.clear();
   this->rat.reset();
   this->rob.reset();
@@ -542,6 +556,7 @@ void Processor::flush(int target)
   this->bu.reset();
   this->mu.reset();
   this->pc = target;
+  this->flushed = true;
 }
 
 // ============================
@@ -551,6 +566,8 @@ void Processor::flush(int target)
 Processor& Processor::operator=(const Processor& cpu)
 {
   this->pc = cpu.pc;
+  this->flushed = cpu.flushed;
+
   this->ibuf = cpu.ibuf;
   this->hrt = cpu.hrt;
   this->pt = cpu.pt;
@@ -585,6 +602,12 @@ Processor& Processor::operator=(const Processor& cpu)
 std::ostream& operator<<(std::ostream& os, const Processor& cpu)
 {
   os << "{\n";
+  if (cpu.flushed)
+  {
+    os << "  ===============\n";
+    os << "  === FLUSHED ===\n";
+    os << "  ===============\n";
+  }
   os << "  pc = " << cpu.pc << '\n';
   os << "  ibuf(" << cpu.ibuf.size() << ") = {\n";
   for (std::size_t i = 0; i < cpu.ibuf.size(); ++i)

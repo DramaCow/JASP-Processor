@@ -32,10 +32,9 @@ class Processor
     MEM &mem;
 
     unsigned int pc = 0;
+    bool flushed = false; // flag
 
-    //Instruction ibuf;
     std::vector<std::tuple<int, Instruction>> ibuf;
-    //std::array<std::tuple<int, Instruction>,FETCHRATE> ibuf;
     HRT hrt;
     PT pt;
     RAT rat;
@@ -61,6 +60,7 @@ class Processor
     void fetch(Processor &n_cpu);
     void decode(Processor &n_cpu);
     void execute(Processor &n_cpu);
+    void execute_bypass(Processor &n_cpu); // part of execute stage
     void writeback(Processor &n_cpu);
     bool commit(Processor &n_cpu);
 
