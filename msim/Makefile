@@ -1,7 +1,7 @@
 EXE ?= msim
 
 CC := g++
-CFLAGS := -Wextra -Werror -std=c++11 -pedantic -g -Ofast
+CFLAGS := -Wextra -Werror -std=c++11 -pedantic -g -O1
 LIBS := -lm
 
 SRCS := $(shell find . -name '*.cpp')

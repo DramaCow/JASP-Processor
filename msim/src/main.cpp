@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
   cpu.mu.complete_writethrough();
   std::cout << "=== MEMORY ===" << std::endl;
   std::cout << mem << std::endl;
-  std::ofstream file("mem.txt");
+  std::ofstream file("mem.txt", std::ios_base::app);
   file << cpu.mem;
   file.close();
 
