@@ -1,7 +1,7 @@
 ; init
   movi r0 0
   movi r1 0
-  movi r7 8
+  movi r7 16
 
   movi r2 0
   sw r2 r1 0

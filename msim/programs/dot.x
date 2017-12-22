@@ -6,7 +6,7 @@
 
   ; idx and limit
   movi r6 0
-  movi r7 5
+  movi r7 64
 
   ; dot product
   movi r2 0
