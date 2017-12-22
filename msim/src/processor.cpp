@@ -65,20 +65,41 @@ void Processor::fetch(Processor &n_cpu)
     }
     else if (Instruction::isCondBrch(instruction.opcode))
     {
-      //bool pred = true;
-      //npc = instruction.getTakenBTA();
+#if BP_METHOD == 0
+      npc = instruction.getTakenBTA();
+      instruction.npc = pc+1;
+      instruction.pred = true;
+#endif
 
-      //bool pred = this->pt.predict(pc);
-      //npc = pred ? instruction.getTakenBTA() : pc+1;
-      //instruction.npc = pc+1;
-      //instruction.pred = pred;
+#if BP_METHOD == 1
+      npc = pc+1;
+      instruction.npc = pc+1;
+      instruction.pred = false;
+#endif
 
+#if BP_METHOD == 2
+      int tgt = instruction.getTakenBTA();
+      bool pred = tgt < pc;
+      npc = pred ? instruction.getTakenBTA() : pc+1;
+      instruction.npc = pc+1;
+      instruction.pred = pred;
+#endif
+
+#if BP_METHOD == 3
+      bool pred = this->pt.predict(pc);
+      npc = pred ? instruction.getTakenBTA() : pc+1;
+      instruction.npc = pc+1;
+      instruction.pred = pred;
+#endif
+
+#if BP_METHOD == 4
       int pattern = this->hrt.history(pc);
       bool pred = this->pt.predict(pattern);
       npc = pred ? instruction.getTakenBTA() : pc+1;
       instruction.npc = pc+1;
       instruction.pattern = pattern;
       instruction.pred = pred;
+#endif
     }
 
     n_cpu.ibuf.push_back(std::make_tuple(pc, instruction));
@@ -345,10 +366,6 @@ void Processor::execute(Processor &n_cpu)
   }
   if (!portm) this->mu.execute(n_cpu.mu);
 
-  // === BYPASS ===
-
-  //this->execute_bypass(n_cpu);
-
   // === STATISTICS === 
 
   int instructionsDispatched = 0;
@@ -468,9 +485,14 @@ bool Processor::commit(Processor &n_cpu)
       // ignores unconditional branches
       if (entry.spec)
       {
+#if BP_METHOD == 4
         n_cpu.hrt.update(entry.pc, entry.taken);
         n_cpu.pt.update(entry.pattern, entry.taken);
-        //n_cpu.pt.update(entry.pc, entry.taken);
+#endif
+
+#if BP_METHOD == 3
+        n_cpu.pt.update(entry.pc, entry.taken);
+#endif
 
         // if mispredicted
         if (entry.pred != entry.taken)

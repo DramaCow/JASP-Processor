@@ -4,25 +4,35 @@
 #define DEBUG 1
 #define EXE_TRACE 0
 
+// 0 : always take
+// 1 : never take
+// 2 : take forward, never take backward
+// 3 : 2-bit saturated counter
+// 4 : 2-level local
+#define BP_METHOD $m
+
 #define NUM_HRT_ENTRIES 64
 #define HREG_BITS 4
-#define NUM_PT_ENTRIES (1<<HREG_BITS) // used for 2-level
-//#define NUM_PT_ENTRIES 64 // used for simple 2bit saturated counter
+#if BP_METHOD == 3
+  #define NUM_PT_ENTRIES 64
+#else
+  #define NUM_PT_ENTRIES (1<<HREG_BITS) // used for 2-level
+#endif
 
 #define NUM_REGISTERS 8
 
-#define IBUF_MAX_SIZE 32
-#define NUM_ROB_ENTRIES 256
-#define NUM_RS_ENTRIES 32
-#define NUM_BRS_ENTRIES 32
-#define NUM_LSQ_ENTRIES 32
+#define IBUF_MAX_SIZE 10
+#define NUM_ROB_ENTRIES 16
+#define NUM_RS_ENTRIES 8
+#define NUM_BRS_ENTRIES 8
+#define NUM_LSQ_ENTRIES 8
 
-#define NUM_ALUS 16
+#define NUM_ALUS 4
 
-#define FETCHRATE 32
-#define ISSUERATE 32
+#define FETCHRATE 4
+#define ISSUERATE 6
 #define DISPATCHRATE NUM_ALUS+2
-#define RETIRERATE 32
+#define RETIRERATE 6
 
 #define BLOCKSIZE 16
 #define L1_NUM_SETS 2
