@@ -21,29 +21,29 @@
 
 #define NUM_REGISTERS 8
 
-#define IBUF_MAX_SIZE 32
-#define NUM_ROB_ENTRIES 256
-#define NUM_RS_ENTRIES 32
-#define NUM_BRS_ENTRIES 32
-#define NUM_LSQ_ENTRIES 32
-#define NUM_ALUS 32
-#define FETCHRATE 32
-#define ISSUERATE 32
-#define DISPATCHRATE NUM_ALUS+2
+//#define IBUF_MAX_SIZE 32
+//#define NUM_ROB_ENTRIES 256
+//#define NUM_RS_ENTRIES 32
+//#define NUM_BRS_ENTRIES 32
+//#define NUM_LSQ_ENTRIES 32
+//#define NUM_ALUS 32
+//#define FETCHRATE 32
+//#define ISSUERATE 32
+//#define DISPATCHRATE NUM_ALUS+2
 //#define RETIRERATE 32
 
-//#define IBUF_MAX_SIZE 10
-//#define NUM_ROB_ENTRIES 16
-//#define NUM_RS_ENTRIES 8
-//#define NUM_BRS_ENTRIES 8
-//#define NUM_LSQ_ENTRIES 8
-//#define NUM_ALUS 4
-//#define FETCHRATE 4
-//#define ISSUERATE 6
-//#define DISPATCHRATE NUM_ALUS+2
+#define IBUF_MAX_SIZE 10
+#define NUM_ROB_ENTRIES 16
+#define NUM_RS_ENTRIES 8
+#define NUM_BRS_ENTRIES 8
+#define NUM_LSQ_ENTRIES 8
+#define NUM_ALUS 4
+#define FETCHRATE 4
+#define ISSUERATE 6
+#define DISPATCHRATE NUM_ALUS+2
 #define RETIRERATE 8
 
-#define BLOCKSIZE 32
+#define BLOCKSIZE 16
 #define L1_NUM_SETS 2
 #define L1_SET_SIZE 1 // Direct Mapped Cache
 #define L2_NUM_SETS 2

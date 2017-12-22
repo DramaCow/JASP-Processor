@@ -690,5 +690,8 @@ std::ostream& operator<<(std::ostream& os, const Processor& cpu)
      << "issues-per-cycle     = " << DP3 << ((double)cpu.instructions_issued / (double)cpu.cycles) << " (best = " << ISSUERATE << ")\n"
      << "dispatches-per-cycle = " << DP3 << ((double)cpu.instructions_dispatched / (double)cpu.cycles) << " (best = " << DISPATCHRATE << ")\n"
      << "commits-per-cycle    = " << DP3 <<((double)cpu.instructions_executed / (double)cpu.cycles) << " (best = " << RETIRERATE << ")\n";
+  os << "L1  ACCESSES = " << cpu.mu.l1_accesses << '\n';
+  os << "L2  ACCESSES = " << cpu.mu.l2_accesses << '\n';
+  os << "MEM ACCESSES = " << cpu.mu.mem_accesses << '\n';
   return os;
 }

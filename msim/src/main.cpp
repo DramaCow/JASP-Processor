@@ -67,15 +67,11 @@ int main(int argc, char* argv[])
 
   cpu.mu.complete_writethrough();
 
-//  std::cout << "=== MEMORY ===" << std::endl;
-//  std::cout << mem << std::endl;
+  std::cout << "=== MEMORY ===" << std::endl;
+  std::cout << mem << std::endl;
+
 //  std::ofstream file("mem.txt", std::ios_base::app);
 //  file << cpu.mem;
-
-  std::cout << "L1  ACCESSES = " << cpu.mu.l1_accesses << '\n';
-  std::cout << "L2  ACCESSES = " << cpu.mu.l2_accesses << '\n';
-  std::cout << "MEM ACCESSES = " << cpu.mu.mem_accesses << '\n';
-
 //  std::ofstream cycles("cycles", std::ios_base::app);
 //  cycles << DP3 << cpu.cycles << '\n';
 //  std::ofstream bpa("bpa", std::ios_base::app);
