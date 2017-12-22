@@ -50,9 +50,13 @@
 #define L2_NUM_SETS 2
 #define L2_SET_SIZE 4
 
-#define L1_ACCESS_COST 2
-#define L2_ACCESS_COST 4
-#define MEM_ACCESS_COST 8
-#define BASE_MU_COST -1
+//#define L1_ACCESS_COST 2
+//#define L2_ACCESS_COST 4
+//#define MEM_ACCESS_COST 8
+//#define BASE_MU_COST -1
+#define L1_ACCESS_COST 0
+#define L2_ACCESS_COST 0
+#define MEM_ACCESS_COST 0
+#define BASE_MU_COST 0
 
 #endif

@@ -7,7 +7,7 @@ do
   sed -i 's/define\ BP_METHOD\ [0-9][0-9]*/define\ BP_METHOD\ '"$m"'/' src/config.hpp
   make clean
   make
-  cd 5_hambusy
+  cd 2_ham
 
   for k in {1..12}
   do
