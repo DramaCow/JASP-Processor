@@ -420,6 +420,15 @@ bool Processor::commit(Processor &n_cpu)
     return false;
   }
 
+  std::cout << "COMMITS:\n";
+  for (std::size_t i = 0; i < commits.size(); ++i)
+  {
+    int idx;
+    ROB::Entry entry;
+    std::tie(idx, entry) = commits[i];
+    std::cout << entry.instruction << std::endl;
+  }
+
   int idx;
   ROB::Entry entry;
 

@@ -4,8 +4,6 @@
 #define DEBUG 1
 #define EXE_TRACE 0
 
-#define IBUF_MAX_SIZE 32
-
 #define NUM_HRT_ENTRIES 64
 #define HREG_BITS 4
 #define NUM_PT_ENTRIES (1<<HREG_BITS) // used for 2-level
@@ -13,6 +11,7 @@
 
 #define NUM_REGISTERS 8
 
+#define IBUF_MAX_SIZE 32
 #define NUM_ROB_ENTRIES 64
 #define NUM_RS_ENTRIES 32
 #define NUM_BRS_ENTRIES 32
@@ -20,10 +19,10 @@
 
 #define NUM_ALUS 16
 
-#define FETCHRATE 16
-#define ISSUERATE 16
+#define FETCHRATE 32
+#define ISSUERATE 32
 #define DISPATCHRATE NUM_ALUS+2
-#define RETIRERATE 16
+#define RETIRERATE 32
 
 #define BLOCKSIZE 16
 #define L1_NUM_SETS 2

@@ -10,26 +10,10 @@
 
 :loop
   lw r4 r1 0
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
   beq r4 r0 :skip
   addi r3 r3 1
 :skip
   addi r1 r1 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
-  lw r5 r5 1
   bneq r1 r2 :loop
 
   end

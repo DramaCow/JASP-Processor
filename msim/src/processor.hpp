@@ -51,6 +51,15 @@ class Processor
     std::vector<Instruction> exe;
 #endif
 
+    // statistics recorders
+    int cycles;
+    int branch_corpred;
+    int branch_mispred;
+    int instructions_fetched;
+    int instructions_issued;
+    int instructions_dispatched;
+    int instructions_executed;
+
     Processor& operator=(const Processor& cpu);
 
     friend std::ostream& operator<<(std::ostream& os, const Processor& cpu);
@@ -69,15 +78,6 @@ class Processor
     int alloc(Processor &n_cpu, int pc, Instruction instruction, int reg);
     int alloc(Processor &n_cpu, int pc, Instruction instruction, int reg, bool pred, int pattern);
     void flush(int target);
-
-    // statistics recorders
-    int cycles;
-    int branch_corpred;
-    int branch_mispred;
-    int instructions_fetched;
-    int instructions_issued;
-    int instructions_dispatched;
-    int instructions_executed;
 };
 
 std::ostream& operator<<(std::ostream& os, const Processor& cpu);

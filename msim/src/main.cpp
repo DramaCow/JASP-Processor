@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cstdio>
 #include <fstream>
+#include <iomanip>
+
+#define DP3 std::fixed<<std::setprecision(3)
 
 #include "parser.hpp"
 #include "cache.hpp"
@@ -63,11 +66,18 @@ int main(int argc, char* argv[])
 #endif
 
   cpu.mu.complete_writethrough();
+
+/*
   std::cout << "=== MEMORY ===" << std::endl;
   std::cout << mem << std::endl;
   std::ofstream file("mem.txt", std::ios_base::app);
   file << cpu.mem;
-  file.close();
+*/
+
+  std::ofstream cycles("cycles", std::ios_base::app);
+  cycles << DP3 << cpu.cycles << '\n';
+  std::ofstream epc("epc", std::ios_base::app);
+  epc << DP3 << ((double)cpu.instructions_executed / (double)cpu.cycles) << '\n';
 
   return 0;
 }
