@@ -74,10 +74,12 @@ int main(int argc, char* argv[])
   file << cpu.mem;
 */
 
-  std::ofstream cycles("cycles", std::ios_base::app);
-  cycles << DP3 << cpu.cycles << '\n';
-  std::ofstream epc("epc", std::ios_base::app);
-  epc << DP3 << ((double)cpu.instructions_executed / (double)cpu.cycles) << '\n';
+//  std::ofstream cycles("cycles", std::ios_base::app);
+//  cycles << DP3 << cpu.cycles << '\n';
+  std::ofstream bpa("bpa", std::ios_base::app);
+  bpa << DP3 << ((double)cpu.branch_corpred / (double)(cpu.branch_corpred + cpu.branch_mispred)) << '\n';
+//  std::ofstream epc("epc", std::ios_base::app);
+//  epc << DP3 << ((double)cpu.instructions_executed / (double)cpu.cycles) << '\n';
 
   return 0;
 }
