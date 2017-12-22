@@ -1,5 +1,5 @@
   movi r0 0
-  movi r1 2520
+  movi r1 12
 
 :loop
   movi r2 0
