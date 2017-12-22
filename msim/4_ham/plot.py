@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 #mpl.rcParams['agg.path.chunksize'] = 10000
 
-reps = 30
+reps = 10
 
 arr = np.loadtxt("bpa_0") ; y0 = np.mean(arr.reshape(-1, 30), axis=1)
 arr = np.loadtxt("bpa_1") ; y1 = np.mean(arr.reshape(-1, 30), axis=1)
