@@ -1,32 +1,37 @@
-folders:
-  asm  - assembler
-  data - data cache hex file generator
-  msim - processor simulator
+=============
+=== USAGE ===
+=============
 
-each program is compiled by:
+To compile:
+
   $ make
 
-to run the simulator:
-  $ ./msim a.hex
+To clean:
 
-example program:
-  (a.hex contains code for incrementing to r1-r4 repeatedly. This is an example program that doesn't have
-   any data dependencies)
+  $ make clean
 
-interpreting the output:
-  For each tick (t = time), values in the register file and at each latch section thing of the pipeline are displayed.
-  Register file outputs dirty bit after underscore.
-  Number of ticks is set at the top of msim/src/main.cpp (LIMIT), and is pretty small at the moment.
-  Values of instruction cache and data cache are outputted at the end of execution, and is just a big array of integers.
-  I realise the latch stuff is probably too detailed.
-  Opcodes are described at the top of asm/main.cpp
+To run:
 
-processor features:
-  Currently is a very simple pipelined processor that updates all the latches simultaneously. Doesn't have reallocation station or renaming or reorder buffer. 
-  There are 5 stages to the pipeline:
-   1. (f)etch
-   2. (d)ecode
-   3. (e)xecute
-   4. (m)emory access
-   5. (w)riteback
-  With latches between each adjacent pairs of states e.g. lat_f_d is the latch struct between the fetch and decode state.
+  $ ./msim <program> <data>
+
+Better yet, pipe the output to a file:
+
+  $ ./msim <program> <data> > <outfile>
+
+To generate a data file:
+
+  $ python memgen.py
+
+=====================
+=== CONFIGURATION ===
+=====================
+
+To configure with the system, go to the configuration file:
+
+  src/config.hpp
+
+Note: any adjustments to the file will not be detected by gcc automatically,
+      you will need to clean then recompile.
+
+Some extra output is commented out at the bottom of src/main.cpp, this includes
+outputs to file for specific statistics.

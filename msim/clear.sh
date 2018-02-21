@@ -1,2 +1,0 @@
-rm cycles
-rm epc
